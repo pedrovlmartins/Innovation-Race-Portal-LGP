@@ -1,0 +1,13 @@
+{
+  "name": "innovation_race_portal",
+  "version": "0.1.0",
+  "description": "Altran Innovation Race Portal",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.15.0"
+  }
+}
