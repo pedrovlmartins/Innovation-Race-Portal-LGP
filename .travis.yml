@@ -10,6 +10,7 @@ services:
   - mysql
   
 before_script:
+  - sudo /etc/init.d/mysql stop
   - docker-compose up -d
   - sleep 10
   
