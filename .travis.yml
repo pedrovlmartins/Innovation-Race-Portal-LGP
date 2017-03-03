@@ -14,7 +14,7 @@ before_script:
   - docker-compose pull
   - docker-compose build
   - docker-compose create
-  - docker-compose up
+  - docker-compose up -d
   
 script:
   - npm test
