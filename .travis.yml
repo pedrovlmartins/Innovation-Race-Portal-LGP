@@ -17,7 +17,7 @@ before_script:
   - sleep 5
   
 script:
-  - docker exec altraninnovationraceportal_default npm test
+  - docker exec altraninnovationraceportal_web_1 npm test
   
 after_script:
   - docker-compose kill
