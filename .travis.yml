@@ -14,9 +14,10 @@ before_script:
   - docker-compose pull
   - docker-compose build
   - docker-compose up -d
+  - sleep 5
   
 script:
-  - npm test
+  - docker exec altran-innovation-race-portal_default npm test
   
 after_script:
   - docker-compose kill
