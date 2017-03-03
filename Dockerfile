@@ -5,6 +5,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
+RUN npm install --global mocha
 COPY package.json /usr/src/app/
 RUN npm install
 
