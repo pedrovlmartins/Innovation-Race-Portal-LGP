@@ -13,7 +13,6 @@ before_script:
   - sudo /etc/init.d/mysql stop
   - docker-compose pull
   - docker-compose build
-  - docker-compose create
   - docker-compose up -d
   
 script:
