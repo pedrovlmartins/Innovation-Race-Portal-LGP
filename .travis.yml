@@ -11,8 +11,9 @@ services:
   
 before_script:
   - sudo /etc/init.d/mysql stop
-  - docker-compose up -d
-  - sleep 10
+  - docker-compose pull
+  - docker-compose build
+  - docker-compose start
   
 script:
   - npm test
