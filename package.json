@@ -2,13 +2,27 @@
   "name": "innovation_race_portal",
   "version": "0.1.0",
   "description": "Altran Innovation Race Portal",
-  "main": "server.js",
+  "main": "app.js",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "test": "mocha"
+    "start": "node app.js",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha ./test/tests.js -- -R spec",
+    "acceptance_tests": "./node_modules/.bin/wdio wdio.conf.js"
   },
   "dependencies": {
-    "express": "^4.15.0"
+    "body-parser": "latest",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.0",
+    "express-busboy": "^5.0.0",
+    "express-session": "^1.15.1",
+    "hbs": "^4.0.1",
+    "mysql": "^2.13.0",
+    "serve-favicon": "^2.4.2"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "jscs": "^3.0.7",
+    "mocha": "^3.2.0",
+    "webdriverio": "^4.6.2"
   }
 }

@@ -1,0 +1,8 @@
+Nota: Isto está aqui para futura referência, porque ainda não terminei de configurar os testes de aceitação.
+
+Para correr os testes de aceitação:
+
+1) Adicionar o chromedriver.exe ao PATH
+2) Correr o .jar do selenium
+3) Correr o servidor local
+4) Correr npm run-script acceptance_tests
