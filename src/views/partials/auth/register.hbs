@@ -13,62 +13,107 @@
             <div class="main-login main-center">
                 <form class="form-horizontal" method="post" action="#">
 
-                    <div class="form-group">
-                        <label for="name" class="cols-sm-2 control-label">Name</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+                    <div class="container">
+                        <form class="form-horizontal" role="form">
+                            <h2>Registration Form</h2>
+                            <div class="form-group">
+                                <label for="firstName" class="col-sm-1 control-label">Full Name</label>
+                                <div class="col-sm-2">
+                                    <input type="text" id="firstName" placeholder="Full Name" class="form-control" autofocus>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="cols-sm-2 control-label">Email</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+                            <div class="form-group">
+                                <label for="email" class="col-sm-1 control-label">Email</label>
+                                <div class="col-sm-2">
+                                    <input type="email" id="email" placeholder="Email" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="username" class="cols-sm-2 control-label">Username</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+                            <div class="form-group">
+                                <label for="password" class="col-sm-1 control-label">Password</label>
+                                <div class="col-sm-2">
+                                    <input type="password" id="password" placeholder="Password" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="password" class="cols-sm-2 control-label">Password</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+                            <div class="form-group">
+                                <label for="password" class="col-sm-1 control-label">Confirm Password</label>
+                                <div class="col-sm-2">
+                                    <input type="password" id="password" placeholder="Password" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+                            <div class="form-group">
+                                <label for="birthDate" class="col-sm-1 control-label">Date of Birth</label>
+                                <div class="col-sm-2">
+                                    <input type="date" id="birthDate" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                            <div class="form-group">
+                                <label for="country" class="col-sm-1 control-label">Country</label>
+                                <div class="col-sm-2">
+                                    <select id="country" class="form-control">
+                                        <option>Albania</option>
+                                        <option>Bahamas</option>
+                                        <option>Cambodia</option>
+                                        <option>Denmark</option>
+                                        <option>Ecuador</option>
+                                        <option>France</option>
+                                        <option>Finlad</option>
+                                        <option>Germany</option>
+                                        <option>Japan</option>
+                                        <option>Portugal</option>
+                                        <option>Spain</option>
+                                        <option>Switzerland</option>
+                                        <option>United Kingdom</option>
+                                    </select>
+                                </div>
+                            </div> <!-- /.form-group -->
 
-                    <div class="form-group ">
-                        <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-                    </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-1">Type of User</label>
+                                <div class="col-sm-2">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <label class="radio-inline">
+                                                <input type="radio" id="femaleRadio" value="Female">Female
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="radio-inline">
+                                                <input type="radio" id="maleRadio" value="Male">Male
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="radio-inline">
+                                                <input type="radio" id="uncknownRadio" value="Unknown">Unknown
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <div class="col-sm-2 col-sm-offset-1">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox">I accept <a href="#">terms</a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div> <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <div class="col-sm-2 col-sm-offset-1">
+                                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                </div>
+                            </div>
+                        </form> <!-- /form -->
+                    </div> <!-- ./container -->
+
                     <div class="login-register">
                         <a href="index.php">Login</a>
                     </div>
+
                 </form>
             </div>
         </div>
