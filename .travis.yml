@@ -15,9 +15,11 @@ before_script:
   - docker-compose build
   - docker-compose up -d
   - sleep 5
+  - cd src
   
 script:
   - docker exec altraninnovationraceportal_web_1 npm test
   
 after_script:
+  - cd ..
   - docker-compose kill
