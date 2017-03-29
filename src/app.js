@@ -24,12 +24,6 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
-// Routes
-app.use('/', routes);
-
-// Favicon
-app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
-
 // Request Handling
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
@@ -39,6 +33,12 @@ bb.extend(app, {
   upload: true,
   allowedPath: /./,
 });
+
+// Routes
+app.use('/', routes);
+
+// Favicon
+app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
 
 // Static Dirs
 app.use(express.static(path.join(__dirname, 'public')));
