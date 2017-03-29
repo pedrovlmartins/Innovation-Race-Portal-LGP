@@ -41,3 +41,16 @@ input::-webkit-input-placeholder {
     font-size: 11px;
     text-align: center;
 }
+
+.main-login {
+    background-color: rgba(192,192,192,0.2);
+
+}
+
+.modal-header {
+    background-color: rgba(192,192,192,0.2);
+}
+
+.modal-content {
+    opacity: 0.94;
+}
