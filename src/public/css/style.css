@@ -54,3 +54,7 @@ input::-webkit-input-placeholder {
 .modal-content {
     opacity: 0.94;
 }
+
+.hide {
+    display:none;
+}
