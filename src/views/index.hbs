@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,86 @@
         <h1>Hello world!</h1>
     </div>
 </div>
+
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>head}}
+
+    <title>Innovation Race</title>
+</head>
+<body>
+
+{{>bsnavbar}}
+    <div id="box">
+        <div class="row">
+            <div class="col-sm-6 col-md-12 col-lf-offset-4">
+                <div class="account-wall">
+                    <form class="form-signin">
+                        <input type="text" class="form-control" placeholder="Email" required autofocus>
+                        <input type="password" class="form-control" placeholder="Password" required>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                            Sign in</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                            Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">Innovation Race</h1>
+                <hr>
+            </div>
+        </div>
+    </header>
+
+
+
+    <h3 id="infoInnovation">Este é um concurso onde os membros e clientes da Altran Portugal irão submeter eventuais ideias a concurso para que a empresa consiga seguir caminhos inovadores. Este é um concurso onde os membros e clientes da Altran Portugal irão submeter eventuais ideias a concurso para que a empresa consiga seguir caminhos inovadores. Este é um concurso onde os membros e clientes da Altran Portugal irão submeter eventuais ideias a concurso para que a empresa consiga seguir caminhos inovadores.</h3>
+
+
+    <table class="table table-hover table-bordered rankingTable">
+        <thead class="rankingTableHead">
+        <tr>
+            <th>Position</th>
+            <th>Idea</th>
+            <th>Pontuation</th>
+            <th>Qualitative Evaluation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Comer sem ganhar calorias</td>
+            <td>105</td>
+            <td>A</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Programar de forma mais eficaz</td>
+            <td>99</td>
+            <td>B+</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Correr sem suar</td>
+            <td>90</td>
+            <td>B</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+{{>footer}}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </body>
 </html>

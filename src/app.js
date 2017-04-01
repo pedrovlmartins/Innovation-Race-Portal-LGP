@@ -12,6 +12,9 @@ const session = require('express-session');
 
 // Paths
 const routes = require(path.join(__dirname, 'routes', 'index'));
+const about = require(path.join(__dirname, 'routes', 'about'));
+const contact = require(path.join(__dirname, 'routes', 'contact'));
+const innovationRules = require(path.join(__dirname, 'routes', 'innovationRules'));
 
 // Constants
 const PORT = 8080;
@@ -26,6 +29,9 @@ hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 // Routes
 app.use('/', routes);
+app.use('/', about);
+app.use('/', contact);
+app.use('/', innovationRules);
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
