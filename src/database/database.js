@@ -21,4 +21,16 @@ var pool = mysql.createPool({
  }
  */
 
-module.exports = {};
+function createUser(name, email, password, type, businessField, collaboratorNum, role, callback, next) {
+  pool.query('INSERT INTO users' +
+  '(name, email, passwordHash, type, businessField, colaboratorNum, role)' +
+  'VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [name, email, password, type, businessField, collaboratorNum, role],
+    function (err, rows, fields) {
+      callback(err);
+    });
+}
+
+module.exports = {
+  createUser: createUser,
+};
