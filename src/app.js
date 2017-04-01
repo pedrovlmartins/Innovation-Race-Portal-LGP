@@ -29,9 +29,9 @@ hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 // Routes
 app.use('/', routes);
-app.use('/', about);
-app.use('/', contact);
-app.use('/', innovationRules);
+app.use('/about', about);
+app.use('/contact', contact);
+app.use('/rules', innovationRules);
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
