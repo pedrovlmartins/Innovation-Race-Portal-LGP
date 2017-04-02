@@ -58,3 +58,13 @@ input::-webkit-input-placeholder {
 .hide {
     display:none;
 }
+
+.showhideopt {
+    padding: 13px 130px;
+}
+
+.registerbutton {
+    position: absolute;
+    width: 270px;
+    height: 100px;
+}
