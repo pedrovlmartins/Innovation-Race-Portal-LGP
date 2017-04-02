@@ -33,10 +33,14 @@ module.exports = {
 
   validateAccount: function (token, callback, next) {
     pool.query('UPDATE users SET emailConfirmationToken = NULL, accountStatus = 1' +
-    ' WHERE emailConfirmationToken = ?', [token], function (error, results, fields) {
-      if (error) throw error;
-      console.log(results.affectedRows);
-      callback();
+    ' WHERE emailConfirmationToken = ? RETURNING id', [token], function (error, results, fields) {
+      if (error) {
+        console.error(error);
+        callback(error);
+      } else {
+        console.log(results);
+        callback(null, results.affectedRows == 0 ? false : true);
+      }
     });
   },
 };

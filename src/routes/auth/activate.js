@@ -3,12 +3,16 @@ const path = require('path');
 var database = require(path.join(__base, 'database', 'database'));
 var router = express.Router();
 
-router.get('/:token', function (req, res) {
-  database.validateAccount(req.params.token, function () {
-
+router.get('/:token', function(req, res) {
+  database.validateAccount(req.params.token, function (err, result) {
+    if (err) {
+      res.status(500).send(err);
+    } else if (result) {
+      res.send('Email address successfully confirmed.');
+    } else {
+      res.send('Invalid confirmation code.');
+    }
   });
-
-  res.sendStatus(200);
 });
 
 module.exports = router;
