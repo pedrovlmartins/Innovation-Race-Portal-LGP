@@ -3,7 +3,6 @@
  */
 
 var assert = require('assert');
-var database = require('database');
 
 describe('Array', function () {
   describe('#indexOf()', function () {
