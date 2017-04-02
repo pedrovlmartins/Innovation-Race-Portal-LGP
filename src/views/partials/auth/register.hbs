@@ -328,28 +328,48 @@
 
                     <div class="showhideopt">
                         <div id="Member" class="hide">
-                            <label for="businessarea">Business Area:</label>
-                            <input type="text" name="memberdef" id="businessarea">
-                            <br>
-                            <label for="collaboratorn">Collaborator number:</label>
-                            <input type="text" name="memberdef" id="collaboratorn">
-                            <br>
-                            <label for="role">Role:</label>
-                            <input type="text" name="memberdef" id="role">
+                            <div class="form-group">
+                                <label for="businessArea" class="col-sm-1 control-label">Business Area</label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="businessArea" placeholder="Business Area" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="collabNumber" class="col-sm-1 control-label">Collaborator number</label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="collabNumber" placeholder="Collaborator Number" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rle" class="col-sm-1 control-label">Role</label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="role" placeholder="Role" class="form-control">
+                                </div>
+                            </div>
                         </div>
 
                         <div id="Partner" class="hide">
-                            <label for="referral">Referral:</label>
-                            <input type="text" name="contact" id="referral">
+                            <div class="form-group">
+                                <label for="referral" class="col-sm-1 control-label">Referral</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="referral" placeholder="Referral" class="form-control" autofocus>
+                                    </div>
+                            </div>
                         </div>
 
                         <div id="Costumer" class="hide">
-                            <label for="referral">Referral:</label>
-                            <input type="text" name="contact" id="referral">
+                            <div class="form-group">
+                                <label for="referral" class="col-sm-1 control-label">Referral</label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="referral" placeholder="Referral" class="form-control" autofocus>
+                                </div>
+                            </div>
                         </div>
 
+                    </div>
+
                         <div class="form-group">
-                                <div class="col-sm-4 col-sm-offset-1">
+                                <div class="col-sm-4 col-sm-offset-2">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox">I accept <a href="#">terms</a>
@@ -360,11 +380,10 @@
 
                         <div class="registerbutton">
                             <div class="form-group">
-                                <div class="col-sm-50 col-sm-offset-1">
+                                <div class="col-sm-9 col-sm-offset-6">
                                     <button type="submit" class="btn btn-primary btn-block">Register</button>
                                 </div>
                             </div>
-                        </div>
                         </div>
                         </div>
                     </form> <!-- /form -->
