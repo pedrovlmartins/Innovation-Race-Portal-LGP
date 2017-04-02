@@ -33,7 +33,7 @@ module.exports = {
 
   validateAccount: function (token, callback, next) {
     pool.query('UPDATE users SET emailConfirmationToken = NULL, accountStatus = 1' +
-    ' WHERE emailConfirmationToken = ? RETURNING id', [token], function (error, results, fields) {
+    ' WHERE emailConfirmationToken = ?', [token], function (error, results, fields) {
       if (error) {
         console.error(error);
         callback(error);

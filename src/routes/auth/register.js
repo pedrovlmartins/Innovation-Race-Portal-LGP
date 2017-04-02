@@ -7,7 +7,40 @@ var passwordHashAndSalt = require('password-hash-and-salt');
 var router = express.Router();
 
 router.post('/', function (req, res) {
+  validate(req);
+  req.Validator.getErrors(function (errors) {
+    if (errors.length == 0) {
+      // Creating hash and salt
+      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
+        if (error)
+          throw new Error('Something went wrong!');
 
+        var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
+        database.createUser(req.body.name, req.body.email, passwordHash, req.body.type,
+          req.body.businessField, req.body.collaboratorNum, req.body.role, emailConfirmationToken,
+          function (err) {
+            if (err) {
+              res.send(500, err);
+            } else {
+              sendActivationEmail(req.body.email, emailConfirmationToken, function (err) {
+                if (err) {
+                  res.send(500, err);
+                } else {
+                  res.send(200, 'Account successfully created');
+                }
+              });
+            }
+          });
+      });
+    } else {
+      res.send(403, errors.join('\n'));
+
+      //res.render('index', { errors: errors });
+    }
+  });
+});
+
+var validate = function (req) {
   // Documentation for the form validator: https://www.npmjs.com/package/form-validate
   req.Validator.validate('name', 'Name', {
     required: true,
@@ -69,42 +102,16 @@ router.post('/', function (req, res) {
         },
       });
   }
+};
 
-  req.Validator.getErrors(function (errors) {
-    if (errors.length == 0) {
-      // Creating hash and salt
-      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
-        if (error)
-          throw new Error('Something went wrong!');
-
-        var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
-        database.createUser(req.body.name, req.body.email, passwordHash, req.body.type,
-          req.body.businessField, req.body.collaboratorNum, req.body.role, emailConfirmationToken,
-          function (err) {
-            if (err) {
-              res.send(500, err);
-            } else {
-              sendActivationEmail(req.body.email, emailConfirmationToken);
-              res.sendStatus(200);
-            }
-          });
-      });
-    } else {
-      res.send(403, errors.join('\n'));
-
-      //res.render('index', { errors: errors });
-    }
-  });
-});
-
-var sendActivationEmail = function (to, token) {
+var sendActivationEmail = function (to, token, callback) {
   email.send(to, 'Hello',
     'Activate your account by clicking the following URL: ' +
     'http://altran.musaic.ml/auth/activate/' +
     token,
     function (error, body) {
-    console.log('AA', error, body);
-  });
+      callback(error, body);
+    });
 };
 
 module.exports = router;

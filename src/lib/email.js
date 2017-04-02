@@ -16,12 +16,17 @@ function send(to, subject, text, callback) {
   var connection = new SMTPConnection(options);
   connection.connect(function () {
     connection.login(auth, function (err) {
-      var envelope = {};
+      if (err) {
+        callback(err);
+        connection.quit();
+      } else
+        var envelope = {};
       envelope.from = from;
       envelope.to = to;
       envelope.subject = subject;
       connection.send(envelope, text, function (err, info) {
         console.log(envelope, text);
+        callback(err, info);
         connection.quit();
       });
     });
