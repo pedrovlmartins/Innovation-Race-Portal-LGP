@@ -99,7 +99,9 @@ router.post('/', function (req, res) {
 
 var sendActivationEmail = function (to, token) {
   email.send(to, 'Hello',
-    'Activate your account by clicking the following URL: ' + token,
+    'Activate your account by clicking the following URL: ' +
+    'http://altran.musaic.ml/auth/activate/' +
+    token,
     function (error, body) {
     console.log('AA', error, body);
   });
