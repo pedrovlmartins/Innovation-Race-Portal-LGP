@@ -47,8 +47,14 @@ input::-webkit-input-placeholder {
 
 }
 
-.modal-header {
+.modal-header{
     background-color: rgba(192,192,192,0.2);
+}
+
+
+.login-body {
+    background-color: rgba(192,192,192,0.2);
+    padding-left: 130px;
 }
 
 .modal-content {
@@ -68,3 +74,9 @@ input::-webkit-input-placeholder {
     width: 270px;
     height: 100px;
 }
+
+.entire-login {
+    margin-top: 300px;
+}
+
+
