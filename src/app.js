@@ -12,21 +12,25 @@ const session = require('express-session');
 const validate = require('form-validate');
 
 // Paths
-const routes = require(path.join(__dirname, 'routes', 'index'));
-const auth = {
-  register: require(path.join(__dirname, 'routes', 'auth', 'register')),
-};
 
 // Constants
 const PORT = 8080;
+global.__base = __dirname + '/';
+
+// Paths
+const routes = require(path.join(__base, 'routes', 'index'));
+const auth = {
+  activate: require(path.join(__base, 'routes', 'auth', 'activate')),
+  register: require(path.join(__base, 'routes', 'auth', 'register')),
+};
 
 // App
 const app = express();
 
 // View engine setup
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
-hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
+app.set('views', path.join(__base, 'views'));
+hbs.registerPartials(path.join(__base, 'views', 'partials'));
 
 // Request Handling
 app.use(bodyParser.json({ limit: '5mb' }));
@@ -41,14 +45,15 @@ bb.extend(app, {
 
 // Routes
 app.use('/', routes);
+app.use('/auth/activate', auth.activate);
 app.use('/auth/register', auth.register);
 
 // Favicon
-app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
+app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
 
 // Static Dirs
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'images')));
+app.use(express.static(path.join(__base, 'public')));
+app.use(express.static(path.join(__base, 'images')));
 
 app.listen(PORT);
 console.log('Running on http://localhost:' + PORT);

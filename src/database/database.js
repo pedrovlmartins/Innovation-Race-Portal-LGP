@@ -1,6 +1,3 @@
-/**
- * Created by Afonso on 25/03/2017.
- */
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
@@ -21,17 +18,29 @@ var pool = mysql.createPool({
  }
  */
 
-function createUser(name, email, passwordHash, type, businessField, collaboratorNum, role, emailConfirmationToken,
-                    callback, next) {
-  pool.query('INSERT INTO users' +
-  '(name, email, passwordHash, type, businessField, colaboratorNum, role, emailConfirmationToken)' +
-  'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    [name, email, passwordHash, type, businessField, collaboratorNum, role, emailConfirmationToken],
-    function (err, rows, fields) {
-      callback(err);
-    });
-}
-
 module.exports = {
-  createUser: createUser,
+  createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
+                        emailConfirmationToken, callback, next) {
+    pool.query('INSERT INTO users' +
+      ' (name, email, passwordHash, type, businessField, colaboratorNum' +
+      ', role, emailConfirmationToken)' +
+      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [name, email, passwordHash, type, businessField, collaboratorNum, role, emailConfirmationToken],
+      function (err, rows, fields) {
+        callback(err);
+      });
+  },
+
+  validateAccount: function (token, callback, next) {
+    pool.query('UPDATE users SET emailConfirmationToken = NULL, accountStatus = 1' +
+    ' WHERE emailConfirmationToken = ? RETURNING id', [token], function (error, results, fields) {
+      if (error) {
+        console.error(error);
+        callback(error);
+      } else {
+        console.log(results);
+        callback(null, results.affectedRows == 0 ? false : true);
+      }
+    });
+  },
 };
