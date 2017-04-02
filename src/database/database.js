@@ -21,11 +21,12 @@ var pool = mysql.createPool({
  }
  */
 
-function createUser(name, email, password, type, businessField, collaboratorNum, role, callback, next) {
+function createUser(name, email, passwordHash, type, businessField, collaboratorNum, role, emailConfirmationToken,
+                    callback, next) {
   pool.query('INSERT INTO users' +
-  '(name, email, passwordHash, type, businessField, colaboratorNum, role)' +
-  'VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [name, email, password, type, businessField, collaboratorNum, role],
+  '(name, email, passwordHash, type, businessField, colaboratorNum, role, emailConfirmationToken)' +
+  'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [name, email, passwordHash, type, businessField, collaboratorNum, role, emailConfirmationToken],
     function (err, rows, fields) {
       callback(err);
     });
