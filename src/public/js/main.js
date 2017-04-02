@@ -1,3 +1,5 @@
+/* Function to show/hide options on registration form */
+
 function showHide(elm) {
   var phone = document.getElementById('phonenumber');
   var email = document.getElementById('email');
@@ -37,3 +39,5 @@ function fCostumer()   {
   partner.classList.add('hide');
   costumer.classList.remove('hide');
 }
+
+/* end Function to show/hide options on registration form */
