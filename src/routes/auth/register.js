@@ -3,8 +3,11 @@ const path = require('path');
 const crypto = require('crypto');
 var database = require(path.join(__base, 'database', 'database'));
 var email = require(path.join(__base, 'lib', 'email'));
+var EmailTemplate = require('email-templates').EmailTemplate;
 var passwordHashAndSalt = require('password-hash-and-salt');
 var router = express.Router();
+
+var activationEmailTemplateDir = path.join(__base, 'views', 'emails', 'activation');
 
 router.post('/', function (req, res) {
   validate(req);
@@ -105,13 +108,19 @@ var validate = function (req) {
 };
 
 var sendActivationEmail = function (to, token, callback) {
-  email.send(to, 'Hello',
-    'Activate your account by clicking the following URL: ' +
-    'http://altran.musaic.ml/auth/activate/' +
-    token,
-    function (error, body) {
+  var newsletter = new EmailTemplate(activationEmailTemplateDir);
+  var user = {
+    activationCode: token,
+    activationURL: 'http://localhost:8080/auth/activate/' + token,
+  };
+  newsletter.render(user, function (err, result) {
+    // result.html
+    // result.text
+    if (err) console.error(err);
+    email.send(to, 'Hello', result.html, function (error, body) {
       callback(error, body);
     });
+  });
 };
 
 module.exports = router;

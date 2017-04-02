@@ -7,17 +7,6 @@ var pool = mysql.createPool({
   database: 'irp',
 });
 
-// Exemplo
-
-/*
- function getUsers(next) {
- pool.query('SELECT * FROM Utilizador', function (err, rows, fields) {
- if (typeof next === 'function')
- next(rows);
- });
- }
- */
-
 module.exports = {
   createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
                         emailConfirmationToken, callback, next) {
