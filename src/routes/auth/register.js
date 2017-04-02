@@ -84,7 +84,7 @@ router.post('/', function (req, res) {
             if (err) {
               res.send(500, err);
             } else {
-              sendActivationEmail(email, emailConfirmationToken);
+              sendActivationEmail(req.body.email, emailConfirmationToken);
               res.sendStatus(200);
             }
           });
@@ -97,8 +97,10 @@ router.post('/', function (req, res) {
   });
 });
 
-var sendActivationEmail = function (email, token) {
-  email.send('silva95gustavo@gmail.com', 'Hello', 'Testeeee', function (error, body) {
+var sendActivationEmail = function (to, token) {
+  email.send(to, 'Hello',
+    'Activate your account by clicking the following URL: ' + token,
+    function (error, body) {
     console.log('AA', error, body);
   });
 };
