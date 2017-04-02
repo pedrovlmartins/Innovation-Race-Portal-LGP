@@ -1,6 +1,9 @@
 var express = require('express');
 const path = require('path');
+const crypto = require('crypto');
 var database = require(path.join(__dirname, '../', '../', 'database', 'database'));
+var email = require(path.join(__dirname, '../', '../', 'lib', 'email'));
+var passwordHashAndSalt = require('password-hash-and-salt');
 var router = express.Router();
 
 router.post('/', function (req, res) {
@@ -67,24 +70,25 @@ router.post('/', function (req, res) {
       });
   }
 
-  /*
-   * Call the "getErrors" method to start the validation
-   */
   req.Validator.getErrors(function (errors) {
-    /*
-     * ... Your further rendering logic. e.g. res.render('view', { errors: errors });
-     */
-
-    // TODO
     if (errors.length == 0) {
-      database.createUser(req.body.name, req.body.email, req.body.password, req.body.type,
-        req.body.businessField, req.body.collaboratorNum, req.body.role, function (err) {
-          if (err) {
-            res.send(500, err);
-          } else {
-            res.sendStatus(200);
-          }
-        });
+      // Creating hash and salt
+      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
+        if (error)
+          throw new Error('Something went wrong!');
+
+        var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
+        database.createUser(req.body.name, req.body.email, passwordHash, req.body.type,
+          req.body.businessField, req.body.collaboratorNum, req.body.role, emailConfirmationToken,
+          function (err) {
+            if (err) {
+              res.send(500, err);
+            } else {
+              sendActivationEmail(email, emailConfirmationToken);
+              res.sendStatus(200);
+            }
+          });
+      });
     } else {
       res.send(403, errors.join('\n'));
 
@@ -92,5 +96,11 @@ router.post('/', function (req, res) {
     }
   });
 });
+
+var sendActivationEmail = function (email, token) {
+  email.send('silva95gustavo@gmail.com', 'Hello', 'Testeeee', function (error, body) {
+    console.log('AA', error, body);
+  });
+};
 
 module.exports = router;
