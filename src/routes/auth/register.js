@@ -1,8 +1,8 @@
 var express = require('express');
 const path = require('path');
 const crypto = require('crypto');
-var database = require(path.join(__dirname, '../', '../', 'database', 'database'));
-var email = require(path.join(__dirname, '../', '../', 'lib', 'email'));
+var database = require(path.join(__base, 'database', 'database'));
+var email = require(path.join(__base, 'lib', 'email'));
 var passwordHashAndSalt = require('password-hash-and-salt');
 var router = express.Router();
 
