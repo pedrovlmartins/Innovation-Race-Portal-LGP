@@ -111,11 +111,13 @@ var sendActivationEmail = function (to, token, callback) {
   var newsletter = new EmailTemplate(activationEmailTemplateDir);
   var user = {
     activationCode: token,
-    activationURL: 'http://localhost:8080/auth/activate/' + token,
+    activationURL: 'http://localhost:8080/auth/activate?code=' + token,
+    replyTo: 'altran@musaic.ml',
   };
   newsletter.render(user, function (err, result) {
     if (err) console.error(err);
-    email.send(to, 'Innovation Race Portal - Email confirmation required', result.text, result.html, function (error, body) {
+    email.send(to, 'Innovation Race Portal - Email confirmation required', result.text, result.html,
+      function (error, body) {
       callback(error, body);
     });
   });
