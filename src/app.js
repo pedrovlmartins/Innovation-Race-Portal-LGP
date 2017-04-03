@@ -15,6 +15,7 @@ const routes = require(path.join(__dirname, 'routes', 'index'));
 const about = require(path.join(__dirname, 'routes', 'about'));
 const contact = require(path.join(__dirname, 'routes', 'contact'));
 const innovationRules = require(path.join(__dirname, 'routes', 'innovationRules'));
+const manageUsers = require(path.join(__dirname, 'routes', 'manageUsers'));
 
 // Constants
 const PORT = 8080;
@@ -32,6 +33,7 @@ app.use('/', routes);
 app.use('/about', about);
 app.use('/contact', contact);
 app.use('/innovationRules', innovationRules);
+app.use('/manageUsers', manageUsers);
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
