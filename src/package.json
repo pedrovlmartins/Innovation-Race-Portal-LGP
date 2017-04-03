@@ -13,6 +13,7 @@
     "body-parser": "latest",
     "cookie-parser": "^1.4.3",
     "email-templates": "^2.5.4",
+    "emailjs": "^1.0.8",
     "express": "^4.15.0",
     "express-busboy": "^5.0.0",
     "express-session": "^1.15.1",
@@ -20,8 +21,7 @@
     "hbs": "^4.0.1",
     "mysql": "^2.13.0",
     "password-hash-and-salt": "^0.1.4",
-    "serve-favicon": "^2.4.2",
-    "smtp-connection": "^4.0.1"
+    "serve-favicon": "^2.4.2"
   },
   "devDependencies": {
     "istanbul": "^0.4.5",

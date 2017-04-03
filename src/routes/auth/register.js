@@ -2,7 +2,7 @@ var express = require('express');
 const path = require('path');
 const crypto = require('crypto');
 var database = require(path.join(__base, 'database', 'database'));
-var email = require(path.join(__base, 'lib', 'email'));
+var email = require(path.join(__base, 'lib', 'mailer'));
 var EmailTemplate = require('email-templates').EmailTemplate;
 var passwordHashAndSalt = require('password-hash-and-salt');
 var router = express.Router();
@@ -114,10 +114,8 @@ var sendActivationEmail = function (to, token, callback) {
     activationURL: 'http://localhost:8080/auth/activate/' + token,
   };
   newsletter.render(user, function (err, result) {
-    // result.html
-    // result.text
     if (err) console.error(err);
-    email.send(to, 'Hello', result.html, function (error, body) {
+    email.send(to, 'Innovation Race Portal - Email confirmation required', result.text, result.html, function (error, body) {
       callback(error, body);
     });
   });
