@@ -23,10 +23,12 @@ router.post('/', function (req, res) {
           req.body.businessField, req.body.collaboratorNum, req.body.role, emailConfirmationToken,
           function (err) {
             if (err) {
+              console.log(err);
               res.send(500, err);
             } else {
               sendActivationEmail(req.body.email, emailConfirmationToken, function (err) {
                 if (err) {
+                  console.log(err);
                   res.send(500, err);
                 } else {
                   res.send(200, 'Account successfully created');
