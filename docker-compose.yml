@@ -2,8 +2,11 @@ version: '2'
 services:
   web:
     build: "src"
-    ports:
-     - "80:8080"
+    expose:
+      - "8080"
+    environment:
+      - DEBUG=$${DEBUG}
+      - VIRTUAL_HOST=$${VIRTUAL_HOST}
   database:
     image: "mysql"
     command: "mysqld --user=root --verbose"
