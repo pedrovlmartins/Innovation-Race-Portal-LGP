@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>head}}
+    <link rel="stylesheet" href="css/ideaPage.css">
+    <title>Innovation Race</title>
+</head>
+<body>
+
+{{>bsnavbar}}
+
+<div class="container">
+
+    <form class="well form-horizontal" action=" " method="post"  id="idea_page">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>CREATE THE BEST WEBSITE EVER</legend>
+
+            <!-- Team Leader -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" >Team Leader</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="team_leader" value="Afonso Castro" class="form-control"  type="text" readonly>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Members -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Team Members</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select name="state" class="form-control selectpicker" readonly>
+                            <option>Members</option>
+                            <option>Edgar Ramos</option>
+                            <option>Gustavo Silva</option>
+                            <option>João Figueiredo</option>
+                            <option>Pedro Martins</option>
+                            <option>Pedro Teles</option>
+                            <option>Raquel Soares</option>
+                            <option>Sofia Cunha</option>
+                        </select>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Idea Description -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Idea Description</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>Lorem ipsdsfsdfsdfsdfsdfsdjkfsdjfsdkfjsddks jdsfkjfsdlkfjslkfdjslkfjslkfdjsdfum</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</div><!-- /.container -->
+
+{{> footer}}
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+</html>
