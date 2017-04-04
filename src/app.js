@@ -10,26 +10,33 @@ const cookieParser = require('cookie-parser');
 const bb = require('express-busboy');
 const session = require('express-session');
 
+// Paths
+const routes = require(path.join(__dirname, 'routes', 'index'));
+const about = require(path.join(__dirname, 'routes', 'about'));
+const contact = require(path.join(__dirname, 'routes', 'contact'));
+const innovationRules = require(path.join(__dirname, 'routes', 'innovationRules'));
+const manageUsers = require(path.join(__dirname, 'routes', 'manageUsers'));
+
 // Constants
 const PORT = 8080;
-global.__base = __dirname + '/';
-
-// Paths
-const routes = require(path.join(__base, 'routes', 'index'));
 
 // App
 const app = express();
 
 // View engine setup
 app.set('view engine', 'hbs');
-app.set('views', path.join(__base, 'views'));
-hbs.registerPartials(path.join(__base, 'views', 'partials'));
+app.set('views', path.join(__dirname, 'views'));
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 // Routes
 app.use('/', routes);
+app.use('/about', about);
+app.use('/contact', contact);
+app.use('/innovationRules', innovationRules);
+app.use('/manageUsers', manageUsers);
 
 // Favicon
-app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
 
 // Request Handling
 app.use(bodyParser.json({ limit: '5mb' }));
@@ -42,8 +49,8 @@ bb.extend(app, {
 });
 
 // Static Dirs
-app.use(express.static(path.join(__base, 'public')));
-app.use(express.static(path.join(__base, 'images')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'images')));
 
 app.listen(PORT);
 console.log('Running on http://localhost:' + PORT);

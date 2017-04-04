@@ -1,0 +1,21 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 6%;
+  text-align: center;
+}
+
+.footer > .container {
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+a {
+  color: white;
+}
+
+.contactButton, .aboutButton {
+  margin-top: 1.5%;
+  background-color: #4298b5;
+}

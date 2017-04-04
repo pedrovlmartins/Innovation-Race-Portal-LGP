@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>head}}
+
+    <title>Innovation Race</title>
+</head>
+<body>
+
+{{>bsnavbar}}
+
+<div class="container">
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">Manage Users</h1>
+                <hr>
+            </div>
+        </div>
+    </header>
+
+    <div id="imaginary_container">
+        <div class="input-group stylish-input-group">
+            <input type="text" class="form-control"  placeholder="Search" >
+            <span class="input-group-addon">
+                <button type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+
+    <table class="table table-hover table-bordered rankingTable">
+        <thead class="rankingTableHead">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position in Altran</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Edgar</td>
+            <td>user1@altran.pt</td>
+            <td>Collaborator</td>
+        </tr>
+        <tr>
+            <td>Gustavo</td>
+            <td>user2@altran.pt</td>
+            <td>Collaborator</td>
+        </tr>
+        <tr>
+            <td>Afonso</td>
+            <td>user3@altran.pt</td>
+            <td>Client</td>
+        </tr>
+        <tr>
+            <td>João</td>
+            <td>user4@altran.pt</td>
+            <td>Partner</td>
+        </tr>
+        <tr>
+            <td>Pedro</td>
+            <td>user5@altran.pt</td>
+            <td>Collaborator</td>
+        </tr>
+        <tr>
+            <td>Teles</td>
+            <td>user6@altran.pt</td>
+            <td>Partner</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{{>footer}}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+</html>
