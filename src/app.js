@@ -55,10 +55,10 @@ app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
 app.use(express.static(path.join(__base, 'public')));
 app.use(express.static(path.join(__base, 'images')));
 
-var server = app.listen(PORT);
+if (!module.parent) {
+  app.listen(PORT);
+}
+
 console.log('Running on http://localhost:' + PORT);
 
-module.exports = {
-  server: server,
-  app: app,
-};
+module.exports = app;
