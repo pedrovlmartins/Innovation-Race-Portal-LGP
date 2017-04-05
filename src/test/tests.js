@@ -26,6 +26,7 @@ describe('Array', function () {
 describe('Authentication', function () {
   beforeEach(function (done) {
     // TODO clear database and add test entries
+    done();
   });
 
   describe('Registration', function () {
