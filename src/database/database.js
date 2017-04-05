@@ -21,7 +21,7 @@ var pool = mysql.createPool({
 
 module.exports = {
 
-  listAllUsers: function (token, callback, next) {
+  /*listAllUsers: function (token, callback, next) {
     pool.query('Select * from users', [token], function (error, results, fields) {
       if (error) {
         console.error(error);
@@ -31,6 +31,12 @@ module.exports = {
         callback(null, results.affectedRows == 0 ? false : true);
       }
     });
-  },
+  },*/
 
+  listAllUsers: function (next) {
+    pool.query('SELECT * FROM users', function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
 };
