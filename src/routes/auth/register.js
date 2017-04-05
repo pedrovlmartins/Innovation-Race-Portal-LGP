@@ -13,29 +13,38 @@ router.post('/', function (req, res) {
   validate(req);
   req.Validator.getErrors(function (errors) {
     if (errors.length == 0) {
-      // Creating hash and salt
-      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
-        if (error)
-          throw new Error('Something went wrong!');
+      database.getUserByEmail(req.body.email, function (err, user) {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else if (user) {
+          res.status(403).send('An account already exists with the email address "' + user.email + '".');
+        } else {
+          // Creating hash and salt
+          passwordHashAndSalt(req.body.password).hash(function(error, passwordHash) {
+            if (error)
+              throw new Error('Something went wrong!');
 
-        var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
-        database.createUser(req.body.name, req.body.email, passwordHash, req.body.type,
-          req.body.businessField, req.body.collaboratorNum, req.body.role, emailConfirmationToken,
-          function (err) {
-            if (err) {
-              console.log(err);
-              res.status(500).send(err);
-            } else {
-              sendActivationEmail(req.body.email, emailConfirmationToken, function (err) {
+            var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
+            database.createUser(req.body.name, req.body.email, passwordHash, req.body.type,
+              req.body.businessField, req.body.collaboratorNum, req.body.role, emailConfirmationToken,
+              function(err) {
                 if (err) {
                   console.log(err);
                   res.status(500).send(err);
                 } else {
-                  res.send('Account successfully created');
+                  sendActivationEmail(req.body.email, emailConfirmationToken, function(err) {
+                    if (err) {
+                      console.log(err);
+                      res.status(500).send(err);
+                    } else {
+                      res.send('Account successfully created');
+                    }
+                  });
                 }
               });
-            }
           });
+        }
       });
     } else {
       res.send(403, errors.join('\n'));
