@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400);
 body {
 	width: 100%;
 	height: 100%;
@@ -21,16 +22,11 @@ body {
     background-color: #4298b5;
 }
 
-#box {
-	position: fixed;
-	top: 30%;
-	left: 5%;
-}
-
 /* signin form */
 .form-signin
 {
     max-width: 330px;
+    width:250px;
     padding: 10%;
     margin: 0 auto;
 }
@@ -87,4 +83,16 @@ body {
 
 .header-altrainfo {
     text-align: justify;
+}
+
+#box {
+    font: normal 14px Roboto,arial,sans-serif;
+    position: fixed;
+    float: left;
+    top:30%;
+    left:3%;
+}
+
+.loginButton {
+    background-color: #4298b5;
 }

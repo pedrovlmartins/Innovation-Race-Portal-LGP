@@ -1,12 +1,10 @@
-/**
- * Created by Afonso on 25/03/2017.
- */
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
   connectionLimit: 10,
   host: 'localhost',
   user: 'root',
+  password: '14edgar14',
   database: 'irp',
 });
 
@@ -23,7 +21,7 @@ var pool = mysql.createPool({
 
 module.exports = {
 
-  listAllUsers: function(token, callback, next){
+  listAllUsers: function (token, callback, next) {
     pool.query('Select * from users', [token], function (error, results, fields) {
       if (error) {
         console.error(error);
@@ -33,6 +31,6 @@ module.exports = {
         callback(null, results.affectedRows == 0 ? false : true);
       }
     });
-  }
+  },
 
 };
