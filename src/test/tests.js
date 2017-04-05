@@ -25,10 +25,10 @@ describe('Array', function () {
 
 describe('Authentication', function () {
   describe('Registration', function () {
-    /*after(function (done) {
+    after(function (done) {
       server.close();
       done();
-    });*/
+    });
 
     it('should fail because the form is empty', function (done) {
       chai.request(server)
