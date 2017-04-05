@@ -20,6 +20,7 @@ const ideaPage = require(path.join(__dirname, 'routes', 'ideaPage'));
 
 // Constants
 const PORT = 8080;
+global.__base = __dirname + '/';
 
 // App
 const app = express();

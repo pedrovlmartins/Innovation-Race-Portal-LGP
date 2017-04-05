@@ -7,6 +7,7 @@ var pool = mysql.createPool({
   connectionLimit: 10,
   host: 'localhost',
   user: 'root',
+  password: 'root',
   database: 'irp',
 });
 
@@ -21,4 +22,28 @@ var pool = mysql.createPool({
  }
  */
 
-module.exports = {};
+module.exports = {
+  getIdea: function (id, next) {
+    pool.query(
+      'SELECT users.name AS creator, ideas.name, ideas.description ' +
+      'FROM ideas ' +
+      'JOIN users ' +
+      'ON users.id = ideas.idCreator ' +
+      'WHERE ideas.id = ?;', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
+  },
+
+  getTeamMembers: function (id, next) {
+    pool.query(
+      'SELECT users.name ' +
+      'FROM users ' +
+      'JOIN ideamember ON ideamember.idMember = users.id ' +
+      'JOIN ideas ON ideamember.idIdea = ideas.id ' +
+      'WHERE ideas.id = ?;', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
+  },
+};
