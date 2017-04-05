@@ -1,5 +1,4 @@
 const path = require('path');
-var app = require(path.join(__base, 'app'));
 var config = require(path.join(__base, 'config'));
 var mysql = require('mysql');
 

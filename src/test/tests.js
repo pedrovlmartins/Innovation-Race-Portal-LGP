@@ -8,9 +8,8 @@ const path = require('path');
 var assert = require('assert');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var database = require(path.join(__base, 'database', 'database'));
 var register = require(path.join(__base, 'routes', 'auth', 'register'));
-var server = require('../app.js');
+var server = require(path.join(__base, 'app'));
 var should = chai.should();
 
 chai.use(chaiHttp);
@@ -35,6 +34,21 @@ describe('Authentication', function () {
         .post('/auth/register')
         .end(function (err, res) {
           res.should.have.status(403);
+          done();
+        });
+    });
+
+    it('should succeed', function (done) {
+      chai.request(server)
+        .post('/auth/register')
+        .send({
+          email: 'ds34b32r98hdfg@gmail.com',
+          password: '1234567',
+          name: 'John Clinton',
+          type: 0,
+        })
+        .end(function (err, res) {
+          res.should.have.status(200);
           done();
         });
     });
