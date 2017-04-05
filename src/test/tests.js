@@ -8,6 +8,8 @@ const path = require('path');
 var assert = require('assert');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+var config = require(path.join(__base, 'config'));
+var mysql = require('mysql');
 var register = require(path.join(__base, 'routes', 'auth', 'register'));
 var server = require(path.join(__base, 'app'));
 var should = chai.should();
@@ -24,8 +26,11 @@ describe('Array', function () {
 
 describe('Authentication', function () {
   beforeEach(function (done) {
-    // TODO clear database and add test entries
-    done();
+    // TODO add test entries
+    var connection = mysql.createConnection(config.mysql[config.env]);
+    connection.query('TRUNCATE users', function (error, results, fields) {
+      done();
+    });
   });
 
   describe('Registration', function () {
@@ -55,7 +60,9 @@ describe('Authentication', function () {
   });
 
   afterEach(function (done) {
-    // TODO clear database
-    done();
+    var connection = mysql.createConnection(config.mysql[config.env]);
+    connection.query('TRUNCATE users', function (error, results, fields) {
+      done();
+    });
   });
 });
