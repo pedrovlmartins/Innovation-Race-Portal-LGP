@@ -24,6 +24,10 @@ describe('Array', function () {
 });
 
 describe('Authentication', function () {
+  beforeEach(function (done) {
+    // TODO clear database and add test entries
+  });
+
   describe('Registration', function () {
     it('should fail because the form is empty', function (done) {
       chai.request(server)
@@ -33,5 +37,10 @@ describe('Authentication', function () {
           done();
         });
     });
+  });
+
+  afterEach(function (done) {
+    // TODO clear database
+    done();
   });
 });

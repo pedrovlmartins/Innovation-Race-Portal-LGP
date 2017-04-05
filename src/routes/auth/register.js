@@ -24,14 +24,14 @@ router.post('/', function (req, res) {
           function (err) {
             if (err) {
               console.log(err);
-              res.send(500, err);
+              res.status(500).send(err);
             } else {
               sendActivationEmail(req.body.email, emailConfirmationToken, function (err) {
                 if (err) {
                   console.log(err);
-                  res.send(500, err);
+                  res.status(500).send(err);
                 } else {
-                  res.send(200, 'Account successfully created');
+                  res.send('Account successfully created');
                 }
               });
             }

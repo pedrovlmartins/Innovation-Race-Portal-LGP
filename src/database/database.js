@@ -1,11 +1,9 @@
+const path = require('path');
+var app = require(path.join(__base, 'app'));
+var config = require(path.join(__base, 'config'));
 var mysql = require('mysql');
 
-var pool = mysql.createPool({
-  connectionLimit: 10,
-  host: 'localhost',
-  user: 'root',
-  database: 'irp',
-});
+var pool = mysql.createPool(config.mysql[config.env]);
 
 module.exports = {
   createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
