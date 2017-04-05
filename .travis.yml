@@ -2,12 +2,18 @@ sudo: required
 
 language: node_js
 
+env:
+  - NODE_ENV=test
+
 node_js:
   - "node"
 
 services:
   - docker
   - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE irp_test;'
   
 before_script:
   - sudo /etc/init.d/mysql stop
