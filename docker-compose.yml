@@ -4,7 +4,7 @@ services:
     build: "src"
     expose:
       - "8080"
-    link:
+    links:
       - database
     environment:
       - DEBUG=$${DEBUG}
