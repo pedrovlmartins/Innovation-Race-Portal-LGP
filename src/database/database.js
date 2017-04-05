@@ -18,6 +18,19 @@ module.exports = {
       });
   },
 
+  getUserByEmail: function (email, callback) {
+    pool.query('SELECT * FROM users WHERE email = ?',
+    [email],
+    function (error, results, fields) {
+      if (error) {
+        console.error(error);
+        callback(error);
+      } else {
+        callback(null, results.length > 0 ? results[0] : null);
+      }
+    });
+  },
+
   validateAccount: function (token, callback, next) {
     pool.query('UPDATE users SET emailConfirmationToken = NULL, accountStatus = 1' +
     ' WHERE emailConfirmationToken = ?', [token], function (error, results, fields) {
@@ -25,7 +38,6 @@ module.exports = {
         console.error(error);
         callback(error);
       } else {
-        console.log(results);
         callback(null, results.affectedRows == 0 ? false : true);
       }
     });

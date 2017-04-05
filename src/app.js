@@ -21,6 +21,7 @@ global.__base = __dirname + '/';
 const routes = require(path.join(__base, 'routes', 'index'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
+  login: require(path.join(__base, 'routes', 'auth', 'login')),
   register: require(path.join(__base, 'routes', 'auth', 'register')),
 };
 
@@ -46,6 +47,7 @@ bb.extend(app, {
 // Routes
 app.use('/', routes);
 app.use('/auth/activate', auth.activate);
+app.use('/auth/login', auth.login);
 app.use('/auth/register', auth.register);
 
 // Favicon
