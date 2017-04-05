@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  production:
+    extends:
+      file: master/docker-compose.yml
+      service: web
+    environment:
+      - DEBUG=0
+      - VIRTUAL_HOST=production.altran.musaic.ml,altran.musaic.ml
+    restart: always
+  staging:
+    extends:
+      file: development/docker-compose.yml
+      service: web
+    environment:
+      - DEBUG=1
+      - VIRTUAL_HOST=staging.altran.musaic.ml
+    restart: always
+  #webhook:
+  #  extends:
+  #    file: development/scripts/server/webhook/docker-compose.yml
+  #    service: web
+  #  environment:
+  #    - VIRTUAL_HOST=webhook.altran.musaic.ml
+  #  restart: always
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    restart: always
