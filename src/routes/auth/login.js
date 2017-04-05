@@ -16,12 +16,20 @@ router.post('/', function (req, res) {
           } else if (!verified) {
             res.status(403).send("Invalid password for user with email '" + req.body.email + "'.");
           } else {
-            req.session.userID = user.id;
-            res.render('index');
+            if (user.emailConfirmationToken == null) { // E-mail validated
+              req.session.userID = user.id;
+              res.render('index');
+            } else if (user.accountStatus) {
+              res.status(403).send('Login successful, but pending e-mail confirmation.' +
+                ' Please click the link sent to "' + req.body.email + '".');
+            } else {
+              res.status(403).send('Login successful, but your account is waiting admin approval.' +
+                ' Please be patient.');
+            }
           }
         });
     } else {
-      res.sendStatus(403).send("No user found with email '" + req.body.email + "'.");
+      res.sendStatus(403).send('No user found with email "' + req.body.email + '".');
     }
   });
 });
