@@ -49,7 +49,7 @@ router.post('/', function (req, res) {
     } else {
       res.send(403, errors.join('\n'));
 
-      //res.render('index', { errors: errors });
+      //res.redirect('../');
     }
   });
 });

@@ -18,7 +18,7 @@ router.post('/', function (req, res) {
           } else {
             if (user.emailConfirmationToken == null) { // E-mail validated
               req.session.userID = user.id;
-              res.render('index');
+              res.redirect('../');
             } else if (user.accountStatus) {
               res.status(403).send('Login successful, but pending e-mail confirmation.' +
                 ' Please click the link sent to "' + req.body.email + '".');
