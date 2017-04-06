@@ -13,6 +13,8 @@ services:
   - mysql
 
 before_install:
+  - systemctl stop firewalld
+  - systemctl restart docker
   - mysql -e 'CREATE DATABASE irp_test;'
   
 before_script:
@@ -20,7 +22,7 @@ before_script:
   - docker-compose pull
   - docker-compose build
   - docker-compose up -d
-  - sleep 30
+  - sleep 5
   
 script:
   - docker exec altraninnovationraceportal_web_1 npm test
