@@ -28,7 +28,7 @@ router.post('/', function (req, res) {
             var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
             database.createUser(req.body.name, req.body.email, passwordHash, req.body.type,
               req.body.businessField, req.body.collaboratorNum, req.body.role, emailConfirmationToken,
-              function(err) {
+              function (err) {
                 if (err) {
                   console.log(err);
                   res.status(500).send(err);
