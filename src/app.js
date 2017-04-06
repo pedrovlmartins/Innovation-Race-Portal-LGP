@@ -11,23 +11,22 @@ const bb = require('express-busboy');
 const session = require('express-session');
 const validate = require('form-validate');
 
+// Constants
+const PORT = 8080;
+global.__base = __dirname + '/';
+
 // Paths
-const routes = require(path.join(__dirname, 'routes', 'index'));
-const about = require(path.join(__dirname, 'routes', 'about'));
-const contact = require(path.join(__dirname, 'routes', 'contact'));
-const innovationRules = require(path.join(__dirname, 'routes', 'innovationRules'));
-const manageUsers = require(path.join(__dirname, 'routes', 'manageUsers'));
-const ideaPage = require(path.join(__dirname, 'routes', 'ideaPage'));
 const routes = require(path.join(__base, 'routes', 'index'));
+const about = require(path.join(__base, 'routes', 'about'));
+const contact = require(path.join(__base, 'routes', 'contact'));
+const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
+const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
+const ideaPage = require(path.join(__base, 'routes', 'ideaPage'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
   login: require(path.join(__base, 'routes', 'auth', 'login')),
   register: require(path.join(__base, 'routes', 'auth', 'register')),
 };
-
-// Constants
-const PORT = 8080;
-global.__base = __dirname + '/';
 
 // App
 const app = express();

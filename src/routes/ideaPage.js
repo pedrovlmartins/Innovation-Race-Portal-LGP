@@ -1,20 +1,29 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../database/database');
+var path = require('path');
+var db = require(path.join(global.__base, 'database', 'database'));
 
 router.get('/:id', function (req, res) {
   db.getIdea(req.params.id, function (ideaInfo) {
     db.getTeamMembers(req.params.id, function (members) {
-      res.render('ideaPage', {
-        name: ideaInfo[0].name,
-        leader: ideaInfo[0].creator,
-        description: ideaInfo[0].description,
-        resultsToProduce: ideaInfo[0].resultsToProduce,
-        uncertaintyToSolve: ideaInfo[0].uncertaintyToSolve,
-        techHumanResources: ideaInfo[0].techHumanResources,
-        solutionTechnicalCompetence: ideaInfo[0].solutionTechnicalCompetence,
-        members: members,
+      var ids = members.map((member) => {
+        member.id;
       });
+      ids.push(ideaInfo.creatorId);
+      if (req.session !== undefined) {
+        if (ids.indexOf(req.session.userID) !== -1)
+          res.render('ideaPage', {
+            name: ideaInfo.name,
+            leader: ideaInfo.creator,
+            description: ideaInfo.description,
+            resultsToProduce: ideaInfo.resultsToProduce,
+            uncertaintyToSolve: ideaInfo.uncertaintyToSolve,
+            techHumanResources: ideaInfo.techHumanResources,
+            solutionTechnicalCompetence: ideaInfo.solutionTechnicalCompetence,
+            members: members,
+          });
+      } else
+        res.send(403);
     });
   });
 });
