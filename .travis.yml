@@ -10,11 +10,8 @@ node_js:
 
 services:
   - docker
-  - mysql
 
 before_install:
-  - systemctl stop firewalld
-  - systemctl restart docker
   - mysql -e 'CREATE DATABASE irp_test;'
   
 before_script:
