@@ -46,6 +46,16 @@ bb.extend(app, {
 
 // Routes
 app.use('/', routes);
+app.all('/*', function (req, res, next) {
+  req.session.successMessages = req.session.successMessages || [];
+  req.session.errorMessages = req.session.errorMessages || [];
+  hbs.registerPartial('successMessages', req.session.successMessages);
+  hbs.registerPartial('errorMessages', req.session.errorMessages);
+  req.session.successMessages = [];
+  req.session.errorMessages = [];
+  next();
+});
+
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);
 app.use('/auth/register', auth.register);

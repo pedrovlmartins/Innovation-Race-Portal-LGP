@@ -16,12 +16,13 @@ router.post('/', function (req, res) {
       database.getUserByEmail(req.body.email, function (err, user) {
         if (err) {
           console.log(err);
-          res.status(500).send(err);
+          req.session.errorMessages.push(err);
         } else if (user) {
-          res.status(403).send('An account already exists with the email address "' + user.email + '".');
+          res.session.errorMessages.push('An account already exists with the email address "' +
+            user.email + '".');
         } else {
           // Creating hash and salt
-          passwordHashAndSalt(req.body.password).hash(function(error, passwordHash) {
+          passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
             if (error)
               throw new Error('Something went wrong!');
 
@@ -31,14 +32,14 @@ router.post('/', function (req, res) {
               function (err) {
                 if (err) {
                   console.log(err);
-                  res.status(500).send(err);
+                  req.session.errorMessages.push(err);
                 } else {
                   sendActivationEmail(req.body.email, emailConfirmationToken, function(err) {
                     if (err) {
                       console.log(err);
-                      res.status(500).send(err);
+                      req.session.errorMessages.push(err);
                     } else {
-                      res.send('Account successfully created');
+                      req.sessions.successMessages.push('Account successfully created');
                     }
                   });
                 }
@@ -47,10 +48,11 @@ router.post('/', function (req, res) {
         }
       });
     } else {
-      res.send(403, errors.join('\n'));
-
-      //res.redirect('../');
+      console.log(req.session);
+      req.session.errorMessages.concat(errors);
     }
+
+    res.redirect('../../');
   });
 });
 

@@ -6,12 +6,14 @@ var router = express.Router();
 router.get('/', function (req, res) {
   database.validateAccount(req.query.code, function (err, result) {
     if (err) {
-      res.status(500).send(err);
+      req.session.errorMessages.push(err);
     } else if (result) {
-      res.send('Email address successfully confirmed.');
+      req.session.successMessages.push('Email address successfully confirmed.');
     } else {
-      res.send('Invalid confirmation code.');
+      req.session.errorMessages.push('Invalid confirmation code.');
     }
+
+    res.redirect('../../');
   });
 });
 
