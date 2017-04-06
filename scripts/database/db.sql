@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(254) NOT NULL,
   `name` varchar(200) NOT NULL,
   `passwordHash` varchar(1000) NOT NULL,
   `type` int(11) NOT NULL,
-  `registrationTime` timestamp NOT NULL,
+  `registrationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accountStatus` int(11) NOT NULL DEFAULT '0',
   `passwordReminderExpire` timestamp NULL DEFAULT NULL,
   `businessField` varchar(200) DEFAULT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_emailConfirmationToken_uindex` (`emailConfirmationToken`),
   UNIQUE KEY `users_passwordReminderToken_uindex` (`passwordReminderToken`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,4 +65,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-28 22:39:05
+-- Dump completed on 2017-04-03 22:02:03

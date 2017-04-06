@@ -1,6 +1,5 @@
-/**
- * Created by Afonso on 25/03/2017.
- */
+const path = require('path');
+var config = require(path.join(__base, 'config'));
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
@@ -11,18 +10,32 @@ var pool = mysql.createPool({
   database: 'irp',
 });
 
-// Exemplo
-
-/*
- function getUsers(next) {
- pool.query('SELECT * FROM Utilizador', function (err, rows, fields) {
- if (typeof next === 'function')
- next(rows);
- });
- }
- */
-
 module.exports = {
+  createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
+                        emailConfirmationToken, callback, next) {
+    pool.query('INSERT INTO users' +
+      ' (name, email, passwordHash, type, businessField, colaboratorNum' +
+      ', role, emailConfirmationToken)' +
+      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [name, email, passwordHash, type, businessField, collaboratorNum, role, emailConfirmationToken],
+      function (err, rows, fields) {
+        callback(err);
+      });
+  },
+
+  getUserByEmail: function (email, callback) {
+    pool.query('SELECT * FROM users WHERE email = ?',
+    [email],
+    function (error, results, fields) {
+      if (error) {
+        console.error(error);
+        callback(error);
+      } else {
+        callback(null, results.length > 0 ? results[0] : null);
+      }
+    });
+  },
+
   getIdea: function (id, next) {
     pool.query(
       'SELECT users.name AS creator,ideas.name, ideas.description,' +
@@ -47,5 +60,17 @@ module.exports = {
         if (typeof next === 'function')
           next(result);
       });
+  },
+
+  validateAccount: function (token, callback, next) {
+    pool.query('UPDATE users SET emailConfirmationToken = NULL, accountStatus = 1' +
+    ' WHERE emailConfirmationToken = ?', [token], function (error, results, fields) {
+      if (error) {
+        console.error(error);
+        callback(error);
+      } else {
+        callback(null, results.affectedRows == 0 ? false : true);
+      }
+    });
   },
 };

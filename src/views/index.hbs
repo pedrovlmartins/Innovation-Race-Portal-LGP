@@ -2,12 +2,31 @@
 <html lang="en">
 <head>
     {{>head}}
+    <meta charset="UTF-8">
+    <title>Innovation Race Portal</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
-    <title>Innovation Race</title>
+    <script src="js/jquery-3.2.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <style>
+        body { padding-top:50px; }
+    </style>
 </head>
 <body>
 
 {{>bsnavbar}}
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hello world!</h1>
+        </div>
+        {{> auth/register}}
+        {{> auth/login}}
+    </div>
 
     <div id="box">
         <div class="row">
@@ -77,6 +96,5 @@
     </div>
 {{>footer}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 </body>
 </html>

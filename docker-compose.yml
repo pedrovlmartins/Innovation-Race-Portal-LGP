@@ -2,13 +2,18 @@ version: '2'
 services:
   web:
     build: "src"
-    ports:
-     - "80:8080"
+    expose:
+      - "8080"
+    links:
+      - database
+    environment:
+      - DEBUG=$${DEBUG}
+      - VIRTUAL_HOST=$${VIRTUAL_HOST}
   database:
     image: "mysql"
     command: "mysqld --user=root --verbose"
-    ports:
-      - "3306:3306"
+    expose:
+      - "3306"
     environment:
       MYSQL_DATABASE: "irp"
       MYSQL_USER: "root"
