@@ -9,6 +9,10 @@ router.get('/:id', function (req, res) {
         name: ideaInfo[0].name,
         leader: ideaInfo[0].creator,
         description: ideaInfo[0].description,
+        resultsToProduce: ideaInfo[0].resultsToProduce,
+        uncertaintyToSolve: ideaInfo[0].uncertaintyToSolve,
+        techHumanResources: ideaInfo[0].techHumanResources,
+        solutionTechnicalCompetence: ideaInfo[0].solutionTechnicalCompetence,
         members: members,
       });
     });

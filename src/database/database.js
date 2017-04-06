@@ -25,7 +25,9 @@ var pool = mysql.createPool({
 module.exports = {
   getIdea: function (id, next) {
     pool.query(
-      'SELECT users.name AS creator, ideas.name, ideas.description ' +
+      'SELECT users.name AS creator,ideas.name, ideas.description,' +
+      'ideas.solutionTechnicalCompetence, ideas.uncertaintyToSolve, ideas.techHumanResources,' +
+      'ideas.resultsToProduce ' +
       'FROM ideas ' +
       'JOIN users ' +
       'ON users.id = ideas.idCreator ' +

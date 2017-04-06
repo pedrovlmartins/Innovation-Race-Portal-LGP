@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {{>head}}
-    <link rel="stylesheet" href="css/ideaPage.css">
+    <link rel="stylesheet" href="/css/ideaPage.css">
     <title>Innovation Race</title>
 </head>
 <body>
@@ -59,6 +59,58 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Apresentação da ideia científica -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Technical/scientific uncertainty to solve</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{uncertaintyToSolve}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Medida nao implementavel por pessoa com technical skills na area -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Unimplementability by someone with technical skills</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <textarea id="textArea" class="form-control" name="comment" readonly>{{solutionTechnicalCompetence}}</textarea>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meios humanos e tecnologicos previstos -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Expected human and technological resources</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <textarea id="textArea" class="form-control" name="comment" readonly>{{techHumanResources}}</textarea>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resultados a produzir -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Results to produce by the project</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <textarea id="textArea" class="form-control" name="comment" readonly>{{resultsToProduce}}</textarea>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
+                    </div>
+                </div>
         </fieldset>
     </form>
 </div>
