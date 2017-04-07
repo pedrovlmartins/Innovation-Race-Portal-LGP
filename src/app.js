@@ -11,8 +11,6 @@ const bb = require('express-busboy');
 const session = require('express-session');
 const validate = require('form-validate');
 
-// Paths
-
 // Constants
 const PORT = 8080;
 global.__base = __dirname + '/';

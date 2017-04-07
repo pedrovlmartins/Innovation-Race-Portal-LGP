@@ -17,9 +17,11 @@ router.post('/', function (req, res) {
         if (err) {
           console.log(err);
           req.session.errorMessages.push(err);
+          res.redirect('../../');
         } else if (user) {
           res.session.errorMessages.push('An account already exists with the email address "' +
             user.email + '".');
+          res.redirect('../../');
         } else {
           // Creating hash and salt
           passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
@@ -33,14 +35,17 @@ router.post('/', function (req, res) {
                 if (err) {
                   console.log(err);
                   req.session.errorMessages.push(err);
+                  res.redirect('../../');
                 } else {
-                  sendActivationEmail(req.body.email, emailConfirmationToken, function(err) {
+                  sendActivationEmail(req.body.email, emailConfirmationToken, function (err) {
                     if (err) {
                       console.log(err);
                       req.session.errorMessages.push(err);
                     } else {
                       req.sessions.successMessages.push('Account successfully created');
                     }
+
+                    res.redirect('../../');
                   });
                 }
               });
@@ -48,11 +53,9 @@ router.post('/', function (req, res) {
         }
       });
     } else {
-      console.log(req.session);
       req.session.errorMessages.concat(errors);
+      res.redirect('../../');
     }
-
-    res.redirect('../../');
   });
 });
 
