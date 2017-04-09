@@ -28,7 +28,7 @@ CREATE TABLE `users` (
   `name` varchar(200) NOT NULL,
   `passwordHash` varchar(1000) NOT NULL,
   `type` int(11) NOT NULL,
-  `registrationTime` timestamp NOT NULL,
+  `registrationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accountStatus` int(11) NOT NULL DEFAULT '0',
   `passwordReminderExpire` timestamp NULL DEFAULT NULL,
   `businessField` varchar(200) DEFAULT NULL,
