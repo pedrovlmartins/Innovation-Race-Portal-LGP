@@ -10,45 +10,45 @@
                 </div>
             </div>
             <div class="main-login main-center">
-                <form class="form-horizontal" method="post" action="#">
+                <form class="form-horizontal" method="post" action="auth/register">
 
                     <div class="container">
                             <div class="form-group">
-                                <label for="firstName" class="col-sm-1 control-label">Full Name</label>
+                                <label for="name" class="col-sm-1 control-label">Full Name</label>
                                 <div class="col-sm-4">
-                                    <input type="text" id="firstName" placeholder="Full Name" class="form-control" autofocus>
+                                    <input type="text" id="name" name="name" placeholder="Full Name" class="form-control" autofocus>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="col-sm-1 control-label">Email</label>
                                 <div class="col-sm-4">
-                                    <input type="email" id="email" placeholder="Email" class="form-control">
+                                    <input type="email" id="email" name="email" placeholder="Email" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="col-sm-1 control-label">Password</label>
                                 <div class="col-sm-4">
-                                    <input type="password" id="password" placeholder="Password" class="form-control">
+                                    <input type="password" id="password" name="password" placeholder="Password" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="password" class="col-sm-1 control-label">Confirm Password</label>
+                                <label for="confirmPassword" class="col-sm-1 control-label">Confirm Password</label>
                                 <div class="col-sm-4">
-                                    <input type="password" id="password" placeholder="Confirm Password" class="form-control">
+                                    <input type="password" id="confirmPassword" placeholder="Confirm Password" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="birthDate" class="col-sm-1 control-label">Date</label>
                                 <div class="col-sm-4">
-                                    <input type="date" id="birthDate" class="form-control">
+                                    <input type="date" id="birthDate" name="birthDate" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="country" class="col-sm-1 control-label">Country</label>
                                 <div class="col-sm-4">
-                                    <select id="country" class="form-control">
+                                    <select id="country" name="country" class="form-control">
                                         <option value="PT">Portugal</option>
                                         <option value="AF">Afghanistan</option>
                                         <option value="AX">Åland Islands</option>
@@ -309,17 +309,17 @@
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <label class="radio-inline">
-                                                <input type="radio" id="MemberRadio" name="type" value="Member" onclick="fMember()">Member
+                                                <input type="radio" id="MemberRadio" name="type" value="2" onclick="fMember()">Member
                                             </label>
                                         </div>
                                         <div class="col-sm-3">
                                             <label class="radio-inline">
-                                                <input type="radio" id="PartnerRadio" name="type" value="Partner" onclick="fPartner()">Partner
+                                                <input type="radio" id="PartnerRadio" name="type" value="1" onclick="fPartner()">Partner
                                             </label>
                                         </div>
                                         <div class="col-sm-3">
                                             <label class="radio-inline">
-                                                <input type="radio" id="CostumerRadio" name="type" value="Costumer" onclick="fCostumer()">Costumer
+                                                <input type="radio" id="CostumerRadio" name="type" value="0" onclick="fCostumer()">Costumer
                                             </label>
                                         </div>
                                     </div>
@@ -331,19 +331,19 @@
                             <div class="form-group">
                                 <label for="businessArea" class="col-sm-1 control-label">Business Area</label>
                                 <div class="col-sm-4">
-                                    <input type="text" id="businessArea" placeholder="Business Area" class="form-control" autofocus>
+                                    <input type="text" id="businessArea" name="businessArea" placeholder="Business Area" class="form-control" autofocus>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="collabNumber" class="col-sm-1 control-label">Collaborator number</label>
                                 <div class="col-sm-4">
-                                    <input type="text" id="collabNumber" placeholder="Collaborator Number" class="form-control">
+                                    <input type="text" id="collabNumber" name="businessArea" placeholder="Collaborator Number" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="rle" class="col-sm-1 control-label">Role</label>
+                                <label for="role" class="col-sm-1 control-label">Role</label>
                                 <div class="col-sm-4">
-                                    <input type="text" id="role" placeholder="Role" class="form-control">
+                                    <input type="text" id="role" name="role" placeholder="Role" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -352,7 +352,7 @@
                             <div class="form-group">
                                 <label for="referral" class="col-sm-1 control-label">Referral</label>
                                     <div class="col-sm-4">
-                                        <input type="text" id="referral" placeholder="Referral" class="form-control" autofocus>
+                                        <input type="text" id="referral" name="referral" placeholder="Referral" class="form-control" autofocus>
                                     </div>
                             </div>
                         </div>
@@ -361,7 +361,7 @@
                             <div class="form-group">
                                 <label for="referral" class="col-sm-1 control-label">Referral</label>
                                 <div class="col-sm-4">
-                                    <input type="text" id="referral" placeholder="Referral" class="form-control" autofocus>
+                                    <input type="text" id="referral" name="referral" placeholder="Referral" class="form-control" autofocus>
                                 </div>
                             </div>
                         </div>

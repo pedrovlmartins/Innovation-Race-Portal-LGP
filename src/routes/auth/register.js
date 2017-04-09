@@ -4,42 +4,57 @@ const crypto = require('crypto');
 var database = require(path.join(__base, 'database', 'database'));
 var email = require(path.join(__base, 'lib', 'mailer'));
 var EmailTemplate = require('email-templates').EmailTemplate;
+const irp = require(path.join(__base, 'lib', 'irp'));
 var passwordHashAndSalt = require('password-hash-and-salt');
 var router = express.Router();
 
 var activationEmailTemplateDir = path.join(__base, 'views', 'emails', 'activation');
 
-router.post('/', function (req, res) {
+router.post('/', function (req, res, next) {
   validate(req);
   req.Validator.getErrors(function (errors) {
     if (errors.length == 0) {
       database.getUserByEmail(req.body.email, function (err, user) {
         if (err) {
-          console.log(err);
-          res.status(500).send(err);
+          console.error(err);
+          irp.addError(req, err);
+          res.redirect('../../');
+          irp.cleanActionResults(req);
         } else if (user) {
-          res.status(403).send('An account already exists with the email address "' + user.email + '".');
+          irp.addError(req, 'An account already exists with the email address "' +
+            user.email + '".');
+          res.redirect('../../');
+          irp.cleanActionResults(req);
         } else {
           // Creating hash and salt
-          passwordHashAndSalt(req.body.password).hash(function(error, passwordHash) {
-            if (error)
-              throw new Error('Something went wrong!');
+          passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
+            if (error) {
+              console.error(err);
+              irp.addError(req, error);
+              res.redirect('../../');
+              irp.cleanActionResults(req);
+            }
 
             var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
             database.createUser(req.body.name, req.body.email, passwordHash, req.body.type,
               req.body.businessField, req.body.collaboratorNum, req.body.role, emailConfirmationToken,
               function (err) {
                 if (err) {
-                  console.log(err);
-                  res.status(500).send(err);
+                  console.error(err);
+                  irp.addError(req, err);
+                  res.redirect('../../');
+                  irp.cleanActionResults(req);
                 } else {
-                  sendActivationEmail(req.body.email, emailConfirmationToken, function(err) {
+                  sendActivationEmail(req.body.email, emailConfirmationToken, function (err) {
                     if (err) {
-                      console.log(err);
-                      res.status(500).send(err);
+                      console.error(err);
+                      irp.addError(req, err);
                     } else {
-                      res.send('Account successfully created');
+                      irp.addSuccess(req, 'Account successfully created');
                     }
+
+                    res.redirect('../../');
+                    irp.cleanActionResults(req);
                   });
                 }
               });
@@ -47,9 +62,12 @@ router.post('/', function (req, res) {
         }
       });
     } else {
-      res.send(403, errors.join('\n'));
+      errors.forEach(function (item, index) {
+        irp.addError(req, item);
+      });
 
-      //res.render('index', { errors: errors });
+      res.redirect('../../');
+      irp.cleanActionResults(req);
     }
   });
 });

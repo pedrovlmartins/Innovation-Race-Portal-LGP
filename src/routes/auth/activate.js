@@ -1,17 +1,21 @@
 var express = require('express');
 const path = require('path');
 var database = require(path.join(__base, 'database', 'database'));
+const irp = require(path.join(__base, 'lib', 'irp'));
 var router = express.Router();
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
   database.validateAccount(req.query.code, function (err, result) {
     if (err) {
-      res.status(500).send(err);
+      irp.addError(req, err);
     } else if (result) {
-      res.send('Email address successfully confirmed.');
+      irp.addSuccess(req, 'Email address successfully confirmed.');
     } else {
-      res.send('Invalid confirmation code.');
+      irp.addError(req, 'Invalid confirmation code.');
     }
+
+    res.redirect('../../');
+    irp.cleanActionResults(req);
   });
 });
 

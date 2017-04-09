@@ -60,6 +60,12 @@ bb.extend(app, {
 
 // Routes
 app.use('/', routes);
+app.all('/*', function (req, res, next) {
+  var successMessages = req.session.successMessages || [];
+  var errorMessages = req.session.errorMessages || [];
+  next();
+});
+
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);
 app.use('/auth/register', auth.register);
