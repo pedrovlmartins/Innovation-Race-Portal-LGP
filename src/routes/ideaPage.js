@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var db = require(path.join(global.__base, 'database', 'database'));
+var db = require(path.join(__base, 'database', 'database'));
 
 router.get('/:id', function (req, res) {
   db.getIdea(req.params.id, function (ideaInfo) {

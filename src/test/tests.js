@@ -3,6 +3,8 @@
  */
 
 var assert = require('assert');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
 
 describe('Array', function () {
   describe('#indexOf()', function () {
