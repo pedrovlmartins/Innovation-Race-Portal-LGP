@@ -1,24 +1,44 @@
-/**
- * Created by Afonso on 25/03/2017.
- */
+const path = require('path');
+var config = require(path.join(__base, 'config'));
 var mysql = require('mysql');
 
-var pool = mysql.createPool({
-  connectionLimit: 10,
-  host: 'localhost',
-  user: 'root',
-  database: 'irp',
-});
+var pool = mysql.createPool(config.mysql[config.env]);
 
-// Exemplo
+module.exports = {
+  createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
+                        emailConfirmationToken, callback, next) {
+    pool.query('INSERT INTO users' +
+      ' (name, email, passwordHash, type, businessField, colaboratorNum' +
+      ', role, emailConfirmationToken)' +
+      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [name, email, passwordHash, type, businessField, collaboratorNum, role, emailConfirmationToken],
+      function (err, rows, fields) {
+        callback(err);
+      });
+  },
 
-/*
- function getUsers(next) {
- pool.query('SELECT * FROM Utilizador', function (err, rows, fields) {
- if (typeof next === 'function')
- next(rows);
- });
- }
- */
+  getUserByEmail: function (email, callback) {
+    pool.query('SELECT * FROM users WHERE email = ?',
+    [email],
+    function (error, results, fields) {
+      if (error) {
+        console.error(error);
+        callback(error);
+      } else {
+        callback(null, results.length > 0 ? results[0] : null);
+      }
+    });
+  },
 
-module.exports = {};
+  validateAccount: function (token, callback, next) {
+    pool.query('UPDATE users SET emailConfirmationToken = NULL, accountStatus = 1' +
+    ' WHERE emailConfirmationToken = ?', [token], function (error, results, fields) {
+      if (error) {
+        console.error(error);
+        callback(error);
+      } else {
+        callback(null, results.affectedRows == 0 ? false : true);
+      }
+    });
+  },
+};
