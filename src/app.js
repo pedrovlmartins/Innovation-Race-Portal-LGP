@@ -36,14 +36,6 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__base, 'views'));
 hbs.registerPartials(path.join(__base, 'views', 'partials'));
 
-// Routes
-app.use('/', routes);
-app.use('/about', about);
-app.use('/contact', contact);
-app.use('/innovationRules', innovationRules);
-app.use('/manageUsers', manageUsers);
-app.use('/ideaPage', ideaPage);
-
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
 
@@ -60,6 +52,11 @@ bb.extend(app, {
 
 // Routes
 app.use('/', routes);
+app.use('/about', about);
+app.use('/contact', contact);
+app.use('/innovationRules', innovationRules);
+app.use('/manageUsers', manageUsers);
+app.use('/ideaPage', ideaPage);
 app.all('/*', function (req, res, next) {
   var successMessages = req.session.successMessages || [];
   var errorMessages = req.session.errorMessages || [];
