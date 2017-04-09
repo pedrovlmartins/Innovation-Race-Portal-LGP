@@ -22,6 +22,18 @@
     <div class="jumbotron">
         <h1>Hello world!</h1>
     </div>
+    {{#each errorMessages}}
+    <div class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error:</strong> {{this}}
+    </div>
+    {{/each}}
+    {{#each successMessages}}
+    <div class="alert alert-success alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success:</strong> {{this}}
+    </div>
+    {{/each}}
     {{> auth/register}}
     {{> auth/login}}
 </div>
