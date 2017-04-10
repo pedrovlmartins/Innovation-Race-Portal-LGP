@@ -73,3 +73,7 @@ input::-webkit-input-placeholder {
     width: 270px;
     height: 100px;
 }
+
+.registerModalContainer {
+    margin-bottom: 5%;
+}
