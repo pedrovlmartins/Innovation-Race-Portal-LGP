@@ -14,7 +14,7 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">Manage Users</h1>
+                <h1 id="homeHeading">Manage Ideas</h1>
                 <hr>
             </div>
         </div>
@@ -32,53 +32,30 @@
     </div>
 
 
-    <table id="manageUsers" class="table table-hover table-bordered rankingTable">
+    <table id="manageIdeas" class="table table-hover table-bordered rankingTable">
         <thead class="rankingTableHead">
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Position in Altran</th>
+            <th>Ideas</th>
+            <th>Team Name</th>
+            <th>Phase</th>
+            <th>Status</th>
+            <th>Race (ID)</th>
         </tr>
         </thead>
         <tbody>
-        {{#each users}}
+        <!-- /*{{#each ideas}}
             <tr>
-                <td>{{name}}</td>
-                <td>{{email}}</td>
-                <td>{{role}}</td>
+                <td>{{ideas}}</td>
+                <td>{{team}}</td>
+                <td>{{phase}}</td>
+                <td>{{status}}</td>
+                <td>{{race}}</td>
             </tr>
-            <!--<tr>
-                <td>Gustavo</td>
-                <td>user2@altran.pt</td>
-                <td>Collaborator</td>
-            </tr>
-            <tr>
-                <td>Afonso</td>
-                <td>user3@altran.pt</td>
-                <td>Client</td>
-            </tr>
-            <tr>
-                <td>João</td>
-                <td>user4@altran.pt</td>
-                <td>Partner</td>
-            </tr>
-            <tr>
-                <td>Pedro</td>
-                <td>user5@altran.pt</td>
-                <td>Collaborator</td>
-            </tr>
-            <tr>
-                <td>Teles</td>
-                <td>user6@altran.pt</td>
-                <td>Partner</td>
-            </tr>-->
         {{/each}}
+        -->
         </tbody>
     </table>
 </div>
-
-{{>footer}}
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </body>
 </html>
