@@ -93,6 +93,19 @@ describe('Authentication', function () {
   });
 });
 
+describe('Idea Page', function () {
+  // TODO add tests for the contents of an idea page.
+  // Can only be done when the create idea US is done.
+  it('should return 404 because the page doesn\'t exist', function () {
+    chai.request(server)
+      .get('/ideaPage/-1')
+      .end(function (err, res) {
+        assert.equal(res.statusCode, 404);
+        done();
+      });
+  });
+});
+
 describe('Action results', function () {
   var req;
   beforeEach(function () {
