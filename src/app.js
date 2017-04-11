@@ -62,11 +62,6 @@ app.use('/innovationRules', innovationRules);
 app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
 app.use('/ideaPage', ideaPage);
-app.all('/*', function (req, res, next) {
-  var successMessages = req.session.successMessages || [];
-  var errorMessages = req.session.errorMessages || [];
-  next();
-});
 
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);

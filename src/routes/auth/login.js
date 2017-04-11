@@ -8,7 +8,7 @@ var router = express.Router();
 router.post('/', function (req, res, next) {
   database.getUserByEmail(req.body.email, function (err, user) {
     if (err) {
-      irp.addError(req, err);
+      irp.addError(req, 'Unknown error occurred, please try again later.');
       res.redirect('../../');
     } else if (user) {
       passwordHashAndSalt(req.body.password)
