@@ -83,6 +83,17 @@ describe('Authentication', function () {
             });
         });
     });
+
+    // Logout
+    // TODO Unit tests when the used is logged in. Someone needs to do log in unit tests for that.
+    it('should fail because there is no user logged in', function (done) {
+      chai.request(server)
+        .get('/auth/logout')
+        .end(function (err, res) {
+          assert.equal(res.statusCode, 401);
+          done();
+        });
+    });
   });
 
   afterEach(function (done) {
