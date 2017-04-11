@@ -37,6 +37,20 @@ module.exports = {
       });
   },
 
+  getUserType: function (id, next) {
+    pool.query(
+      'SELECT type ' +
+      'FROM users ' +
+      'WHERE id = ?;', [id], function (err, result) {
+        if (typeof next === 'function') {
+          if (result.length === 1)
+            next(result[0].type);
+          else
+            next(-1);
+        }
+      });
+  },
+
   getIdea: function (id, next) {
     pool.query(
       'SELECT users.id AS creatorId, users.name AS creator,ideas.name, ideas.description,' +
@@ -46,8 +60,12 @@ module.exports = {
       'JOIN users ' +
       'ON users.id = ideas.idCreator ' +
       'WHERE ideas.id = ?;', [id], function (err, result) {
-        if (typeof next === 'function')
-          next(result[0]);
+        if (typeof next === 'function') {
+          if (result.length === 1)
+            next(result[0]);
+          else
+            next(-1);
+        }
       });
   },
 
