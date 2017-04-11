@@ -32,7 +32,7 @@ router.get('/:id', function (req, res) {
                 };
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
-                res.render('ideaPage', vars);
+                res.render('idea', vars);
               } else
                 res.sendStatus(403);
             }
