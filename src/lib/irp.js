@@ -20,4 +20,8 @@ module.exports = {
     req.session.errorMessages = [];
     req.session.successMessages = [];
   },
+
+  currentUser: function (req) {
+    return req.session.userID;
+  },
 };

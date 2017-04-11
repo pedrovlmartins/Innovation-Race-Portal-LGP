@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var db = require(path.join(__base, 'database', 'database'));
+const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.get('/:id', function (req, res) {
   var ids = [];
@@ -43,7 +44,14 @@ router.get('/:id', function (req, res) {
   }
 });
 
-router.get('/submit', function (req, res, next) {
+router.get('/submit', function (req, res) {
+  if (!irp.currentUser(req)) {
+    res.redirect('../../');
+    irp.clearActionResults(req);
+    return;
+  }
+
+  // TODO
 });
 
 module.exports = router;
