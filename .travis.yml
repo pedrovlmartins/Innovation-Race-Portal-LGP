@@ -14,7 +14,7 @@ services:
 
 before_install:
   - mysql -e 'CREATE DATABASE irp_test;'
-  - mysql -u root --default-character-set=utf8 baladay < scripts/database/db.sql
+  - mysql -u root --default-character-set=utf8 irp_test < scripts/database/db.sql
   - cd src/
 
 install:
