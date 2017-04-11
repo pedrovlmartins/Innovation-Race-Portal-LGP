@@ -110,7 +110,7 @@ describe('Idea Page', function () {
 
     it('should return 401 because the user is not logged in', function () {
       chai.request(server)
-      .get('/ideaPage/1')
+      .get('/ideas/1')
       .end(function(err, res) {
         assert.equal(res.statusCode, 401);
         done();
@@ -119,7 +119,7 @@ describe('Idea Page', function () {
 
     it('should return 404 because the page doesn\'t exist', function () {
       chai.request(server)
-      .get('/ideaPage/-1')
+      .get('/ideas/-1')
       .end(function (err, res) {
         assert.equal(res.statusCode, 404);
         done();

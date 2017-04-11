@@ -16,7 +16,7 @@ router.get('/:id', function (req, res) {
           db.getTeamMembers(req.params.id, function (members) {
             ids = members.map((member) => {
                 member.id;
-          });
+              });
             ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
               if (type === 3 || ids.indexOf(req.session.userID) !== -1) {
@@ -41,6 +41,9 @@ router.get('/:id', function (req, res) {
       }
     });
   }
+});
+
+router.get('/submit', function (req, res, next) {
 });
 
 module.exports = router;
