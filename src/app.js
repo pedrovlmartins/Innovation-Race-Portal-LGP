@@ -22,15 +22,13 @@ const contact = require(path.join(__base, 'routes', 'contact'));
 const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
 const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
 const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
-const ideaPage = require(path.join(__base, 'routes', 'ideaPage'));
+const ideas = require(path.join(__base, 'routes', 'ideas'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
   login: require(path.join(__base, 'routes', 'auth', 'login')),
   logout: require(path.join(__base, 'routes', 'auth', 'logout')),
   register: require(path.join(__base, 'routes', 'auth', 'register')),
 };
-
-
 
 // App
 const app = express();
@@ -61,7 +59,7 @@ app.use('/contact', contact);
 app.use('/innovationRules', innovationRules);
 app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
-app.use('/ideaPage', ideaPage);
+app.use('/ideas', ideas);
 
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);
