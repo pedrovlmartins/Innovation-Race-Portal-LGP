@@ -11,7 +11,9 @@ h4 {
 }
 
 .imageNavbar {
-  margin-top: 4%;
+  height: 130%;
+  width: 130%;
+  margin-left: 5%;
 }
 
 .navbarList {

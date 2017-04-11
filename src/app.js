@@ -21,6 +21,7 @@ const about = require(path.join(__base, 'routes', 'about'));
 const contact = require(path.join(__base, 'routes', 'contact'));
 const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
 const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
+const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
 const ideaPage = require(path.join(__base, 'routes', 'ideaPage'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
@@ -59,6 +60,7 @@ app.use('/about', about);
 app.use('/contact', contact);
 app.use('/innovationRules', innovationRules);
 app.use('/manageUsers', manageUsers);
+app.use('/manageIdeas', manageIdeas);
 app.use('/ideaPage', ideaPage);
 app.all('/*', function (req, res, next) {
   var successMessages = req.session.successMessages || [];
