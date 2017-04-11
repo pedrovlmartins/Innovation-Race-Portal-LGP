@@ -25,8 +25,11 @@ const ideaPage = require(path.join(__base, 'routes', 'ideaPage'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
   login: require(path.join(__base, 'routes', 'auth', 'login')),
+  logout: require(path.join(__base, 'routes', 'auth', 'logout')),
   register: require(path.join(__base, 'routes', 'auth', 'register')),
 };
+
+
 
 // App
 const app = express();
@@ -65,6 +68,7 @@ app.all('/*', function (req, res, next) {
 
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);
+app.use('/auth/logout', auth.logout);
 app.use('/auth/register', auth.register);
 
 // Favicon

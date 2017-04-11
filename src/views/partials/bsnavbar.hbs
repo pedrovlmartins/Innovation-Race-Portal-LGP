@@ -24,8 +24,12 @@
                     <li><a href="/innovationRules"><h4>Innovation Rules</h4></a></li>
                     <li><a href="http://www.altran.pt/"><h4>About Altran</h4></a></li>
                     <li><a href="/contact"><h4>Contact</h4></a></li>
-                    <li><a data-target="#loginModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#loginModal"><h4>Login</h4></a></li>
-                    <li><a data-target="#registrationModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#registrationModal"><h4>Register</h4></a></li>
+                    {{#if userID}}
+                        <li><a class="MainNavText" id="MainNavHelp" href="/auth/logout"><h4>Logout</h4></a></li>
+                    {{else}}
+                        <li><a data-target="#loginModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#loginModal"><h4>Login</h4></a></li>
+                        <li><a data-target="#registrationModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#registrationModal"><h4>Register</h4></a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>

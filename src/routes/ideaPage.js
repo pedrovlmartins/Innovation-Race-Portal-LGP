@@ -14,8 +14,8 @@ router.get('/:id', function (req, res) {
         })
         ids.push(ideaInfo.creatorId);
         if (req.session !== undefined) {
-          if (ids.indexOf(req.session.userID) !== -1)
-            res.render('ideaPage', {
+          if (ids.indexOf(req.session.userID) !== -1) {
+            var vars = {
               name: ideaInfo.name,
               leader: ideaInfo.creator,
               description: ideaInfo.description,
@@ -24,7 +24,11 @@ router.get('/:id', function (req, res) {
               techHumanResources: ideaInfo.techHumanResources,
               solutionTechnicalCompetence: ideaInfo.solutionTechnicalCompetence,
               members: members,
-            });
+            };
+            if (req.session.userID !== undefined)
+              vars.userID = req.session.userID;
+            res.render('ideaPage', vars);
+          }
         } else
           res.sendStatus(403);
       });

@@ -4,7 +4,10 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-  res.render('index', irp.getActionResults(req));
+  var vars = irp.getActionResults(req);
+  if (req.session.userID !== undefined)
+    vars.userID = req.session.userID;
+  res.render('index', vars);
   irp.cleanActionResults(req);
 });
 
