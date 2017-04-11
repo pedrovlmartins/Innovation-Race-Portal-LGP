@@ -4,6 +4,17 @@ var path = require('path');
 var db = require(path.join(__base, 'database', 'database'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
+router.get('/submit', function (req, res) {
+  if (!irp.currentUser(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  res.render('submitIdea', irp.getActionResults(req));
+  irp.cleanActionResults(req);
+});
+
 router.get('/:id', function (req, res) {
   var ids = [];
   if (req.session.userID === undefined)
@@ -42,16 +53,6 @@ router.get('/:id', function (req, res) {
       }
     });
   }
-});
-
-router.get('/submit', function (req, res) {
-  if (!irp.currentUser(req)) {
-    res.redirect('../../');
-    irp.clearActionResults(req);
-    return;
-  }
-
-  // TODO
 });
 
 module.exports = router;
