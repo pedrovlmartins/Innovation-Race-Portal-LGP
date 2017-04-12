@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {{>head}}
-    <link rel="stylesheet" href="css/homepage.css">
-
-    <title>Innovation Race</title>
-</head>
-<body>
-
-{{>bsnavbar}}
+{{>header pageName="Home"}}
 
 <div class="container">
-
+    <link rel="stylesheet" href="css/homepage.css">
     {{#each errorMessages}}
         <div class="alert alert-danger alert-dismissable fade in">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -58,6 +48,4 @@
 
 </div>
 
-
-</body>
-</html>
+{{> footer}}
