@@ -4,6 +4,7 @@
 const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
+const hbsutils = require('hbs-utils')(hbs);
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -37,6 +38,7 @@ const app = express();
 app.set('view engine', 'hbs');
 app.set('views', path.join(__base, 'views'));
 hbs.registerPartials(path.join(__base, 'views', 'partials'));
+hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));

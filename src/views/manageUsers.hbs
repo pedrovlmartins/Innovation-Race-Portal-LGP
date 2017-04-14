@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {{>head}}
-
-    <title>Innovation Race</title>
-</head>
-<body>
-
-{{>bsnavbar}}
-
+{{>header pageName="Manage Users"}}
 <div class="container">
 
     <header>
@@ -32,7 +22,7 @@
     </div>
 
 
-    <table id="manageUsers" class="table table-hover table-bordered rankingTable">
+    <table class="table table-hover table-bordered rankingTable">
         <thead class="rankingTableHead">
         <tr>
             <th>Name</th>
@@ -76,6 +66,4 @@
         </tbody>
     </table>
 </div>
-
-</body>
-</html>
+{{> footer}}

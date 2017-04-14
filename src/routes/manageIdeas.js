@@ -3,7 +3,13 @@ var router = express.Router();
 var database = require('../database/database');
 
 router.get('/', function (req, res) {
-  res.render('manageIdeas');
+  database.listAllIdeas(function (result) {
+    res.render('manageIdeas', {
+      ideas: result,
+    });
+  });
+
+  //res.render('manageIdeas');
 });
 
 module.exports = router;

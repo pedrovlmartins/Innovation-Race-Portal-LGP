@@ -16,6 +16,72 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `ideamember`
+--
+
+DROP TABLE IF EXISTS `ideamember`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ideamember` (
+  `idMember` int(11) NOT NULL,
+  `idIdea` int(11) NOT NULL,
+  PRIMARY KEY (`idMember`,`idIdea`),
+  KEY `idIdea` (`idIdea`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ideamember`
+--
+
+LOCK TABLES `ideamember` WRITE;
+/*!40000 ALTER TABLE `ideamember` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ideamember` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ideas`
+--
+
+DROP TABLE IF EXISTS `ideas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ideas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idCreator` int(11) NOT NULL,
+  `name` varchar(1000) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `teamName` varchar(50) DEFAULT NULL,
+  `approved` bit(1) DEFAULT b'0',
+  `disapproveReason` varchar(1000) DEFAULT NULL,
+  `potential` varchar(1000) DEFAULT NULL,
+  `score` int(11) DEFAULT '0',
+  `state` int(11) DEFAULT '0',
+  `cancelled` bit(1) DEFAULT b'0',
+  `offerType` int(11) DEFAULT NULL,
+  `market` varchar(1000) DEFAULT NULL,
+  `technicalViability` varchar(1000) DEFAULT NULL,
+  `economicalViability` varchar(1000) DEFAULT NULL,
+  `riskFactors` varchar(1000) DEFAULT NULL,
+  `uncertaintyToSolve` varchar(1000) NOT NULL,
+  `solutionTechnicalCompetence` varchar(1000) NOT NULL,
+  `techHumanResources` varchar(1000) NOT NULL,
+  `resultsToProduce` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idCreator` (`idCreator`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ideas`
+--
+
+LOCK TABLES `ideas` WRITE;
+/*!40000 ALTER TABLE `ideas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ideas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -43,7 +109,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_emailConfirmationToken_uindex` (`emailConfirmationToken`),
   UNIQUE KEY `users_passwordReminderToken_uindex` (`passwordReminderToken`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,7 +118,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'silva95gustavo@gmail.com','Gustavo Silva','123456',1,'2017-03-28 21:13:46',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'abcdefg',NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -65,4 +130,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-03 22:02:03
+-- Dump completed on 2017-04-14  0:31:28
