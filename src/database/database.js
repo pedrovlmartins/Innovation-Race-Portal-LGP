@@ -6,7 +6,7 @@ var pool = mysql.createPool({
   connectionLimit: 10,
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: '14edgar14',
   database: 'irp',
 });
 
@@ -83,6 +83,15 @@ module.exports = {
 
   listAllIdeas: function (next) {
     pool.query('SELECT * FROM ideas', function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  searchUsers: function (err, next) {
+    pool.query('SELECT * FROM users WHERE name LIKE "%' + req.query.key + '%" or id email LIKE "%'
+      + req.query.key + '%" or role  LIKE "%' + req.query.key + '%"', function (error, results) {
+      if (error) throw error;
       if (typeof next === 'function')
         next(results);
     });
