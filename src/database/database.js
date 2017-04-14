@@ -10,11 +10,10 @@ var pool = mysql.createPool({
   database: 'irp',
 });
 
-
 module.exports = {
   createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
                                         emailConfirmationToken, callback, next) {
-  pool.query('INSERT INTO users' +
+    pool.query('INSERT INTO users' +
     ' (name, email, passwordHash, type, businessField, colaboratorNum' +
     ', role, emailConfirmationToken)' +
     ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
@@ -22,7 +21,7 @@ module.exports = {
     function (err, rows, fields) {
       callback(err);
     });
-},
+  },
 
   getUserByEmail: function (email, callback) {
     pool.query('SELECT * FROM users WHERE email = ?',
@@ -77,6 +76,13 @@ module.exports = {
 
   listAllUsers: function (next) {
     pool.query('SELECT * FROM users', function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  listAllIdeas: function (next) {
+    pool.query('SELECT * FROM ideas', function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
