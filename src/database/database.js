@@ -2,7 +2,13 @@ const path = require('path');
 var config = require(path.join(__base, 'config'));
 var mysql = require('mysql');
 
-var pool = mysql.createPool(config.mysql[config.env]);
+var pool = mysql.createPool({
+  connectionLimit: 10,
+  host: 'localhost',
+  user: 'root',
+  password: '14edgar14',
+  database: 'irp',
+});
 
 module.exports = {
   createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
@@ -15,7 +21,7 @@ module.exports = {
     function (err, rows, fields) {
       callback(err);
     });
-},
+  },
 
   getUserByEmail: function (email, callback) {
     pool.query('SELECT * FROM users WHERE email = ?',
@@ -30,20 +36,6 @@ module.exports = {
       });
   },
 
-  getUserType: function (id, next) {
-    pool.query(
-      'SELECT type ' +
-      'FROM users ' +
-      'WHERE id = ?;', [id], function (err, result) {
-        if (typeof next === 'function') {
-          if (result.length === 1)
-            next(result[0].type);
-          else
-            next(-1);
-        }
-      });
-  },
-
   getIdea: function (id, next) {
     pool.query(
       'SELECT users.id AS creatorId, users.name AS creator,ideas.name, ideas.description,' +
@@ -53,12 +45,8 @@ module.exports = {
       'JOIN users ' +
       'ON users.id = ideas.idCreator ' +
       'WHERE ideas.id = ?;', [id], function (err, result) {
-        if (typeof next === 'function') {
-          if (result.length === 1)
-            next(result[0]);
-          else
-            next(-1);
-        }
+        if (typeof next === 'function')
+          next(result[0]);
       });
   },
 
@@ -88,6 +76,22 @@ module.exports = {
 
   listAllUsers: function (next) {
     pool.query('SELECT * FROM users', function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  listAllIdeas: function (next) {
+    pool.query('SELECT * FROM ideas', function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  searchUsers: function (err, next) {
+    pool.query('SELECT * FROM users WHERE name LIKE "%' + req.query.key + '%" or id email LIKE "%'
+      + req.query.key + '%" or role  LIKE "%' + req.query.key + '%"', function (error, results) {
+      if (error) throw error;
       if (typeof next === 'function')
         next(results);
     });
