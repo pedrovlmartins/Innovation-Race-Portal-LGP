@@ -25,7 +25,7 @@ img.bg {
 }
 
 .rankingTable {
-	margin-top: 20%;
+	margin-top: 55%;
 }
 
 .rankingTableHead {
@@ -60,11 +60,24 @@ img.bg {
 .table-curved tr:last-child td:last-child {
 	border-radius: 0 0 6px 0;
 }
-.innovationHeader{
+
+.innovationHeader_I{
     text-align: center;
-    padding-top: 20%;
+    margin-top: 5%;
     font-size: 9em;
     letter-spacing: 1px;
     color: #4298b5;
     font-family: "Century Gothic";
+}
+
+.innovationHeader_R{
+	text-align: center;
+	font-size: 9em;
+	letter-spacing: 1px;
+	color: #4298b5;
+	font-family: "Century Gothic";
+}
+.innovationTitle {
+	position: fixed;
+	margin-left: 2%;
 }
