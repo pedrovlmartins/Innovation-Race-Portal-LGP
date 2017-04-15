@@ -88,12 +88,16 @@ module.exports = {
     });
   },
 
-  searchUsers: function (err, next) {
-    pool.query('SELECT * FROM users WHERE name LIKE "%' + req.query.key + '%" or id email LIKE "%'
-      + req.query.key + '%" or role  LIKE "%' + req.query.key + '%"', function (error, results) {
-      if (error) throw error;
-      if (typeof next === 'function')
-        next(results);
+  searchUsers: function (key, next) {
+    pool.query('SELECT * FROM users WHERE name LIKE "%?%" or id email' +
+      'LIKE "%?%" or role LIKE "%?%"', [key], [key], [key],
+      function (error, results) {
+      if (error) {
+        console.log(error);
+        next(error);
+      } else {
+        next(null, results);
+      }
     });
   },
 };
