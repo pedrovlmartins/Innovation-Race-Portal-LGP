@@ -42,7 +42,7 @@ function fCostumer()   {
 
 jQuery(document).ready(function ($) {
   $('.clickable-row').click(function () {
-    window.location = $(this).data('/contact');
+    window.location = $(this).data('');
   });
 });
 

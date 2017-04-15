@@ -30,3 +30,7 @@
 .rankingTableHead {
     background-color: #4298b5;
 }
+
+.clickable-row {
+    cursor: pointer;
+}
