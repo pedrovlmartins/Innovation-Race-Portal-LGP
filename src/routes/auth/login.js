@@ -15,7 +15,6 @@ router.post('/', function (req, res, next) {
         .verifyAgainst(user.passwordHash, function (error, verified) {
           if (error) {
             irp.addError(req, error);
-            res.redirect('../../');
           } else if (!verified) {
             irp.addError(req, 'Invalid password for user with email "' +
               req.body.email + '".');
