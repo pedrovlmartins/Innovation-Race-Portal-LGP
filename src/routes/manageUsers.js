@@ -5,23 +5,23 @@ var router = express.Router();
 var database = require('../database/database');
 
 router.get('/', function (req, res) {
+  var vars = irp.getActionResults(req);
   var keyword = req.query.keyword;
   console.log(keyword);
 
   if (req.query.keyword === undefined) {
     database.listAllUsers(function (result) {
-      var vars = irp.getActionResults(req);
       vars.users = result;
       if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
       res.render('manageUsers', vars);
     });
   } else {
-    database.searchUsers(keyword, function (result) {
-      var users = result;
-      var vars = irp.getActionResults(req);
+    database.searchUsers(keyword, function (error, result) {
+      vars.users = result;
       if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
+      console.log(vars.users);
       res.render('manageUsers', vars);
     });
   }

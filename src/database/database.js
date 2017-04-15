@@ -75,22 +75,23 @@ module.exports = {
   },
 
   listAllUsers: function (next) {
-    pool.query('SELECT * FROM users', function (error, results) {
+    pool.query('SELECT * FROM users;', function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
   },
 
   listAllIdeas: function (next) {
-    pool.query('SELECT * FROM ideas', function (error, results) {
+    pool.query('SELECT * FROM ideas;', function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
   },
 
   searchUsers: function (key, next) {
-    pool.query('SELECT * FROM users WHERE name LIKE "%?%" or email' +
-      ' LIKE "%?%" or role LIKE "%?%"', [key, key, key],
+    var varPattern = '%' + key + '%';
+    pool.query('SELECT * FROM users WHERE name LIKE ? or email' +
+      ' LIKE ? or role LIKE ?;', [varPattern, varPattern, varPattern],
       function (error, results) {
       if (error) {
         console.error(error);
