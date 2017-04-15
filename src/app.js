@@ -1,7 +1,5 @@
 'use strict';
 
-// Modules
-const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
 const hbsutils = require('hbs-utils')(hbs);
@@ -11,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const bb = require('express-busboy');
 const session = require('express-session');
 const validate = require('form-validate');
+const express = require('express');
 
 // Constants
 const PORT = 8080;
