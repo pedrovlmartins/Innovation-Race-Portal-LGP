@@ -6,6 +6,7 @@ var database = require('../database/database');
 
 router.get('/', function (req, res) {
   var keyword = req.query.keyword;
+  console.log(keyword);
 
   if (req.query.keyword === undefined) {
     database.listAllUsers(function (result) {
@@ -18,6 +19,7 @@ router.get('/', function (req, res) {
   } else {
     database.searchUsers(keyword, function (result) {
       var users = result;
+      var vars = irp.getActionResults(req);
       if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
       res.render('manageUsers', vars);

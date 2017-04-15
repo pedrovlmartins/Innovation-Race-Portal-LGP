@@ -89,11 +89,11 @@ module.exports = {
   },
 
   searchUsers: function (key, next) {
-    pool.query('SELECT * FROM users WHERE name LIKE "%?%" or id email' +
-      'LIKE "%?%" or role LIKE "%?%"', [key], [key], [key],
+    pool.query('SELECT * FROM users WHERE name LIKE "%?%" or email' +
+      ' LIKE "%?%" or role LIKE "%?%"', [key, key, key],
       function (error, results) {
       if (error) {
-        console.log(error);
+        console.error(error);
         next(error);
       } else {
         next(null, results);
