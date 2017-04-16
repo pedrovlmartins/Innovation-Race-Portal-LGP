@@ -4,6 +4,8 @@ services:
     build: "src"
     expose:
       - "8080"
+    links:
+      - "database:database"
     environment:
       - DEBUG=$${DEBUG}
       - VIRTUAL_HOST=$${VIRTUAL_HOST}
