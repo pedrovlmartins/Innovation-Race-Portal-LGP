@@ -17,6 +17,8 @@ services:
     command: "mysqld --user=root --verbose"
     expose:
       - "3306"
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: "irp"
       MYSQL_USER: "root"
