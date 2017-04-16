@@ -17,7 +17,7 @@ config.mysql = {
   },
   test: {
     connectionLimit: 10,
-    host: 'localhost',
+    host: 'database',
     user: 'root',
     database: 'irp_test',
   },
