@@ -5,13 +5,30 @@ var db = require(path.join(__base, 'database', 'database'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.get('/submit', function (req, res) {
-  if (!irp.currentUser(req)) {
+  if (!irp.currentUserID(req)) {
     irp.addError(req, 'You are not logged in.');
     res.redirect('../../');
     return;
   }
 
   res.render('submitIdea', irp.getActionResults(req));
+  irp.cleanActionResults(req);
+});
+
+router.post('/submit', function (req, res) {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  if (!irp.currentIsParticipant(req)) {
+    irp.addError(req, 'You are not allowed to submit new ideas.');
+    res.redirect('../');
+    return;
+  }
+
+  res.send(501);
   irp.cleanActionResults(req);
 });
 
