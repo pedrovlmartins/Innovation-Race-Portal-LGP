@@ -10,8 +10,6 @@ services:
       - NODE_ENV
       - DEBUG=$${DEBUG}
       - VIRTUAL_HOST=$${VIRTUAL_HOST}
-    networks:
-      back-tier:
   database:
     image: "mysql"
     command: "mysqld --user=root --verbose"
@@ -25,8 +23,3 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - ./scripts/database:/docker-entrypoint-initdb.d
-    networks:
-      back-tier:
-networks:
-  back-tier:
-  
