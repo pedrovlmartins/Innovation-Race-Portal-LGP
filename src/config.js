@@ -5,13 +5,13 @@ config.env = process.env.NODE_ENV || 'development';
 config.mysql = {
   production: {
     connectionLimit: 10,
-    host: 'database',
+    host: 'localhost',
     user: 'root',
     database: 'irp',
   },
   development: {
     connectionLimit: 10,
-    host: 'database',
+    host: 'localhost',
     user: 'root',
     database: 'irp',
   },
@@ -19,7 +19,7 @@ config.mysql = {
     connectionLimit: 10,
     host: 'database',
     user: 'root',
-    database: 'irp_test',
+    database: 'irp',
   },
 };
 
