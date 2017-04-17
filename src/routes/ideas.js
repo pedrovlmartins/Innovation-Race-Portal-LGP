@@ -28,8 +28,21 @@ router.post('/submit', function (req, res) {
     return;
   }
 
-  res.send(501);
-  irp.cleanActionResults(req);
+  validateSubmitIdea(req);
+  req.Validator.getErrors(function (errors) {
+    if (errors.length == 0) {
+      irp.addSuccess(req, 'Idea successfully created.');
+
+      // TODO
+    } else {
+      errors.forEach(function (item, index) {
+        irp.addError(req, item);
+      });
+
+      res.redirect('back');
+      irp.cleanActionResults(req);
+    }
+  });
 });
 
 router.get('/:id', function (req, res) {
@@ -71,5 +84,52 @@ router.get('/:id', function (req, res) {
     });
   }
 });
+
+var validateSubmitIdea = function (req) {
+  // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+  req.Validator.validate('title', 'Title', {
+    required: true,
+    length: {
+      min: 3,
+      max: 1000,
+    },
+  })
+    .filter('title', {
+      trim: true,
+    })
+    .validate('description', 'Description', {
+      required: true,
+      length: {
+        min: 3,
+      },
+    })
+    .validate('uncertaintyToSolve',
+      'Scientific/Technological uncertainty that the project aims to solve', {
+        required: true,
+        length: {
+          min: 3,
+        },
+      })
+    .validate('solutionTechnicalCompetence',
+      'Why can\'t the solutions found be implemented by' +
+      'someone with technical skills in the field?', {
+        required: true,
+        length: {
+          min: 3,
+        },
+      })
+    .validate('techHumanResources', 'Humand and technological resources needed', {
+      required: true,
+      length: {
+        min: 3,
+      },
+    })
+    .validate('resultsToProduce', 'Results to be produced by the project', {
+      required: true,
+      length: {
+        min: 3,
+      },
+    });
+};
 
 module.exports = router;

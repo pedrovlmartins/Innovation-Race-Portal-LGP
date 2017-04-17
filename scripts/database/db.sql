@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `ideas`;
 CREATE TABLE `ideas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idCreator` int(11) NOT NULL,
-  `name` varchar(1000) NOT NULL,
+  `title` varchar(1000) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `teamName` varchar(50) DEFAULT NULL,
   `approved` bit(1) DEFAULT b'0',
