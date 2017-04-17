@@ -1,4 +1,5 @@
 {{>header pageName="Manage Users"}}
+
 <div class="container">
 
     <header>
@@ -11,14 +12,16 @@
     </header>
 
     <div id="imaginary_container">
-        <div class="input-group stylish-input-group">
-            <input type="text" class="form-control"  placeholder="Search" >
-            <span class="input-group-addon">
-                <button type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </span>
-        </div>
+        <form action="/manageUsers" method="get">
+            <div class="input-group stylish-input-group">
+                <input type="text" class="form-control"  placeholder="Search" name="keyword" value=''>
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 
 
@@ -32,38 +35,14 @@
         </thead>
         <tbody>
         {{#each users}}
-        <tr>
+        <tr class='clickable-row'>
             <td>{{name}}</td>
-            <td>{{email}}</td>
+            <td>{{email}}</a></td>
             <td>{{role}}</td>
         </tr>
-        <!--<tr>
-            <td>Gustavo</td>
-            <td>user2@altran.pt</td>
-            <td>Collaborator</td>
-        </tr>
-        <tr>
-            <td>Afonso</td>
-            <td>user3@altran.pt</td>
-            <td>Client</td>
-        </tr>
-        <tr>
-            <td>João</td>
-            <td>user4@altran.pt</td>
-            <td>Partner</td>
-        </tr>
-        <tr>
-            <td>Pedro</td>
-            <td>user5@altran.pt</td>
-            <td>Collaborator</td>
-        </tr>
-        <tr>
-            <td>Teles</td>
-            <td>user6@altran.pt</td>
-            <td>Partner</td>
-        </tr>-->
         {{/each}}
         </tbody>
     </table>
 </div>
+
 {{> footer}}

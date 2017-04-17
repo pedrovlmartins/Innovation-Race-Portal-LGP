@@ -22,7 +22,7 @@
     </div>
 
 
-    <table id="manageIdeas" class="table table-hover table-bordered rankingTable">
+    <table id="manageIdeas_admin" class="table table-hover table-bordered rankingTable">
         <thead class="rankingTableHead">
         <tr>
             <th>Ideas</th>
@@ -35,8 +35,8 @@
         <tbody>
         <!-- /*{{#each ideas}}
             <tr>
-                <td>{{ideas}}</td>
-                <td>{{team}}</td>
+                <td>{{name}}</td>
+                <td>{{teamName}}</td>
                 <td>{{phase}}</td>
                 <td>{{status}}</td>
                 <td>{{race}}</td>
@@ -45,5 +45,44 @@
         -->
         </tbody>
     </table>
+
+    <table id="manageIdeas_tecnicalDirector" class="table table-hover table-bordered rankingTable">
+        <thead class="rankingTableHead">
+        <tr>
+            <th>Ideas</th>
+            <th>Team Name</th>
+            <th>Phase</th>
+            <th>Status</th>
+            <th>Race (ID)</th>
+            <th>Approve</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- /*{{#each ideas}}
+            <tr>
+                <td>{{ideas}}</td>
+                <td>{{team}}</td>
+                <td>{{phase}}</td>
+                <td>{{status}}</td>
+                <td>{{race}}</td>
+                <td></td>
+            </tr>
+        {{/each}}
+        -->
+
+        <tr>
+            <td>Correr sem suar</td>
+            <td>Os macacos</td>
+            <td>Seleção</td>
+            <td>Undefined</td>
+            <td>5</td>
+            <td><button type="button" class="btn btn-success btn-sm">Approve Idea</button> <button type="button" class="btn btn-danger btn-sm">Decline Idea</button></td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
+
+
+
 {{> footer}}

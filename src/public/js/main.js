@@ -40,4 +40,10 @@ function fCostumer()   {
   costumer.classList.remove('hide');
 }
 
+jQuery(document).ready(function ($) {
+  $('.clickable-row').click(function () {
+    window.location = $(this).data('');
+  });
+});
+
 /* end Function to show/hide options on registration form */

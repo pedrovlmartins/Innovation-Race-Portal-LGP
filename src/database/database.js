@@ -2,13 +2,7 @@ const path = require('path');
 var config = require(path.join(__base, 'config'));
 var mysql = require('mysql');
 
-var pool = mysql.createPool({
-  connectionLimit: 10,
-  host: 'localhost',
-  user: 'root',
-  password: '14edgar14',
-  database: 'irp',
-});
+var pool = mysql.createPool(config.mysql[config.env]);
 
 module.exports = {
   createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
@@ -75,25 +69,30 @@ module.exports = {
   },
 
   listAllUsers: function (next) {
-    pool.query('SELECT * FROM users', function (error, results) {
+    pool.query('SELECT * FROM users;', function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
   },
 
   listAllIdeas: function (next) {
-    pool.query('SELECT * FROM ideas', function (error, results) {
+    pool.query('SELECT * FROM ideas;', function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
   },
 
-  searchUsers: function (err, next) {
-    pool.query('SELECT * FROM users WHERE name LIKE "%' + req.query.key + '%" or id email LIKE "%'
-      + req.query.key + '%" or role  LIKE "%' + req.query.key + '%"', function (error, results) {
-      if (error) throw error;
-      if (typeof next === 'function')
-        next(results);
+  searchUsers: function (key, next) {
+    var varPattern = '%' + key + '%';
+    pool.query('SELECT * FROM users WHERE name LIKE ? or email' +
+      ' LIKE ? or role LIKE ?;', [varPattern, varPattern, varPattern],
+      function (error, results) {
+      if (error) {
+        console.error(error);
+        next(error);
+      } else {
+        next(null, results);
+      }
     });
   },
 };
