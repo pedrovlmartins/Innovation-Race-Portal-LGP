@@ -16,28 +16,28 @@ function showHide(elm) {
 function fMember()   {
   var member = document.getElementById('Member');
   var partner = document.getElementById('Partner');
-  var costumer = document.getElementById('Costumer');
+  var customer = document.getElementById('Customer');
   member.classList.remove('hide');
   partner.classList.add('hide');
-  costumer.classList.add('hide');
+  customer.classList.add('hide');
 }
 
 function fPartner()   {
   var member = document.getElementById('Member');
   var partner = document.getElementById('Partner');
-  var costumer = document.getElementById('Costumer');
+  var customer = document.getElementById('Customer');
   member.classList.add('hide');
   partner.classList.remove('hide');
-  costumer.classList.add('hide');
+  customer.classList.add('hide');
 }
 
-function fCostumer()   {
+function fCustomer()   {
   var member = document.getElementById('Member');
   var partner = document.getElementById('Partner');
-  var costumer = document.getElementById('Costumer');
+  var customer = document.getElementById('Customer');
   member.classList.add('hide');
   partner.classList.add('hide');
-  costumer.classList.remove('hide');
+  customer.classList.remove('hide');
 }
 
 jQuery(document).ready(function ($) {
