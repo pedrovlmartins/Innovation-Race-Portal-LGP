@@ -23,6 +23,8 @@ services:
       MYSQL_PASSWORD: ""
       MYSQL_ROOT_PASSWORD: ""
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - ./scripts/database/db.sql:/docker-entrypoint-initdb.d
     networks:
       back-tier:
 networks:
