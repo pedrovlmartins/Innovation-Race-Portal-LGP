@@ -19,7 +19,7 @@ before_script:
   - docker-compose pull
   - docker-compose build
   - docker-compose up -d
-  - sleep 5
+  - sleep 30
   
 script:
   - docker exec altraninnovationraceportal_web_1 npm test
