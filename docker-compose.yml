@@ -5,7 +5,7 @@ services:
     expose:
       - "8080"
     depends_on:
-      - "database:database"
+      - "database"
     environment:
       - NODE_ENV
       - DEBUG=$${DEBUG}
@@ -15,7 +15,7 @@ services:
   database:
     image: "mysql"
     command: "mysqld --user=root --verbose"
-    expose:
+    ports:
       - "3306"
     environment:
       MYSQL_DATABASE: "irp"
