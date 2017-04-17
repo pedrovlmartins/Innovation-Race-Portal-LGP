@@ -97,8 +97,6 @@ describe('Authentication', function () {
   });
 
   afterEach(function (done) {
-    console.log("NODE_ENV = " + config.env);
-    console.log(config.mysql[config.env]);
     var connection = mysql.createConnection(config.mysql[config.env]);
     connection.query('TRUNCATE users', function (error, results, fields) {
       done();
