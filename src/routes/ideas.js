@@ -26,9 +26,9 @@ router.get('/:id', function (req, res) {
       else {
         db.getUserType(req.session.userID, function (type) {
           db.getTeamMembers(req.params.id, function (members) {
-            ids = members.map((member) => {
+            /*ids = members.map((member) => {
                 member.id;
-              });
+              });*/
             ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
               if (type === 3 || ids.indexOf(req.session.userID) !== -1) {

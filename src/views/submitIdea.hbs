@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>head}}
+    <link rel="stylesheet" href="/css/ideaPage.css">
+    <title>Innovation Race</title>
+</head>
+<body>
+
+{{>bsnavbar}}
+
+<div class="cointainer">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="panel-title text-center">
+                <h1 class="title">Create Account</h1>
+            </div>
+        </div>
+        <div class="main-login main-center">
+            <form class="form-horizontal" method="post" action="auth/register">
+
+                <div class="container">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-1 control-label">Idea name</label>
+                        <div class="col-sm-4">
+                            <input type="text" id="name" name="name" placeholder="Idea name" class="form-control" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-1 control-label">Description</label>
+                        <div class="col-sm-4">
+                                <textarea rows=4 cols=50 type="description" id="description" name="description" placeholder="Description" class="form-control">
+                                </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="teamIdea" class="col-sm-1 control-label">Team name</label>
+                        <div class="col-sm-4">
+                            <input type="teamIdea" id="teamIdea" name="teamIdea" placeholder="Team Idea" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="teammembers" class="col-sm-1 control-label">Team members</label>
+                        <div class="col-sm-4">
+                            <input type="teammembers" id="teammembers" name="teammembers" placeholder="Team Members" class="form-control">
+                        </div>
+                    </div>
+
+
+                    <div class="submiteButton">
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-6">
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form> <!-- /form -->
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

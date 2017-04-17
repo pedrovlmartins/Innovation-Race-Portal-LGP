@@ -2,8 +2,14 @@ const path = require('path');
 var config = require(path.join(__base, 'config'));
 var mysql = require('mysql');
 
-var pool = mysql.createPool(config.mysql[config.env]);
 
+var pool = mysql.createPool({
+    connectionLimit: 10,
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'irp',
+});
 module.exports = {
   createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
                                         emailConfirmationToken, callback, next) {
@@ -16,6 +22,16 @@ module.exports = {
       callback(err);
     });
 },
+
+  createIdea: function(creatorId,name,description,teamName,callback, next){
+    pool.query('INSERT INTO ideas'+
+    '(creatorId, name, description, teamName'+
+    'VALUES (?, ?, ?, ?)',
+    [creatorId, name, description, teamName],
+    function(err,rows,fields){
+      callback(err);
+    });
+  },
 
   getUserByEmail: function (email, callback) {
     pool.query('SELECT * FROM users WHERE email = ?',
