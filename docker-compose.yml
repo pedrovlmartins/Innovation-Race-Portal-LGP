@@ -4,7 +4,7 @@ services:
     build: "src"
     expose:
       - "8080"
-    links:
+    depends_on:
       - "database:database"
     environment:
       - NODE_ENV
@@ -17,8 +17,6 @@ services:
     command: "mysqld --user=root --verbose"
     expose:
       - "3306"
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_DATABASE: "irp"
       MYSQL_USER: "root"
