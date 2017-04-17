@@ -10,15 +10,16 @@ node_js:
 
 services:
   - docker
-  - mysql
-
-before_install:
-  - mysql -e 'CREATE DATABASE irp_test;'
-  - mysql -u root --default-character-set=utf8 irp_test < scripts/database/db.sql
-  - cd src/
-
-install:
-  - npm install
+  
+before_script:
+  - sudo /etc/init.d/mysql stop
+  - docker-compose pull
+  - docker-compose build
+  - docker-compose up -d
+  - sleep 30
   
 script:
-  - npm test
+  - docker exec altraninnovationraceportal_web_1 npm test
+  
+after_script:
+  - docker-compose kill
