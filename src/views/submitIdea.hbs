@@ -1,34 +1,70 @@
 {{>header pageName="Submit Idea"}}
 
-<div class="container">
+{{>actionResults}}
 
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h1 id="homeHeading">Submit Idea</h1>
-                <hr>
+<link rel="stylesheet" href="/css/ideaPage.css">
+
+<div class="cointainer">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="panel-title text-center">
+                <h1 class="title">Create Account</h1>
             </div>
         </div>
-    </header>
+        <div class="main-login main-center">
+            <form class="form-horizontal" method="post" action="auth/register">
 
-    {{>actionResults}}
+                <div class="container">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-1 control-label">Idea name</label>
+                        <div class="col-sm-4">
+                            <input type="text" id="name" name="name" placeholder="Idea name" class="form-control" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-1 control-label">Description</label>
+                        <div class="col-sm-4">
+                                <textarea rows=4 cols=50 type="description" id="description" name="description" placeholder="Description" class="form-control">
+                                </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="teamIdea" class="col-sm-1 control-label">Team name</label>
+                        <div class="col-sm-4">
+                            <input type="teamIdea" id="teamIdea" name="teamIdea" placeholder="Team Idea" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="teammembers" class="col-sm-1 control-label">Team members</label>
+                        <div class="col-sm-4">
+                            <input type="teammembers" id="teammembers" name="teammembers" placeholder="Team Members" class="form-control">
+                        </div>
+                    </div>
 
-    <div class="submit-idea-wrapper">
-        <form id="submit-idea" action="submit" method="post">
-            <p>Title</p>
-            <input type="text" name="title" />
-            <p>Description</p>
-            <textarea></textarea>
-            <p>Scientific/Technological uncertainty that the project aims to solve</p>
-            <textarea></textarea>
-            <p>Why can't the solutions found be implemented by someone with technical skills in the field?</p>
-            <textarea></textarea>
-            <p>Human and technological resources needed (technologies, partners, universities, etc.)</p>
-            <textarea></textarea>
-            <p>Results to be produced by the project</p>
-            <textarea></textarea>
-            <p><input type="submit" value="Submit" /></p>
-        </form>
+                    <p>Title</p>
+                    <input type="text" name="title" />
+                    <p>Description</p>
+                    <textarea></textarea>
+                    <p>Scientific/Technological uncertainty that the project aims to solve</p>
+                    <textarea></textarea>
+                    <p>Why can't the solutions found be implemented by someone with technical skills in the field?</p>
+                    <textarea></textarea>
+                    <p>Human and technological resources needed (technologies, partners, universities, etc.)</p>
+                    <textarea></textarea>
+                    <p>Results to be produced by the project</p>
+                    <textarea></textarea>
+
+                    <div class="submiteButton">
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-6">
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form> <!-- /form -->
+        </div>
     </div>
 
 </div>
