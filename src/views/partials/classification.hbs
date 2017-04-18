@@ -1,50 +1,49 @@
-<div class="modal fade" id="classificationModal">
-    <div class="modal-dialog" role="document">
+<div id="classificationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="panel-title text-center">
-                    <h1 class="title">Idea classification</h1>
+                    <h2 class="modal-title">Idea Classification</h2>
                 </div>
             </div>
-            <div class="main-login main-center">
-                <form class="form-horizontal" method="post" action="classification">
-                    <div class="container registerModalContainer">
-                        <div id="exTab2" class="container">
-                            <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#strategyID" data-toggle="tab">Strategy Alignment</a>
-                                </li>
-                                <li>
-                                    <a href="#valueofferID" data-toggle="tab">Value Offer</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content ">
-                                <div class="tab-pane active" id="strategyID">
-                                    <div class="col-sm-4">
-                                        <input type="text" id="strategyAlignment" name="strategyAlignment"
-                                               placeholder="Strategy alignment" class="form-control" autofocus>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane" id="valueofferID">
-                                    <div class="col-sm-4">
-                                        <input type="text" id="valueOffer" name="valueOffer" placeholder="Value offer"
-                                               class="form-control" autofocus>
-                                    </div>
-                                </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#strategyID" data-toggle="tab">Strategy Alignment</a>
+                    </li>
+                    <li>
+                        <a href="#valueofferID" data-toggle="tab">Value Offer</a>
+                    </li>
+                </ul>
+                <div class="container">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="strategyID">
+                            <div class="col-sm-2">
+                                <textarea class="form-control" rows="5" colums="150" id="comment" autofocus></textarea>
                             </div>
                         </div>
-
-                        <div class="registerbutton">
-                            <div class="form-group">
-                                <div class="col-sm-9 col-sm-offset-6">
-                                    <button type="submit" class="btn btn-primary btn-block">Register</button>
-                                </div>
+                        <div class="tab-pane" id="valueofferID">
+                            <div class="col-sm-2">
+                                <input type="text" id="valueOffer" name="valueOffer" placeholder="Value offer"
+                                       class="form-control" autofocus>
+                                <input type="text" id="valueOffer2" name="valueOffer" placeholder="Value offer"
+                                       class="form-control" autofocus>
                             </div>
                         </div>
                     </div>
-                </form> <!-- /form -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="registerbutton">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary">Submit classification</button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
+
     </div>
 </div>
