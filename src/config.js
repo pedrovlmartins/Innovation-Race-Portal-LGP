@@ -14,12 +14,13 @@ config.mysql = {
     host: 'localhost',
     user: 'root',
     database: 'irp',
+    password: 'root',
   },
   test: {
     connectionLimit: 10,
-    host: 'localhost',
+    host: 'database',
     user: 'root',
-    database: 'irp_test',
+    database: 'irp',
   },
 };
 
