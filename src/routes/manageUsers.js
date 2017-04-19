@@ -21,13 +21,9 @@ router.get('/', function (req, res) {
       vars.users = result;
       if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
-      console.log(vars.users);
       res.render('manageUsers', vars);
     });
   }
-
-  //checkar se recebo parametro no url (do metodo get -> keyword) terei de
-  // mostrar a tabela com os resultados filtrados
 
   //res.render('manageUsers');
 });

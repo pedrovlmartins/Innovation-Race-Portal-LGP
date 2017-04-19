@@ -21,7 +21,6 @@ router.get('/', function (req, res) {
       vars.ideas = result;
       if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
-      console.log(vars.ideas);
       res.render('manageIdeas', vars);
     });
   }
