@@ -2,8 +2,8 @@ const path = require('path');
 var config = require(path.join(__base, 'config'));
 var mysql = require('mysql');
 
-
 var pool = mysql.createPool(config.mysql[config.env]);
+
 module.exports = {
   createUser: function (name, email, passwordHash, type, businessField, collaboratorNum, role,
                                         emailConfirmationToken, callback, next) {
@@ -112,6 +112,20 @@ module.exports = {
         next(null, results);
       }
     });
+  },
+
+  searchIdeas: function (key, next) {
+    var varPattern = '%' + key + '%';
+    pool.query('SELECT * FROM ideas WHERE teamName LIKE ? or state' +
+      ' LIKE ?', [varPattern, varPattern],
+      function (error, results) {
+        if (error) {
+          console.error(error);
+          next(error);
+        } else {
+          next(null, results);
+        }
+      });
   },
 };
 
