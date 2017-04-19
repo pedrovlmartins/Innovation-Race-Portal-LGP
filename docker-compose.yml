@@ -18,8 +18,8 @@ services:
     environment:
       MYSQL_DATABASE: "irp"
       MYSQL_USER: "root"
-      MYSQL_PASSWORD: ""
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - ./scripts/database:/docker-entrypoint-initdb.d
