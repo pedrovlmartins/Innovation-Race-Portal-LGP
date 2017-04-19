@@ -7,14 +7,17 @@ global.__base = __dirname + '/../';
 const path = require('path');
 var assert = require('assert');
 var chai = require('chai');
+var chaiDom = require('chai-dom');
 var chaiHttp = require('chai-http');
 var config = require(path.join(__base, 'config'));
 const irp = require(path.join(__base, 'lib', 'irp'));
+const jsdom = require('jsdom');
 var mysql = require('mysql');
 var register = require(path.join(__base, 'routes', 'auth', 'register'));
 var server = require(path.join(__base, 'app'));
 var should = chai.should();
 
+chai.use(chaiDom);
 chai.use(chaiHttp);
 
 describe('Array', function () {
@@ -40,6 +43,8 @@ describe('Authentication', function () {
         .post('/auth/register')
         .end(function (err, res) {
           // TODO expect error
+          var document = jsdom.jsdom(res.request.res.text);
+          //document.querySelector('.errorMessage').should.exist;
           done();
         });
     });

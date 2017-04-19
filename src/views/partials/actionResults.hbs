@@ -1,11 +1,11 @@
 {{#each errorMessages}}
-    <div class="alert alert-danger alert-dismissable fade in">
+    <div class="alert alert-danger alert-dismissable fade in errorMessage">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Error:</strong> {{this}}
     </div>
 {{/each}}
 {{#each successMessages}}
-    <div class="alert alert-success alert-dismissable fade in">
+    <div class="alert alert-success alert-dismissable fade in successMessage">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Success:</strong> {{this}}
     </div>
