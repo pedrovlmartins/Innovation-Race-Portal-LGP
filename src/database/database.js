@@ -17,13 +17,18 @@ module.exports = {
     });
   },
 
-  createIdea: function(creatorId,name,description,teamName,callback, next){
-    pool.query('INSERT INTO ideas'+
-    '(creatorId, name, description, teamName'+
+  createIdea: function (creatorId, title, description, uncertaintyToSolve,
+                        solutionTechnicalCompetence, techHumanResources, resultsToProduce,
+                        callback) {
+    pool.query('INSERT INTO ideas' +
+    '(creatorId, name, description, teamName' +
     'VALUES (?, ?, ?, ?)',
     [creatorId, name, description, teamName],
-    function(err,rows,fields){
-      callback(err);
+    function (err, results, fields) {
+      if (err)
+        callback(err);
+      else
+        callback(null, results.insertId);
     });
   },
 

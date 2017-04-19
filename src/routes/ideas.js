@@ -28,19 +28,31 @@ router.post('/submit', function (req, res) {
     return;
   }
 
+  // TODO check for open races
+
   validateSubmitIdea(req);
   req.Validator.getErrors(function (errors) {
     if (errors.length == 0) {
-      irp.addSuccess(req, 'Idea successfully created.');
-
-      // TODO
+      db.createIdea(irp.currentUserID(req), req.body.title, req.body.description,
+        req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
+        req.body.techHumanResources, req.body.resultsToProduce,
+        function (err, id) {
+        if (err) {
+          console.error(err);
+          irp.addError(req, err);
+          res.redirect('back');
+        } else {
+          irp.addSuccess(req, 'Idea successfully created.');
+          res.redirect(id);
+          irp.cleanActionResults(req);
+        }
+      });
     } else {
       errors.forEach(function (item, index) {
         irp.addError(req, item);
       });
 
       res.redirect('back');
-      irp.cleanActionResults(req);
     }
   });
 });
