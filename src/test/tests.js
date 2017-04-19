@@ -22,13 +22,16 @@ chai.use(chaiHttp);
 
 function assertSuccess(res) {
   var document = jsdom.jsdom(res.text);
-  assert.notEqual(document.querySelectorAll('.successMessage'), 0);
+  assert.notEqual(document.querySelectorAll('.successMessage').length, 0);
 }
 
 function assertError(res) {
   var document = jsdom.jsdom(res.text);
-  assert.notEqual(document.querySelectorAll('.errorMessage'), 0);
+  assert.notEqual(document.querySelectorAll('.errorMessage').length, 0);
 }
+
+// Important: use chai.request.agent(app) instead of chai.request(app) when
+// you need to keep cookies from one request
 
 describe('Array', function () {
   describe('#indexOf()', function () {
@@ -49,7 +52,7 @@ describe('Authentication', function () {
 
   describe('Registration', function () {
     it('should fail because the form is empty', function (done) {
-      chai.request(server)
+      chai.request.agent(server)
         .post('/auth/register')
         .end(function (err, res) {
           assertError(res);
@@ -58,7 +61,7 @@ describe('Authentication', function () {
     });
 
     it('should succeed', function (done) {
-      chai.request(server)
+      chai.request.agent(server)
         .post('/auth/register')
         .send({
           email: 'ds34b32r98hdfg@gmail.com',
@@ -82,7 +85,7 @@ describe('Authentication', function () {
           type: 0,
         })
         .end(function (err, res) {
-          chai.request(server)
+          chai.request.agent(server)
             .post('/auth/register')
             .send({
               email: 'ds34b32r98hdfg@gmail.com',
@@ -117,28 +120,46 @@ describe('Authentication', function () {
   });
 });
 
-describe('Idea Page', function () {
-    // TODO add tests for the contents of an idea page.
-    // Can only be done when the create idea US is done.
+describe('Ideas', function () {
+  // TODO add tests for the contents of an idea page.
+  // Can only be done when the create idea US is done.
 
-    it('should return 401 because the user is not logged in', function () {
-      chai.request(server)
+  it('should submit a new idea successfully', function () {
+    chai.request(server)
+      .post('/ideas/submit')
+      .end(function (err, res) {
+        assertSuccess(res);
+        done();
+      });
+  });
+
+  it('should fail because the new idea has missing fields', function () {
+    chai.request(server)
+      .post('/ideas/submit')
+      .end(function (err, res) {
+        assertError(res);
+        done();
+      });
+  });
+
+  it('should return 401 because the user is not logged in', function () {
+    chai.request(server)
       .get('/ideas/1')
-      .end(function(err, res) {
+      .end(function (err, res) {
         assert.equal(res.statusCode, 401);
         done();
       });
-    });
+  });
 
-    it('should return 404 because the page doesn\'t exist', function () {
-      chai.request(server)
+  it('should return 404 because the page doesn\'t exist', function () {
+    chai.request(server)
       .get('/ideas/-1')
       .end(function (err, res) {
         assert.equal(res.statusCode, 404);
         done();
       });
-    });
   });
+});
 
 describe('Action results', function () {
   var req;
