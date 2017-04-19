@@ -20,6 +20,16 @@ var should = chai.should();
 chai.use(chaiDom);
 chai.use(chaiHttp);
 
+function assertSuccess(res) {
+  var document = jsdom.jsdom(res.text);
+  assert.notEqual(document.querySelectorAll('.successMessage'), 0);
+}
+
+function assertError(res) {
+  var document = jsdom.jsdom(res.text);
+  assert.notEqual(document.querySelectorAll('.errorMessage'), 0);
+}
+
 describe('Array', function () {
   describe('#indexOf()', function () {
       it('should return -1 when the value is not present', function () {
@@ -42,9 +52,7 @@ describe('Authentication', function () {
       chai.request(server)
         .post('/auth/register')
         .end(function (err, res) {
-          // TODO expect error
-          var document = jsdom.jsdom(res.request.res.text);
-          //document.querySelector('.errorMessage').should.exist;
+          assertError(res);
           done();
         });
     });
@@ -59,7 +67,7 @@ describe('Authentication', function () {
           type: 0,
         })
         .end(function (err, res) {
-          // TODO expect no error
+          assertSuccess(res);
           done();
         });
     });
@@ -83,7 +91,7 @@ describe('Authentication', function () {
               type: 0,
             })
             .end(function (err, res) {
-              // TODO expect error
+              assertError(res);
               done();
             });
         });
