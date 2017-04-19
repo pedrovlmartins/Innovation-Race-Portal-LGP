@@ -1,47 +1,71 @@
 <div id="classificationModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" id="classificationModalID">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="panel-title text-center">
-                    <h2 class="modal-title">Idea Classification</h2>
+                    <h2 class="modal-title">Idea classification</h2>
                 </div>
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a href="#strategyID" data-toggle="tab">Strategy Alignment</a>
+                        <a href="#strategyID" data-toggle="tab">Strategy Alignment </a>
                     </li>
                     <li>
                         <a href="#valueofferID" data-toggle="tab">Value Offer</a>
+                    </li>
+                    <li>
+                        <a href="#marketID" data-toggle="tab">Market for Innovation</a>
+                    </li>
+                    <li>
+                        <a href="#viabilityID" data-toggle="tab">Technical Viability</a>
+                    </li>
+                    <li>
+                        <a href="#economicalID" data-toggle="tab">Economical Viability</a>
+                    </li>
+                    <li>
+                        <a href="#riskfactorsID" data-toggle="tab">Risk factors</a>
+                    </li>
+                    <li>
+                        <a href="#requirementsID" data-toggle="tab">Other requirements</a>
                     </li>
                 </ul>
                 <div class="container">
                     <div class="tab-content">
                         <div class="tab-pane active" id="strategyID">
-                            <div class="col-sm-2">
-                                <textarea class="form-control" rows="5" colums="150" id="comment" autofocus></textarea>
-                            </div>
+                            <textarea class="form-control" rows="5" id="strategyTextArea" placeholder="How much is this project worth for Altran?"
+                                      required autofocus></textarea>
                         </div>
                         <div class="tab-pane" id="valueofferID">
-                            <div class="col-sm-2">
-                                <input type="text" id="valueOffer" name="valueOffer" placeholder="Value offer"
-                                       class="form-control" autofocus>
-                                <input type="text" id="valueOffer2" name="valueOffer" placeholder="Value offer"
-                                       class="form-control" autofocus>
-                            </div>
+                            <textarea class="form-control" rows="5" id="valueofferTextArea" placeholder="What's the expected type of offer?"
+                                      required autofocus></textarea>
+                        </div>
+                        <div class="tab-pane" id="marketID">
+                            <textarea class="form-control" rows="5" id="marketTextArea" placeholder="What market is this project focused on?"
+                                      required autofocus></textarea>
+                        </div>
+                        <div class="tab-pane" id="viabilityID">
+                            <textarea class="form-control" rows="5" id="viabilityTextArea" placeholder="Is this project viable in technical terms?"
+                                      required autofocus></textarea>
+                        </div>
+                        <div class="tab-pane" id="economicalID">
+                            <textarea class="form-control" rows="5" id="economicalTextArea" placeholder="Is this project viable in economical terms?"
+                                      required autofocus></textarea>
+                        </div>
+                        <div class="tab-pane" id="riskfactorsID">
+                            <textarea class="form-control" rows="5" id="riskfactorsTextArea" placeholder="Does this project have risks associated with it?"
+                                      required autofocus></textarea>
+                        </div>
+                        <div class="tab-pane" id="requirementsID">
+                            <textarea class="form-control" rows="5" id="requirementsTextArea" placeholder="Please specify other legal, social or financial aspects related with this project"
+                                      required autofocus></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="registerbutton">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-primary">Submit classification</button>
-                        </div>
-                    </div>
-                </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit classification</button>
             </div>
         </div>
 
