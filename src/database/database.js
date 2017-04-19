@@ -101,5 +101,19 @@ module.exports = {
       }
     });
   },
+
+  searchIdeas: function (key, next) {
+    var varPattern = '%' + key + '%';
+    pool.query('SELECT * FROM ideas WHERE teamName LIKE ? or state' +
+      ' LIKE ?', [varPattern, varPattern],
+      function (error, results) {
+        if (error) {
+          console.error(error);
+          next(error);
+        } else {
+          next(null, results);
+        }
+      });
+  },
 };
 
