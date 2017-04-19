@@ -125,7 +125,8 @@ describe('Ideas', function () {
   // Can only be done when the create idea US is done.
 
   it('should submit a new idea successfully', function () {
-    chai.request(server)
+    // TODO login
+    chai.request.agent(server)
       .post('/ideas/submit')
       .end(function (err, res) {
         assertSuccess(res);
@@ -134,7 +135,8 @@ describe('Ideas', function () {
   });
 
   it('should fail because the new idea has missing fields', function () {
-    chai.request(server)
+    // TODO login
+    chai.request.agent(server)
       .post('/ideas/submit')
       .end(function (err, res) {
         assertError(res);
