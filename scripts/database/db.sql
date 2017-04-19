@@ -109,7 +109,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_emailConfirmationToken_uindex` (`emailConfirmationToken`),
   UNIQUE KEY `users_passwordReminderToken_uindex` (`passwordReminderToken`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,6 +118,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'silva95gustavo@gmail.com','Gustavo Rocha da Silva','pbkdf2$10000$5c45f92a5dc28565ccdbeb106aaa04caf82ce7473e47c9ea868ed96f40b0af368911819acf777ceb4f181536c44484effce2eecc1a792ba879df7b552d7899a5$1ea6b51ac822b41649ac5b5df475926658a9c82f90d3448e563be41793ae41226f826d2be43454b9236df04d34f29e0dbb763579924120bfbf3596593d54c848',0,'2017-04-19 07:55:04',1,NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -130,4 +131,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-14  0:31:28
+-- Dump completed on 2017-04-19  9:23:56
