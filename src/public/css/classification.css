@@ -16,3 +16,7 @@
 #classificationModal .nav-tabs, .nav-pills {
     text-align:center;
 }
+
+#classificationModal #filler {
+    visibility: hidden;
+}
