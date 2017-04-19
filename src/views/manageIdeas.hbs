@@ -11,18 +11,20 @@
     </header>
 
     <div id="imaginary_container">
-        <div class="input-group stylish-input-group">
-            <input type="text" class="form-control"  placeholder="Search" >
-            <span class="input-group-addon">
-                <button type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </span>
-        </div>
+        <form action="/manageIdeas" method="get">
+            <div class="input-group stylish-input-group">
+                <input type="text" class="form-control"  placeholder="Search" name="keyword" value=''>
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 
 
-    <table id="manageIdeas_admin" class="table table-hover table-bordered rankingTable">
+    <table class="table table-hover table-bordered rankingTable">
         <thead class="rankingTableHead">
         <tr>
             <th>Ideas</th>
@@ -33,22 +35,16 @@
         </tr>
         </thead>
         <tbody>
-        <!-- /*{{#each ideas}}
-            <tr>
+        {{#each ideas}}
+            <tr class='clickable-row'>
                 <td>{{name}}</td>
-                <td>{{teamName}}</td>
-                <td>{{phase}}</td>
-                <td>{{status}}</td>
-                <td>{{race}}</td>
+                <td>{{teamName}}</a></td>
+                <td>{{state}}</td>
             </tr>
         {{/each}}
-        -->
         </tbody>
     </table>
 
-
 </div>
-
-
 
 {{> footer}}
