@@ -124,7 +124,7 @@ module.exports = {
     var varPattern = '%' + key + '%';
     pool.query('SELECT * FROM ideas WHERE teamName LIKE ? OR state ' +
       'LIKE ? OR title LIKE ? ' +
-      'ORDER BY name ' +
+      'ORDER BY title ' +
       'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
         if (error) {
