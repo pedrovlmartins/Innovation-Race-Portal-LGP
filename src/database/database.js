@@ -74,15 +74,19 @@ module.exports = {
     });
   },
 
-  listAllUsers: function (next) {
-    pool.query('SELECT * FROM users;', function (error, results) {
+  getUsersCount: function (next) {
+    pool.query('SELECT COUNT(*) AS count ' +
+      'FROM users;', function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
   },
 
-  listAllIdeas: function (next) {
-    pool.query('SELECT * FROM ideas;', function (error, results) {
+  listUsers: function (limit, offset, next) {
+    pool.query('SELECT name, email, role ' +
+      'FROM users ' +
+      'ORDER BY name ' +
+      'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
@@ -106,10 +110,12 @@ module.exports = {
     });
   },
 
-  searchUsers: function (key, next) {
+  searchUsers: function (key, limit, offset, next) {
     var varPattern = '%' + key + '%';
     pool.query('SELECT * FROM users WHERE name LIKE ? or email' +
-      ' LIKE ? or role LIKE ?;', [varPattern, varPattern, varPattern],
+      ' LIKE ? or role LIKE ? ' +
+      'ORDER BY users.name ' +
+      'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
       if (error) {
         console.error(error);
