@@ -27,13 +27,14 @@ router.get('/', function (req, res) {
     } else offset = (page - 1) * itemsPerPage;
   }
 
+  vars.page = page;
+
   if (req.query.keyword === undefined) {
     database.getIdeaCount(function (result) {
       var numberOfIdeas = result[0].count;
       vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
       if (numberOfIdeas % itemsPerPage > 0)
         vars.totalPages += 1;
-      vars.page = page;
       database.listIdeas(offset, itemsPerPage, function (result) {
         vars.ideas = result;
         if (req.session.userID !== undefined)
@@ -49,7 +50,6 @@ router.get('/', function (req, res) {
       vars.ideas = result;
       if (numberOfIdeas % itemsPerPage > 0)
         vars.totalPages += 1;
-      vars.page = page;
       if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
       res.render('manageIdeas', vars);
