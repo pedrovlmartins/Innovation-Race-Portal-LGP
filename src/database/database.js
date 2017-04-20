@@ -93,9 +93,11 @@ module.exports = {
   },
 
   listIdeas: function (limit, offset, next) {
-    pool.query('SELECT id, title, teamName, state ' +
+    pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
+      'ideas.state, users.id AS idCreator, users.name AS creator ' +
       'FROM ideas ' +
-      'ORDER BY title ' +
+      'JOIN users ON users.id = ideas.idCreator ' +
+      'ORDER BY ideas.title ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);

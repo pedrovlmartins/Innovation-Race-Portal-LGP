@@ -28,7 +28,7 @@
         <thead class="rankingTableHead">
         <tr>
             <th>Ideas</th>
-            <th>Team Name</th>
+            <th>Creator of the idea</th>
             <th>Phase</th>
             <th>Status</th>
             <th>Race (ID)</th>
@@ -38,7 +38,7 @@
         {{#each ideas}}
             <tr>
                 <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                <td>{{teamName}}</a></td>
+                <td><a href="/users/{{id}}">{{creator}}</a></td>
                 <td>{{state}}</td>
             </tr>
         {{/each}}
