@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `ideas`;
 CREATE TABLE `ideas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idCreator` int(11) NOT NULL,
-  `name` varchar(1000) NOT NULL,
+  `title` varchar(1000) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `teamName` varchar(50) DEFAULT NULL,
   `approved` bit(1) DEFAULT b'0',
@@ -82,6 +82,35 @@ LOCK TABLES `ideas` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `race`
+--
+
+DROP TABLE IF EXISTS `race`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `race` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) NOT NULL,
+  `description` varchar(5000) DEFAULT NULL,
+  `phase1Start` timestamp NOT NULL,
+  `phase2Start` timestamp NOT NULL,
+  `phase3Start` timestamp NOT NULL,
+  `phase4Start` timestamp NOT NULL,
+  `phase4End` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `race`
+--
+
+LOCK TABLES `race` WRITE;
+/*!40000 ALTER TABLE `race` DISABLE KEYS */;
+/*!40000 ALTER TABLE `race` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -109,7 +138,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_emailConfirmationToken_uindex` (`emailConfirmationToken`),
   UNIQUE KEY `users_passwordReminderToken_uindex` (`passwordReminderToken`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,6 +147,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'silva95gustavo@gmail.com','Gustavo Rocha da Silva','pbkdf2$10000$78b8b70a4d7b4a84640224cfff1497dbcb7be9a729baf1266a939ff03b119957a37db78eca47e276ded1e913a818cb3dd751e3456d7e09b09ce4e58c49711a21$b28358ee5638f96b1d269d3a8284dc68663ad8bdbe9408fb3fb85de9161254658a731dc02cd44fdbbf94b118a5484df9c898e25759c12661aff5071bf1457f92',0,'2017-04-19 21:12:30',1,NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -129,5 +159,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-04-14  0:31:28
