@@ -74,6 +74,20 @@ module.exports = {
     });
   },
 
+  getUserType: function (id, next) {
+    pool.query(
+      'SELECT type ' +
+      'FROM users ' +
+      'WHERE id = ?;', [id], function (err, result) {
+        if (typeof next === 'function') {
+          if (result.length === 1)
+            next(result[0].type);
+          else
+            next(-1);
+        }
+      });
+  },
+
   getUsersCount: function (next) {
     pool.query('SELECT COUNT(*) AS count ' +
       'FROM users;', function (error, results) {
