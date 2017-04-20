@@ -89,9 +89,9 @@ module.exports = {
   },
 
   listIdeas: function (limit, offset, next) {
-    pool.query('SELECT id, name, teamName, state ' +
+    pool.query('SELECT id, title, teamName, state ' +
       'FROM ideas ' +
-      'ORDER BY name ' +
+      'ORDER BY title ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
