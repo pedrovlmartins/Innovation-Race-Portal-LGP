@@ -14,26 +14,30 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-1 control-label">Full Name</label>
                             <div class="col-sm-4">
-                                <input type="text" id="name" name="name" placeholder="Full Name" class="form-control" autofocus>
+                                <input type="text" id="fullnameID" name="name" placeholder="Full Name" class="form-control" autofocus>
+                                <span id="errorFullName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-1 control-label">Email</label>
                             <div class="col-sm-4">
-                                <input type="email" id="email" name="email" placeholder="Email" class="form-control">
+                                <input type="email" id="registerEmail" name="email" placeholder="Email" class="form-control">
+                                <span id="errorEmail" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-sm-1 control-label">Password</label>
                             <div class="col-sm-4">
-                                <input type="password" id="password" name="password" placeholder="Password" class="form-control">
+                                <input type="password" id="registerPassword" name="password" placeholder="Password" class="form-control">
+                                <span id="errorPassword" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="confirmPassword" class="col-sm-1 control-label">Confirm Password</label>
                             <div class="col-sm-4">
-                                <input type="password" id="confirmPassword" placeholder="Confirm Password" class="form-control">
+                                <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" class="form-control">
+                                <span id="errorConfirmPassword" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -115,7 +119,7 @@
                         <div class="registerbutton">
                             <div class="form-group">
                                 <div class="col-sm-9 col-sm-offset-6">
-                                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                    <button id="registerButton" type="submit" class="btn btn-primary btn-block">Register</button>
                                 </div>
                             </div>
                         </div>
