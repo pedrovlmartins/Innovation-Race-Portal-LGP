@@ -17,13 +17,13 @@ module.exports = {
     });
   },
 
-  createIdea: function (creatorId, title, description, uncertaintyToSolve,
+  createIdea: function (creatorId, race, title, description, uncertaintyToSolve,
                         solutionTechnicalCompetence, techHumanResources, resultsToProduce,
                         callback) {
     pool.query('INSERT INTO ideas' +
-      ' (idCreator, title, description,' +
+      ' (idCreator, race, title, description,' +
       ' uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, resultsToProduce)' +
-      ' VALUES (?, ?, ?, ?, ?, ?, ?);',
+      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?);',
     [creatorId, title, description, uncertaintyToSolve, solutionTechnicalCompetence,
       techHumanResources, resultsToProduce,
     ],
@@ -127,5 +127,18 @@ module.exports = {
         }
       });
   },
+
+  getActiveRaces: function (next) {
+    pool.query('SELECT * FROM races WHERE CURRENT_TIMESTAMP BETWEEN phase1Start AND phase2Start',
+      function (error, results) {
+        if (error) {
+          console.error(error);
+          next(error);
+        } else {
+          next(null, results);
+        }
+      });
+  },
+
 };
 

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var db = require(path.join(__base, 'database', 'database'));
+const ideas = require(path.join(__base, 'lib', 'ideas'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.get('/submit', function (req, res) {
@@ -28,24 +29,31 @@ router.post('/submit', function (req, res) {
     return;
   }
 
-  // TODO check for open races
-
   validateSubmitIdea(req);
   req.Validator.getErrors(function (errors) {
     if (errors.length == 0) {
-      db.createIdea(irp.currentUserID(req), req.body.title, req.body.description,
-        req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
-        req.body.techHumanResources, req.body.resultsToProduce,
-        function (err, id) {
-        if (err) {
-          console.error(err);
-          irp.addError(req, err);
+      db.getActiveRaces(function (err, races) {
+        if (races.length == 0) {
+          irp.addError(req, 'You cannot submit a new idea because there is no active race.');
           res.redirect('back');
-        } else {
-          irp.addSuccess(req, 'Idea successfully created.');
-          res.redirect(id);
-          irp.cleanActionResults(req);
+          return;
         }
+
+        var race = races[0].id;
+        db.createIdea(irp.currentUserID(req), race, req.body.title, req.body.description,
+          req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
+          req.body.techHumanResources, req.body.resultsToProduce,
+          function (err, id) {
+            if (err) {
+              console.error(err);
+              irp.addError(req, err);
+              res.redirect('back');
+            } else {
+              irp.addSuccess(req, 'Idea successfully created.');
+              res.redirect(id);
+              irp.cleanActionResults(req);
+            }
+          });
       });
     } else {
       errors.forEach(function (item, index) {

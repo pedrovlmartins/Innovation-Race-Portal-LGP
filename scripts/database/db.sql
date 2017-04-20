@@ -49,6 +49,7 @@ DROP TABLE IF EXISTS `ideas`;
 CREATE TABLE `ideas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idCreator` int(11) NOT NULL,
+  `race` int(11) DEFAULT NULL,
   `title` varchar(1000) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `teamName` varchar(50) DEFAULT NULL,
@@ -82,13 +83,13 @@ LOCK TABLES `ideas` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `race`
+-- Table structure for table `races`
 --
 
-DROP TABLE IF EXISTS `race`;
+DROP TABLE IF EXISTS `races`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `race` (
+CREATE TABLE `races` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` int(11) NOT NULL,
   `description` varchar(5000) DEFAULT NULL,
@@ -102,12 +103,12 @@ CREATE TABLE `race` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `race`
+-- Dumping data for table `races`
 --
 
-LOCK TABLES `race` WRITE;
-/*!40000 ALTER TABLE `race` DISABLE KEYS */;
-/*!40000 ALTER TABLE `race` ENABLE KEYS */;
+LOCK TABLES `races` WRITE;
+/*!40000 ALTER TABLE `races` DISABLE KEYS */;
+/*!40000 ALTER TABLE `races` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -159,3 +160,5 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-04-20  0:58:47
