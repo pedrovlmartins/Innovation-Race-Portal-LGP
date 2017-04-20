@@ -35,14 +35,27 @@
         </thead>
         <tbody>
         {{#each users}}
-        <tr class='clickable-row'>
-            <td>{{name}}</td>
+        <tr>
+            <td><a href="/users/{{id}}">{{name}}</a></td>
             <td>{{email}}</a></td>
             <td>{{role}}</td>
         </tr>
         {{/each}}
         </tbody>
     </table>
+
+    <!-- Pagination -->
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                {{#if keyword}}
+                    {{add-pagination "/manageUsers" page totalPages keyword}}
+                {{else}}
+                    {{add-pagination "/manageUsers" page totalPages ""}}
+                {{/if}}
+            </ul>
+        </div>
+    </div>
 </div>
 
 {{> footer}}

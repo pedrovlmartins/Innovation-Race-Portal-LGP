@@ -11,78 +11,51 @@
     </header>
 
     <div id="imaginary_container">
-        <div class="input-group stylish-input-group">
-            <input type="text" class="form-control"  placeholder="Search" >
-            <span class="input-group-addon">
-                <button type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </span>
-        </div>
+        <form action="/manageIdeas" method="get">
+            <div class="input-group stylish-input-group">
+                <input type="text" class="form-control"  placeholder="Search" name="keyword" value=''>
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 
 
-    <table id="manageIdeas_admin" class="table table-hover table-bordered rankingTable">
+    <table class="table table-hover table-bordered rankingTable">
         <thead class="rankingTableHead">
         <tr>
             <th>Ideas</th>
-            <th>Team Name</th>
+            <th>Creator of the idea</th>
             <th>Phase</th>
             <th>Status</th>
             <th>Race (ID)</th>
         </tr>
         </thead>
         <tbody>
-        <!-- /*{{#each ideas}}
+        {{#each ideas}}
             <tr>
-                <td>{{ideas}}</td>
-                <td>{{team}}</td>
-                <td>{{phase}}</td>
-                <td>{{status}}</td>
-                <td>{{race}}</td>
+                <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                <td><a href="/users/{{id}}">{{creator}}</a></td>
+                <td>{{state}}</td>
             </tr>
         {{/each}}
-        -->
         </tbody>
     </table>
 
-    <table id="manageIdeas_tecnicalDirector" class="table table-hover table-bordered rankingTable">
-        <thead class="rankingTableHead">
-        <tr>
-            <th>Ideas</th>
-            <th>Team Name</th>
-            <th>Phase</th>
-            <th>Status</th>
-            <th>Race (ID)</th>
-            <th>Approve</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- /*{{#each ideas}}
-            <tr>
-                <td>{{ideas}}</td>
-                <td>{{team}}</td>
-                <td>{{phase}}</td>
-                <td>{{status}}</td>
-                <td>{{race}}</td>
-                <td></td>
-            </tr>
-        {{/each}}
-        -->
-
-        <tr>
-            <td>Correr sem suar</td>
-            <td>Os macacos</td>
-            <td>Seleção</td>
-            <td>Undefined</td>
-            <td>5</td>
-            <td><button type="button" class="btn btn-success btn-sm">Approve Idea</button> <button type="button" class="btn btn-danger btn-sm">Decline Idea</button></td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- Pagination -->
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                {{#if keyword}}
+                    {{add-pagination "/manageIdeas" page totalPages keyword}}
+                {{else}}
+                    {{add-pagination "/manageIdeas" page totalPages ""}}
+                {{/if}}
+            </ul>
+        </div>
+    </div>
 
 </div>
-
-
-
-{{> footer}}

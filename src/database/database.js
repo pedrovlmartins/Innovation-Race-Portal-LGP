@@ -6,7 +6,7 @@ var pool = mysql.createPool({
   connectionLimit: 10,
   host: 'localhost',
   user: 'root',
-  password: '14edgar14',
+  password: 'root',
   database: 'irp',
 });
 
@@ -38,7 +38,7 @@ module.exports = {
 
   getIdea: function (id, next) {
     pool.query(
-      'SELECT users.id AS creatorId, users.name AS creator,ideas.name, ideas.description,' +
+      'SELECT users.id AS creatorId, users.name AS creator,ideas.title, ideas.description,' +
       'ideas.solutionTechnicalCompetence, ideas.uncertaintyToSolve, ideas.techHumanResources,' +
       'ideas.resultsToProduce ' +
       'FROM ideas ' +
@@ -74,24 +74,64 @@ module.exports = {
     });
   },
 
-  listAllUsers: function (next) {
-    pool.query('SELECT * FROM users;', function (error, results) {
+  getUserType: function (id, next) {
+    pool.query(
+      'SELECT type ' +
+      'FROM users ' +
+      'WHERE id = ?;', [id], function (err, result) {
+        if (typeof next === 'function') {
+          if (result.length === 1)
+            next(result[0].type);
+          else
+            next(-1);
+        }
+      });
+  },
+
+  getUsersCount: function (next) {
+    pool.query('SELECT COUNT(*) AS count ' +
+      'FROM users;', function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
   },
 
-  listAllIdeas: function (next) {
-    pool.query('SELECT * FROM ideas;', function (error, results) {
+  listUsers: function (limit, offset, next) {
+    pool.query('SELECT name, email, role ' +
+      'FROM users ' +
+      'ORDER BY name ' +
+      'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
   },
 
-  searchUsers: function (key, next) {
+  listIdeas: function (limit, offset, next) {
+    pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
+      'ideas.state, users.id AS idCreator, users.name AS creator ' +
+      'FROM ideas ' +
+      'JOIN users ON users.id = ideas.idCreator ' +
+      'ORDER BY ideas.title ' +
+      'LIMIT ?, ?;', [limit, offset], function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  getIdeaCount: function (next) {
+    pool.query('SELECT COUNT(*) AS count ' +
+      'FROM ideas;', function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  searchUsers: function (key, limit, offset, next) {
     var varPattern = '%' + key + '%';
     pool.query('SELECT * FROM users WHERE name LIKE ? or email' +
-      ' LIKE ? or role LIKE ?;', [varPattern, varPattern, varPattern],
+      ' LIKE ? or role LIKE ? ' +
+      'ORDER BY users.name ' +
+      'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
       if (error) {
         console.error(error);
@@ -100,6 +140,32 @@ module.exports = {
         next(null, results);
       }
     });
+  },
+
+  searchIdeas: function (key, limit, offset, next) {
+    var varPattern = '%' + key + '%';
+    pool.query('SELECT * FROM ideas WHERE teamName LIKE ? OR state ' +
+      'LIKE ? OR title LIKE ? ' +
+      'ORDER BY title ' +
+      'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
+      function (error, results) {
+        if (error) {
+          console.error(error);
+          next(error);
+        } else {
+          next(null, results);
+        }
+      });
+  },
+
+  updateIdeaState: function (id, state, next) {
+    pool.query(
+      'UPDATE ideas ' +
+      'SET state = ? ' +
+      'WHERE ideas.id = ?;', [state, id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
   },
 };
 
