@@ -37,7 +37,7 @@
         <tbody>
         {{#each ideas}}
             <tr class='clickable-row'>
-                <td>{{title}}</td>
+                <td><a href="/ideas/{{id}}">{{name}}</a></td>
                 <td>{{teamName}}</a></td>
                 <td>{{state}}</td>
             </tr>
@@ -45,6 +45,13 @@
         </tbody>
     </table>
 
-</div>
+    <!-- Pagination -->
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                {{add-pagination "/manageIdeas" page totalPages 10}}
+            </ul>
+        </div>
+    </div>
 
-{{> footer}}
+</div>

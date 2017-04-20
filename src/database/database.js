@@ -88,6 +88,24 @@ module.exports = {
     });
   },
 
+  listIdeas: function (limit, offset, next) {
+    pool.query('SELECT id, name, teamName, state ' +
+      'FROM ideas ' +
+      'ORDER BY name ' +
+      'LIMIT ?, ?;', [limit, offset], function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  getIdeaCount: function (next) {
+    pool.query('SELECT COUNT(*) AS count ' +
+      'FROM ideas;', function(error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
   searchUsers: function (key, next) {
     var varPattern = '%' + key + '%';
     pool.query('SELECT * FROM users WHERE name LIKE ? or email' +
