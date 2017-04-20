@@ -100,7 +100,7 @@ module.exports = {
 
   getIdeaCount: function (next) {
     pool.query('SELECT COUNT(*) AS count ' +
-      'FROM ideas;', function(error, results) {
+      'FROM ideas;', function (error, results) {
       if (typeof next === 'function')
         next(results);
     });
@@ -120,10 +120,12 @@ module.exports = {
     });
   },
 
-  searchIdeas: function (key, next) {
+  searchIdeas: function (key, limit, offset, next) {
     var varPattern = '%' + key + '%';
-    pool.query('SELECT * FROM ideas WHERE teamName LIKE ? or state' +
-      ' LIKE ?', [varPattern, varPattern],
+    pool.query('SELECT * FROM ideas WHERE teamName LIKE ? OR state ' +
+      'LIKE ? OR name LIKE ? ' +
+      'ORDER BY name ' +
+      'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
         if (error) {
           console.error(error);

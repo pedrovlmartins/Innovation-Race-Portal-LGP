@@ -9,12 +9,13 @@ const itemsPerPage = 10;
 router.get('/', function (req, res) {
   var vars = irp.getActionResults(req);
   var keyword = req.query.keyword;
-  console.log(keyword);
-
   var offset;
   var page;
-  if (req.query.page === undefined)
+
+  if (req.query.page === undefined) {
     offset = 0;
+    page = 1;
+  }
   else {
     page = parseInt(req.query.page);
     if (isNaN(page)) {
@@ -29,9 +30,9 @@ router.get('/', function (req, res) {
   if (req.query.keyword === undefined) {
     database.getIdeaCount(function (result) {
       var numberOfIdeas = result[0].count;
-      vars.totalPages = numberOfIdeas / itemsPerPage;
-      if (numberOfIdeas / itemsPerPage > 0)
-       vars.totalPages += 1;
+      vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
+      if (numberOfIdeas % itemsPerPage > 0)
+        vars.totalPages += 1;
       vars.page = page;
       database.listIdeas(offset, itemsPerPage, function (result) {
         vars.ideas = result;
@@ -41,8 +42,14 @@ router.get('/', function (req, res) {
       });
     });
   } else {
-    database.searchIdeas(keyword, function (error, result) {
+    database.searchIdeas(keyword, offset, itemsPerPage, function (error, result) {
+      var numberOfIdeas = result.length;
+      vars.keyword = keyword;
+      vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
       vars.ideas = result;
+      if (numberOfIdeas % itemsPerPage > 0)
+        vars.totalPages += 1;
+      vars.page = page;
       if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
       res.render('manageIdeas', vars);
