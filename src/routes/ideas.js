@@ -19,7 +19,7 @@ router.get('/:id', function (req, res) {
               });
             ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
-              if (type === 3 || ids.indexOf(req.session.userID) !== -1) {
+              if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
                 var vars = {
                   name: ideaInfo.name,
                   leader: ideaInfo.creator,
