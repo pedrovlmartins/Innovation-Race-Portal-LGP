@@ -135,5 +135,15 @@ module.exports = {
         }
       });
   },
+
+  updateIdeaState: function (id, next) {
+    pool.query(
+      'UPDATE ideas ' +
+      'SET state ' +
+      'WHERE ideas.id = ?;', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
+  },
 };
 
