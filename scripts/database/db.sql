@@ -50,7 +50,7 @@ CREATE TABLE `ideas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idCreator` int(11) NOT NULL,
   `title` varchar(1000) NOT NULL,
-  `description` varchar(1000) NOT NULL,
+  `description` varchar(1000) DEFAULT NULL,
   `teamName` varchar(50) DEFAULT NULL,
   `approved` bit(1) DEFAULT b'0',
   `disapproveReason` varchar(1000) DEFAULT NULL,
@@ -63,10 +63,10 @@ CREATE TABLE `ideas` (
   `technicalViability` varchar(1000) DEFAULT NULL,
   `economicalViability` varchar(1000) DEFAULT NULL,
   `riskFactors` varchar(1000) DEFAULT NULL,
-  `uncertaintyToSolve` varchar(1000) NOT NULL,
-  `solutionTechnicalCompetence` varchar(1000) NOT NULL,
-  `techHumanResources` varchar(1000) NOT NULL,
-  `resultsToProduce` varchar(1000) NOT NULL,
+  `uncertaintyToSolve` varchar(1000) DEFAULT NULL,
+  `solutionTechnicalCompetence` varchar(1000) DEFAULT NULL,
+  `techHumanResources` varchar(1000) DEFAULT NULL,
+  `resultsToProduce` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idCreator` (`idCreator`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;

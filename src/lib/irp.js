@@ -1,3 +1,11 @@
+function currentUserID(req) {
+  return req.session.userID;
+}
+
+function currentUserType(req) {
+  return req.session.userType;
+}
+
 module.exports = {
   addError: function (req, msg) {
     req.session.errorMessages = req.session.errorMessages || [];
@@ -20,4 +28,17 @@ module.exports = {
     req.session.errorMessages = [];
     req.session.successMessages = [];
   },
+
+  currentUserID: currentUserID,
+
+  currentUserType: currentUserType,
+
+  currentIsParticipant: function (req) {
+    return currentUserID(req) && currentUserType(req) <= 2;
+  },
+
+  currentIsManager: function (req) {
+    return currentUserID(req) && currentUserType(req) == 3;
+  },
+
 };

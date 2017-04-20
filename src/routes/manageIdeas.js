@@ -7,7 +7,6 @@ var database = require('../database/database');
 router.get('/', function (req, res) {
   var vars = irp.getActionResults(req);
   var keyword = req.query.keyword;
-  console.log(keyword);
 
   if (req.query.keyword === undefined) {
     database.listAllIdeas(function (result) {

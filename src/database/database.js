@@ -115,5 +115,23 @@ module.exports = {
         }
       });
   },
+
+  classifyIdea: function (ideaID, strategyAlignment, offerType, market, technicalViability,
+                          economicalViability, riskFactors, otherRequirements, next) {
+    pool.query('UPDATE ideas SET strategyAlignment = ?, offerType = ?, market = ?,' +
+      ' technicalViability = ?, economicalViability = ?, riskFactors = ?, otherRequirements = ?' +
+      ' WHERE id = ? && state BETWEEN 1 AND 3',
+    [strategyAlignment, offerType, market, technicalViability, economicalViability, riskFactors,
+      otherRequirements, ideaID,
+    ],
+    function (error, results) {
+      if (error) {
+        console.error(error);
+        next(error);
+      } else {
+        next(null, results);
+      }
+    });
+  }
 };
 
