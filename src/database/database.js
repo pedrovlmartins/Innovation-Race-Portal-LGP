@@ -123,7 +123,7 @@ module.exports = {
   searchIdeas: function (key, limit, offset, next) {
     var varPattern = '%' + key + '%';
     pool.query('SELECT * FROM ideas WHERE teamName LIKE ? OR state ' +
-      'LIKE ? OR name LIKE ? ' +
+      'LIKE ? OR title LIKE ? ' +
       'ORDER BY name ' +
       'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {

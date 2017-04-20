@@ -15,8 +15,7 @@ router.get('/', function (req, res) {
   if (req.query.page === undefined) {
     offset = 0;
     page = 1;
-  }
-  else {
+  } else {
     page = parseInt(req.query.page);
     if (isNaN(page)) {
       offset = 0;
