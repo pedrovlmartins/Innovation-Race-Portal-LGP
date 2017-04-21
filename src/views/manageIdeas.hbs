@@ -29,16 +29,14 @@
         <tr>
             <th>Ideas</th>
             <th>Creator of the idea</th>
-            <th>Phase</th>
-            <th>Status</th>
-            <th>Race (ID)</th>
+            <th>State</th>
         </tr>
         </thead>
         <tbody>
         {{#each ideas}}
             <tr>
                 <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                <td><a href="/users/{{id}}">{{creator}}</a></td>
+                <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
                 <td>{{state}}</td>
             </tr>
         {{/each}}

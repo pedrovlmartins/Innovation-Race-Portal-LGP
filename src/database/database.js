@@ -111,6 +111,7 @@ module.exports = {
       'ideas.state, users.id AS idCreator, users.name AS creator ' +
       'FROM ideas ' +
       'JOIN users ON users.id = ideas.idCreator ' +
+      'WHERE ideas.cancelled = 0 ' +
       'ORDER BY ideas.title ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
