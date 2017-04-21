@@ -19,7 +19,7 @@ router.post('/:id/decline', function (req, res, next) {
   var vars = irp.getActionResults(req);
   var id = req.params.id;
 
-  db.updateIdeaState_decline(id, 0, function (result) {
+  db.updateIdeaState_decline(id, function (result) {
     if (req.session.userID !== undefined)
       vars.userID = req.session.userID;
     res.redirect(req.get('referer'));
