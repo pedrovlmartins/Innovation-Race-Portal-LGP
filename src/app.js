@@ -14,10 +14,11 @@ const express = require('express');
 
 // Constants
 const PORT = 8080;
-global.__base = __dirname + '/';
 
+global.__base = __dirname + '/';
 // Paths
 const routes = require(path.join(__base, 'routes', 'index'));
+
 const about = require(path.join(__base, 'routes', 'about'));
 const contact = require(path.join(__base, 'routes', 'contact'));
 const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
@@ -36,8 +37,10 @@ const auth = {
 const app = express();
 
 // View engine setup
+const helpers = require(path.join(__base, 'lib', 'helpers'));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__base, 'views'));
+hbs.registerHelper('add-pagination', helpers.addPagination);
 hbs.registerPartials(path.join(__base, 'views', 'partials'));
 hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
 

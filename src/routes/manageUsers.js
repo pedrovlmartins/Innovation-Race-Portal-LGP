@@ -2,51 +2,64 @@ const path = require('path');
 const irp = require(path.join(__base, 'lib', 'irp'));
 var express = require('express');
 var router = express.Router();
-var database = require('../database/database');
+var database = require(path.join(__base, 'database', 'database'));
+
+const itemsPerPage = 10;
 
 router.get('/', function (req, res) {
-  var vars = irp.getActionResults(req);
-  var keyword = req.query.keyword;
-  console.log(keyword);
+  database.getUserType(req.session.userID, function (type) {
+    if (type < 3) {
+      res.sendStatus(403);
+    } else {
+      var vars = irp.getActionResults(req);
+      var keyword = req.query.keyword;
+      var offset;
+      var page;
 
-  if (req.query.keyword === undefined) {
-    database.listAllUsers(function (result) {
-      vars.users = result;
-      if (req.session.userID !== undefined)
-        vars.userID = req.session.userID;
-      res.render('manageUsers', vars);
-    });
-  } else {
-    database.searchUsers(keyword, function (error, result) {
-      vars.users = result;
-      if (req.session.userID !== undefined)
-        vars.userID = req.session.userID;
-      console.log(vars.users);
-      res.render('manageUsers', vars);
-    });
-  }
+      if (req.query.page === undefined) {
+        offset = 0;
+        page = 1;
+      } else {
+        page = parseInt(req.query.page);
+        if (isNaN(page)) {
+          offset = 0;
+          page = 1;
+        } else if (page < 1) {
+          offset = 0;
+          page = 1;
+        } else offset = (page - 1) * itemsPerPage;
+      }
 
-  //checkar se recebo parametro no url (do metodo get -> keyword) terei de
-  // mostrar a tabela com os resultados filtrados
+      vars.page = page;
 
-  //res.render('manageUsers');
-});
-
-/*
-router.get('/manageUsers/search/process', function (req, res, next) {
-  var keyword = req.body.keyword;
-  console.log(keyword);
-  res.redirect('/search');
-});
-
-router.get('/search/:keyword', function (req, res) {
-  database.searchUsers(req.params.keyword, function (result) {
-    var users = result;
-    if (req.session.userID !== undefined)
-      vars.userID = req.session.userID;
-    res.render('manageUsers', vars);
+      if (req.query.keyword === undefined) {
+        database.getUsersCount(function (result) {
+          var numberOfUsers = result[0].count;
+          vars.totalPages = Math.floor(numberOfUsers / itemsPerPage);
+          if (numberOfUsers % itemsPerPage > 0)
+            vars.totalPages += 1;
+          database.listUsers(offset, itemsPerPage, function (result) {
+            vars.users = result;
+            if (req.session.userID !== undefined)
+              vars.userID = req.session.userID;
+            res.render('manageUsers', vars);
+          });
+        });
+      } else {
+        database.searchUsers(keyword, offset, itemsPerPage, function (error, result) {
+          var numberOfUsers = result.length;
+          vars.keyword = keyword;
+          vars.totalPages = Math.floor(numberOfUsers / itemsPerPage);
+          vars.users = result;
+          if (numberOfUsers % itemsPerPage > 0)
+            vars.totalPages += 1;
+          if (req.session.userID !== undefined)
+            vars.userID = req.session.userID;
+          res.render('manageUsers', vars);
+        });
+      }
+    }
   });
 });
-*/
 
 module.exports = router;

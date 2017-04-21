@@ -2,6 +2,29 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var db = require(path.join(__base, 'database', 'database'));
+const irp = require(path.join(__base, 'lib', 'irp'));
+
+router.post('/:id/validate', function (req, res, next) {
+  var vars = irp.getActionResults(req);
+  var id = req.params.id;
+
+  db.updateIdeaState_validate(id, 5, function (result) {
+    if (req.session.userID !== undefined)
+      vars.userID = req.session.userID;
+    res.redirect(req.get('referer'));
+  });
+});
+
+router.post('/:id/decline', function (req, res, next) {
+  var vars = irp.getActionResults(req);
+  var id = req.params.id;
+
+  db.updateIdeaState_decline(id, function (result) {
+    if (req.session.userID !== undefined)
+      vars.userID = req.session.userID;
+    res.redirect(req.get('referer'));
+  });
+});
 
 router.get('/:id', function (req, res) {
   var ids = [];
@@ -19,8 +42,9 @@ router.get('/:id', function (req, res) {
               });
             ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
-              if (type === 3 || ids.indexOf(req.session.userID) !== -1) {
+              if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
                 var vars = {
+                  id: req.params.id,
                   name: ideaInfo.name,
                   leader: ideaInfo.creator,
                   description: ideaInfo.description,

@@ -1,19 +1,5 @@
 {{>header pageName="Manage Ideas"}}
-<script src="js/manageIdeas.js"></script>
 <div class="container">
-
-    {{#each errorMessages}}
-        <div class="alert alert-danger alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Error:</strong> {{this}}
-        </div>
-    {{/each}}
-    {{#each successMessages}}
-        <div class="alert alert-success alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Success:</strong> {{this}}
-        </div>
-    {{/each}}
 
     <header>
         <div class="header-content">
@@ -42,96 +28,35 @@
         <thead class="rankingTableHead">
         <tr>
             <th>Ideas</th>
-            <th>Team Name</th>
-            <th>Phase</th>
-            <th>Status</th>
-            <th>Race (ID)</th>
+            <th>Creator of the idea</th>
+            <th>State</th>
         </tr>
         </thead>
         <tbody>
         {{#each ideas}}
-            <tr class='clickable-row'>
-                <td>{{name}}</td>
-                <td>{{teamName}}</a></td>
+            <tr>
+                <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
                 <td>{{state}}</td>
+                <td><a data-target="#classificationModal" data-toggle="modal" data-id="5" class="MainNavText" id="MainNavHelp" href="#classificationModal"><h4>Classify Idea</h4></a></td>
             </tr>
         {{/each}}
-        -->
         </tbody>
     </table>
 
-    <table id="manageIdeas_tecnicalDirector" class="table table-hover table-bordered rankingTable">
-        <thead class="rankingTableHead">
-        <tr>
-            <th>Ideas</th>
-            <th>Team Name</th>
-            <th>Phase</th>
-            <th>Status</th>
-            <th>Race (ID)</th>
-            <th>Approve</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- /*{{#each ideas}}
-            <tr>
-                <td>{{ideas}}</td>
-                <td>{{team}}</td>
-                <td>{{phase}}</td>
-                <td>{{status}}</td>
-                <td>{{race}}</td>
-                <td></td>
-            </tr>
-        {{/each}}
-        -->
-
-        <tr>
-            <td>Correr sem suar</td>
-            <td>Os macacos</td>
-            <td>Seleção</td>
-            <td>Undefined</td>
-            <td>5</td>
-            <td><button type="button" class="btn btn-success btn-sm">Approve Idea</button> <button type="button" class="btn btn-danger btn-sm">Decline Idea</button></td>
-        </tr>
-        </tbody>
-    </table>
-
-    <table id="manageIdeas_rdManager" class="table table-hover table-bordered rankingTable">
-        <thead class="rankingTableHead">
-        <tr>
-            <th>Ideas</th>
-            <th>Team Name</th>
-            <th>Phase</th>
-            <th>Status</th>
-            <th>Race (ID)</th>
-            <th>Classification</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- /*{{#each ideas}}
-            <tr>
-                <td>{{ideas}}</td>
-                <td>{{team}}</td>
-                <td>{{phase}}</td>
-                <td>{{status}}</td>
-                <td>{{race}}</td>
-                <td></td>
-            </tr>
-        {{/each}}
-        -->
-
-        <tr>
-            <td>Correr sem suar</td>
-            <td>Os macacos</td>
-            <td>Seleção</td>
-            <td>Undefined</td>
-            <td>5</td>
-            <td><a data-target="#classificationModal" data-toggle="modal" data-id="5" class="MainNavText" id="MainNavHelp" href="#classificationModal"><h4>Classify Idea</h4></a></td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- Pagination -->
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                {{#if keyword}}
+                    {{add-pagination "/manageIdeas" page totalPages keyword}}
+                {{else}}
+                    {{add-pagination "/manageIdeas" page totalPages ""}}
+                {{/if}}
+            </ul>
+        </div>
+    </div>
 
 </div>
 
 {{> classification}}
-
-{{> footer}}
