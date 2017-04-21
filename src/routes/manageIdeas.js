@@ -8,7 +8,7 @@ var ideas = require(path.join(__base, 'lib', 'ideas'));
 const itemsPerPage = 10;
 
 router.get('/', function (req, res) {
-  database.getUserType(req.session.userID, function(type) {
+  database.getUserType(req.session.userID, function (type) {
     if (type < 3) {
       res.sendStatus(403);
     } else {
@@ -34,13 +34,15 @@ router.get('/', function (req, res) {
       vars.page = page;
 
       if (req.query.keyword === undefined) {
-        database.getIdeaCount(function(result) {
+        database.getIdeaCount(function (result) {
           var numberOfIdeas = result[0].count;
           vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
           if (numberOfIdeas % itemsPerPage > 0)
             vars.totalPages += 1;
-          database.listIdeas(offset, itemsPerPage, function(result) {
-            result.forEach((idea) => idea.state = ideas.getStateName(idea.state));
+          database.listIdeas(offset, itemsPerPage, function (result) {
+            result.forEach(
+              (idea) => idea.state = ideas.getStateName(idea.state)
+            );
             vars.ideas = result;
             if (req.session.userID !== undefined)
               vars.userID = req.session.userID;
@@ -48,7 +50,7 @@ router.get('/', function (req, res) {
           });
         });
       } else {
-        database.searchIdeas(keyword, offset, itemsPerPage, function(error, result) {
+        database.searchIdeas(keyword, offset, itemsPerPage, function (error, result) {
           var numberOfIdeas = result.length;
           vars.keyword = keyword;
           vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
