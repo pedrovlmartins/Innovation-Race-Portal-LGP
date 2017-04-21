@@ -30,6 +30,7 @@
             <th>Ideas</th>
             <th>Creator of the idea</th>
             <th>State</th>
+            <th>Classification</th>
         </tr>
         </thead>
         <tbody>
@@ -38,7 +39,7 @@
                 <td><a href="/ideas/{{id}}">{{title}}</a></td>
                 <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
                 <td>{{state}}</td>
-                <td><a data-target="#classificationModal" data-toggle="modal" data-id="5" class="MainNavText" id="MainNavHelp" href="#classificationModal"><h4>Classify Idea</h4></a></td>
+                <td><a data-target="#classificationModal" data-toggle="modal" data-id="5" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
             </tr>
         {{/each}}
         </tbody>

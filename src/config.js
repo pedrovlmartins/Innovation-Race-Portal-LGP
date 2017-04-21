@@ -16,7 +16,6 @@ config.mysql = {
     user: 'root',
     password: 'root',
     database: 'irp',
-    password: 'root',
   },
   test: {
     connectionLimit: 10,
