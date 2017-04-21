@@ -8,7 +8,18 @@ router.post('/:id/validate', function (req, res, next) {
   var vars = irp.getActionResults(req);
   var id = req.params.id;
 
-  db.updateIdeaState(id, function (result) {
+  db.updateIdeaState_increment(id, function (result) {
+    if (req.session.userID !== undefined)
+      vars.userID = req.session.userID;
+    res.redirect(req.get('referer'));
+  });
+});
+
+router.post('/:id/decline', function (req, res, next) {
+  var vars = irp.getActionResults(req);
+  var id = req.params.id;
+
+  db.updateIdeaState_decrement(id, 0, function (result) {
     if (req.session.userID !== undefined)
       vars.userID = req.session.userID;
     res.redirect(req.get('referer'));

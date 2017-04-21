@@ -158,11 +158,21 @@ module.exports = {
       });
   },
 
-  updateIdeaState: function (id, next) {
+  updateIdeaState_increment: function (id, next) {
     pool.query(
       'UPDATE ideas ' +
       'SET state = state + 1 ' +
       'WHERE ideas.id = ?;', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
+  },
+
+  updateIdeaState_decrement: function (id, state, next) {
+    pool.query(
+      'UPDATE ideas ' +
+      'SET state = ? ' +
+      'WHERE ideas.id = ?;', [state, id], function (err, result) {
         if (typeof next === 'function')
           next(result);
       });
