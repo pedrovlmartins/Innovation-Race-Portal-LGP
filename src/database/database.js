@@ -38,7 +38,7 @@ module.exports = {
 
   getIdea: function (id, next) {
     pool.query(
-      'SELECT users.id AS creatorId, users.name AS creator,ideas.name, ideas.description,' +
+      'SELECT users.id AS creatorId, users.name AS creator,ideas.title, ideas.description,' +
       'ideas.solutionTechnicalCompetence, ideas.uncertaintyToSolve, ideas.techHumanResources,' +
       'ideas.resultsToProduce ' +
       'FROM ideas ' +
@@ -72,6 +72,20 @@ module.exports = {
         callback(null, results.affectedRows === 0 ? false : true);
       }
     });
+  },
+
+  getUserType: function (id, next) {
+    pool.query(
+      'SELECT type ' +
+      'FROM users ' +
+      'WHERE id = ?;', [id], function (err, result) {
+        if (typeof next === 'function') {
+          if (result.length === 1)
+            next(result[0].type);
+          else
+            next(-1);
+        }
+      });
   },
 
   getUsersCount: function (next) {
