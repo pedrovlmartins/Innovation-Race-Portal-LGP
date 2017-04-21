@@ -1,5 +1,5 @@
 module.exports = {
-  getStateName: function(stateNum)
+  getStateName: function (stateNum)
   {
     switch (stateNum) {
       case 0:
