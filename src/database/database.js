@@ -168,11 +168,11 @@ module.exports = {
       });
   },
 
-  updateIdeaState_decline: function (id, state, next) {
+  updateIdeaState_decline: function (id, next) {
     pool.query(
       'UPDATE ideas ' +
-      'SET state = ? ' +
-      'WHERE ideas.id = ?;', [state, id], function (err, result) {
+      'SET cancelled = 1 ' +
+      'WHERE ideas.id = ?;', [id], function (err, result) {
         if (typeof next === 'function')
           next(result);
       });
