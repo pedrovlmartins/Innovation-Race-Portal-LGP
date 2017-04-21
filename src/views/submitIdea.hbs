@@ -2,62 +2,77 @@
 
 {{>actionResults}}
 
-<link rel="stylesheet" href="/css/ideaPage.css">
+<link rel="stylesheet" href="/css/id
+eaPage.css">
 
 <div class="cointainer">
 
-    <div class="modal-content">
+    <div class="modal-body">
         <div class="modal-header">
-            <div class="panel-title text-center">
-                <h1 class="title">Create Account</h1>
+            <div class="panel-title">
+                <h1 div class="col-sm-8 col-sm-offset-6">Create Idea</h1>
             </div>
         </div>
-        <div class="main-login main-center">
+        <div class="main-submit main-center">
             <form class="form-horizontal" method="post" action="submit">
 
-                <div class="container">
+                <div class="form-group">
                     <div class="form-group">
-                        <label for="name" class="col-sm-1 control-label">Idea name</label>
-                        <div class="col-sm-4">
-                            <input type="text" id="name" name="name" placeholder="Idea name" class="form-control" autofocus>
+                        <label for="ideaTitle" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-8 col-sm-offset-4">Idea title
+                            <input type="text" id="ideaTitle" name="ideaTitle" class="form-control" autofocus>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="description" class="col-sm-1 control-label">Description</label>
-                        <div class="col-sm-4">
-                                <textarea rows=4 cols=50 type="description" id="description" name="description" placeholder="Description" class="form-control">
+                        <label for="description" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-8 col-sm-offset-4">Description
+                                <textarea rows=8 cols=50 type="description" id="description" name="description"  class="form-control">
                                 </textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="teamIdea" class="col-sm-1 control-label">Team name</label>
-                        <div class="col-sm-4">
-                            <input type="teamIdea" id="teamIdea" name="teamIdea" placeholder="Team Idea" class="form-control">
+                        <label for="teamIdea" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-8 col-sm-offset-4">Team name
+                            <input type="text" id="teamIdea" name="teamIdea"  class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="teammembers" class="col-sm-1 control-label">Team members</label>
-                        <div class="col-sm-4">
-                            <input type="teammembers" id="teammembers" name="teammembers" placeholder="Team Members" class="form-control">
+                        <label for="teammembers" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-8 col-sm-offset-4">Team Members
+                            <input type="text" id="teammembers" name="teammembers" placeholder="Team Members" class="form-control">
                         </div>
                     </div>
-
-                    <p>Title</p>
-                    <input type="text" name="title" />
-                    <p>Description</p>
-                    <textarea></textarea>
-                    <p>Scientific/Technological uncertainty that the project aims to solve</p>
-                    <textarea></textarea>
-                    <p>Why can't the solutions found be implemented by someone with technical skills in the field?</p>
-                    <textarea></textarea>
-                    <p>Human and technological resources needed (technologies, partners, universities, etc.)</p>
-                    <textarea></textarea>
-                    <p>Results to be produced by the project</p>
-                    <textarea></textarea>
-
+                    <div class="form-group">
+                        <label for="uncertaintyToSolve" class="col-sm-1 control-label"></label>
+                            <div class="col-sm-8 col-sm-offset-4">Scientific/Technological uncertainty that the project aims to solve
+                                <textarea rows=8 cols=50 type="text" id="uncertaintyToSolve" name="uncertaintyToSolve"  class="form-control">
+                                </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="solutionTechnicalCompetence" class="col-sm-1 control-label"></label>
+                            <div class="col-sm-8 col-sm-offset-4">Why can't the solutions found be implemented by someone with technical skills in the field?
+                                <textarea rows=8 cols=50 type="text" id="solutionTechnicalCompetence" name="solutionTechnicalCompetence"  class="form-control">
+                                </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="techHumanResources" class="col-sm-1 control-label"></label>
+                            <div class="col-sm-8 col-sm-offset-4">Human and technological resources needed (technologies, partners, universities, etc.)
+                                <textarea rows=8 cols=50 type="text" id="techHumanResources" name="techHumanResources"  class="form-control">
+                                </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="results" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-8 col-sm-offset-4">Results to be produced by the project
+                            <textarea rows=8 cols=50 type="text" id="results" name="results"  class="form-control">
+                            </textarea>
+                        </div>
+                    </div>
                     <div class="submiteButton">
                         <div class="form-group">
-                            <div class="col-sm-9 col-sm-offset-6">
+                            <div class="col-sm-8 col-sm-offset-4">
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                             </div>
                         </div>

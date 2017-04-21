@@ -1,3 +1,7 @@
 #textArea {
     resize: none;
 }
+
+#div{
+    margin:0;
+}
