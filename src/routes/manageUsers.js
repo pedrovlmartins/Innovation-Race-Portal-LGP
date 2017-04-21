@@ -2,7 +2,7 @@ const path = require('path');
 const irp = require(path.join(__base, 'lib', 'irp'));
 var express = require('express');
 var router = express.Router();
-var database = require('../database/database');
+var database = require(path.join(__base, 'database', 'database'));
 
 const itemsPerPage = 10;
 

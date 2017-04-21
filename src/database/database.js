@@ -158,11 +158,11 @@ module.exports = {
       });
   },
 
-  updateIdeaState: function (id, state, next) {
+  updateIdeaState: function (id, next) {
     pool.query(
       'UPDATE ideas ' +
-      'SET state = ? ' +
-      'WHERE ideas.id = ?;', [state, id], function (err, result) {
+      'SET state = state + 1 ' +
+      'WHERE ideas.id = ?;', [id], function (err, result) {
         if (typeof next === 'function')
           next(result);
       });

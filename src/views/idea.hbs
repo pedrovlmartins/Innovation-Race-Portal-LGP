@@ -103,7 +103,14 @@
                 </div>
         </fieldset>
     </form>
+
+    <div id="validationButtons">
+        <form action="/ideas/{{id}}/validate" method="post">
+            <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
+        </form>
+        <button type="button" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
+    </div>
 </div>
-</div><!-- /.container -->
+
 
 {{> footer}}
