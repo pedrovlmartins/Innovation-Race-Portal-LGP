@@ -3,6 +3,7 @@ const irp = require(path.join(__base, 'lib', 'irp'));
 var express = require('express');
 var router = express.Router();
 var database = require('../database/database');
+var ideas = require(path.join(__base, 'lib', 'ideas'));
 
 const itemsPerPage = 10;
 
@@ -35,6 +36,7 @@ router.get('/', function (req, res) {
       if (numberOfIdeas % itemsPerPage > 0)
         vars.totalPages += 1;
       database.listIdeas(offset, itemsPerPage, function (result) {
+        result.forEach((idea) => idea.state = ideas.getStateName(idea.state));
         vars.ideas = result;
         if (req.session.userID !== undefined)
           vars.userID = req.session.userID;
