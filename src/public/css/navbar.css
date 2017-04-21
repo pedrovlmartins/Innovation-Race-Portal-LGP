@@ -6,6 +6,7 @@
 
 h4 {
   color: rgb(21,8,103);
+  /*color: rgb(71,159,236);*/
 }
 
 .imageNavbar {
@@ -16,4 +17,8 @@ h4 {
 
 .navbarList {
   float: right;
+}
+
+.nav a:hover {
+  text-decoration: underline;
 }
