@@ -5,24 +5,36 @@ var db = require(path.join(__base, 'database', 'database'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.post('/:id/validate', function (req, res, next) {
-  var vars = irp.getActionResults(req);
-  var id = req.params.id;
+  db.getUserType(req.session.userID, function (type) {
+    if (type !== 4) {
+      res.sendStatus(403);
+    } else {
+      var vars = irp.getActionResults(req);
+      var id = req.params.id;
 
-  db.updateIdeaState_validate(id, 5, function (result) {
-    if (req.session.userID !== undefined)
-      vars.userID = req.session.userID;
-    res.redirect(req.get('referer'));
+      db.updateIdeaState_validate(id, 5, function (result) {
+        if (req.session.userID !== undefined)
+          vars.userID = req.session.userID;
+        res.redirect(req.get('referer'));
+      });
+    }
   });
 });
 
 router.post('/:id/decline', function (req, res, next) {
-  var vars = irp.getActionResults(req);
-  var id = req.params.id;
+  db.getUserType(req.session.userID, function (type) {
+    if (type !== 4) {
+      res.sendStatus(403);
+    } else {
+      var vars = irp.getActionResults(req);
+      var id = req.params.id;
 
-  db.updateIdeaState_decline(id, function (result) {
-    if (req.session.userID !== undefined)
-      vars.userID = req.session.userID;
-    res.redirect(req.get('referer'));
+      db.updateIdeaState_decline(id, function (result) {
+        if (req.session.userID !== undefined)
+          vars.userID = req.session.userID;
+        res.redirect(req.get('referer'));
+      });
+    }
   });
 });
 
@@ -39,7 +51,7 @@ router.get('/:id', function (req, res) {
           db.getTeamMembers(req.params.id, function (members) {
             ids = members.map((member) => {
                 member.id;
-              });
+            });
             ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
               if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
