@@ -71,17 +71,29 @@ img.bg {
 }
 
 .contactPage {
-	margin-top: 20%;
+	margin-top: 15%;
+}
+
+.contactHeader {
+	text-align: center;
 }
 
 #about {
 	position: absolute;
-	top: 200vh;
+	top: 150vh;
 	height: 100%;
 	width: 100%;
 	background-color: white;
 }
 
 .aboutPage {
-	margin-top: 20%;
+	margin-top: 15%;
+}
+
+.managerInfo {
+	margin-top: 5%;
+}
+
+.addressInfo {
+	margin-top: 5%;
 }
