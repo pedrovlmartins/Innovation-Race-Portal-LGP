@@ -54,6 +54,9 @@ router.get('/', function (req, res) {
           var numberOfIdeas = result.length;
           vars.keyword = keyword;
           vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
+          result.forEach(
+            (idea) => idea.state = ideas.getStateName(idea.state)
+          );
           vars.ideas = result;
           if (numberOfIdeas % itemsPerPage > 0)
             vars.totalPages += 1;

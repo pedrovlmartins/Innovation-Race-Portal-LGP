@@ -145,10 +145,13 @@ module.exports = {
 
     searchIdeas: function (key, limit, offset, next) {
         var varPattern = '%' + key + '%';
-        pool.query('SELECT * FROM ideas WHERE teamName LIKE ? OR state ' +
-            'LIKE ? OR title LIKE ? ' +
-            'ORDER BY title ' +
-            'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
+        pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
+        'ideas.state, users.id, users.name AS creator ' +
+        'FROM ideas ' +
+        'JOIN users ON users.id = ideas.idCreator ' +
+        'WHERE users.name LIKE ? OR state LIKE ? OR title LIKE ? ' +
+        'ORDER BY ideas.title ' +
+        'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
             function (error, results) {
                 if (error) {
                     console.error(error);
