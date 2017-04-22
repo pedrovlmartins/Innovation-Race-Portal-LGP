@@ -15,17 +15,8 @@ img.bg {
 	height: 100%;
 }
 
-#homeHeading {
-	text-align: center;
-	margin-top: 10%;
-}
-
-#infoInnovation{
-	text-align: center;
-}
-
 .rankingTable {
-	margin-top: 29%;
+	margin-top:25%;
 }
 
 .rankingTableHead {
@@ -61,20 +52,36 @@ img.bg {
 	border-radius: 0 0 6px 0;
 }
 
-.innovationHeader_I{
+.innovationHeader{
     text-align: center;
-    margin-top: 10%;
+    margin-top: 25%;
     font-size: 7em;
 	font-weight: bold;
     letter-spacing: 1px;
     color: #4298b5;
     font-family: "Century Gothic";
 }
-/*
-.innovationHeader_R{
-	text-align: center;
-	font-size: 9em;
-	letter-spacing: 1px;
-	color: #4298b5;
-	font-family: "Century Gothic";
-}*/
+
+#contact {
+	position: absolute;
+	top: 100vh;
+	height: 100%;
+	width: 100%;
+	background-color: #4298b5;
+}
+
+.contactPage {
+	margin-top: 20%;
+}
+
+#about {
+	position: absolute;
+	top: 200vh;
+	height: 100%;
+	width: 100%;
+	background-color: white;
+}
+
+.aboutPage {
+	margin-top: 20%;
+}

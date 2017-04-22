@@ -1,53 +1,91 @@
 {{>header pageName="Home"}}
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 
-<div class="innovationTitle">
-    <h1 class="innovationHeader_I">INNOVATION RACE</h1>
-</div>
+<div id="mainSection">
+    <div class="container">
+        <link rel="stylesheet" href="css/homepage.css">
+        {{#each errorMessages}}
+            <div class="alert alert-danger alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error:</strong> {{this}}
+            </div>
+        {{/each}}
+        {{#each successMessages}}
+            <div class="alert alert-success alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success:</strong> {{this}}
+            </div>
+        {{/each}}
 
-<div class="container">
-    <link rel="stylesheet" href="css/homepage.css">
-    {{#each errorMessages}}
-        <div class="alert alert-danger alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Error:</strong> {{this}}
+        <div class="innovationTitle">
+            <h1 class="innovationHeader">INNOVATION RACE</h1>
         </div>
-    {{/each}}
-    {{#each successMessages}}
-        <div class="alert alert-success alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Success:</strong> {{this}}
-        </div>
-    {{/each}}
 
-    <table class="table table-hover table-responsive table-curved rankingTable">
-        <thead class="rankingTableHead">
-        <tr>
-            <th>Position</th>
-            <th>Idea</th>
-            <th>Pontuation</th>
-            <th>Qualitative Evaluation</th>
-        </tr>
-        </thead>
-        <tbody class="rankingTableBody">
-        <tr>
-            <td>1</td>
-            <td>Comer sem ganhar calorias</td>
-            <td>105</td>
-            <td>A</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Programar de forma mais eficaz</td>
-            <td>99</td>
-            <td>B+</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Correr sem suar</td>
-            <td>90</td>
-            <td>B</td>
-        </tr>
-        </tbody>
-    </table>
+        <table class="table table-hover table-responsive table-curved rankingTable">
+            <thead class="rankingTableHead">
+            <tr>
+                <th>Position</th>
+                <th>Idea</th>
+                <th>Pontuation</th>
+                <th>Qualitative Evaluation</th>
+            </tr>
+            </thead>
+            <tbody class="rankingTableBody">
+            <tr>
+                <td>1</td>
+                <td>Comer sem ganhar calorias</td>
+                <td>105</td>
+                <td>A</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Programar de forma mais eficaz</td>
+                <td>99</td>
+                <td>B+</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Correr sem suar</td>
+                <td>90</td>
+                <td>B</td>
+            </tr>
+            </tbody>
+        </table>
 
+    </div>
 </div>
+<section id="contact">
+    <div class="container">
+        <div class="contactPage">
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container">
+        <div class="aboutPage">
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+            <h2>Contact page</h2>
+        </div>
+    </div>
+</section>
+
+</body>
