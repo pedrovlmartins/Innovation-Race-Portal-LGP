@@ -6,7 +6,7 @@ const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.post('/:id/validate', function (req, res, next) {
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 4) {
+    if (type !== 7) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
@@ -23,7 +23,7 @@ router.post('/:id/validate', function (req, res, next) {
 
 router.post('/:id/decline', function (req, res, next) {
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 4) {
+    if (type !== 7) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
@@ -65,6 +65,8 @@ router.get('/:id', function (req, res) {
                   techHumanResources: ideaInfo.techHumanResources,
                   solutionTechnicalCompetence: ideaInfo.solutionTechnicalCompetence,
                   members: members,
+                  type: type,
+                  ideaState: ideaInfo.state,
                 };
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;

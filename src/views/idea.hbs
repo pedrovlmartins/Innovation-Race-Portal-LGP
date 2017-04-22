@@ -1,7 +1,7 @@
 {{>header pageName="Idea"}}
 <div class="container">
     <link rel="stylesheet" href="/css/ideaPage.css">
-    <form class="well form-horizontal" action=" " method="post" id="idea_page">
+    <form class="well form-horizontal" action=" " method="post"  id="idea_page">
         <fieldset>
 
             <!-- Form Name -->
@@ -10,11 +10,11 @@
             <!-- Team Leader -->
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Team Leader</label>
+                <label class="col-md-4 control-label" >Team Leader</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input name="team_leader" value="{{leader}}" class="form-control" type="text" readonly>
+                        <input name="team_leader" value="{{leader}}" class="form-control"  type="text" readonly>
                         <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
@@ -57,65 +57,68 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-wrench"></i></span>
-                        <textarea id="textArea" class="form-control" name="comment"
-                                  readonly>{{uncertaintyToSolve}}</textarea>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{uncertaintyToSolve}}</textarea>
                         <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
             </div>
 
-            <!-- Unimplementability by someone with technical skills -->
+                <!-- Unimplementability by someone with technical skills -->
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Unimplementability by someone with technical skills</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-                        <textarea id="textArea" class="form-control" name="comment"
-                                  readonly>{{solutionTechnicalCompetence}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Unimplementability by someone with technical skills</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                            <textarea id="textArea" class="form-control" name="comment" readonly>{{solutionTechnicalCompetence}}</textarea>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Expected human and technological resources -->
+                <!-- Expected human and technological resources -->
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Expected human and technological resources</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank"></i></span>
-                        <textarea id="textArea" class="form-control" name="comment"
-                                  readonly>{{techHumanResources}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Expected human and technological resources</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank"></i></span>
+                            <textarea id="textArea" class="form-control" name="comment" readonly>{{techHumanResources}}</textarea>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Results to produce by the project -->
+                <!-- Results to produce by the project -->
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Results to produce by the project</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
-                        <textarea id="textArea" class="form-control" name="comment"
-                                  readonly>{{resultsToProduce}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Results to produce by the project</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
+                            <textarea id="textArea" class="form-control" name="comment" readonly>{{resultsToProduce}}</textarea>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
                     </div>
                 </div>
-            </div>
         </fieldset>
     </form>
 
-    {{#compare "Teste" "Tes"}}
-        <div id="validationButtons">
-            <form action="/ideas/{{id}}/validate" method="post">
-                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
-            </form>
-            <form action="/ideas/{{id}}/decline" method="post">
-                <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
-            </form>
-        </div>
+    {{#compare type 3}}
+        {{#compare ideaState "!==" 5}}
+            <div id="validationButtons">
+                <form action="/ideas/{{id}}/validate" method="post">
+                    <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
+                </form>
+                <form action="/ideas/{{id}}/decline" method="post">
+                    <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
+                </form>
+            </div>
+        {{/compare}}
+        {{#compare ideaState 5}}
+            <div>
+                <h2>Já esta no estado 5 ou cancelada</h2>
+            </div>
+        {{/compare}}
     {{/compare}}
 </div>
