@@ -40,7 +40,7 @@ module.exports = {
         pool.query(
             'SELECT users.id AS creatorId, users.name AS creator,ideas.title, ideas.description,' +
             'ideas.solutionTechnicalCompetence, ideas.uncertaintyToSolve, ideas.techHumanResources,' +
-            'ideas.resultsToProduce, ideas.state ' +
+            'ideas.resultsToProduce, ideas.state, ideas.cancelled ' +
             'FROM ideas ' +
             'JOIN users ' +
             'ON users.id = ideas.idCreator ' +

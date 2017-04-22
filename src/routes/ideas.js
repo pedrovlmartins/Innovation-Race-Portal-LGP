@@ -67,7 +67,12 @@ router.get('/:id', function (req, res) {
                   members: members,
                   type: type,
                   ideaState: ideaInfo.state,
+                  ideaCancelled: ideaInfo.cancelled,
                 };
+                console.log('Vars: ');
+                console.log(vars.description);
+                console.log(vars.ideaState);
+                console.log(vars.ideaCancelled);
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
                 res.render('idea', vars);
