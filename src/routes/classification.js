@@ -5,7 +5,7 @@ const db = require(path.join(__base, 'database', 'database'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.get('/', function (req, res) {
-  var vars = {};
+  var vars = irp.getActionResults(req);
   if (req.session.userID !== undefined)
     vars.userID = req.session.userID;
   res.render('classification', vars);
