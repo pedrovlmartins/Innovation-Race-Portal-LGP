@@ -1,4 +1,5 @@
 {{>header pageName="Manage Ideas"}}
+<script src="../js/manageIdeas.js"></script>
 <div class="container">
 
     {{>actionResults}}
@@ -41,7 +42,7 @@
                 <td><a href="/ideas/{{id}}">{{title}}</a></td>
                 <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
                 <td>{{state}}</td>
-                <td><a data-target="#classificationModal" data-toggle="modal" data-id="5" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
+                <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
             </tr>
         {{/each}}
         </tbody>

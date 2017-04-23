@@ -47,6 +47,7 @@ router.get('/', function (req, res) {
             if (req.session.userID !== undefined)
               vars.userID = req.session.userID;
             res.render('manageIdeas', vars);
+            irp.cleanActionResults(req);
           });
         });
       } else {
@@ -63,6 +64,7 @@ router.get('/', function (req, res) {
           if (req.session.userID !== undefined)
             vars.userID = req.session.userID;
           res.render('manageIdeas', vars);
+          irp.cleanActionResults(req);
         });
       }
     }
