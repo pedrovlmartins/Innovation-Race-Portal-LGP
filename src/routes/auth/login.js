@@ -21,6 +21,7 @@ router.post('/', function (req, res, next) {
           } else {
             if (user.emailConfirmationToken == null) { // E-mail validated
               req.session.userID = user.id;
+              req.session.userType = user.type;
               irp.addSuccess(req, 'Login successful, welcome!');
             } else if (user.accountStatus) {
               irp.addError(req, 'Login successful, but pending e-mail confirmation.' +
