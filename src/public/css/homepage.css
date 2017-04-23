@@ -71,16 +71,20 @@ img.bg {
 }
 
 .contactPage {
-	margin-top: 15%;
+	margin-top: 20%;
 }
 
 .contactHeader {
 	text-align: center;
 }
 
+.contactPageForm {
+	margin-top: 20%;
+}
+
 #about {
 	position: absolute;
-	top: 150vh;
+	top: 200vh;
 	height: 100%;
 	width: 100%;
 	background-color: white;
@@ -96,4 +100,8 @@ img.bg {
 
 .addressInfo {
 	margin-top: 5%;
+}
+
+.submitContactButton {
+	text-align: right;
 }
