@@ -2,8 +2,9 @@
 
 {{>actionResults}}
 
-<link rel="stylesheet" href="/css/id
-eaPage.css">
+<link rel="stylesheet" href="/css/ideaPage.css">
+
+<script src="/js/draftIdeas.js"></script>
 
 <div class="cointainer">
 
@@ -14,7 +15,7 @@ eaPage.css">
             </div>
         </div>
         <div class="main-submit main-center">
-            <form class="form-horizontal" method="post" action="submit">
+            <form id="idea-form" class="form-horizontal" method="post" action="submit">
 
                 <div class="form-group">
                     <div class="form-group">
@@ -26,8 +27,7 @@ eaPage.css">
                     <div class="form-group">
                         <label for="description" class="col-sm-1 control-label"></label>
                         <div class="col-sm-8 col-sm-offset-4">Description
-                                <textarea rows=8 cols=50 type="description" id="description" name="description"  class="form-control">
-                                </textarea>
+                                <textarea rows=8 cols=50 type="description" id="description" name="description"  class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -45,35 +45,38 @@ eaPage.css">
                     <div class="form-group">
                         <label for="uncertaintyToSolve" class="col-sm-1 control-label"></label>
                             <div class="col-sm-8 col-sm-offset-4">Scientific/Technological uncertainty that the project aims to solve
-                                <textarea rows=8 cols=50 type="text" id="uncertaintyToSolve" name="uncertaintyToSolve"  class="form-control">
-                                </textarea>
+                                <textarea rows=8 cols=50 type="text" id="uncertaintyToSolve" name="uncertaintyToSolve"  class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="solutionTechnicalCompetence" class="col-sm-1 control-label"></label>
                             <div class="col-sm-8 col-sm-offset-4">Why can't the solutions found be implemented by someone with technical skills in the field?
-                                <textarea rows=8 cols=50 type="text" id="solutionTechnicalCompetence" name="solutionTechnicalCompetence"  class="form-control">
-                                </textarea>
+                                <textarea rows=8 cols=50 type="text" id="solutionTechnicalCompetence" name="solutionTechnicalCompetence"  class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="techHumanResources" class="col-sm-1 control-label"></label>
                             <div class="col-sm-8 col-sm-offset-4">Human and technological resources needed (technologies, partners, universities, etc.)
-                                <textarea rows=8 cols=50 type="text" id="techHumanResources" name="techHumanResources"  class="form-control">
-                                </textarea>
+                                <textarea rows=8 cols=50 type="text" id="techHumanResources" name="techHumanResources"  class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="results" class="col-sm-1 control-label"></label>
                         <div class="col-sm-8 col-sm-offset-4">Results to be produced by the project
-                            <textarea rows=8 cols=50 type="text" id="results" name="results"  class="form-control">
-                            </textarea>
+                            <textarea rows=8 cols=50 type="text" id="results" name="results"  class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="submiteButton">
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-4">
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submiteButton">
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-4">
+                                <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
                             </div>
                         </div>
                     </div>

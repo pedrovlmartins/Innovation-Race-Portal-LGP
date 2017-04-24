@@ -194,4 +194,18 @@ module.exports = {
       });
   },
 
+  saveDraft: function(user_id, title, description, teamIdeas, teamMembers,
+                      uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources,
+                      results, callback, next) {
+
+    pool.query('INSERT INTO drafts' +
+        ' (user_id, title, description, teamIdeas, teammembers, ' +
+        'uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, results)' +
+        ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [user_id, title, description, teamIdeas, teamMembers, uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, results],
+        function (err, rows, fields) {
+          callback(err);
+        });
+  }
+
 };

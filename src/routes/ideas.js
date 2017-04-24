@@ -65,6 +65,34 @@ router.post('/submit', function (req, res) {
   });
 });
 
+router.post('/draft', function (req, res) {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  if (!irp.currentIsParticipant(req)) {
+    irp.addError(req, 'You are not allowed to submit new ideas.');
+    res.redirect('../');
+    return;
+  }
+
+  db.saveDraft(req.session.userID, req.body.ideaTitle, req.body.description, req.body.teamIdea, req.body.teammembers,
+      req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence, req.body.techHumanResources,
+      req.body.results, function(err) {
+        if (err) {
+          console.error(err);
+          irp.addError(req, err);
+          res.redirect('back');
+        } else {
+          irp.addSuccess(req, 'Idea draft successfully saved.');
+          res.redirect('back');
+          irp.cleanActionResults(req);
+        }
+  });
+});
+
 router.get('/:id', function (req, res) {
   var ids = [];
   if (req.session.userID === undefined)
