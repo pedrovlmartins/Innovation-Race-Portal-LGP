@@ -1,153 +1,43 @@
 {{>header pageName="Home"}}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"/>
-
-
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
-
-<div id="mainSection">
-    <div class="container">
-        <link rel="stylesheet" href="css/homepage.css">
-        {{>actionResults}}
-
-        <div class="innovationTitle">
-            <h1 class="innovationHeader">INNOVATION RACE</h1>
-        </div>
-
-        <table class="table table-hover table-responsive table-curved rankingTable">
-            <thead class="rankingTableHead">
-            <tr>
-                <th>Position</th>
-                <th>Idea</th>
-                <th>Pontuation</th>
-                <th>Qualitative Evaluation</th>
-            </tr>
-            </thead>
-            <tbody class="rankingTableBody">
-            <tr>
-                <td>1</td>
-                <td>Comer sem ganhar calorias</td>
-                <td>105</td>
-                <td>A</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Programar de forma mais eficaz</td>
-                <td>99</td>
-                <td>B+</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Correr sem suar</td>
-                <td>90</td>
-                <td>B</td>
-            </tr>
-            </tbody>
-        </table>
-
-    </div>
+<div class="innovationTitle">
+    <h1 class="innovationHeader_I">Innovation</h1>
+    <h1 class="innovationHeader_R">Race</h1>
 </div>
-<section id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="contactPage">
-                    <h1 class="contactHeader">Contact Us</h1>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h2 class="managerInfo">Raquel Pinho</h2>
-                            <h4>R&D Manager</h4>
-                        </div>
-                        <div class="col-sm-6">
-                            <h4 class="addressInfo">Av. D. Joao II, Lote 1.07.2.1, piso 2 - 1990-096 Lisboa, Portugal</h4>
-                            <h4>Tel: +351 210 331 600</h4>
-                            <h4>Fax:+351 210 331 639</h4>
-                            <h4>Mobile: +351 930 416 282</h4>
-                            <h4>Email: raquel.pinho@altran.com</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="contactPageForm">
-                        <h1 class="contactHeader">General Questions</h1>
-                        <br>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-8">
-                                    <form action=" " method="post"  id="contact_form">
-                                            <div class="form-group">
-                                            <label class="control-label">Name</label>
-                                            <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                    <input  name="name" placeholder="Name" class="form-control"  type="text">
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label">E-Mail</label>
-                                            <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                                    <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
-                                                </div>
-                                            </div>
-                                        </div>
+<div class="container">
+    <link rel="stylesheet" href="css/homepage.css">
+    {{>actionResults}}
 
-                                        <div class="form-group">
-                                            <label class="control-label">Subject</label>
-                                            <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <input name="subject" placeholder="Subject" class="form-control"  type="text">
-                                                </div>
-                                            </div>
-                                        </div>
+    <table class="table table-hover table-responsive table-curved rankingTable">
+        <thead class="rankingTableHead">
+        <tr>
+            <th>Position</th>
+            <th>Idea</th>
+            <th>Pontuation</th>
+            <th>Qualitative Evaluation</th>
+        </tr>
+        </thead>
+        <tbody class="rankingTableBody">
+        <tr>
+            <td>1</td>
+            <td>Comer sem ganhar calorias</td>
+            <td>105</td>
+            <td>A</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Programar de forma mais eficaz</td>
+            <td>99</td>
+            <td>B+</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Correr sem suar</td>
+            <td>90</td>
+            <td>B</td>
+        </tr>
+        </tbody>
+    </table>
 
-                                        <div class="form-group">
-                                            <label class="control-label">Message</label>
-                                            <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <textarea class="form-control" name="message" placeholder="Message content"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group submitContactButton">
-                                            <label class="control-label"></label>
-                                                <button type="submit" class="btn btn-sucess" >Send <span class="glyphicon glyphicon-send"></span></button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-md-2"></div>
-                            </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section id="about">
-    <div class="container">
-        <div class="aboutPage">
-            <h2>About page</h2>
-            <h2>About page</h2>
-            <h2>About page</h2>
-            <h2>About page</h2>
-            <h2>About page</h2>
-        </div>
-    </div>
-</section>
-
-</body>
-
-<script src="../js/contact.js"></script>
+</div>

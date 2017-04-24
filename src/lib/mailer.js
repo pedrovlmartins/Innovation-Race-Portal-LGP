@@ -24,7 +24,8 @@ function send(to, subject, text, html, callback) {
       ],
   };
   server.send(message, function (err, message) {
-    console.log(err || message);
+    if (err)
+      console.error(err);
     callback(err, message);
   });
 };

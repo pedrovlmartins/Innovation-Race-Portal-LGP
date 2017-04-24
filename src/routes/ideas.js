@@ -2,38 +2,65 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var db = require(path.join(__base, 'database', 'database'));
+const ideas = require(path.join(__base, 'lib', 'ideas'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
-router.post('/:id/validate', function (req, res, next) {
-  db.getUserType(req.session.userID, function (type) {
-    if (type !== 7) {
-      res.sendStatus(403);
-    } else {
-      var vars = irp.getActionResults(req);
-      var id = req.params.id;
+router.get('/submit', function (req, res) {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
 
-      db.updateIdeaState_validate(id, 5, function (result) {
-        if (req.session.userID !== undefined)
-          vars.userID = req.session.userID;
-        res.redirect(req.get('referer'));
-      });
-    }
-  });
+  res.render('submitIdea', irp.getActionResults(req));
+  irp.cleanActionResults(req);
 });
 
-router.post('/:id/decline', function (req, res, next) {
-  db.getUserType(req.session.userID, function (type) {
-    if (type !== 7) {
-      res.sendStatus(403);
-    } else {
-      var vars = irp.getActionResults(req);
-      var id = req.params.id;
+router.post('/submit', function (req, res) {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
 
-      db.updateIdeaState_decline(id, function (result) {
-        if (req.session.userID !== undefined)
-          vars.userID = req.session.userID;
-        res.redirect(req.get('referer'));
+  if (!irp.currentIsParticipant(req)) {
+    irp.addError(req, 'You are not allowed to submit new ideas.');
+    res.redirect('../');
+    return;
+  }
+
+  validateSubmitIdea(req);
+  req.Validator.getErrors(function (errors) {
+    if (errors.length == 0) {
+      db.getActiveRaces(function (err, races) {
+        if (races.length == 0) {
+          irp.addError(req, 'You cannot submit a new idea because there is no active race.');
+          res.redirect('back');
+          return;
+        }
+
+        var race = races[0].id;
+        db.createIdea(irp.currentUserID(req), race, req.body.title, req.body.description,
+          req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
+          req.body.techHumanResources, req.body.resultsToProduce,
+          function (err, id) {
+            if (err) {
+              console.error(err);
+              irp.addError(req, err);
+              res.redirect('back');
+            } else {
+              irp.addSuccess(req, 'Idea successfully created.');
+              res.redirect(id);
+              irp.cleanActionResults(req);
+            }
+          });
       });
+    } else {
+      errors.forEach(function (item, index) {
+        irp.addError(req, item);
+      });
+
+      res.redirect('back');
     }
   });
 });
@@ -49,14 +76,13 @@ router.get('/:id', function (req, res) {
       else {
         db.getUserType(req.session.userID, function (type) {
           db.getTeamMembers(req.params.id, function (members) {
-            ids = members.map((member) => {
+            /*ids = members.map((member) => {
                 member.id;
-            });
+              });*/
             ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
-              if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
+              if (type === 3 || ids.indexOf(req.session.userID) !== -1) {
                 var vars = {
-                  id: req.params.id,
                   name: ideaInfo.name,
                   leader: ideaInfo.creator,
                   description: ideaInfo.description,
@@ -65,14 +91,7 @@ router.get('/:id', function (req, res) {
                   techHumanResources: ideaInfo.techHumanResources,
                   solutionTechnicalCompetence: ideaInfo.solutionTechnicalCompetence,
                   members: members,
-                  type: type,
-                  ideaState: ideaInfo.state,
-                  ideaCancelled: ideaInfo.cancelled,
                 };
-                console.log('Vars: ');
-                console.log(vars.description);
-                console.log(vars.ideaState);
-                console.log(vars.ideaCancelled);
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
                 res.render('idea', vars);
@@ -86,7 +105,51 @@ router.get('/:id', function (req, res) {
   }
 });
 
-router.get('/submit', function (req, res, next) {
-});
+var validateSubmitIdea = function (req) {
+  // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+  req.Validator.validate('title', 'Title', {
+    required: true,
+    length: {
+      min: 3,
+      max: 1000,
+    },
+  })
+    .filter('title', {
+      trim: true,
+    })
+    .validate('description', 'Description', {
+      required: true,
+      length: {
+        min: 3,
+      },
+    })
+    .validate('uncertaintyToSolve',
+      'Scientific/Technological uncertainty that the project aims to solve', {
+        required: true,
+        length: {
+          min: 3,
+        },
+      })
+    .validate('solutionTechnicalCompetence',
+      'Why can\'t the solutions found be implemented by' +
+      'someone with technical skills in the field?', {
+        required: true,
+        length: {
+          min: 3,
+        },
+      })
+    .validate('techHumanResources', 'Humand and technological resources needed', {
+      required: true,
+      length: {
+        min: 3,
+      },
+    })
+    .validate('resultsToProduce', 'Results to be produced by the project', {
+      required: true,
+      length: {
+        min: 3,
+      },
+    });
+};
 
 module.exports = router;
