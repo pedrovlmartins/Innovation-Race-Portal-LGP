@@ -105,7 +105,7 @@
     </form>
 
     {{#compare type 6}}
-        {{#compare ideaState "!==" 5}}
+        {{#compare ideaState 4}}
                 <div id="validationButtons">
                     <form action="/ideas/{{id}}/validate" method="post">
                         <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
@@ -118,6 +118,16 @@
         {{#compare ideaState 5}}
             <div>
                 <h2>Idea already in state 5</h2>
+            </div>
+        {{/compare}}
+        {{#compare ideaState ">" 5}}
+            <div>
+                <h2>Idea is on a higher state already, state nº {{ideaState}}</h2>
+            </div>
+        {{/compare}}
+        {{#compare ideaState "<" 4}}
+            <div>
+                <h2>Idea can't be selected yet because is in state {{ideaState}}</h2>
             </div>
         {{/compare}}
     {{/compare}}
