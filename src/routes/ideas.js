@@ -61,14 +61,16 @@ router.get('/:id', function (req, res) {
     res.sendStatus(401);
   else {
     db.getIdea(req.params.id, function (ideaInfo) {
+      console.log(ideaInfo);
       if (ideaInfo === undefined)
         res.sendStatus(404);
       else {
         db.getUserType(req.session.userID, function (type) {
           db.getTeamMembers(req.params.id, function (members) {
-            ids = members.map((member) => {
+            ids = members.map(function (member) {
                 member.id;
-            });
+              });
+
             ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
               if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
@@ -84,12 +86,12 @@ router.get('/:id', function (req, res) {
                   members: members,
                   type: type,
                   ideaState: ideaInfo.state,
-                  ideaCancelled: ideaInfo.cancelled,
+                  ideaCancelled: ideaInfo.cancelled[0],
                 };
                 console.log('Vars: ');
                 console.log('descrição - ' + vars.description);
                 console.log('estado - ' + vars.ideaState);
-                console.log('ideia cancelada - ' + vars.ideaCancelled);
+                console.log('ideia cancelada - ', vars.ideaCancelled);
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
                 res.render('idea', vars);
