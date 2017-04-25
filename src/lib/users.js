@@ -30,11 +30,11 @@ module.exports = {
   },
 
   isParticipant: function (typeNum) {
-    return typeNum == types.ALTRAN_MEMBER || typeNum == types.PARTNER || typeNum == types.CLIENT;
+    return typeNum === types.ALTRAN_MEMBER || typeNum === types.PARTNER || typeNum === types.CLIENT;
   },
 
   isAdmin: function (typeNum) {
-    return typeNum == types.MANAGER || typeNum == types.COMMITTEE || typeNum == types.TEAM
-      || typeNum == types.TECHNICAL_DIRECTOR;
+    return typeNum === types.MANAGER || typeNum === types.COMMITTEE || typeNum === types.TEAM
+      || typeNum === types.TECHNICAL_DIRECTOR;
   },
 };

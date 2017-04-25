@@ -16,7 +16,7 @@ router.post('/', function (req, res) {
     req.body.otherRequirements, function (error, results) {
       if (error) {
         irp.addError(req, 'Unknown error occurred.');
-      } else if (results.affectedRows == 0) {
+      } else if (results.affectedRows === 0) {
         irp.addError(req, 'Could not classify idea.');
       } else {
         irp.addSuccess(req, 'Idea successfully classified.');

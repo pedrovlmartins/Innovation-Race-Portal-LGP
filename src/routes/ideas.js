@@ -51,7 +51,17 @@ router.post('/:id/select', function (req, res, next) {
     return;
   }
 
-  // TODO
+  db.updatedIdeaState_select(req.params.id, function (error, result) {
+    if (error) {
+      console.error(error);
+      irp.addError(req, 'Unknown error occurred, please try again later.');
+      res.redirect('back');
+      return;
+    }
+
+    irp.addSuccess(req, 'The idea has been selected to advance to the coaching phase.');
+    res.redirect('back');
+  });
 });
 
 router.get('/:id', function (req, res) {
