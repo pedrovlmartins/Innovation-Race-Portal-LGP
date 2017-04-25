@@ -23,12 +23,8 @@
   text-decoration:none;
 }
 
-.navbar-default .navbar-nav > li > a.active, .navbar-default .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > ul > li > a:focus {
-  color: white;
-  text-decoration:underline;
-}
-
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
   background-color: transparent;
   text-decoration: underline;
+  color:white;
 }
