@@ -87,9 +87,9 @@ router.get('/:id', function (req, res) {
                   ideaCancelled: ideaInfo.cancelled,
                 };
                 console.log('Vars: ');
-                console.log(vars.description);
-                console.log(vars.ideaState);
-                console.log(vars.ideaCancelled);
+                console.log('descrição - ' + vars.description);
+                console.log('estado - ' + vars.ideaState);
+                console.log('ideia cancelada - ' + vars.ideaCancelled);
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
                 res.render('idea', vars);

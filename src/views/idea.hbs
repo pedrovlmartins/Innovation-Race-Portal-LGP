@@ -106,14 +106,14 @@
 
     {{#compare type 6}}
         {{#compare ideaState "!==" 5}}
-            <div id="validationButtons">
-                <form action="/ideas/{{id}}/validate" method="post">
-                    <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
-                </form>
-                <form action="/ideas/{{id}}/decline" method="post">
-                    <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
-                </form>
-            </div>
+                <div id="validationButtons">
+                    <form action="/ideas/{{id}}/validate" method="post">
+                        <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
+                    </form>
+                    <form action="/ideas/{{id}}/decline" method="post">
+                        <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
+                    </form>
+                </div>
         {{/compare}}
         {{#compare ideaState 5}}
             <div>
