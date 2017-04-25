@@ -40,10 +40,9 @@ router.get('/', function (req, res) {
           if (numberOfUsers % itemsPerPage > 0)
             vars.totalPages += 1;
           database.listUsers(offset, itemsPerPage, function (result) {
-            result.forEach(function (user) {
-              user.role = userRole.getRoleName(user.role);
-              console.log(userRole.getRoleName(user.role));
-            });
+            result.forEach(
+              (user) => user.role = userRole.getRoleName(user.role)
+            );
             vars.users = result;
             if (req.session.userID !== undefined)
               vars.userID = req.session.userID;
@@ -55,9 +54,9 @@ router.get('/', function (req, res) {
           var numberOfUsers = result.length;
           vars.keyword = keyword;
           vars.totalPages = Math.floor(numberOfUsers / itemsPerPage);
-          result.forEach(function (user) {
-            user.role = userRole.getRoleName(user.role)
-          });
+          result.forEach(
+            (user) => user.role = userRole.getRoleName(user.role)
+          );
           vars.users = result;
           if (numberOfUsers % itemsPerPage > 0)
             vars.totalPages += 1;
