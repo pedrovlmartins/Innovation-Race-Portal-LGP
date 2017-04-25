@@ -1,28 +1,22 @@
+var stateDescriptions = [
+  'Draft State',
+  'Awaiting classification',
+  'Being classified',
+  'Awaiting evaluation',
+  'Awaiting selection',
+  'Selected',
+  'In coaching phase',
+  'Awaiting GO / NO GO',
+  'Being implemented',
+]
+
 module.exports = {
   getStateName: function  (stateNum)
   {
-    switch (stateNum) {
-      case 0:
-        return 'Draft State';
-      case 1:
-        return 'Awating classification';
-      case 2:
-        return 'Being classified';
-      case 3:
-        return 'Awating evaluation';
-      case 4:
-        return 'Awaiting selection';
-      case 5:
-        return 'Selected';
-      case 6:
-        return 'During coaching';
-      case 7:
-        return 'Awating GO/NO GO';
-      case 8:
-        return 'Being implemented';
-      default:
-        return 'Invalid state';
-    }
+    if (stateNum < 0 || stateNum >= stateDescriptions.length)
+      return null;
+    return stateDescriptions[stateNum];
   },
+
 };
 

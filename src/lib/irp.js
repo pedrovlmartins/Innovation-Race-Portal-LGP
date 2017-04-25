@@ -1,3 +1,6 @@
+const path = require('path');
+const users = require(path.join(__base, 'lib', 'users'));
+
 function currentUserID(req) {
   return req.session.userID;
 }
@@ -34,11 +37,11 @@ module.exports = {
   currentUserType: currentUserType,
 
   currentIsParticipant: function (req) {
-    return currentUserID(req) && currentUserType(req) <= 2;
+    return currentUserID(req) && users.isParticipant(currentUserType(req));
   },
 
-  currentIsManager: function (req) {
-    return currentUserID(req) && currentUserType(req) == 3;
+  currentCanSelectIdea: function (req) {
+    var type = currentUserType(req);
+    return currentUserID(req) && (type == users.types.COMMITTEE || type == users.types.MANAGER);
   },
-
 };

@@ -38,6 +38,22 @@ router.post('/:id/decline', function (req, res, next) {
   });
 });
 
+router.post('/:id/select', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError('You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  if (!irp.currentCanSelectIdea(req)) {
+    irp.addError(req, 'Only a member of the R&D committee may select an idea.');
+    res.redirect('back');
+    return;
+  }
+
+  // TODO
+});
+
 router.get('/:id', function (req, res) {
   var ids = [];
   if (req.session.userID === undefined)
