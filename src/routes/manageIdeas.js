@@ -4,7 +4,6 @@ var express = require('express');
 var router = express.Router();
 var database = require('../database/database');
 var ideas = require(path.join(__base, 'lib', 'ideas'));
-
 const itemsPerPage = 10;
 
 router.get('/', function (req, res) {
