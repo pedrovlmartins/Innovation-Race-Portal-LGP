@@ -91,7 +91,7 @@ module.exports = {
   },
 
   listUsers: function (limit, offset, next) {
-    pool.query('SELECT name, email, role ' +
+    pool.query('SELECT users.name, users.email, users.role ' +
       'FROM users ' +
       'ORDER BY name ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
