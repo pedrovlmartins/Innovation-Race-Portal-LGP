@@ -3,11 +3,11 @@ module.exports = {
   {
     switch (roleNum) {
       case 0:
-        return 'Altran\'s Employee';
+        return 'Altrans Employee';
       case 1:
-        return 'Altran\'s Partner';
+        return 'Altrans Partner';
       case 2:
-        return 'Altran\'s Client';
+        return 'Altrans Client';
       default:
         return 'Invalid role';
     }

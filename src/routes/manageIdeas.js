@@ -43,7 +43,6 @@ router.get('/', function (req, res) {
             result.forEach(function (idea) {
               idea.state = ideas.getStateName(idea.state)
             });
-
             vars.ideas = result;
             if (req.session.userID !== undefined)
               vars.userID = req.session.userID;
