@@ -61,7 +61,6 @@ router.get('/:id', function (req, res) {
     res.sendStatus(401);
   else {
     db.getIdea(req.params.id, function (ideaInfo) {
-      console.log(ideaInfo);
       if (ideaInfo === undefined)
         res.sendStatus(404);
       else {
