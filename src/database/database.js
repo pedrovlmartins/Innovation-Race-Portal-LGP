@@ -83,6 +83,21 @@ module.exports = {
       });
   },
 
+  getUserEmail: function (id, next) {
+    pool.query(
+      'SELECT email ' +
+      'FROM users ' +
+      'WHERE id = ?;', [id], function (err, result) {
+        if (err) {
+          next(err);
+        } else if (result.length == 0) {
+          next('User not found');
+        } else {
+          next(null, result[0]);
+        }
+      });
+  },
+
   getUsersCount: function (next) {
     pool.query('SELECT COUNT(*) AS count ' +
       'FROM users;', function (error, results) {

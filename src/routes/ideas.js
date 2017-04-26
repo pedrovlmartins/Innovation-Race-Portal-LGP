@@ -76,11 +76,13 @@ router.post('/:id/selection', function (req, res, next) {
 
         irp.addSuccess(req, 'The idea has been selected to advance to the coaching phase.');
         res.redirect('back');
+        sendSelectionNotificationEmail(ideaInfo.creatorId, ideaInfo.title, true);
       });
     } else {
       db.updateIdeaState_decline(req.params.id, function (result) {
         irp.addSuccess(req, 'The idea has been rejected.');
         res.redirect('back');
+        sendSelectionNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
       });
     }
   });
@@ -141,5 +143,18 @@ router.get('/:id', function (req, res) {
 
 router.get('/submit', function (req, res, next) {
 });
+
+function sendSelectionNotificationEmail(creatorID, title, selected) {
+  db.getUserEmail(creatorID, function (err, email) {
+    if (err) {
+      console.error(err);
+    } else {
+      sendSelectionNotificationEmail(email, title, true, function (error, body) {
+        if (error)
+          console.error(error);
+      });
+    }
+  });
+}
 
 module.exports = router;
