@@ -63,48 +63,59 @@
                 </div>
             </div>
 
-                <!-- Unimplementability by someone with technical skills -->
+            <!-- Unimplementability by someone with technical skills -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Unimplementability by someone with technical skills</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-                            <textarea id="textArea" class="form-control" name="comment" readonly>{{solutionTechnicalCompetence}}</textarea>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-                        </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Unimplementability by someone with technical skills</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{solutionTechnicalCompetence}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
+            </div>
 
-                <!-- Expected human and technological resources -->
+            <!-- Expected human and technological resources -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Expected human and technological resources</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank"></i></span>
-                            <textarea id="textArea" class="form-control" name="comment" readonly>{{techHumanResources}}</textarea>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-                        </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Expected human and technological resources</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{techHumanResources}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
+            </div>
 
-                <!-- Results to produce by the project -->
+            <!-- Results to produce by the project -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Results to produce by the project</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
-                            <textarea id="textArea" class="form-control" name="comment" readonly>{{resultsToProduce}}</textarea>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-                        </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Results to produce by the project</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{resultsToProduce}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">State of the idea</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{ideaState}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
         </fieldset>
     </form>
 
-    {{#compare type 6}}
+    {{#compare type 7}}
         {{#compare ideaState 3}}
             {{#compare ideaCancelled 0}}
                 <div id="validationButtons">
@@ -117,53 +128,9 @@
                 </div>
             {{/compare}}
         {{/compare}}
-        {{#compare ideaState "!==" 3}}
-            <div class="informationIdea">
-                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#informationModal">Idea's information</button>
-            </div>
-
-            <div class="modal fade" id="informationModal" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h3 class="modal-title modalTextAlign">Idea's Information</h3>
-                        </div>
-                        <div class="modal-body">
-                            {{#compare ideaCancelled 0}}
-                                {{#compare ideaState 4}}
-                                    <div class="modalTextAlign">
-                                        <h4>Idea already in state 4! It was already evaluated!</h4>
-                                    </div>
-                                {{/compare}}
-                                {{#compare ideaState ">" 4}}
-                                    <div class="modalTextAlign">
-                                        <h4>Idea is on a higher state already, state nº {{ideaState}}!</h4>
-                                    </div>
-                                {{/compare}}
-                                {{#compare ideaState "<" 3}}
-                                    <div class="modalTextAlign">
-                                        <h4>Idea can't be evaluated yet because is in state {{ideaState}}!</h4>
-                                    </div>
-                                {{/compare}}
-                            {{/compare}}
-                            {{#compare ideaCancelled 1}}
-                                <div class="modalTextAlign">
-                                    <h4>Idea can't be evaluated because it was rejected before!</h4>
-                                </div>
-                            {{/compare}}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {{/compare}}
     {{/compare}}
 
-    {{#compare type 4}}
+    {{#compare type 5}}
         {{#compare ideaState 4}}
             {{#compare ideaCancelled 0}}
                 <div id="validationButtons">
@@ -172,50 +139,6 @@
                     </form>
                 </div>
             {{/compare}}
-        {{/compare}}
-        {{#compare ideaState "!==" 4}}
-            <div class="informationIdea">
-                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#informationModal_comission">Idea's information</button>
-            </div>
-
-            <div class="modal fade" id="informationModal_comission" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h3 class="modal-title modalTextAlign">Idea's Information</h3>
-                        </div>
-                        <div class="modal-body">
-                            {{#compare ideaCancelled 0}}
-                                {{#compare ideaState 5}}
-                                    <div class="modalTextAlign">
-                                        <h4>Idea already in state 5! It was already selected</h4>
-                                    </div>
-                                {{/compare}}
-                                {{#compare ideaState ">" 5}}
-                                    <div class="modalTextAlign">
-                                        <h4>Idea is on a higher state already, state nº {{ideaState}}!</h4>
-                                    </div>
-                                {{/compare}}
-                                {{#compare ideaState "<" 4}}
-                                    <div class="modalTextAlign">
-                                        <h4>Idea can't be selected yet because is in state {{ideaState}}!</h4>
-                                    </div>
-                                {{/compare}}
-                            {{/compare}}
-                            {{#compare ideaCancelled 1}}
-                                <div class="modalTextAlign">
-                                    <h4>Idea can't be selected because it was rejected before!</h4>
-                                </div>
-                            {{/compare}}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         {{/compare}}
     {{/compare}}
 </div>

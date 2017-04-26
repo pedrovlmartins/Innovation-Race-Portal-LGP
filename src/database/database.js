@@ -144,9 +144,9 @@ module.exports = {
       'ideas.state, users.id, users.name AS creator ' +
       'FROM ideas ' +
       'JOIN users ON users.id = ideas.idCreator ' +
-      'WHERE users.name LIKE ? OR title LIKE ? ' +
+      'WHERE users.name LIKE ? OR ideas.title LIKE ? OR ideas.state LIKE ?' +
       'ORDER BY ideas.title ' +
-      'LIMIT ?, ?;', [varPattern, varPattern, limit, offset],
+      'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
         if (error) {
           console.error(error);
