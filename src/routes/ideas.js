@@ -5,8 +5,14 @@ var db = require(path.join(__base, 'database', 'database'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.post('/:id/validate', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError('You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 6) {
+    if (type !== 7) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
@@ -22,8 +28,14 @@ router.post('/:id/validate', function (req, res, next) {
 });
 
 router.post('/:id/decline', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError('You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 6) {
+    if (type !== 7) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
@@ -39,8 +51,14 @@ router.post('/:id/decline', function (req, res, next) {
 });
 
 router.post('/:id/commissionDecline', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError('You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 4) {
+    if (type !== 5) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
