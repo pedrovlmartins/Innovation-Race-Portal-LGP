@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var db = require(path.join(__base, 'database', 'database'));
+const ideas = require(path.join(__base, 'lib', 'ideas'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.post('/:id/validate', function (req, res, next) {
@@ -112,6 +113,7 @@ router.get('/:id', function (req, res) {
                   type: type,
                   ideaState: ideaInfo.state,
                   ideaCancelled: ideaInfo.cancelled[0],
+                  canSelectIdea: ideaInfo.state === ideas.states.AWAITING_SELECTION && irp.currentCanSelectIdea(req),
                 };
                 console.log('Vars: ');
                 console.log('descrição - ' + vars.description);
@@ -119,7 +121,8 @@ router.get('/:id', function (req, res) {
                 console.log('ideia cancelada - ', vars.ideaCancelled);
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
-                res.render('idea', vars);
+                res.render('idea', irp.mergeRecursive(vars, irp.getActionResults(req)));
+                irp.cleanActionResults(req);
               } else
                 res.sendStatus(403);
             }
