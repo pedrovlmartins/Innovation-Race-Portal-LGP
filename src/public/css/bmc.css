@@ -1,0 +1,19 @@
+*{margin:0; padding:0; box-sizing:border-box;}
+body{
+  font-family:arial;
+}
+label,
+input{
+  width:100%;
+}
+
+textarea{
+  width:96%;
+  max-width:96%;
+  min-width:96%;
+  padding:30px 2%;
+  height:240px;
+}
+.col-xs-12 > textarea{
+  height:90px;
+}
