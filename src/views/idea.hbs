@@ -130,24 +130,26 @@
                         <h3 class="modal-title modalTextAlign">Idea's Information</h3>
                     </div>
                     <div class="modal-body">
-                        {{#compare ideaState 4}}
-                            <div class="modalTextAlign">
-                                <h4>Idea already in state 4! It was already evaluated!</h4>
-                            </div>
-                        {{/compare}}
-                        {{#compare ideaState ">" 4}}
-                            <div class="modalTextAlign">
-                                <h4>Idea is on a higher state already, state nº {{ideaState}}!</h4>
-                            </div>
-                        {{/compare}}
-                        {{#compare ideaState "<" 3}}
-                            <div class="modalTextAlign">
-                                <h4>Idea can't be evaluated yet because is in state {{ideaState}}!</h4>
-                            </div>
+                        {{#compare ideaCancelled 0}}
+                            {{#compare ideaState 4}}
+                                <div class="modalTextAlign">
+                                    <h4>Idea already in state 4! It was already evaluated!</h4>
+                                </div>
+                            {{/compare}}
+                            {{#compare ideaState ">" 4}}
+                                <div class="modalTextAlign">
+                                    <h4>Idea is on a higher state already, state nº {{ideaState}}!</h4>
+                                </div>
+                            {{/compare}}
+                            {{#compare ideaState "<" 3}}
+                                <div class="modalTextAlign">
+                                    <h4>Idea can't be evaluated yet because is in state {{ideaState}}!</h4>
+                                </div>
+                            {{/compare}}
                         {{/compare}}
                         {{#compare ideaCancelled 1}}
                             <div class="modalTextAlign">
-                                <h4>Idea can't be selected because it was rejected before!</h4>
+                                <h4>Idea can't be evaluated because it was rejected before!</h4>
                             </div>
                         {{/compare}}
                     </div>
@@ -160,10 +162,58 @@
     {{/compare}}
 
     {{#compare type 4}}
-        <div id="validationButtons">
-            <form action="/ideas/{{id}}/commissionDecline" method="post">
-                <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton_commission">Decline idea</button>
-            </form>
-        </div>
+        {{#compare ideaState 4}}
+            {{#compare ideaCancelled 0}}
+                <div id="validationButtons">
+                    <form action="/ideas/{{id}}/commissionDecline" method="post">
+                        <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton_commission">Decline idea</button>
+                    </form>
+                </div>
+            {{/compare}}
+        {{/compare}}
+        {{#compare ideaState "!==" 4}}
+            <div class="informationIdea">
+                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#informationModal_comission">Idea's information</button>
+            </div>
+
+            <div class="modal fade" id="informationModal_comission" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title modalTextAlign">Idea's Information</h3>
+                        </div>
+                        <div class="modal-body">
+                            {{#compare ideaCancelled 0}}
+                                {{#compare ideaState 5}}
+                                    <div class="modalTextAlign">
+                                        <h4>Idea already in state 5! It was already selected</h4>
+                                    </div>
+                                {{/compare}}
+                                {{#compare ideaState ">" 5}}
+                                    <div class="modalTextAlign">
+                                        <h4>Idea is on a higher state already, state nº {{ideaState}}!</h4>
+                                    </div>
+                                {{/compare}}
+                                {{#compare ideaState "<" 4}}
+                                    <div class="modalTextAlign">
+                                        <h4>Idea can't be selected yet because is in state {{ideaState}}!</h4>
+                                    </div>
+                                {{/compare}}
+                            {{/compare}}
+                            {{#compare ideaCancelled 1}}
+                                <div class="modalTextAlign">
+                                    <h4>Idea can't be selected because it was rejected before!</h4>
+                                </div>
+                            {{/compare}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/compare}}
     {{/compare}}
 </div>

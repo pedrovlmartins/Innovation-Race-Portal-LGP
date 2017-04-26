@@ -12,7 +12,7 @@ router.post('/:id/validate', function (req, res, next) {
       var vars = irp.getActionResults(req);
       var id = req.params.id;
 
-      db.updateIdeaState_validate(id, 5, function (result) {
+      db.updateIdeaState_validate(id, 4, function (result) {
         if (req.session.userID !== undefined)
           vars.userID = req.session.userID;
         res.redirect(req.get('referer'));
