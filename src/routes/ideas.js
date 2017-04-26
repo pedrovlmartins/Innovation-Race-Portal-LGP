@@ -39,24 +39,7 @@ router.post('/:id/decline', function (req, res, next) {
   });
 });
 
-router.post('/:id/commissionDecline', function (req, res, next) {
-  db.getUserType(req.session.userID, function (type) {
-    if (type !== 4) {
-      res.sendStatus(403);
-    } else {
-      var vars = irp.getActionResults(req);
-      var id = req.params.id;
-
-      db.updateIdeaState_decline(id, function (result) {
-        if (req.session.userID !== undefined)
-          vars.userID = req.session.userID;
-        res.redirect(req.get('referer'));
-      });
-    }
-  });
-});
-
-router.post('/:id/select', function (req, res, next) {
+router.post('/:id/selection', function (req, res, next) {
   if (!irp.currentUserID(req)) {
     irp.addError('You are not logged in.');
     res.redirect('../../');
@@ -69,16 +52,37 @@ router.post('/:id/select', function (req, res, next) {
     return;
   }
 
-  db.updatedIdeaState_select(req.params.id, function (error, result) {
-    if (error) {
-      console.error(error);
-      irp.addError(req, 'Unknown error occurred, please try again later.');
+  db.getIdea(req.params.id, function (ideaInfo) {
+    if (ideaInfo === undefined) {
+      irp.addError(req, 'Could not find idea.');
       res.redirect('back');
       return;
     }
 
-    irp.addSuccess(req, 'The idea has been selected to advance to the coaching phase.');
-    res.redirect('back');
+    if (ideaInfo.cancelled[0]) {
+      irp.addError(req, 'You cannot select a cancelled idea.');
+      res.redirect('back');
+      return;
+    }
+
+    if (req.body.selected === 'true') {
+      db.updatedIdeaState_select(req.params.id, function (error, result) {
+        if (error) {
+          console.error(error);
+          irp.addError(req, 'Unknown error occurred, please try again later.');
+          res.redirect('back');
+          return;
+        }
+
+        irp.addSuccess(req, 'The idea has been selected to advance to the coaching phase.');
+        res.redirect('back');
+      });
+    } else {
+      db.updateIdeaState_decline(req.params.id, function (result) {
+        irp.addSuccess(req, 'The idea has been rejected.');
+        res.redirect('back');
+      });
+    }
   });
 });
 
@@ -113,7 +117,9 @@ router.get('/:id', function (req, res) {
                   type: type,
                   ideaState: ideaInfo.state,
                   ideaCancelled: ideaInfo.cancelled[0],
-                  canSelectIdea: ideaInfo.state === ideas.states.AWAITING_SELECTION && irp.currentCanSelectIdea(req),
+                  canSelectIdea: !ideaInfo.cancelled[0]
+                    && ideaInfo.state === ideas.states.AWAITING_SELECTION
+                    && irp.currentCanSelectIdea(req),
                 };
                 console.log('Vars: ');
                 console.log('descrição - ' + vars.description);

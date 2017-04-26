@@ -222,12 +222,12 @@
 
     {{#if canSelectIdea}}
         <div id="selectionButtons">
-            <form action="/ideas/{{id}}/select" method="post">
-                <input type="hidden" name="selected" value="1" />
+            <form action="/ideas/{{id}}/selection" method="post">
+                <input type="hidden" name="selected" value="true" />
                 <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Select idea</button>
             </form>
             <form action="/ideas/{{id}}/selection" method="post">
-                <input type="hidden" name="selected" value="0" />
+                <input type="hidden" name="selected" value="false" />
                 <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Reject idea</button>
             </form>
         </div>
