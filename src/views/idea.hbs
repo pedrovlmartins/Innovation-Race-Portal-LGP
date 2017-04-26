@@ -104,21 +104,39 @@
         </fieldset>
     </form>
 
-    {{#compare type 3}}
-        {{#compare ideaState "!==" 5}}
-            <div id="validationButtons">
-                <form action="/ideas/{{id}}/validate" method="post">
-                    <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
-                </form>
-                <form action="/ideas/{{id}}/decline" method="post">
-                    <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
-                </form>
-            </div>
+    {{#compare type 6}}
+        {{#compare ideaState 4}}
+                <div id="validationButtons">
+                    <form action="/ideas/{{id}}/validate" method="post">
+                        <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
+                    </form>
+                    <form action="/ideas/{{id}}/decline" method="post">
+                        <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
+                    </form>
+                </div>
         {{/compare}}
         {{#compare ideaState 5}}
             <div>
                 <h2>Idea already in state 5</h2>
             </div>
         {{/compare}}
+        {{#compare ideaState ">" 5}}
+            <div>
+                <h2>Idea is on a higher state already, state nº {{ideaState}}</h2>
+            </div>
+        {{/compare}}
+        {{#compare ideaState "<" 4}}
+            <div>
+                <h2>Idea can't be selected yet because is in state {{ideaState}}</h2>
+            </div>
+        {{/compare}}
+    {{/compare}}
+
+    {{#compare type 4}}
+        <div id="validationButtons">
+            <form action="/ideas/{{id}}/commissionDecline" method="post">
+                <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton_commission">Decline idea</button>
+            </form>
+        </div>
     {{/compare}}
 </div>

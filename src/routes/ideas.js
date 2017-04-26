@@ -6,7 +6,7 @@ const irp = require(path.join(__base, 'lib', 'irp'));
 
 router.post('/:id/validate', function (req, res, next) {
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 7) {
+    if (type !== 6) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
@@ -23,7 +23,24 @@ router.post('/:id/validate', function (req, res, next) {
 
 router.post('/:id/decline', function (req, res, next) {
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 7) {
+    if (type !== 6) {
+      res.sendStatus(403);
+    } else {
+      var vars = irp.getActionResults(req);
+      var id = req.params.id;
+
+      db.updateIdeaState_decline(id, function (result) {
+        if (req.session.userID !== undefined)
+          vars.userID = req.session.userID;
+        res.redirect(req.get('referer'));
+      });
+    }
+  });
+});
+
+router.post('/:id/commissionDecline', function (req, res, next) {
+  db.getUserType(req.session.userID, function (type) {
+    if (type !== 4) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
@@ -75,9 +92,10 @@ router.get('/:id', function (req, res) {
       else {
         db.getUserType(req.session.userID, function (type) {
           db.getTeamMembers(req.params.id, function (members) {
-            ids = members.map((member) => {
+            ids = members.map(function (member) {
                 member.id;
-            });
+              });
+
             ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
               if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
@@ -93,12 +111,12 @@ router.get('/:id', function (req, res) {
                   members: members,
                   type: type,
                   ideaState: ideaInfo.state,
-                  ideaCancelled: ideaInfo.cancelled,
+                  ideaCancelled: ideaInfo.cancelled[0],
                 };
                 console.log('Vars: ');
-                console.log(vars.description);
-                console.log(vars.ideaState);
-                console.log(vars.ideaCancelled);
+                console.log('descrição - ' + vars.description);
+                console.log('estado - ' + vars.ideaState);
+                console.log('ideia cancelada - ', vars.ideaCancelled);
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
                 res.render('idea', vars);
