@@ -26,5 +26,16 @@
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
   background-color: transparent;
   text-decoration: underline;
-  color:white;
+  color:deepskyblue;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  background-color: transparent;
+  text-decoration: underline;
+  color:deepskyblue;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+  text-decoration: underline;
+  color:deepskyblue;
 }
