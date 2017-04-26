@@ -133,18 +133,6 @@
         {{/compare}}
     {{/compare}}
 
-    {{#compare type 5}}
-        {{#compare ideaState 4}}
-            {{#compare ideaCancelled 0}}
-                <div id="validationButtons">
-                    <form action="/ideas/{{id}}/commissionDecline" method="post">
-                        <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton_commission">Decline idea</button>
-                    </form>
-                </div>
-            {{/compare}}
-        {{/compare}}
-    {{/compare}}
-
     {{#if canSelectIdea}}
         <div id="selectionButtons">
             <form action="/ideas/{{id}}/selection" method="post">

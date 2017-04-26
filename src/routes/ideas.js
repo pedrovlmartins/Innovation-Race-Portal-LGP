@@ -38,6 +38,7 @@ router.post('/:id/decline', function (req, res, next) {
     }
   });
 });
+
 router.post('/:id/selection', function (req, res, next) {
   if (!irp.currentUserID(req)) {
     irp.addError('You are not logged in.');
@@ -163,10 +164,6 @@ router.get('/:id', function (req, res) {
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
                 };
-                console.log('Vars: ');
-                console.log('descrição - ' + vars.description);
-                console.log('estado - ' + vars.ideaState);
-                console.log('ideia cancelada - ', vars.ideaCancelled);
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
                 res.render('idea', irp.mergeRecursive(vars, irp.getActionResults(req)));
