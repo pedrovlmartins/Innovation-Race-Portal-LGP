@@ -27,6 +27,7 @@ const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
 const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
 const ideas = require(path.join(__base, 'routes', 'ideas'));
 const classification = require(path.join(__base, 'routes', 'classification'));
+const bmc = require(path.join(__base, 'routes', 'bmc'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
   login: require(path.join(__base, 'routes', 'auth', 'login')),
@@ -105,6 +106,7 @@ app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
 app.use('/ideas', ideas);
 app.use('/classification', classification);
+app.use('/bmc', bmc);
 
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);
