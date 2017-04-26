@@ -1,5 +1,8 @@
 {{>header pageName="Idea"}}
 <div class="container">
+
+    {{>actionResults}}
+
     <link rel="stylesheet" href="/css/ideaPage.css">
     <form class="well form-horizontal" action=" " method="post"  id="idea_page">
         <fieldset>
@@ -216,4 +219,17 @@
             </div>
         {{/compare}}
     {{/compare}}
+
+    {{#if canSelectIdea}}
+        <div id="selectionButtons">
+            <form action="/ideas/{{id}}/selection" method="post">
+                <input type="hidden" name="selected" value="true" />
+                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Select idea</button>
+            </form>
+            <form action="/ideas/{{id}}/selection" method="post">
+                <input type="hidden" name="selected" value="false" />
+                <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Reject idea</button>
+            </form>
+        </div>
+    {{/if}}
 </div>
