@@ -93,7 +93,7 @@ module.exports = {
         } else if (result.length == 0) {
           next('User not found');
         } else {
-          next(null, result[0]);
+          next(null, result[0].email);
         }
       });
   },

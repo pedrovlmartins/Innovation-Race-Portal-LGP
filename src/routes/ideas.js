@@ -149,7 +149,7 @@ function sendSelectionNotificationEmail(creatorID, title, selected) {
     if (err) {
       console.error(err);
     } else {
-      sendSelectionNotificationEmail(email, title, true, function (error, body) {
+      ideas.sendSelectionNotificationEmail(email, title, true, function (error, body) {
         if (error)
           console.error(error);
       });

@@ -1,4 +1,6 @@
 const path = require('path');
+const email = require(path.join(__base, 'lib', 'mailer'));
+const EmailTemplate = require('email-templates').EmailTemplate;
 const selectionNotificationEmailTemplateDir =
   path.join(__base, 'views', 'emails', 'selectionNotification');
 
@@ -43,7 +45,7 @@ module.exports = {
       selected: selected,
       replyTo: 'altran@musaic.ml',
     };
-    newsletter.render(user, function (err, result) {
+    newsletter.render(data, function (err, result) {
       if (err) console.error(err);
       email.send(to, 'Innovation Race Portal - Your idea has been analyzed by the committee', result.text, result.html,
         function (error, body) {
