@@ -22,11 +22,9 @@
                         </ul>
                     </li>
                     <li><a href="/innovationRules"><h4 class="navbarLetterColor">Innovation Rules</h4></a></li>
-                    {{#compare pageName 'Homepage'}}
-                        <li><a class="page-scroll" href="#about" id="aboutButton"><h4 class="navbarLetterColor">About Altran</h4></a></li>
-                        <li><a class="page-scroll" href="#contact"><h4 class="navbarLetterColor">Contact</h4></a></li>
-                    {{/compare}}
-                    {{#if userID}}
+                        <!--<li><a class="page-scroll" href="#about" id="aboutButton"><h4 class="navbarLetterColor">About Altran</h4></a></li>
+                        <li><a class="page-scroll" href="#contact"><h4 class="navbarLetterColor">Contact</h4></a></li> -->
+                        {{#if userID}}
                         <li><a class="MainNavText" id="MainNavHelp" href="/auth/logout"><h4 class="navbarLetterColor">Logout</h4></a></li>
                     {{else}}
                         <li><a data-target="#loginModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#loginModal"><h4 class="navbarLetterColor">Login</h4></a></li>
