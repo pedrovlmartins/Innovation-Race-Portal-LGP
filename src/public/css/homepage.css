@@ -15,43 +15,6 @@ img.bg {
 	height: 100%;
 }
 
-.rankingTable {
-	margin-top:25%;
-}
-
-.rankingTableHead {
-    background-color: #4298b5;
-}
-
-.rankingTableBody {
-	background-color: rgba(255,255,255,0.8);
-}
-
-/* table curved */
-.table-curved {
-	border-collapse: collapse;
-}
-
-.table-curved {
-	border-radius: 6px;
-}
-
-.table-curved th:first-child {
-	border-radius: 6px 0 0 0;
-}
-.table-curved th:last-child {
-	border-radius: 0 6px 0 0;
-}
-.table-curved th:only-child{
-	border-radius: 6px 6px 0 0;
-}
-.table-curved tr:last-child td:first-child {
-	border-radius: 0 0 0 6px;
-}
-.table-curved tr:last-child td:last-child {
-	border-radius: 0 0 6px 0;
-}
-
 .innovationHeader{
     text-align: center;
     margin-top: 25%;
@@ -62,9 +25,8 @@ img.bg {
     font-family: "Century Gothic";
 }
 
-#contact {
-	position: absolute;
-	top: 100vh;
+.contactSection {
+	margin-top: 30%;
 	height: 100%;
 	width: 100%;
 	background-color: #4298b5;
@@ -82,9 +44,8 @@ img.bg {
 	margin-top: 20%;
 }
 
-#about {
-	position: absolute;
-	top: 180vh;
+.aboutSection {
+	padding: 50px 0;
 	height: 100%;
 	width: 100%;
 	background-color: white;
