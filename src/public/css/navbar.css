@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i');
+
 .pageNavbar {
   height: 7.5%;
   background-color: rgb(233,227,220);
@@ -39,4 +41,8 @@
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     text-decoration: underline;
     color:deepskyblue;
+}
+
+.navbarContent {
+  font-family: 'Open Sans', sans-serif;
 }
