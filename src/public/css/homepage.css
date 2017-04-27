@@ -25,11 +25,18 @@ img.bg {
     font-family: "Century Gothic";
 }
 
+.titleSection {
+    height: 100%;
+    width: 100%;
+    bottom: 100vh;
+}
+
 .contactSection {
 	margin-top: 30%;
 	height: 100%;
 	width: 100%;
 	background-color: #4298b5;
+    padding-bottom: 5%;
 }
 
 .contactPage {
