@@ -18,7 +18,7 @@
 --
 -- Table structure for table `ideamember`
 --
-
+LOCK TABLES `ideamember` WRITE;
 DROP TABLE IF EXISTS `ideamember`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -34,7 +34,6 @@ CREATE TABLE `ideamember` (
 -- Dumping data for table `ideamember`
 --
 
-LOCK TABLES `ideamember` WRITE;
 /*!40000 ALTER TABLE `ideamember` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ideamember` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -123,6 +122,7 @@ CREATE TABLE `users` (
   `name` varchar(200) NOT NULL,
   `passwordHash` varchar(1000) NOT NULL,
   `type` int(11) NOT NULL,
+  `blocked` TINYINT NULL DEFAULT 0,
   `registrationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accountStatus` int(11) NOT NULL DEFAULT '0',
   `passwordReminderExpire` timestamp NULL DEFAULT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'silva95gustavo@gmail.com','Gustavo Rocha da Silva','pbkdf2$10000$78b8b70a4d7b4a84640224cfff1497dbcb7be9a729baf1266a939ff03b119957a37db78eca47e276ded1e913a818cb3dd751e3456d7e09b09ce4e58c49711a21$b28358ee5638f96b1d269d3a8284dc68663ad8bdbe9408fb3fb85de9161254658a731dc02cd44fdbbf94b118a5484df9c898e25759c12661aff5071bf1457f92',3,'2017-04-19 21:12:30',1,NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'silva95gustavo@gmail.com','Gustavo Rocha da Silva','pbkdf2$10000$78b8b70a4d7b4a84640224cfff1497dbcb7be9a729baf1266a939ff03b119957a37db78eca47e276ded1e913a818cb3dd751e3456d7e09b09ce4e58c49711a21$b28358ee5638f96b1d269d3a8284dc68663ad8bdbe9408fb3fb85de9161254658a731dc02cd44fdbbf94b118a5484df9c898e25759c12661aff5071bf1457f92',3,0,'2017-04-19 21:12:30',1,NULL,NULL,NULL,NULL,'',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -160,6 +160,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+DROP TABLE IF EXISTS `irp`.`drafts`;
 CREATE TABLE `irp`.`drafts` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NULL,
