@@ -1,3 +1,9 @@
+const path = require('path');
+const email = require(path.join(__base, 'lib', 'mailer'));
+const EmailTemplate = require('email-templates').EmailTemplate;
+const selectionNotificationEmailTemplateDir =
+  path.join(__base, 'views', 'emails', 'selectionNotification');
+
 var states = {
   DRAFT: 0,
   AWAITING_CLASSIFICATION: 1,
@@ -32,5 +38,20 @@ module.exports = {
     return stateDescriptions[stateNum];
   },
 
+  sendSelectionNotificationEmail: function (to, ideaName, selected, callback) {
+    var newsletter = new EmailTemplate(selectionNotificationEmailTemplateDir);
+    var data = {
+      ideaName: ideaName,
+      selected: selected,
+      replyTo: 'altran@musaic.ml',
+    };
+    newsletter.render(data, function (err, result) {
+      if (err) console.error(err);
+      email.send(to, 'Innovation Race Portal - Your idea has been analyzed by the committee', result.text, result.html,
+        function (error, body) {
+          callback(error, body);
+        });
+    });
+  },
 };
 
