@@ -39,9 +39,9 @@ router.get('/', function (req, res) {
           if (numberOfIdeas % itemsPerPage > 0)
             vars.totalPages += 1;
           database.listIdeas(offset, itemsPerPage, function (result) {
-            result.forEach(
-              (idea) => idea.state = ideas.getStateName(idea.state)
-            );
+            result.forEach((idea) =>{
+                idea.state = ideas.getStateName(idea.state);
+            });
             vars.ideas = result;
             if (req.session.userID !== undefined)
               vars.userID = req.session.userID;
