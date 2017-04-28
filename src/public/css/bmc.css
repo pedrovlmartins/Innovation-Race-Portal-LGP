@@ -1,19 +1,38 @@
 *{margin:0; padding:0; box-sizing:border-box;}
-body{
-  font-family:arial;
-}
-label,
-input{
-  width:100%;
-}
 
 textarea{
-  width:96%;
-  max-width:96%;
-  min-width:96%;
+  width:100%;
+  max-width:100%;
+  min-width:100%;
   padding:30px 2%;
-  height:240px;
+  height:480px;
+  resize: none;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;
+  display: block;
 }
 .col-xs-12 > textarea{
-  height:90px;
+  height:240px;
+}
+
+.textareabmc {
+  padding:0;
+}
+
+.lowerbmc {
+  height:120px;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+}
+:-moz-placeholder {
+  text-align: center;
+}
+::-moz-placeholder {
+  text-align: center;
+}
+:-ms-input-placeholder {
+  text-align: center;
 }
