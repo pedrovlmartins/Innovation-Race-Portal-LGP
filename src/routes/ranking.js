@@ -33,7 +33,7 @@ router.get('/', function (req, res) {
     vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
     if (numberOfIdeas % itemsPerPage > 0)
       vars.totalPages += 1;
-    database.listIdeas(offset, itemsPerPage, function (result) {
+    database.listIdeasRanking(offset, itemsPerPage, function (result) {
       result.forEach(
         (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
       );

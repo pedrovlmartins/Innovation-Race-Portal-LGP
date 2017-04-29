@@ -127,6 +127,17 @@ module.exports = {
     });
   },
 
+  listIdeasRanking: function (limit, offset, next) {
+    pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
+      'ideas.state, ideas.cancelled, ideas.score, users.id AS idCreator, users.name AS creator ' +
+      'FROM ideas ' +
+      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.score DESC ' +
+      'LIMIT ?, ?;', [limit, offset], function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
   getIdeaCount: function (next) {
     pool.query('SELECT COUNT(*) AS count ' +
       'FROM ideas;', function (error, results) {
