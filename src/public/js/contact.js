@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $('#contact_form').bootstrapValidator({
+
     // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
     feedbackIcons: {
       valid: 'glyphicon glyphicon-ok',
@@ -69,5 +70,12 @@ $(document).ready(function () {
         console.log(result);
         url: '/contact';
       }, 'json');
+      swal({
+        title: 'Contact Form',
+        text: 'Your question was sucessfully sent!',
+        type: 'success',
+      }, function () {
+        window.location.reload();
+      });
     });
 });
