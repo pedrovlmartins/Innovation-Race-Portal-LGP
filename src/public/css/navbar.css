@@ -45,3 +45,7 @@
 .navbarContent {
   font-family: 'Open Sans', sans-serif;
 }
+
+body {
+  margin-top: 69px;
+}
