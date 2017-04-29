@@ -2,8 +2,7 @@
 
 {{>actionResults}}
 
-<link rel="stylesheet" href="/css/id
-eaPage.css">
+<link rel="stylesheet" href="/css/ideaPage.css">
 
 <div class="cointainer">
 
@@ -14,13 +13,13 @@ eaPage.css">
             </div>
         </div>
         <div class="main-submit main-center">
-            <form class="form-horizontal" method="post" action="submit">
+            <form id="submitForm" class="form-horizontal" method="post" action="submit">
 
                 <div class="form-group">
                     <div class="form-group">
-                        <label for="ideaTitle" class="col-sm-1 control-label"></label>
+                        <label for="title" class="col-sm-1 control-label"></label>
                         <div class="col-sm-8 col-sm-offset-4">Idea title
-                            <input type="text" id="ideaTitle" name="ideaTitle" class="form-control" autofocus>
+                            <input type="text" id="title" name="title" class="form-control" autofocus>
                         </div>
                     </div>
                     <div class="form-group">
@@ -28,18 +27,6 @@ eaPage.css">
                         <div class="col-sm-8 col-sm-offset-4">Description
                                 <textarea rows=8 cols=50 type="description" id="description" name="description"  class="form-control">
                                 </textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="teamIdea" class="col-sm-1 control-label"></label>
-                        <div class="col-sm-8 col-sm-offset-4">Team name
-                            <input type="text" id="teamIdea" name="teamIdea"  class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="teammembers" class="col-sm-1 control-label"></label>
-                        <div class="col-sm-8 col-sm-offset-4">Team Members
-                            <input type="text" id="teammembers" name="teammembers" placeholder="Team Members" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -64,9 +51,9 @@ eaPage.css">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="results" class="col-sm-1 control-label"></label>
+                        <label for="resultsToProduce" class="col-sm-1 control-label"></label>
                         <div class="col-sm-8 col-sm-offset-4">Results to be produced by the project
-                            <textarea rows=8 cols=50 type="text" id="results" name="results"  class="form-control">
+                            <textarea rows=8 cols=50 type="text" id="resultsToProduce" name="resultsToProduce"  class="form-control">
                             </textarea>
                         </div>
                     </div>

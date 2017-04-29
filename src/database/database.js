@@ -21,12 +21,11 @@ module.exports = {
                         solutionTechnicalCompetence, techHumanResources, resultsToProduce,
                         callback) {
     pool.query('INSERT INTO ideas' +
-      ' (idCreator, race, title, description,' +
-      ' uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, resultsToProduce)' +
-      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?);',
-    [creatorId, title, description, uncertaintyToSolve, solutionTechnicalCompetence,
-      techHumanResources, resultsToProduce,
-    ],
+      ' (idCreator, race, title, description' +
+      ', uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, resultsToProduce)' +
+      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [creatorId, race, title, description, uncertaintyToSolve, solutionTechnicalCompetence,
+      techHumanResources, resultsToProduce],
     function (err, results, fields) {
       if (err)
         callback(err);
@@ -34,6 +33,20 @@ module.exports = {
         callback(null, results.insertId);
     });
   },
+
+    getUserType: function (id, next) {
+        pool.query(
+            'SELECT type ' +
+            'FROM users ' +
+            'WHERE id = ?;', [id], function (err, result) {
+                if (typeof next === 'function') {
+                    if (result.length === 1)
+                        next(result[0].type);
+                    else
+                        next(-1);
+                }
+            });
+    },
 
   getUserByEmail: function (email, callback) {
     pool.query('SELECT * FROM users WHERE email = ?',
@@ -57,8 +70,13 @@ module.exports = {
       'JOIN users ' +
       'ON users.id = ideas.idCreator ' +
       'WHERE ideas.id = ?;', [id], function (err, result) {
-        if (typeof next === 'function')
-          next(result[0]);
+        if (err) {
+          next(err);
+        } else if (result.length == 0) {
+          next('Idea not found');
+        } else {
+          next(null, result[0]);
+        }
       });
   },
 
