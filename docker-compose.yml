@@ -4,19 +4,22 @@ services:
     build: "src"
     expose:
       - "8080"
-    links:
-      - database
+    depends_on:
+      - "database"
     environment:
+      - NODE_ENV
       - DEBUG=$${DEBUG}
       - VIRTUAL_HOST=$${VIRTUAL_HOST}
   database:
     image: "mysql"
     command: "mysqld --user=root --verbose"
-    expose:
+    ports:
       - "3306"
     environment:
       MYSQL_DATABASE: "irp"
       MYSQL_USER: "root"
-      MYSQL_PASSWORD: ""
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - ./scripts/database:/docker-entrypoint-initdb.d

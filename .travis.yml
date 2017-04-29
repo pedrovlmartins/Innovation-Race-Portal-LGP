@@ -10,16 +10,13 @@ node_js:
 
 services:
   - docker
-
-before_install:
-  - mysql -e 'CREATE DATABASE irp_test;'
   
 before_script:
   - sudo /etc/init.d/mysql stop
   - docker-compose pull
   - docker-compose build
   - docker-compose up -d
-  - sleep 5
+  - sleep 30
   
 script:
   - docker exec altraninnovationraceportal_web_1 npm test

@@ -1,0 +1,148 @@
+{{>header pageName="Idea"}}
+<div class="container">
+
+    {{>actionResults}}
+
+    <link rel="stylesheet" href="/css/ideaPage.css">
+    <form class="well form-horizontal" action=" " method="post"  id="idea_page">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>{{name}}</legend>
+
+            <!-- Team Leader -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" >Team Leader</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="team_leader" value="{{leader}}" class="form-control"  type="text" readonly>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Members -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Team Members</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select name="state" class="form-control selectpicker" readonly>
+                            <option>Members</option>
+                            {{#each members}}
+                                <option> {{name}} </option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Idea Description -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Idea Description</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{description}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical/scientific uncertainty to solve -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Technical/scientific uncertainty to solve</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-wrench"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{uncertaintyToSolve}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unimplementability by someone with technical skills -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Unimplementability by someone with technical skills</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{solutionTechnicalCompetence}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expected human and technological resources -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Expected human and technological resources</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{techHumanResources}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results to produce by the project -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Results to produce by the project</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{resultsToProduce}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">State of the idea</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
+                        <textarea id="textArea" class="form-control" name="comment" readonly>{{ideaState}}</textarea>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    {{#compare type 7}}
+        {{#compare ideaState 3}}
+            {{#compare ideaCancelled 0}}
+                <div id="validationButtons">
+                    <form action="/ideas/{{id}}/validate" method="post">
+                        <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
+                    </form>
+                    <form action="/ideas/{{id}}/decline" method="post">
+                        <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
+                    </form>
+                </div>
+            {{/compare}}
+        {{/compare}}
+    {{/compare}}
+
+    {{#if canSelectIdea}}
+        <div id="selectionButtons">
+            <form action="/ideas/{{id}}/selection" method="post">
+                <input type="hidden" name="selected" value="true" />
+                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Select idea</button>
+            </form>
+            <form action="/ideas/{{id}}/selection" method="post">
+                <input type="hidden" name="selected" value="false" />
+                <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Reject idea</button>
+            </form>
+        </div>
+    {{/if}}
+</div>

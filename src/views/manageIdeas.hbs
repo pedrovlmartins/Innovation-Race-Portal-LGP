@@ -1,0 +1,66 @@
+{{>header pageName="Manage Ideas"}}
+<script src="../js/manageIdeas.js"></script>
+<div class="container">
+
+    {{>actionResults}}
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">Manage Ideas</h1>
+                <hr>
+            </div>
+        </div>
+    </header>
+
+    <div id="imaginary_container">
+        <form action="/manageIdeas" method="get">
+            <div class="input-group stylish-input-group">
+                <input type="text" class="form-control"  placeholder="Search" name="keyword" value=''>
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+
+    <table class="table table-hover table-bordered rankingTable">
+        <thead class="rankingTableHead">
+        <tr>
+            <th>Ideas</th>
+            <th>Creator of the idea</th>
+            <th>State</th>
+            <th>Classification</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each ideas}}
+            <tr>
+                <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                <td>{{state}}</td>
+                <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                {{#if keyword}}
+                    {{add-pagination "/manageIdeas" page totalPages keyword}}
+                {{else}}
+                    {{add-pagination "/manageIdeas" page totalPages ""}}
+                {{/if}}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{{> classification}}

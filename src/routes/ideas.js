@@ -1,0 +1,199 @@
+var express = require('express');
+var router = express.Router();
+var path = require('path');
+var db = require(path.join(__base, 'database', 'database'));
+const ideas = require(path.join(__base, 'lib', 'ideas'));
+const irp = require(path.join(__base, 'lib', 'irp'));
+
+router.post('/:id/validate', function (req, res, next) {
+  db.getUserType(req.session.userID, function (type) {
+    if (type !== 6) {
+      res.sendStatus(403);
+    } else {
+      var vars = irp.getActionResults(req);
+      var id = req.params.id;
+
+      db.updateIdeaState_validate(id, 4, function (result) {
+        if (req.session.userID !== undefined)
+          vars.userID = req.session.userID;
+        res.redirect(req.get('referer'));
+      });
+    }
+  });
+});
+
+router.post('/:id/decline', function (req, res, next) {
+  db.getUserType(req.session.userID, function (type) {
+    if (type !== 6) {
+      res.sendStatus(403);
+    } else {
+      var vars = irp.getActionResults(req);
+      var id = req.params.id;
+
+      db.updateIdeaState_decline(id, function (result) {
+        if (req.session.userID !== undefined)
+          vars.userID = req.session.userID;
+        res.redirect(req.get('referer'));
+      });
+    }
+  });
+});
+
+router.post('/:id/selection', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError('You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  if (!irp.currentCanSelectIdea(req)) {
+    irp.addError(req, 'Only a member of the R&D committee may select an idea.');
+    res.redirect('back');
+    return;
+  }
+
+  db.getIdea(req.params.id, function (ideaInfo) {
+    if (ideaInfo === undefined) {
+      irp.addError(req, 'Could not find idea.');
+      res.redirect('back');
+      return;
+    }
+
+    if (ideaInfo.cancelled[0]) {
+      irp.addError(req, 'You cannot select a cancelled idea.');
+      res.redirect('back');
+      return;
+    }
+
+    if (req.body.selected === 'true') {
+      db.updatedIdeaState_select(req.params.id, function (error, result) {
+        if (error) {
+          console.error(error);
+          irp.addError(req, 'Unknown error occurred, please try again later.');
+          res.redirect('back');
+          return;
+        }
+
+        irp.addSuccess(req, 'The idea has been selected to advance to the coaching phase.');
+        res.redirect('back');
+        sendSelectionNotificationEmail(ideaInfo.creatorId, ideaInfo.title, true);
+      });
+    } else {
+      db.updateIdeaState_decline(req.params.id, function (result) {
+        irp.addSuccess(req, 'The idea has been rejected.');
+        res.redirect('back');
+        sendSelectionNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
+      });
+    }
+  });
+});
+
+router.post('/:id/commissionDecline', function (req, res, next) {
+  db.getUserType(req.session.userID, function (type) {
+    if (type !== 4) {
+      res.sendStatus(403);
+    } else {
+      var vars = irp.getActionResults(req);
+      var id = req.params.id;
+
+      db.updateIdeaState_decline(id, function (result) {
+        if (req.session.userID !== undefined)
+          vars.userID = req.session.userID;
+        res.redirect(req.get('referer'));
+      });
+    }
+  });
+});
+
+router.post('/:id/select', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError('You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  if (!irp.currentCanSelectIdea(req)) {
+    irp.addError(req, 'Only a member of the R&D committee may select an idea.');
+    res.redirect('back');
+    return;
+  }
+
+  db.updatedIdeaState_select(req.params.id, function (error, result) {
+    if (error) {
+      console.error(error);
+      irp.addError(req, 'Unknown error occurred, please try again later.');
+      res.redirect('back');
+      return;
+    }
+
+    irp.addSuccess(req, 'The idea has been selected to advance to the coaching phase.');
+    res.redirect('back');
+  });
+});
+
+router.get('/:id', function (req, res) {
+  var ids = [];
+  if (req.session.userID === undefined)
+    res.sendStatus(401);
+  else {
+    db.getIdea(req.params.id, function (ideaInfo) {
+      if (ideaInfo === undefined)
+        res.sendStatus(404);
+      else {
+        db.getUserType(req.session.userID, function (type) {
+          db.getTeamMembers(req.params.id, function (members) {
+            ids = members.map(function (member) {
+                member.id;
+              });
+
+            ids.push(ideaInfo.creatorId);
+            if (req.session !== undefined) {
+              if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
+                var vars = {
+                  id: req.params.id,
+                  name: ideaInfo.name,
+                  leader: ideaInfo.creator,
+                  description: ideaInfo.description,
+                  resultsToProduce: ideaInfo.resultsToProduce,
+                  uncertaintyToSolve: ideaInfo.uncertaintyToSolve,
+                  techHumanResources: ideaInfo.techHumanResources,
+                  solutionTechnicalCompetence: ideaInfo.solutionTechnicalCompetence,
+                  members: members,
+                  type: type,
+                  ideaState: ideaInfo.state,
+                  ideaCancelled: ideaInfo.cancelled[0],
+                  canSelectIdea: !ideaInfo.cancelled[0]
+                    && ideaInfo.state === ideas.states.AWAITING_SELECTION
+                    && irp.currentCanSelectIdea(req),
+                };
+                if (req.session.userID !== undefined)
+                  vars.userID = req.session.userID;
+                res.render('idea', irp.mergeRecursive(vars, irp.getActionResults(req)));
+                irp.cleanActionResults(req);
+              } else
+                res.sendStatus(403);
+            }
+          });
+        });
+      }
+    });
+  }
+});
+
+router.get('/submit', function (req, res, next) {
+});
+
+function sendSelectionNotificationEmail(creatorID, title, selected) {
+  db.getUserEmail(creatorID, function (err, email) {
+    if (err) {
+      console.error(err);
+    } else {
+      ideas.sendSelectionNotificationEmail(email, title, true, function (error, body) {
+        if (error)
+          console.error(error);
+      });
+    }
+  });
+}
+
+module.exports = router;

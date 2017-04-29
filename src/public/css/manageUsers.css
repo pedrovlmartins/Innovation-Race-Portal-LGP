@@ -1,0 +1,36 @@
+#imaginary_container{
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: -5%;
+}
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+    border-right:0;
+    box-shadow:0 0 0;
+    border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+#homeHeading {
+    text-align: center;
+    margin-top: 10%;
+}
+
+.rankingTable {
+    margin-top: 10%;
+    margin-left: 2%;
+}
+
+.rankingTableHead {
+    background-color: #4298b5;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
