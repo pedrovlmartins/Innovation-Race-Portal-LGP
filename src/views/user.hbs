@@ -1,0 +1,83 @@
+{{>header pageName="User Page"}}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
+<link rel="stylesheet" href="../css/userPage.css">
+<script src="../js/userPage.js"></script>
+
+
+<div class="container">
+    <div class="menu">
+        <h2> Hello {{firstName}} </h2>
+        <ul class="userNavbar">
+            <li class="active"><h4><a>PROFILE</a></h4></li>
+            <li><h4><a>MY IDEAS</a></h4></li>
+            <li><h4><a>SUBMIT IDEA</a></h4></li>
+        </ul>
+    </div>
+    <div class="form">
+        <form class="well form-horizontal" action=" " method="post"  id="user_page">
+            <fieldset>
+                <!-- Name -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" >Name</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="name" value="{{name}}" class="form-control"  type="text" readonly>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Email</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <input name="email" value="{{email}}" class="form-control"  type="text" readonly>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collaborator Number -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Employee nr.</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input name="collaboratorNumber" value="{{colaboratorNum}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Position / Business Area -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Job Position/Business Area</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-wrench"></i></span>
+                            <input name="businessField" value="{{businessField}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Associated Manager -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Associated Manager</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                            <input name="manager" value="{{manager}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

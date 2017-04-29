@@ -31,6 +31,17 @@ module.exports = {
       });
   },
 
+  getUserInfoById: function (id, next) {
+    pool.query(
+      'SELECT users.id, users.name, users.email, users.colaboratorNum, users.businessField, manager.name AS manager ' +
+      'FROM users ' +
+      'JOIN users manager ON users.manager = manager.id ' +
+      'WHERE users.id = ?', [id], function (err, result) {
+        if(typeof next === 'function')
+          next(result[0]);
+      });
+  },
+
   getIdea: function (id, next) {
     pool.query(
       'SELECT users.id AS creatorId, users.name AS creator,ideas.title, ideas.description,' +
