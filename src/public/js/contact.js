@@ -69,13 +69,24 @@ $(document).ready(function () {
       $.post($form.attr('action'), $form.serialize(), function (result) {
         console.log(result);
         url: '/contact';
-      }, 'json');
-      swal({
-        title: 'Contact Form',
-        text: 'Your question was sucessfully sent!',
-        type: 'success',
-      }, function () {
-        window.location.reload();
-      });
+      })
+        .done(function (data) {
+          swal({
+            title: 'Contact Form',
+            text: 'Your question was sucessfully sent!',
+            type: 'success',
+          }, function () {
+            window.location.reload();
+          });
+        })
+        .fail(function (data) {
+          swal({
+            title: 'Something went wrong',
+            text: 'Please try again later!',
+            type: 'error',
+          }, function () {
+            window.location.reload();
+          });
+        });
     });
 });
