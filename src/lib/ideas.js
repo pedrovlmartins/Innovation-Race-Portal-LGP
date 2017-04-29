@@ -14,6 +14,7 @@ var states = {
   IN_COACHING_PHASE: 6,
   AWAITING_GO_NO_GO: 7,
   BEING_IMPLEMENTED: 8,
+  CANCELLED: -1,
 };
 
 var stateDescriptions = [
@@ -26,16 +27,23 @@ var stateDescriptions = [
   'In coaching phase',
   'Awaiting GO / NO GO',
   'Being implemented',
+  'Cancelled',
 ];
 
 module.exports = {
   states: states,
 
-  getStateName: function  (stateNum)
-  {
-    if (stateNum < 0 || stateNum >= stateDescriptions.length)
+  getStateName: function  (stateNum, cancelled) {
+    if (cancelled === true)
+      return stateDescriptions[stateDescriptions.length - 1]
+    if (stateNum < 0 || stateNum >= (stateDescriptions.length - 1))
       return null;
     return stateDescriptions[stateNum];
+  },
+
+  canSubmitIdea: function (user, race) {
+    // TODO
+    return true;
   },
 
   sendSelectionNotificationEmail: function (to, ideaName, selected, callback) {
