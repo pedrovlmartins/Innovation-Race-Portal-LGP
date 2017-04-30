@@ -178,7 +178,7 @@ module.exports = {
       'SET state = ? ' +
       'WHERE ideas.id = ? AND cancelled = FALSE;', [state, id], function (err, result) {
         if (typeof next === 'function')
-          next(result);
+          next(err, result);
       });
   },
 
@@ -188,7 +188,7 @@ module.exports = {
       'SET cancelled = 1 ' +
       'WHERE ideas.id = ? AND cancelled = FALSE;', [id], function (err, result) {
         if (typeof next === 'function')
-          next(result);
+          next(err, result);
       });
   },
 

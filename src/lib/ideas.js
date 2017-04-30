@@ -1,8 +1,8 @@
 const path = require('path');
 const email = require(path.join(__base, 'lib', 'mailer'));
 const EmailTemplate = require('email-templates').EmailTemplate;
-const selectionNotificationEmailTemplateDir =
-  path.join(__base, 'views', 'emails', 'selectionNotification');
+const evaluationNotificationEmailTemplateDir =
+  path.join(__base, 'views', 'emails', 'evaluationNotification');
 
 var states = {
   DRAFT: 0,
@@ -38,6 +38,25 @@ module.exports = {
     return stateDescriptions[stateNum];
   },
 
+  sendEvaluationNotificationEmail: function (to, ideaName, approved, callback) {
+    var newsletter = new EmailTemplate(evaluationNotificationEmailTemplateDir);
+    var data = {
+      ideaName: ideaName,
+      approved: approved,
+      replyTo: 'altran@musaic.ml',
+    };
+    console.log('approved: ', approved);
+    newsletter.render(data, function (err, result) {
+      if (err) console.error(err);
+      email.send(to,
+        'Innovation Race Portal - Your idea has been evaluated by the technical directors',
+        result.text, result.html,
+        function (error, body) {
+          callback(error, body);
+        });
+    });
+  },
+
   sendSelectionNotificationEmail: function (to, ideaName, selected, callback) {
     var newsletter = new EmailTemplate(selectionNotificationEmailTemplateDir);
     var data = {
@@ -47,7 +66,9 @@ module.exports = {
     };
     newsletter.render(data, function (err, result) {
       if (err) console.error(err);
-      email.send(to, 'Innovation Race Portal - Your idea has been analyzed by the committee', result.text, result.html,
+      email.send(to,
+        'Innovation Race Portal - Your idea has been analyzed by the committee',
+        result.text, result.html,
         function (error, body) {
           callback(error, body);
         });
