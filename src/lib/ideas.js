@@ -53,7 +53,6 @@ module.exports = {
       approved: approved,
       replyTo: 'altran@musaic.ml',
     };
-    console.log('approved: ', approved);
     newsletter.render(data, function (err, result) {
       if (err) console.error(err);
       email.send(to,
