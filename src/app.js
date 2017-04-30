@@ -26,6 +26,7 @@ const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
 const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
 const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
 const ideas = require(path.join(__base, 'routes', 'ideas'));
+const users = require(path.join(__base, 'routes', 'users'));
 const classification = require(path.join(__base, 'routes', 'classification'));
 const ranking = require(path.join(__base, 'routes', 'ranking'));
 const auth = {
@@ -42,46 +43,11 @@ const app = express();
 const helpers = require(path.join(__base, 'lib', 'helpers'));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__base, 'views'));
-hbs.registerHelper('add-pagination', helpers.addPagination);
 hbs.registerPartials(path.join(__base, 'views', 'partials'));
 hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
+hbs.registerHelper('add-pagination', helpers.addPagination);
+hbs.registerHelper('compare', helpers.compare);
 
-hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
-  var operators;
-  var result;
-  
-  if (arguments.length < 3) {
-    throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
-  }
- 
-  if (options === undefined) {
-    options = rvalue;
-    rvalue = operator;
-    operator = '===';
-  }
-
-  operators = {
-   '==': function (l, r) { return l == r; },
-   '===': function (l, r) { return l === r; },
-   '!=': function (l, r) { return l != r; },
-   '!==': function (l, r) { return l !== r; },
-   '<': function (l, r) { return l < r; },
-   '>': function (l, r) { return l > r; },
-   '<=': function (l, r) { return l <= r; },
-   '>=': function (l, r) { return l >= r; },
-   'typeof': function (l, r) { return typeof l == r; },
-  };
-  if (!operators[operator]) {
-   throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
-  }
- 
-  result = operators[operator](lvalue, rvalue);
-  if (result) {
-    return options.fn(this);
-  } else {
-    return options.inverse(this);
-  }
-});
 
 
 // Favicon
@@ -106,6 +72,7 @@ app.use('/innovationRules', innovationRules);
 app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
 app.use('/ideas', ideas);
+app.use('/users', users);
 app.use('/classification', classification);
 app.use('/ranking', ranking);
 
