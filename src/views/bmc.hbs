@@ -1,53 +1,62 @@
 {{>header pageName="Business Model Canvas"}}
 
 <div class="container">
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h1 id="homeHeading">Business Model Canvas</h1>
-                <hr>
-            </div>
+        <div class="bmcTitle">
+            <h4 id="titleBMC">BUSINESS MODEL CANVAS
+            </h4>
         </div>
-    </header>
 
     <div class="row rowmargin">
         <div class="textareabmc col-sm-2 col-md-2">
-            <textarea placeholder="Key Partners"></textarea>
+            <label class="titleLabelOne" for="keyPartnersTextarea">Key Partners</label>
+            <textarea id="keyPartnersTextarea"></textarea>
         </div>
         <div class="textareabmc col-sm-3">
             <div class="row">
                 <div class="col-xs-12">
-                    <textarea class="teste2" placeholder="Key Activities"></textarea>
+                    <label class="titleLabelTwo" for="keyActivitiesTextarea">Key Activities</label>
+                    <textarea id="keyActivitiesTextarea"></textarea>
                 </div>
                 <div class="col-xs-12">
-                    <textarea class="teste" placeholder="Key Resources"></textarea>
+                    <label class="titleLabelThree" for="keyResourcesTextarea">Key Resources</label>
+                    <textarea id="keyResourcesTextarea"></textarea>
                 </div>
             </div>
         </div>
         <div class="textareabmc col-sm-2">
-            <textarea placeholder="Value Propositions"></textarea>
+            <label class="titleLabelOne" for="keyValueTextarea">Value Propositions</label>
+            <textarea id="keyValueTextarea"></textarea>
         </div>
         <div class="textareabmc col-sm-3">
             <div class="row">
                 <div class="col-xs-12">
-                    <textarea class="teste2" placeholder="Customer Relationships"></textarea>
+                    <label class="titleLabelTwo" for="keyCostumerTextarea">Customer Relationships</label>
+                    <textarea id="keyCostumerTextarea"></textarea>
                 </div>
                 <div class="col-xs-12">
-                    <textarea class="teste" placeholder="Channels"></textarea>
+                    <label class="titleLabelThree" for="keyChannelsTextarea">Channels</label>
+                    <textarea id="keyChannelsTextarea"></textarea>
                 </div>
             </div>
         </div>
         <div class="textareabmc col-sm-2">
-            <textarea placeholder="Customer segments"></textarea>
+            <label class="titleLabelOne" for="keySegmentsTextarea">Customer segments</label>
+            <textarea id="keySegmentsTextarea"></textarea>
         </div>
     </div>
 
     <div class="row rowmargin">
         <div class="textareabmc col-md-6">
-            <textarea class="lowerbmc" placeholder="Cost Structure"></textarea>
+            <label class="titleLabelFour" for="keyCostTextarea">Cost Structure</label>
+            <textarea id="keyCostTextarea"></textarea>
         </div>
         <div class="lowerbmc textareabmc col-md-6">
-            <textarea class="lowerbmc" placeholder="Revenue Streams"></textarea>
+            <label class="titleLabelFour" for="keyRevenueTextarea">Revenue Streams</label>
+            <textarea id="keyRevenueTextarea"></textarea>
         </div>
+    </div>
+
+    <div class="container">
+        <button id="submitBMC" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
     </div>
 </div>

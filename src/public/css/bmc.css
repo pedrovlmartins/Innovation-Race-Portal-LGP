@@ -1,3 +1,39 @@
+.titleLabelOne {
+    position: absolute;
+    top: 3%;
+    left: 15px;
+    z-index: 1;
+    height: 10px;
+    color: #7d7d7d;
+}
+
+.titleLabelTwo {
+    position: absolute;
+    top: 4%;
+    left: 25px;
+    z-index: 1;
+    height: 10px;
+    color: #7d7d7d;
+}
+
+.titleLabelThree {
+    position: absolute;
+    top: 6%;
+    left: 25px;
+    z-index: 1;
+    height: 10px;
+    color: #7d7d7d;
+}
+
+.titleLabelFour {
+    position: absolute;
+    top: 10%;
+    left: 15px;
+    z-index: 1;
+    height: 10px;
+    color: #7d7d7d;
+}
+
 textarea{
   width:100%;
   max-width:100%;
@@ -5,32 +41,53 @@ textarea{
   padding:30px 2%;
   height:480px;
   resize: none;
-  border-style: groove;
-  outline-style: groove;
+  border-style: solid;
+  outline-style: solid;
   border-width: 3px;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;
   display: block;
+  background-color: #e7e7e7;
 }
-.col-xs-12 > textarea{
+
+.col-xs-12 textarea{
   height:235px;
+}
+
+#titleBMC {
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  color: rgb(24, 178, 232);
+  margin-top: 10%;
+  font-weight: bold;
+}
+
+#submitBMC {
+  background-color: rgb(35, 127, 195);
+  width: 120px;
+  border-radius: 0;
+  margin-top: 1%;
 }
 
 .textareabmc {
   padding:5px;
 }
 
-.teste2 {
+#keyActivitiesTextarea, #keyCostumerTextarea {
   margin-bottom: 5px;
 }
 
-.teste {
+#keyResourcesTextarea, #keyChannelsTextarea {
   margin-top: 5px;
 }
 
-.lowerbmc {
+#keyCostTextarea, #keyRevenueTextarea {
   height:120px;
+}
+
+#submitBMC {
+  float: right;
 }
 
 ::-webkit-input-placeholder {
