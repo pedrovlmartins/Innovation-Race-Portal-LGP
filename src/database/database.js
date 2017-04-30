@@ -45,6 +45,7 @@ module.exports = {
       });
   },
 
+
   getTeamMembers: function (id, next) {
     pool.query(
       'SELECT users.id, users.name ' +
@@ -121,6 +122,17 @@ module.exports = {
       'ideas.state, ideas.cancelled, users.id AS idCreator, users.name AS creator ' +
       'FROM ideas ' +
       'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.title ' +
+      'LIMIT ?, ?;', [limit, offset], function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  listIdeasRanking: function (limit, offset, next) {
+    pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
+      'ideas.state, ideas.cancelled, ideas.score, users.id AS idCreator, users.name AS creator ' +
+      'FROM ideas ' +
+      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.score DESC ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);

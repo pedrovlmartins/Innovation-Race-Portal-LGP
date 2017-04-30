@@ -2,7 +2,7 @@ const path = require('path');
 const email = require(path.join(__base, 'lib', 'mailer'));
 const EmailTemplate = require('email-templates').EmailTemplate;
 const selectionNotificationEmailTemplateDir =
-  path.join(__base, 'views', 'emails', 'selectionNotification');
+   path.join(__base, 'views', 'emails', 'selectionNotification');
 
 var states = {
   DRAFT: 0,
@@ -45,6 +45,7 @@ module.exports = {
     // TODO
     return true;
   },
+
 
   sendSelectionNotificationEmail: function (to, ideaName, selected, callback) {
     var newsletter = new EmailTemplate(selectionNotificationEmailTemplateDir);

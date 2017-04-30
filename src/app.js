@@ -27,6 +27,7 @@ const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
 const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
 const ideas = require(path.join(__base, 'routes', 'ideas'));
 const classification = require(path.join(__base, 'routes', 'classification'));
+const ranking = require(path.join(__base, 'routes', 'ranking'));
 const bmc = require(path.join(__base, 'routes', 'bmc'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
@@ -61,18 +62,18 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
   }
 
   operators = {
-    '==': function (l, r) { return l == r; },
-    '===': function (l, r) { return l === r; },
-    '!=': function (l, r) { return l != r; },
-    '!==': function (l, r) { return l !== r; },
-    '<': function (l, r) { return l < r; },
-    '>': function (l, r) { return l > r; },
-    '<=': function (l, r) { return l <= r; },
-    '>=': function (l, r) { return l >= r; },
-    'typeof': function (l, r) { return typeof l == r; },
+   '==': function (l, r) { return l == r; },
+   '===': function (l, r) { return l === r; },
+   '!=': function (l, r) { return l != r; },
+   '!==': function (l, r) { return l !== r; },
+   '<': function (l, r) { return l < r; },
+   '>': function (l, r) { return l > r; },
+   '<=': function (l, r) { return l <= r; },
+   '>=': function (l, r) { return l >= r; },
+   'typeof': function (l, r) { return typeof l == r; },
   };
   if (!operators[operator]) {
-    throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+   throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
   }
 
   result = operators[operator](lvalue, rvalue);
@@ -82,6 +83,7 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
     return options.inverse(this);
   }
 });
+
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
@@ -106,6 +108,8 @@ app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
 app.use('/ideas', ideas);
 app.use('/classification', classification);
+app.use('/ranking', ranking);
+
 app.use('/bmc', bmc);
 
 app.use('/auth/activate', auth.activate);

@@ -117,9 +117,7 @@
         </fieldset>
     </form>
 
-    {{#compare type 7}}
-        {{#compare ideaState 3}}
-            {{#compare ideaCancelled 0}}
+    {{#if canEvaluateIdea}}
                 <div id="validationButtons">
                     <form action="/ideas/{{id}}/validate" method="post">
                         <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
@@ -128,9 +126,7 @@
                         <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
                     </form>
                 </div>
-            {{/compare}}
-        {{/compare}}
-    {{/compare}}
+    {{/if}}
 
     {{#if canSelectIdea}}
         <div id="selectionButtons">

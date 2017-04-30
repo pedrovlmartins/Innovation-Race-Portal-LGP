@@ -5,34 +5,51 @@ var db = require(path.join(__base, 'database', 'database'));
 const ideas = require(path.join(__base, 'lib', 'ideas'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 
-router.post('/:id/validate', function (req, res, next) {
+router.post('/:id/validate', function (req, res, next) { // Evaluation
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 6) {
-      res.sendStatus(403);
+    if (!irp.currentCanEvaluateIdea(req)) {
+      irp.addError(req, 'You are not allowed to evaluate an idea.');
+      res.redirect('back');
     } else {
       var vars = irp.getActionResults(req);
       var id = req.params.id;
 
-      db.updateIdeaState_validate(id, 4, function (result) {
-        if (req.session.userID !== undefined)
-          vars.userID = req.session.userID;
-        res.redirect(req.get('referer'));
+      db.updateIdeaState_validate(id, ideas.states.AWAITING_SELECTION, function (err, result) {
+        if (err) {
+          irp.addError(req, 'An unknown error occured. The idea was not validated.');
+        } else {
+          irp.addSuccess(req, 'Idea successfully validated.');
+          vars.userID = irp.currentUserID(req);
+          db.getIdea(req.params.id, function (ideaInfo) {
+            sendEvaluationNotificationEmail(ideaInfo.creatorId, ideaInfo.title, true);
+          });
+        }
+
+        res.redirect('back');
       });
     }
   });
 });
 
-router.post('/:id/decline', function (req, res, next) {
+router.post('/:id/decline', function (req, res, next) { // Evaluation
   db.getUserType(req.session.userID, function (type) {
-    if (type !== 6) {
+    if (!irp.currentCanEvaluateIdea(req)) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
       var id = req.params.id;
 
-      db.updateIdeaState_decline(id, function (result) {
-        if (req.session.userID !== undefined)
-          vars.userID = req.session.userID;
+      db.updateIdeaState_decline(id, function (err, result) {
+        if (err) {
+          irp.addError(req, 'An unknown error occured. The idea was not declined.');
+        } else {
+          irp.addSuccess(req, 'Idea successfully declined.');
+          vars.userID = irp.currentUserID(req);
+          db.getIdea(req.params.id, function (ideaInfo) {
+            sendEvaluationNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
+          });
+        }
+
         res.redirect(req.get('referer'));
       });
     }
@@ -41,7 +58,7 @@ router.post('/:id/decline', function (req, res, next) {
 
 router.post('/:id/selection', function (req, res, next) {
   if (!irp.currentUserID(req)) {
-    irp.addError('You are not logged in.');
+    irp.addError(req, 'You are not logged in.');
     res.redirect('../../');
     return;
   }
@@ -107,7 +124,7 @@ router.post('/:id/commissionDecline', function (req, res, next) {
 
 router.post('/:id/select', function (req, res, next) {
   if (!irp.currentUserID(req)) {
-    irp.addError('You are not logged in.');
+    irp.addError(req, 'You are not logged in.');
     res.redirect('../../');
     return;
   }
@@ -162,12 +179,16 @@ router.get('/:id', function (req, res) {
                   type: type,
                   ideaState: ideaInfo.state,
                   ideaCancelled: ideaInfo.cancelled[0],
+                  canEvaluateIdea: !ideaInfo.cancelled[0]
+                    && ideaInfo.state == ideas.states.AWAITING_EVALUATION
+                    && irp.currentCanEvaluateIdea(req),
                   canSelectIdea: !ideaInfo.cancelled[0]
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
                 };
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
+
                 res.render('idea', irp.mergeRecursive(vars, irp.getActionResults(req)));
                 irp.cleanActionResults(req);
               } else
@@ -183,12 +204,25 @@ router.get('/:id', function (req, res) {
 router.get('/submit', function (req, res, next) {
 });
 
+function sendEvaluationNotificationEmail(creatorID, title, approved) {
+  db.getUserEmail(creatorID, function (err, email) {
+    if (err) {
+      console.error(err);
+    } else {
+      ideas.sendEvaluationNotificationEmail(email, title, approved, function (error, body) {
+        if (error)
+          console.error(error);
+      });
+    }
+  });
+}
+
 function sendSelectionNotificationEmail(creatorID, title, selected) {
   db.getUserEmail(creatorID, function (err, email) {
     if (err) {
       console.error(err);
     } else {
-      ideas.sendSelectionNotificationEmail(email, title, true, function (error, body) {
+      ideas.sendSelectionNotificationEmail(email, title, selected, function (error, body) {
         if (error)
           console.error(error);
       });
