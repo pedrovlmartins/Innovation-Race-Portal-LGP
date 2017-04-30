@@ -5,7 +5,7 @@ var router = express.Router();
 var database = require('../database/database');
 var ideas = require(path.join(__base, 'lib', 'ideas'));
 
-const itemsPerPage = 10;
+const itemsPerPage = 10.0;
 
 router.get('/', function (req, res) {
   database.getUserType(req.session.userID, function (type) {
@@ -54,13 +54,11 @@ router.get('/', function (req, res) {
         database.searchIdeas(keyword, offset, itemsPerPage, function (error, result) {
           var numberOfIdeas = result.length;
           vars.keyword = keyword;
-          vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
+          vars.totalPages = Math.ceil(numberOfIdeas / itemsPerPage);
           result.forEach(
             (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
           );
           vars.ideas = result;
-          if (numberOfIdeas % itemsPerPage > 0)
-            vars.totalPages += 1;
           if (req.session.userID !== undefined)
             vars.userID = req.session.userID;
           res.render('manageIdeas', vars);

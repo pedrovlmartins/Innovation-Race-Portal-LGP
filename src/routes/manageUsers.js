@@ -5,7 +5,7 @@ var router = express.Router();
 var database = require(path.join(__base, 'database', 'database'));
 var userRole = require(path.join(__base, 'lib', 'userRole'));
 
-const itemsPerPage = 10;
+const itemsPerPage = 10.0;
 
 router.get('/', function (req, res) {
   database.getUserType(req.session.userID, function (type) {
@@ -53,13 +53,11 @@ router.get('/', function (req, res) {
         database.searchUsers(keyword, offset, itemsPerPage, function (error, result) {
           var numberOfUsers = result.length;
           vars.keyword = keyword;
-          vars.totalPages = Math.floor(numberOfUsers / itemsPerPage);
+          vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
           result.forEach(
             (user) => user.role = userRole.getRoleName(user.role)
           );
           vars.users = result;
-          if (numberOfUsers % itemsPerPage > 0)
-            vars.totalPages += 1;
           if (req.session.userID !== undefined)
             vars.userID = req.session.userID;
           res.render('manageUsers', vars);

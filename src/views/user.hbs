@@ -1,20 +1,20 @@
 {{>header pageName="User Page"}}
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
-<link rel="stylesheet" href="../css/userPage.css">
-<script src="../js/userPage.js"></script>
+<link rel="stylesheet" href="../../css/userPage.css">
+<script src="../../js/userPage.js"></script>
 
 
 <div class="container">
     <div class="menu">
-        <h2> Hello {{firstName}} </h2>
         <ul class="userNavbar">
-            <li id="profile" class="active"><h4><a>PROFILE</a></h4></li>
-            <li id="ideas"><h4><a>IDEAS</a></h4></li>
+            <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
+            <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
             <li id="submit"><h4><a>SUBMIT IDEA</a></h4></li>
         </ul>
     </div>
+    {{#compare page "profile"}}
     <div id="profileDiv" class="profileDiv">
-        <form class="well form-horizontal" action=" " method="post"  id="user_page">
+        <form class="well form-horizontal" action="" method="post" id="user_page">
             <fieldset>
                 <!-- Name -->
 
@@ -106,7 +106,9 @@
             </fieldset>
         </form>
     </div>
+    {{/compare}}
 
+    {{#compare page "ideas"}}
     <div id="ideasDiv" class="ideas">
         <table class="table table-hover table-bordered">
             <thead class="userIdeasTableHead">
@@ -132,7 +134,17 @@
             {{/if}}
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <ul class="pagination">
+                     {{add-pagination page pageNo pageTotal ""}}
+                </ul>
+            </div>
+        </div>
     </div>
+    {{/compare}}
 
     <div id="submitDiv" class="submitIdea">
 

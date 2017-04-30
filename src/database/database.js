@@ -31,7 +31,7 @@ module.exports = {
       });
   },
 
-  getPartnerCostumerInfo: function (id, next) {
+  getPartnerClientInfo: function (id, next) {
     pool.query(
       'SELECT users.id, users.name, users.email, users.referral ' +
       'FROM users ' +
@@ -67,13 +67,24 @@ module.exports = {
       });
   },
 
-  getUserIdeas: function (id, next) {
+  getUserIdeas: function (id, limit, offset, next) {
     pool.query(
       'SELECT ideas.id, ideas.title, ideas.state, ideas.cancelled, ideas.score ' +
-      'FROM irp.ideas ' +
-      'WHERE ideas.idCreator = ?;', [id], function(err, result) {
+      'FROM ideas ' +
+      'WHERE ideas.idCreator = ? ' +
+      'LIMIT ?, ?;', [id, limit, offset], function (err, result) {
         if (typeof next === 'function')
           next(result);
+      });
+  },
+
+  getUserIdeasCount: function(id, next) {
+    pool.query(
+      'SELECT COUNT(*) AS count ' +
+      'FROM ideas ' +
+      'WHERE idCreator = ?;', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result[0].count);
       });
   },
 
@@ -175,7 +186,6 @@ module.exports = {
       'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
         if (error) {
-          console.error(error);
           next(error);
         } else {
           next(null, results);
