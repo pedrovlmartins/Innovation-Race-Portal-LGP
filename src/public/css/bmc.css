@@ -1,3 +1,45 @@
+.tooltip-inner {
+    max-width: 350px;
+    /* If max-width does not work, try using width instead */
+    width: 350px;
+}
+
+.glyphicon:hover {
+    color: rgb(35, 127, 195);
+}
+
+.glyhiconStyleOne {
+    position: absolute;
+    top: 3%;
+    right: 15px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleTwo {
+    position: absolute;
+    top: 4%;
+    right: 25px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleThree {
+    position: absolute;
+    top: 6%;
+    right: 25px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleFour {
+    position: absolute;
+    top: 10%;
+    right: 15px;
+    z-index: 1;
+    height: 10px;
+}
+
 .titleLabelOne {
     position: absolute;
     top: 3%;
@@ -41,9 +83,10 @@ textarea{
   padding:30px 2%;
   height:480px;
   resize: none;
-  border-style: solid;
+    outline: none !important;
+    border:1px solid black;
+    box-shadow: 0 0 10px rgb(35, 127, 195);
   outline-style: solid;
-  border-width: 3px;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;
