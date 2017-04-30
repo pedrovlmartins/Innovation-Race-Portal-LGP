@@ -179,6 +179,9 @@ router.get('/:id', function (req, res) {
                   type: type,
                   ideaState: ideaInfo.state,
                   ideaCancelled: ideaInfo.cancelled[0],
+                  canEvaluateIdea: !ideaInfo.cancelled[0]
+                    && ideaInfo.state == ideas.states.AWAITING_EVALUATION
+                    && irp.currentCanEvaluateIdea(req),
                   canSelectIdea: !ideaInfo.cancelled[0]
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
