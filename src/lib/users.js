@@ -10,9 +10,9 @@ var types = {
 
 var typeDescriptions = [
   'Unknown', // 0
-  'Client', // 1
+  'Altran member', // 1
   'Partner', // 2
-  'Altran member', // 3
+  'Client', // 3
   'R&D Manager', // 4
   'R&D Committee', // 5
   'R&D Team', // 6
