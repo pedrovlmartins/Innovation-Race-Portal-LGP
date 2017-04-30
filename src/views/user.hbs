@@ -35,7 +35,7 @@
                     <label class="col-md-4 control-label">Email</label>
                     <div class="col-md-4 selectContainer">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                             <input name="email" value="{{email}}" class="form-control"  type="text" readonly>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                         </div>
@@ -145,8 +145,9 @@
         </div>
     </div>
     {{/compare}}
-
+    {{#compare page "submitIdea"}}
     <div id="submitDiv" class="submitIdea">
 
     </div>
+    {{/compare}}
 </div>
