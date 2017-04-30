@@ -45,6 +45,11 @@ module.exports = {
     return currentUserID(req) && (type == users.types.COMMITTEE || type == users.types.MANAGER);
   },
 
+  currentCanEvaluateIdea: function (req) {
+    var type = currentUserType(req);
+    return currentUserID(req) && (type == users.types.TECHNICAL_DIRECTOR || type == users.types.MANAGER);
+  },
+
   mergeRecursive: function (obj1, obj2) {
     for (var p in obj2) {
       try {
