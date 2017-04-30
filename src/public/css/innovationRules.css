@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i');
+
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.innovationRulesPage {
+    margin-top: 9%;
+}
+
+.videoTutorial {
+    text-align: center;
+}
+
+.phaseButtons {
+    text-align: center;
+    margin-top: 3%;
+}
+
+.buttonThink {
+    margin-right: 5%;
+    width: 150px;
+    border-radius: 10px;
+}
+
+.buttonValidation {
+    margin-right: 5%;
+    width: 150px;
+    border-radius: 10px;
+}
+
+.buttonCoaching {
+    width: 150px;
+    border-radius: 10px;
+}
+
+.buttonKick {
+    margin-left: 5%;
+    width: 150px;
+    border-radius: 10px;
+}
+
+.innovationRulesHeader {
+    margin-top: 5%;
+    text-align: center;
+    color: rgb(24, 178, 232);
+}
+
+.rules {
+    margin-top: 4%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: justify;
+    text-justify: inter-word;
+}

@@ -41,7 +41,7 @@ router.get('/', function (req, res) {
             vars.totalPages += 1;
           database.listIdeas(offset, itemsPerPage, function (result) {
             result.forEach(
-              (idea) => idea.state = ideas.getStateName(idea.state)
+              (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
             );
             vars.ideas = result;
             if (req.session.userID !== undefined)
@@ -56,7 +56,7 @@ router.get('/', function (req, res) {
           vars.keyword = keyword;
           vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
           result.forEach(
-            (idea) => idea.state = ideas.getStateName(idea.state)
+            (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
           );
           vars.ideas = result;
           if (numberOfIdeas % itemsPerPage > 0)

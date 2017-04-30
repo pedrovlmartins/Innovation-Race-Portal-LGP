@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $('#contact_form').formValidation({
+  $('#contact_form').bootstrapValidator({
 
     // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
     feedbackIcons: {
@@ -15,8 +15,8 @@ $(document).ready(function () {
           },
           notEmpty: {
             message: 'Please supply your name',
-          }
-        }
+          },
+        },
       },
       email: {
         validators: {
@@ -25,10 +25,20 @@ $(document).ready(function () {
           },
           emailAddress: {
             message: 'Please supply a valid email address',
-          }
-        }
+          },
+        },
       },
-      comment: {
+      subject: {
+        validators: {
+          stringLength: {
+            min: 2,
+          },
+          notEmpty: {
+            message: 'Please supply the subject of your question',
+          },
+        },
+      },
+      message: {
         validators: {
           stringLength: {
             min: 10,
@@ -36,14 +46,14 @@ $(document).ready(function () {
             message: 'Please enter at least 10 characters and no more than 200',
           },
           notEmpty: {
-            message: 'Please supply a your question',
-          }
-        }
-      }
-    }
+            message: 'Please supply your question',
+          },
+        },
+      },
+    },
   })
     .on('success.form.bv', function (e) {
-      $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+      $('#success_message').slideDown({ opacity: 'show' }, 'slow');
       $('#contact_form').data('bootstrapValidator').resetForm();
 
       // Prevent form submission
@@ -58,6 +68,25 @@ $(document).ready(function () {
       // Use Ajax to submit form data
       $.post($form.attr('action'), $form.serialize(), function (result) {
         console.log(result);
-      }, 'json');
+        url: '/contact';
+      })
+        .done(function (data) {
+          swal({
+            title: 'Contact Form',
+            text: 'Your question was sucessfully sent!',
+            type: 'success',
+          }, function () {
+            window.location.reload();
+          });
+        })
+        .fail(function (data) {
+          swal({
+            title: 'Something went wrong',
+            text: 'Please try again later!',
+            type: 'error',
+          }, function () {
+            window.location.reload();
+          });
+        });
     });
 });
