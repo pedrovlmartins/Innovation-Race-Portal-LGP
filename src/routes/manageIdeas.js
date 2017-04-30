@@ -4,12 +4,13 @@ var express = require('express');
 var router = express.Router();
 var database = require('../database/database');
 var ideas = require(path.join(__base, 'lib', 'ideas'));
+var users = require(path.join(__base, 'lib', 'users'));
 
 const itemsPerPage = 10.0;
 
 router.get('/', function (req, res) {
   database.getUserType(req.session.userID, function (type) {
-    if (type < 3) {
+    if (!users.isAdmin(type)) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
@@ -36,9 +37,7 @@ router.get('/', function (req, res) {
       if (req.query.keyword === undefined) {
         database.getIdeaCount(function (result) {
           var numberOfIdeas = result[0].count;
-          vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
-          if (numberOfIdeas % itemsPerPage > 0)
-            vars.totalPages += 1;
+          vars.totalPages = Math.ceil(numberOfIdeas / itemsPerPage);
           database.listIdeas(offset, itemsPerPage, function (result) {
             result.forEach(
               (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
