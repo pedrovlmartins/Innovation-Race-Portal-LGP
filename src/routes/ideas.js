@@ -56,6 +56,7 @@ router.post('/:id/decline', function (req, res, next) { // Evaluation
   });
 });
 
+
 router.post('/:id/selection', function (req, res, next) {
   if (!irp.currentUserID(req)) {
     irp.addError(req, 'You are not logged in.');
@@ -148,6 +149,56 @@ router.post('/:id/select', function (req, res, next) {
   });
 });
 
+/* R&D Manager Permission to go or not to next phase (Kick-Off) */
+router.post('/:id/goKickOff', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  if (!irp.currentCanGoIdea(req)) {
+    irp.addError(req, 'Only a R&D Manager may set an idea to be implemented.');
+    res.redirect('back');
+    return;
+  }
+
+  db.getIdea(req.params.id, function (ideaInfo) {
+    if (ideaInfo === undefined) {
+      irp.addError(req, 'Could not find idea.');
+      res.redirect('back');
+      return;
+    }
+
+    if (ideaInfo.cancelled[0]) {
+      irp.addError(req, 'You cannot set to implement a cancelled idea.');
+      res.redirect('back');
+      return;
+    }
+
+    if (req.body.goKickOff === 'true') {
+      db.updatedIdeaState_go(req.params.id, function (error, result) {
+        if (error) {
+          console.error(error);
+          irp.addError(req, 'Unknown error occurred, please try again later.');
+          res.redirect('back');
+          return;
+        }
+
+        irp.addSuccess(req, 'The idea has been selected to advance to the implementation phase.');
+        res.redirect('back');
+        sendSelectionNotificationEmail(ideaInfo.creatorId, ideaInfo.title, true);
+      });
+    } else {
+      db.updateIdeaState_decline(req.params.id, function (result) {
+        irp.addSuccess(req, 'The idea has been rejected.');
+        res.redirect('back');
+        sendSelectionNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
+      });
+    }
+  });
+});
+
 router.get('/:id', function (req, res) {
   var ids = [];
   if (req.session.userID === undefined)
@@ -185,6 +236,9 @@ router.get('/:id', function (req, res) {
                   canSelectIdea: !ideaInfo.cancelled[0]
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
+                  canGoKickOffIdea: !ideaInfo.cancelled[0]
+                  && ideaInfo.state === ideas.states.AWAITING_GO_NO_GO
+                  && irp.currentCanSelectIdea(req),
                 };
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;

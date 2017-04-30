@@ -39,7 +39,7 @@ module.exports = {
         if (typeof next === 'function')
           next(result[0]);
       }
-    )
+    );
   },
 
   getEmployeeInfo: function (id, next) {
@@ -48,7 +48,7 @@ module.exports = {
       'FROM users ' +
       'JOIN users manager ON users.manager = manager.id ' +
       'WHERE users.id = ?', [id], function (err, result) {
-        if(typeof next === 'function')
+        if (typeof next === 'function')
           next(result[0]);
       });
   },
@@ -78,7 +78,7 @@ module.exports = {
       });
   },
 
-  getUserIdeasCount: function(id, next) {
+  getUserIdeasCount: function (id, next) {
     pool.query(
       'SELECT COUNT(*) AS count ' +
       'FROM ideas ' +
@@ -251,6 +251,23 @@ module.exports = {
       'AND state = ? ' +
       'AND cancelled = FALSE;',
       [ideas.states.SELECTED, id, ideas.states.AWAITING_SELECTION],
+      function (err, result) {
+        if (err) {
+          next(err);
+        } else {
+          next(null, result);
+        }
+      });
+  },
+
+  updatedIdeaState_go: function (id, next) {
+    pool.query(
+      'UPDATE ideas ' +
+      'SET state = ? ' +
+      'WHERE ideas.id = ? ' +
+      'AND state = ? ' +
+      'AND cancelled = FALSE;',
+      [ideas.states.BEING_IMPLEMENTED, id, ideas.states.AWAITING_GO_NO_GO],
       function (err, result) {
         if (err) {
           next(err);
