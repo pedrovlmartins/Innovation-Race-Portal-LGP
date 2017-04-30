@@ -1,11 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i');
+
 .pageNavbar {
-  height: 7%;
-  background-color: rgba(233,227,220,0.8);
+  background-color: rgb(233,227,220);
   border: transparent;
 }
 
 .navbarLetterColor {
-  color: rgb(21,8,103);
+  /*color: rgb(21,8,103);*/
+  color: rgb(78, 115, 130);
   /*color: rgb(71,159,236);*/
 }
 
@@ -26,5 +28,24 @@
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
   background-color: transparent;
   text-decoration: underline;
-  color:white;
+  color:deepskyblue;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  background-color: transparent;
+  text-decoration: underline;
+  color:deepskyblue;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    text-decoration: underline;
+    color:deepskyblue;
+}
+
+.navbarContent {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  margin-top: 69px;
 }

@@ -1,31 +1,27 @@
-const email = require('emailjs');
+const path = require('path');
+const config = require(path.join(__base, 'config'));
+const nodemailer = require('nodemailer');
 
-var from = 'Altran <altran@musaic.ml>';
-
-var options = {
-  user: '52c5cd0009cbb99f272734c8a5f2397a',
-  password: 'c89caedf7d95d57eb0afcc334c813f92', // TODO: use environment variables
-  host: 'in-v3.mailjet.com',
-  ssl: true,
-};
+var transporter = nodemailer.createTransport({
+  host: config.mail.host,
+  auth: {
+    user: config.mail.user,
+    pass: config.mail.password,
+  },
+  secure: config.mail.ssl,
+});
 
 function send(to, subject, text, html, callback) {
-  var server = email.server.connect(options);
-  var message	= {
-    text: text,
-    from: from,
+  var mailOptions = {
+    from: config.mail.from,
     to: to,
     subject: subject,
-    attachment: [
-        {
-          data: html,
-          alternative: true,
-        },
-      ],
+    text: text,
+    html: html,
   };
-  server.send(message, function (err, message) {
-    console.log(err || message);
-    callback(err, message);
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    callback(error, info);
   });
 };
 

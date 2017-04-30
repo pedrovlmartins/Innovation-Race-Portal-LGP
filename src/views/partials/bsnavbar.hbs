@@ -10,26 +10,26 @@
                 </button>
                 <a class="pull-left" href="/"><img src="/images/logo.png" class="imageNavbar"></a>
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse navbarContent" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbarList">
                     <li><a href="/bmc"><h4 class="navbarLetterColor">Business Model Canvas</h4></a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><h4 class="navbarLetterColor">Manage
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><h4 class="navbarLetterColor">MANAGE
                             <span class="caret"></span></h4></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/manageUsers"><h4 class="navbarLetterColor">Manage Users</h4></a></li>
-                            <li><a href="/manageIdeas"><h4 class="navbarLetterColor">Manage Ideas</h4></a></li>
-                            <li><a href="#"><h4>Manage Races</h4></a></li>
+                            <li><a href="/manageUsers"><h4 class="navbarLetterColor">MANAGE USERS</h4></a></li>
+                            <li><a href="/manageIdeas"><h4 class="navbarLetterColor">MANAGE IDEAS</h4></a></li>
+                            <li><a href="#"><h4 class="navbarLetterColor">MANAGE RACES</h4></a></li>
                         </ul>
                     </li>
-                    <li><a href="/innovationRules"><h4 class="navbarLetterColor">Innovation Rules</h4></a></li>
-                    <li><a class="page-scroll" href="#about" id="aboutButton"><h4 class="navbarLetterColor">About Altran</h4></a></li>
-                    <li><a class="page-scroll" href="#contact"><h4 class="navbarLetterColor">Contact</h4></a></li>
-                    {{#if userID}}
-                        <li><a class="MainNavText" id="MainNavHelp" href="/auth/logout"><h4 class="navbarLetterColor">Logout</h4></a></li>
+                    <li><a href="/innovationRules"><h4 class="navbarLetterColor">INNOVATION RULES</h4></a></li>
+                        <!--<li><a class="page-scroll" href="#about" id="aboutButton"><h4 class="navbarLetterColor">About Altran</h4></a></li>
+                        <li><a class="page-scroll" href="#contact"><h4 class="navbarLetterColor">Contact</h4></a></li> -->
+                        {{#if userID}}
+                        <li><a class="MainNavText" id="MainNavHelp" href="/auth/logout"><h4 class="navbarLetterColor">LOGOUT</h4></a></li>
                     {{else}}
-                        <li><a data-target="#loginModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#loginModal"><h4 class="navbarLetterColor">Login</h4></a></li>
-                        <li><a data-target="#registrationModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#registrationModal"><h4 class="navbarLetterColor">Register</h4></a></li>
+                        <li><a data-target="#loginModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#loginModal"><h4 class="navbarLetterColor">LOGIN</h4></a></li>
+                        <li><a data-target="#registrationModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#registrationModal"><h4 class="navbarLetterColor">REGISTER</h4></a></li>
                     {{/if}}
                 </ul>
             </div>

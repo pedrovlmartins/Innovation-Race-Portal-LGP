@@ -62,3 +62,15 @@
 .declineIdeaButton_commission {
     margin-right: 1.2%;
 }
+
+.informationIdea {
+    text-align: right;
+}
+
+.modalTextAlign {
+    text-align: center;
+}
+
+.ideaPage {
+    margin-top: 8%;
+}

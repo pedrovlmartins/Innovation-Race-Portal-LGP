@@ -1,3 +1,6 @@
+const path = require('path');
+const users = require(path.join(__base, 'lib', 'users'));
+
 function currentUserID(req) {
   return req.session.userID;
 }
@@ -34,11 +37,32 @@ module.exports = {
   currentUserType: currentUserType,
 
   currentIsParticipant: function (req) {
-    return currentUserID(req) && currentUserType(req) <= 2;
+    return currentUserID(req) && users.isParticipant(currentUserType(req));
   },
 
-  currentIsManager: function (req) {
-    return currentUserID(req) && currentUserType(req) == 3;
+  currentCanSelectIdea: function (req) {
+    var type = currentUserType(req);
+    return currentUserID(req) && (type == users.types.COMMITTEE || type == users.types.MANAGER);
   },
 
+  mergeRecursive: function (obj1, obj2) {
+    for (var p in obj2) {
+      try {
+        // Property in destination object set; update its value.
+        if (obj2[p].constructor == Object) {
+          obj1[p] = MergeRecursive(obj1[p], obj2[p]);
+
+        } else {
+          obj1[p] = obj2[p];
+
+        }
+
+      } catch (e) {
+        // Property in destination object not set; create it and set its value.
+        obj1[p] = obj2[p];
+
+      }
+    };
+    return obj1;
+  },
 };

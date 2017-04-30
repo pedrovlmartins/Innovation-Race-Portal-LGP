@@ -1,28 +1,65 @@
+const path = require('path');
+const email = require(path.join(__base, 'lib', 'mailer'));
+const EmailTemplate = require('email-templates').EmailTemplate;
+const selectionNotificationEmailTemplateDir =
+  path.join(__base, 'views', 'emails', 'selectionNotification');
+
+var states = {
+  DRAFT: 0,
+  AWAITING_CLASSIFICATION: 1,
+  BEING_CLASSIFIED: 2,
+  AWAITING_EVALUATION: 3,
+  AWAITING_SELECTION: 4,
+  SELECTED: 5,
+  IN_COACHING_PHASE: 6,
+  AWAITING_GO_NO_GO: 7,
+  BEING_IMPLEMENTED: 8,
+  CANCELLED: -1,
+};
+
+var stateDescriptions = [
+  'Draft State',
+  'Awaiting classification',
+  'Being classified',
+  'Awaiting evaluation',
+  'Awaiting selection',
+  'Selected',
+  'In coaching phase',
+  'Awaiting GO / NO GO',
+  'Being implemented',
+  'Cancelled',
+];
+
 module.exports = {
-  getStateName: function  (stateNum)
-  {
-    switch (stateNum) {
-      case 0:
-        return 'Draft State';
-      case 1:
-        return 'Awating classification';
-      case 2:
-        return 'Being classified';
-      case 3:
-        return 'Awating evaluation';
-      case 4:
-        return 'Awaiting selection';
-      case 5:
-        return 'Selected';
-      case 6:
-        return 'During coaching';
-      case 7:
-        return 'Awating GO/NO GO';
-      case 8:
-        return 'Being implemented';
-      default:
-        return 'Invalid state';
-    }
+  states: states,
+
+  getStateName: function  (stateNum, cancelled) {
+    if (cancelled === true)
+      return stateDescriptions[stateDescriptions.length - 1]
+    if (stateNum < 0 || stateNum >= (stateDescriptions.length - 1))
+      return null;
+    return stateDescriptions[stateNum];
+  },
+
+  canSubmitIdea: function (user, race) {
+    // TODO
+    return true;
+  },
+
+  sendSelectionNotificationEmail: function (to, ideaName, selected, callback) {
+    var newsletter = new EmailTemplate(selectionNotificationEmailTemplateDir);
+    var data = {
+      ideaName: ideaName,
+      selected: selected,
+      replyTo: 'altran@musaic.ml',
+    };
+    newsletter.render(data, function (err, result) {
+      if (err) console.error(err);
+      email.send(to, 'Innovation Race Portal - Your idea has been analyzed by the committee', result.text, result.html,
+        function (error, body) {
+          callback(error, body);
+        });
+    });
   },
 };
 

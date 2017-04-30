@@ -1,5 +1,6 @@
 const path = require('path');
 var config = require(path.join(__base, 'config'));
+const ideas = require(path.join(__base, 'lib', 'ideas'));
 var mysql = require('mysql');
 
 var pool = mysql.createPool(config.mysql[config.env]);
@@ -82,6 +83,21 @@ module.exports = {
       });
   },
 
+  getUserEmail: function (id, next) {
+    pool.query(
+      'SELECT email ' +
+      'FROM users ' +
+      'WHERE id = ?;', [id], function (err, result) {
+        if (err) {
+          next(err);
+        } else if (result.length == 0) {
+          next('User not found');
+        } else {
+          next(null, result[0].email);
+        }
+      });
+  },
+
   getUsersCount: function (next) {
     pool.query('SELECT COUNT(*) AS count ' +
       'FROM users;', function (error, results) {
@@ -102,11 +118,9 @@ module.exports = {
 
   listIdeas: function (limit, offset, next) {
     pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
-      'ideas.state, users.id AS idCreator, users.name AS creator ' +
+      'ideas.state, ideas.cancelled, users.id AS idCreator, users.name AS creator ' +
       'FROM ideas ' +
-      'JOIN users ON users.id = ideas.idCreator ' +
-      'WHERE ideas.cancelled = 0 ' +
-      'ORDER BY ideas.title ' +
+      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.title ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
@@ -143,7 +157,7 @@ module.exports = {
       'ideas.state, users.id, users.name AS creator ' +
       'FROM ideas ' +
       'JOIN users ON users.id = ideas.idCreator ' +
-      'WHERE users.name LIKE ? OR state LIKE ? OR title LIKE ? ' +
+      'WHERE users.name LIKE ? OR ideas.title LIKE ? OR ideas.state LIKE ?' +
       'ORDER BY ideas.title ' +
       'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
@@ -160,7 +174,7 @@ module.exports = {
     pool.query(
       'UPDATE ideas ' +
       'SET state = ? ' +
-      'WHERE ideas.id = ?;', [state, id], function (err, result) {
+      'WHERE ideas.id = ? AND cancelled = FALSE;', [state, id], function (err, result) {
         if (typeof next === 'function')
           next(result);
       });
@@ -170,18 +184,36 @@ module.exports = {
     pool.query(
       'UPDATE ideas ' +
       'SET cancelled = 1 ' +
-      'WHERE ideas.id = ?;', [id], function (err, result) {
+      'WHERE ideas.id = ? AND cancelled = FALSE;', [id], function (err, result) {
         if (typeof next === 'function')
           next(result);
       });
   },
 
+  updatedIdeaState_select: function (id, next) {
+    pool.query(
+      'UPDATE ideas ' +
+      'SET state = ? ' +
+      'WHERE ideas.id = ? ' +
+      'AND state = ? ' +
+      'AND cancelled = FALSE;',
+      [ideas.states.SELECTED, id, ideas.states.AWAITING_SELECTION],
+      function (err, result) {
+        if (err) {
+          next(err);
+        } else {
+          next(null, result);
+        }
+      });
+  },
+
   classifyIdea: function (ideaID, strategyAlignment, offerType, market, technicalViability,
                           economicalViability, riskFactors, otherRequirements, next) {
-    pool.query('UPDATE ideas SET state = 3, strategyAlignment = ?, offerType = ?, market = ?,' +
+    pool.query('UPDATE ideas SET state = ?, strategyAlignment = ?, offerType = ?, market = ?,' +
       ' technicalViability = ?, economicalViability = ?, riskFactors = ?, otherRequirements = ?' +
       ' WHERE id = ?',
-      [strategyAlignment, offerType, market, technicalViability, economicalViability, riskFactors,
+      [ideas.states.AWAITING_EVALUATION, strategyAlignment, offerType,
+        market, technicalViability, economicalViability, riskFactors,
         otherRequirements, ideaID,
       ],
       function (error, results) {
