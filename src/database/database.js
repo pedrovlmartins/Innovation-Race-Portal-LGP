@@ -31,6 +31,28 @@ module.exports = {
       });
   },
 
+  getPartnerClientInfo: function (id, next) {
+    pool.query(
+      'SELECT users.id, users.name, users.email, users.referral ' +
+      'FROM users ' +
+      'WHERE users.id = ?', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result[0]);
+      }
+    )
+  },
+
+  getEmployeeInfo: function (id, next) {
+    pool.query(
+      'SELECT users.id, users.name, users.email, users.colaboratorNum, users.businessField, manager.name AS manager ' +
+      'FROM users ' +
+      'JOIN users manager ON users.manager = manager.id ' +
+      'WHERE users.id = ?', [id], function (err, result) {
+        if(typeof next === 'function')
+          next(result[0]);
+      });
+  },
+
   getIdea: function (id, next) {
     pool.query(
       'SELECT users.id AS creatorId, users.name AS creator,ideas.title, ideas.description,' +
@@ -42,6 +64,27 @@ module.exports = {
       'WHERE ideas.id = ?;', [id], function (err, result) {
         if (typeof next === 'function')
           next(result[0]);
+      });
+  },
+
+  getUserIdeas: function (id, limit, offset, next) {
+    pool.query(
+      'SELECT ideas.id, ideas.title, ideas.state, ideas.cancelled, ideas.score ' +
+      'FROM ideas ' +
+      'WHERE ideas.idCreator = ? ' +
+      'LIMIT ?, ?;', [id, limit, offset], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
+  },
+
+  getUserIdeasCount: function(id, next) {
+    pool.query(
+      'SELECT COUNT(*) AS count ' +
+      'FROM ideas ' +
+      'WHERE idCreator = ?;', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result[0].count);
       });
   },
 
@@ -154,7 +197,6 @@ module.exports = {
       'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
         if (error) {
-          console.error(error);
           next(error);
         } else {
           next(null, results);
@@ -187,7 +229,7 @@ module.exports = {
       'SET state = ? ' +
       'WHERE ideas.id = ? AND cancelled = FALSE;', [state, id], function (err, result) {
         if (typeof next === 'function')
-          next(result);
+          next(err, result);
       });
   },
 
@@ -197,7 +239,7 @@ module.exports = {
       'SET cancelled = 1 ' +
       'WHERE ideas.id = ? AND cancelled = FALSE;', [id], function (err, result) {
         if (typeof next === 'function')
-          next(result);
+          next(err, result);
       });
   },
 
