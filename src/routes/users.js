@@ -4,6 +4,7 @@ var path = require('path');
 var db = require(path.join(__base, 'database', 'database'));
 var irp = require(path.join(__base, 'lib', 'irp'));
 var users = require(path.join(__base, 'lib', 'users'));
+var ideas = require(path.join(__base, 'lib', 'ideas'));
 
 function nextUserInfo(req, res, userInfo, typeDescription) {
   if (userInfo === undefined) {
@@ -13,11 +14,15 @@ function nextUserInfo(req, res, userInfo, typeDescription) {
     db.getUserType(req.session.userID, function (type) {
       if (req.session !== undefined) {
         if (users.isAdmin(type) || parseInt(req.session.userID) === userInfo.id) {
-          db.getUserIdeas(req.params.id, function(ideas) {
+          db.getUserIdeas(req.params.id, function(userIdeas) {
+            userIdeas.forEach(
+              (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
+            );
             userInfo.firstName = userInfo.name.split(' ')[0];
             userInfo.userID = req.session.userID;
             userInfo.typeDescription = typeDescription;
-            res.render('user', irp.mergeRecursive(userInfo, ideas));
+            userInfo.ideas = userIdeas;
+            res.render('user', userInfo);
           })
         } else
           res.sendStatus(403);
