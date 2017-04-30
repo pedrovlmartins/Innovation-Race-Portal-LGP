@@ -117,13 +117,19 @@
             </tr>
             </thead>
             <tbody>
-            {{#each ideas}}
+            {{#if ideas}}
+                {{#each ideas}}
+                    <tr>
+                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                        <td>{{state}}</td>
+                        <td>{{score}}</td>
+                    </tr>
+                {{/each}}
+            {{else}}
                 <tr>
-                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                    <td>{{state}}</td>
-                    <td>{{score}}</td>
+                    <td class="noIdeas" colspan="3">No ideas yet.</td>
                 </tr>
-            {{/each}}
+            {{/if}}
             </tbody>
         </table>
     </div>

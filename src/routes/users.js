@@ -15,13 +15,15 @@ function nextUserInfo(req, res, userInfo, typeDescription) {
       if (req.session !== undefined) {
         if (users.isAdmin(type) || parseInt(req.session.userID) === userInfo.id) {
           db.getUserIdeas(req.params.id, function(userIdeas) {
-            userIdeas.forEach(
-              (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
-            );
             userInfo.firstName = userInfo.name.split(' ')[0];
             userInfo.userID = req.session.userID;
             userInfo.typeDescription = typeDescription;
-            userInfo.ideas = userIdeas;
+            if (userIdeas.length > 0) {
+              userIdeas.forEach(
+                (idea) = > idea.state = ideas.getStateName(idea.state, idea.cancelled)
+              );
+              userInfo.ideas = userIdeas;
+            }
             res.render('user', userInfo);
           })
         } else
