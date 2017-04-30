@@ -60,8 +60,16 @@ h2 {
     font-weight: bold;
 }
 
-.form {
+.profileDiv {
     float: right;
+}
+
+.ideas {
+    display: none;
+}
+
+.submitIdea {
+    display: none;
 }
 
 .userNavbar {

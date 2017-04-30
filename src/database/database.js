@@ -31,7 +31,18 @@ module.exports = {
       });
   },
 
-  getUserInfoById: function (id, next) {
+  getPartnerCostumerInfo: function (id, next) {
+    pool.query(
+      'SELECT users.id, users.name, users.email, users.referral ' +
+      'FROM users ' +
+      'WHERE users.id = ?', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result[0]);
+      }
+    )
+  },
+
+  getEmployeeInfo: function (id, next) {
     pool.query(
       'SELECT users.id, users.name, users.email, users.colaboratorNum, users.businessField, manager.name AS manager ' +
       'FROM users ' +
@@ -53,6 +64,16 @@ module.exports = {
       'WHERE ideas.id = ?;', [id], function (err, result) {
         if (typeof next === 'function')
           next(result[0]);
+      });
+  },
+
+  getUserIdeas: function (id, next) {
+    pool.query(
+      'SELECT ideas.id, ideas.title, ideas.state, ideas.cancelled, ideas.score ' +
+      'FROM irp.ideas ' +
+      'WHERE ideas.idCreator = ?;', [id], function(err, result) {
+        if (typeof next === 'function')
+          next(result);
       });
   },
 

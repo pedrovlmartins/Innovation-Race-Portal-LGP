@@ -2,25 +2,46 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var db = require(path.join(__base, 'database', 'database'));
+var irp = require(path.join(__base, 'lib', 'irp'));
+var users = require(path.join(__base, 'lib', 'users'));
+
+function nextUserInfo(req, res, userInfo, typeDescription) {
+  if (userInfo === undefined) {
+    res.sendStatus(404);
+  }
+  else {
+    db.getUserType(req.session.userID, function (type) {
+      if (req.session !== undefined) {
+        if (users.isAdmin(type) || parseInt(req.session.userID) === userInfo.id) {
+          db.getUserIdeas(req.params.id, function(ideas) {
+            userInfo.firstName = userInfo.name.split(' ')[0];
+            userInfo.userID = req.session.userID;
+            userInfo.typeDescription = typeDescription;
+            res.render('user', irp.mergeRecursive(userInfo, ideas));
+          })
+        } else
+          res.sendStatus(403);
+      }
+    });
+  }
+};
 
 router.get('/:id', function (req, res) {
   if (req.session.userID === undefined)
     res.sendStatus(401);
   else {
-    db.getUserInfoById(req.params.id, function (userInfo) {
-      if (userInfo === undefined)
+    db.getUserType(req.params.id, function (type) {
+      if (type === 3) {
+        db.getEmployeeInfo(req.params.id, function (userInfo) {
+          nextUserInfo(req, res, userInfo, users.getTypeDescription(type))
+        });
+      } else if (users.isParticipant(type)) {
+        db.getPartnerCostumerInfo(req.params.id, function (userInfo) {
+          nextUserInfo(req, res, userInfo, users.getTypeDescription(type))
+        });
+      } else {
         res.sendStatus(404);
-      else {
-        db.getUserType(req.session.userID, function (type) {
-            if (req.session !== undefined) {
-              if (type >= 3 || parseInt(req.session.userID) === userInfo.id) {
-                userInfo.firstName = userInfo.name.split(' ')[0];
-                res.render('user', userInfo);
-              } else
-                res.sendStatus(403);
-            }
-          });
-        }
+      }
     });
   }
 });

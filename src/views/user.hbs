@@ -1,6 +1,7 @@
 {{>header pageName="User Page"}}
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
 <link rel="stylesheet" href="../css/userPage.css">
+<link rel="stylesheet" href="../css/manageUsers.css">
 <script src="../js/userPage.js"></script>
 
 
@@ -8,12 +9,12 @@
     <div class="menu">
         <h2> Hello {{firstName}} </h2>
         <ul class="userNavbar">
-            <li class="active"><h4><a>PROFILE</a></h4></li>
-            <li><h4><a>MY IDEAS</a></h4></li>
-            <li><h4><a>SUBMIT IDEA</a></h4></li>
+            <li id="profile" class="active"><h4><a>PROFILE</a></h4></li>
+            <li id="ideas"><h4><a>IDEAS</a></h4></li>
+            <li id="submit"><h4><a>SUBMIT IDEA</a></h4></li>
         </ul>
     </div>
-    <div class="form">
+    <div id="profileDiv" class="profileDiv">
         <form class="well form-horizontal" action=" " method="post"  id="user_page">
             <fieldset>
                 <!-- Name -->
@@ -42,6 +43,19 @@
                     </div>
                 </div>
 
+                <!-- Email -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Role</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <input name="role" value="{{typeDescription}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                {{#compare typeDescription "Altran member"}}
                 <!-- Collaborator Number -->
 
                 <div class="form-group">
@@ -77,7 +91,45 @@
                         </div>
                     </div>
                 </div>
+                {{else}}
+                <!-- Referrer -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Referral</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                            <input name="referral" value="{{referral}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+                {{/compare}}
             </fieldset>
         </form>
+    </div>
+
+    <div id="ideasDiv" class="ideas">
+        <table class="table table-hover table-bordered rankingTable">
+            <thead class="rankingTableHead">
+            <tr>
+                <th>Idea</th>
+                <th>State</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each ideas}}
+                <tr>
+                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                    <td>{{state}}</td>
+                    <td>{{score}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="submitDiv" class="submitIdea">
+
     </div>
 </div>
