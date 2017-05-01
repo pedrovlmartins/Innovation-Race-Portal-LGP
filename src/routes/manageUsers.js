@@ -3,7 +3,6 @@ const irp = require(path.join(__base, 'lib', 'irp'));
 var express = require('express');
 var router = express.Router();
 var database = require(path.join(__base, 'database', 'database'));
-var userRole = require(path.join(__base, 'lib', 'userRole'));
 var users = require(path.join(__base, 'lib', 'users'));
 
 const itemsPerPage = 10.0;
@@ -40,7 +39,7 @@ router.get('/', function (req, res) {
           vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
           database.listUsers(offset, itemsPerPage, function (result) {
             result.forEach(
-              (user) => user.role = userRole.getRoleName(user.role)
+              (user) => user.type = users.getTypeDescription(user.type)
             );
             vars.users = result;
             if (req.session.userID !== undefined)
@@ -54,7 +53,7 @@ router.get('/', function (req, res) {
           vars.keyword = keyword;
           vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
           result.forEach(
-            (user) => user.role = userRole.getRoleName(user.role)
+            (user) => user.type = users.getTypeDescription(user.type)
           );
           vars.users = result;
           if (req.session.userID !== undefined)

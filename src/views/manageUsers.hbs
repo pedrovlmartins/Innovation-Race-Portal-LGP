@@ -40,8 +40,13 @@
         <tr>
             <td><a href="/users/{{id}}">{{name}}</a></td>
             <td>{{email}}</a></td>
-            <td>{{role}}</td>
-            <td>{{blocked}}</td>
+            <td>{{type}}</td>
+            {{#if blocked}}
+                <td>Yes</td>
+            {{else}}
+                <td>No</td>
+            {{/if}}
+
             <td><a href="/users/{{id}}/block">Block</a></td>
         </tr>
         {{/each}}

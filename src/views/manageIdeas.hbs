@@ -38,12 +38,22 @@
         </thead>
         <tbody>
         {{#each ideas}}
+            {{#compare state "Cancelled"}}
+            <tr class="cancelledLine">
+                <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                <td>{{state}}</td>
+                <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
+            </tr>
+            {{/compare}}
+            {{#compare state "!==" "Cancelled"}}
             <tr>
                 <td><a href="/ideas/{{id}}">{{title}}</a></td>
                 <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
                 <td>{{state}}</td>
                 <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
             </tr>
+            {{/compare}}
         {{/each}}
         </tbody>
     </table>
