@@ -18,6 +18,21 @@ module.exports = {
       });
   },
 
+  updateUser: function(id, newName, newMail, next){
+    poolquery('UPDATE users' +
+      ' SET name = ?, mail = ? ' +
+      ' WHERE id = ?',[newName, newMail, id],
+        function (err, result){
+          if (error) {
+              console.error(error);
+              next(error);
+          } else {
+              next(null, results);
+          }
+    });
+  },
+
+
   getUserByEmail: function (email, callback) {
     pool.query('SELECT * FROM users WHERE email = ?',
       [email],
@@ -256,7 +271,7 @@ module.exports = {
       ' WHERE id = ?',
       [ideas.states.AWAITING_EVALUATION, strategyAlignment, offerType,
         market, technicalViability, economicalViability, riskFactors,
-        otherRequirements, ideaID,
+        otherRequirements, ideaID
       ],
       function (error, results) {
         if (error) {
