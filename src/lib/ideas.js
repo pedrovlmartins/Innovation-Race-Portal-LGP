@@ -3,6 +3,8 @@ const email = require(path.join(__base, 'lib', 'mailer'));
 const EmailTemplate = require('email-templates').EmailTemplate;
 const evaluationNotificationEmailTemplateDir =
    path.join(__base, 'views', 'emails', 'evaluationNotification');
+const selectionNotificationEmailTemplateDir =
+   path.join(__base, 'views', 'emails', 'selectionNotification');
 
 var states = {
   DRAFT: 0,
