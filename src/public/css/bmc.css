@@ -75,7 +75,8 @@
     color: #7d7d7d;
 }
 
-textarea{
+#keyPartnersTextarea, #keyActivitiesTextarea, #keyResourcesTextarea, #keyValueTextarea,
+#keyCostumerTextarea, #keyChannelsTextarea, #keySegmentsTextarea, #keyCostTextarea, #keyRevenueTextarea {
   width:100%;
   max-width:100%;
   min-width:100%;
@@ -93,7 +94,7 @@ textarea{
   background-color: #e7e7e7;
 }
 
-.col-xs-12 textarea{
+#keyActivitiesTextarea, #keyResourcesTextarea, #keyCostumerTextarea, #keyChannelsTextarea{
   height:235px;
 }
 

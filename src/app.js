@@ -111,9 +111,7 @@ app.use('/manageIdeas', manageIdeas);
 app.use('/ideas', ideas);
 app.use('/classification', classification);
 app.use('/ranking', ranking);
-
 app.use('/bmc', bmc);
-
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);
 app.use('/auth/logout', auth.logout);
