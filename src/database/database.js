@@ -39,7 +39,7 @@ module.exports = {
         if (typeof next === 'function')
           next(result[0]);
       }
-    ),
+    );
   },
 
   getEmployeeInfo: function (id, next) {
@@ -79,15 +79,15 @@ module.exports = {
       });
   },
 
-  getUserIdeasCount: function(id, next) {
-     pool.query(
-       'SELECT COUNT(*) AS count ' +
-       'FROM ideas ' +
-       'WHERE idCreator = ?;', [id], function (err, result) {
-         if (typeof next === 'function')
-           next(result[0].count);
-       });
-   },
+  getUserIdeasCount: function (id, next) {
+    pool.query(
+     'SELECT COUNT(*) AS count ' +
+     'FROM ideas ' +
+     'WHERE idCreator = ?;', [id], function (err, result) {
+       if (typeof next === 'function')
+         next(result[0].count);
+     });
+    },
 
   getTeamMembers: function (id, next) {
     pool.query(
@@ -159,7 +159,6 @@ module.exports = {
         next(results);
     });
   },
-
 
   listIdeas: function (limit, offset, next) {
     pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
@@ -298,15 +297,14 @@ module.exports = {
         }
       });
   },
-};
 
-blockUser: function (id, next) {
-  pool.query(
-    'UPDATE users ' +
-    'SET blocked = 1 ' +
-    'WHERE users.id = ?;', [id], function (err, result) {
-      if (typeof next === 'function')
-        next(result);
-    });
-  },
+  blockUser: function (id, next) {
+    pool.query(
+      'UPDATE users ' +
+      'SET blocked = 1 ' +
+      'WHERE users.id = ?;', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
+    },
 };
