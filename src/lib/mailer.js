@@ -21,7 +21,7 @@ function send(to, subject, text, html, callback) {
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
-    callback(err, info);
+    callback(error, info);
   });
 };
 

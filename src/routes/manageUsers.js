@@ -3,13 +3,13 @@ const irp = require(path.join(__base, 'lib', 'irp'));
 var express = require('express');
 var router = express.Router();
 var database = require(path.join(__base, 'database', 'database'));
-var userRole = require(path.join(__base, 'lib', 'userRole'));
+var users = require(path.join(__base, 'lib', 'users'));
 
-const itemsPerPage = 10;
+const itemsPerPage = 10.0;
 
 router.get('/', function (req, res) {
   database.getUserType(req.session.userID, function (type) {
-    if (type < 3) {
+    if (!users.isAdmin(type)) {
       res.sendStatus(403);
     } else {
       var vars = irp.getActionResults(req);
@@ -36,12 +36,10 @@ router.get('/', function (req, res) {
       if (req.query.keyword === undefined) {
         database.getUsersCount(function (result) {
           var numberOfUsers = result[0].count;
-          vars.totalPages = Math.floor(numberOfUsers / itemsPerPage);
-          if (numberOfUsers % itemsPerPage > 0)
-            vars.totalPages += 1;
+          vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
           database.listUsers(offset, itemsPerPage, function (result) {
             result.forEach(
-              (user) => user.role = userRole.getRoleName(user.role)
+              (user) => user.type = users.getTypeDescription(user.type)
             );
             vars.users = result;
             if (req.session.userID !== undefined)
@@ -53,13 +51,11 @@ router.get('/', function (req, res) {
         database.searchUsers(keyword, offset, itemsPerPage, function (error, result) {
           var numberOfUsers = result.length;
           vars.keyword = keyword;
-          vars.totalPages = Math.floor(numberOfUsers / itemsPerPage);
+          vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
           result.forEach(
-            (user) => user.role = userRole.getRoleName(user.role)
+            (user) => user.type = users.getTypeDescription(user.type)
           );
           vars.users = result;
-          if (numberOfUsers % itemsPerPage > 0)
-            vars.totalPages += 1;
           if (req.session.userID !== undefined)
             vars.userID = req.session.userID;
           res.render('manageUsers', vars);

@@ -31,6 +31,28 @@ module.exports = {
       });
   },
 
+  getPartnerClientInfo: function (id, next) {
+    pool.query(
+      'SELECT users.id, users.name, users.email, users.referral ' +
+      'FROM users ' +
+      'WHERE users.id = ?', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result[0]);
+      }
+    );
+  },
+
+  getEmployeeInfo: function (id, next) {
+    pool.query(
+      'SELECT users.id, users.name, users.email, users.colaboratorNum, users.businessField, manager.name AS manager ' +
+      'FROM users ' +
+      'JOIN users manager ON users.manager = manager.id ' +
+      'WHERE users.id = ?', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result[0]);
+      });
+  },
+
   getIdea: function (id, next) {
     pool.query(
       'SELECT users.id AS creatorId, users.name AS creator,ideas.title, ideas.description,' +
@@ -44,6 +66,28 @@ module.exports = {
           next(result[0]);
       });
   },
+
+  getUserIdeas: function (id, limit, offset, next) {
+    pool.query(
+      'SELECT ideas.id, ideas.title, ideas.state, ideas.cancelled, ideas.score ' +
+      'FROM ideas ' +
+      'WHERE ideas.idCreator = ? ' +
+      'ORDER BY ideas.title ' +
+      'LIMIT ?, ?;', [id, limit, offset], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
+  },
+
+  getUserIdeasCount: function (id, next) {
+    pool.query(
+     'SELECT COUNT(*) AS count ' +
+     'FROM ideas ' +
+     'WHERE idCreator = ?;', [id], function (err, result) {
+       if (typeof next === 'function')
+         next(result[0].count);
+     });
+    },
 
   getTeamMembers: function (id, next) {
     pool.query(
@@ -107,7 +151,7 @@ module.exports = {
   },
 
   listUsers: function (limit, offset, next) {
-    pool.query('SELECT users.name, users.email, users.role ' +
+    pool.query('SELECT users.id, users.name, users.email, users.blocked, users.type ' +
       'FROM users ' +
       'ORDER BY name ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
@@ -118,11 +162,20 @@ module.exports = {
 
   listIdeas: function (limit, offset, next) {
     pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
-      'ideas.state, users.id AS idCreator, users.name AS creator ' +
+      'ideas.state, ideas.cancelled, users.id AS idCreator, users.name AS creator ' +
       'FROM ideas ' +
-      'JOIN users ON users.id = ideas.idCreator ' +
-      'WHERE ideas.cancelled = 0 ' +
-      'ORDER BY ideas.title ' +
+      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.cancelled, ideas.title ASC ' +
+      'LIMIT ?, ?;', [limit, offset], function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    });
+  },
+
+  listIdeasRanking: function (limit, offset, next) {
+    pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
+      'ideas.state, ideas.cancelled, ideas.score, users.id AS idCreator, users.name AS creator ' +
+      'FROM ideas ' +
+      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.score DESC ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
@@ -209,6 +262,23 @@ module.exports = {
       });
   },
 
+  updatedIdeaState_go: function (id, next) {
+    pool.query(
+      'UPDATE ideas ' +
+      'SET state = ? ' +
+      'WHERE ideas.id = ? ' +
+      'AND state = ? ' +
+      'AND cancelled = FALSE;',
+      [ideas.states.BEING_IMPLEMENTED, id, ideas.states.AWAITING_GO_NO_GO],
+      function (err, result) {
+        if (err) {
+          next(err);
+        } else {
+          next(null, result);
+        }
+      });
+  },
+
   classifyIdea: function (ideaID, strategyAlignment, offerType, market, technicalViability,
                           economicalViability, riskFactors, otherRequirements, next) {
     pool.query('UPDATE ideas SET state = ?, strategyAlignment = ?, offerType = ?, market = ?,' +
@@ -228,4 +298,13 @@ module.exports = {
       });
   },
 
+  blockUser: function (id, next) {
+    pool.query(
+      'UPDATE users ' +
+      'SET blocked = 1 ' +
+      'WHERE users.id = ?;', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      });
+    },
 };

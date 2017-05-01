@@ -1,0 +1,153 @@
+{{>header pageName="User Page"}}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
+<link rel="stylesheet" href="../../css/userPage.css">
+<script src="../../js/userPage.js"></script>
+
+
+<div class="container">
+    <div class="menu">
+        <ul class="userNavbar">
+            <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
+            <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
+            <li id="submit"><h4><a href="submitIdea">SUBMIT IDEA</a></h4></li>
+        </ul>
+    </div>
+    {{#compare page "profile"}}
+    <div id="profileDiv" class="profileDiv">
+        <form class="well form-horizontal" action="" method="post" id="user_page">
+            <fieldset>
+                <!-- Name -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" >Name</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="name" value="{{name}}" class="form-control"  type="text" readonly>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Email</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input name="email" value="{{email}}" class="form-control"  type="text" readonly>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Role</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <input name="role" value="{{typeDescription}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                {{#compare typeDescription "Altran member"}}
+                <!-- Collaborator Number -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Employee nr.</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input name="collaboratorNumber" value="{{colaboratorNum}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Position / Business Area -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Job Position/Business Area</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-wrench"></i></span>
+                            <input name="businessField" value="{{businessField}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Associated Manager -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Associated Manager</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                            <input name="manager" value="{{manager}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+                <!-- Referrer -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Referral</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                            <input name="referral" value="{{referral}}" class="form-control"  type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+                {{/compare}}
+            </fieldset>
+        </form>
+    </div>
+    {{/compare}}
+
+    {{#compare page "ideas"}}
+    <div id="ideasDiv" class="ideas">
+        <table class="table table-hover table-bordered">
+            <thead class="userIdeasTableHead">
+            <tr>
+                <th>Idea</th>
+                <th>State</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#if ideas}}
+                {{#each ideas}}
+                    <tr>
+                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                        <td>{{state}}</td>
+                        <td>{{score}}</td>
+                    </tr>
+                {{/each}}
+            {{else}}
+                <tr>
+                    <td class="noIdeas" colspan="3">No ideas yet.</td>
+                </tr>
+            {{/if}}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <ul class="pagination">
+                     {{add-pagination page pageNo pageTotal ""}}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/compare}}
+    {{#compare page "submitIdea"}}
+    <div id="submitDiv" class="submitIdea">
+
+    </div>
+    {{/compare}}
+</div>
