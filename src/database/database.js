@@ -208,7 +208,7 @@ module.exports = {
 
     searchIdeas: function (key, limit, offset, next) {
         var varPattern = '%' + key + '%';
-        pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
+        pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ideas.cancelled, ' +
             'ideas.state, users.id, users.name AS creator ' +
             'FROM ideas ' +
             'JOIN users ON users.id = ideas.idCreator ' +
