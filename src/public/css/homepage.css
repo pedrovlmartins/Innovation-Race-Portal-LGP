@@ -9,6 +9,7 @@ body {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
+	font-family: 'Open Sans', sans-serif;
 }
 
 img.bg {
@@ -22,7 +23,6 @@ img.bg {
 	font-weight: bold;
     letter-spacing: 1px;
     color: #4298b5;
-    font-family: 'Open Sans', sans-serif;
 }
 
 .titleSection {
@@ -35,7 +35,7 @@ img.bg {
 	margin-top: 30%;
 	height: 100%;
 	width: 100%;
-	background-color: rgba(24, 178, 232, 0.8);
+	background-color: rgba(255, 255, 255, 0.9);
     padding-bottom: 5%;
 }
 
@@ -44,7 +44,7 @@ img.bg {
 }
 
 .contactHeader {
-	text-align: center;
+
 }
 
 .contactPageForm {
@@ -55,7 +55,7 @@ img.bg {
 	padding: 50px 0;
 	height: 100%;
 	width: 100%;
-	background-color: white;
+	background-color: rgba(24, 178, 232, 0.8);
 }
 
 .aboutPage {
