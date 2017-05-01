@@ -124,7 +124,7 @@ CREATE TABLE `users` (
   `name` varchar(200) NOT NULL,
   `passwordHash` varchar(1000) NOT NULL,
   `type` int(11) NOT NULL,
-  `blocked` tinyint NOT NULL default 0,
+  `blocked` bit(1) NOT NULL default 0,
   `registrationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accountStatus` int(11) NOT NULL DEFAULT '0',
   `passwordReminderExpire` timestamp NULL DEFAULT NULL,
