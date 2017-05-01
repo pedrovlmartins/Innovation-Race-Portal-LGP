@@ -72,7 +72,6 @@ module.exports = {
        'SELECT ideas.id, ideas.title, ideas.state, ideas.cancelled, ideas.score ' +
        'FROM ideas ' +
        'WHERE ideas.idCreator = ? ' +
-       'ORDER BY ideas.title ' +
        'LIMIT ?, ?;', [id, limit, offset], function (err, result) {
          if (typeof next === 'function')
            next(result);

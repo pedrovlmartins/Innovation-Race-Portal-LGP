@@ -21,7 +21,7 @@ config.mysql = {
   },
   development: {
     connectionLimit: 10,
-        host: 'localhost',
+    host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'irp',

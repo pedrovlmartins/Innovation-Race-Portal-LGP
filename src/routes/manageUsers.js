@@ -33,7 +33,7 @@ router.get('/', function (req, res) {
       }
 
       vars.page = page;
-        console.log("TESTE");
+
       if (req.query.keyword === undefined) {
         database.getUsersCount(function (result) {
           var numberOfUsers = result[0].count;
@@ -43,9 +43,6 @@ router.get('/', function (req, res) {
               (user) => user.role = userRole.getRoleName(user.role)
             );
             vars.users = result;
-            for(var user in vars.users){
-                console.log(user);
-            };
             if (req.session.userID !== undefined)
               vars.userID = req.session.userID;
             res.render('manageUsers', vars);

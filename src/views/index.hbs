@@ -2,10 +2,9 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"/>
 
-
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
-<div id="mainSection">
+<div id="mainSection" class="titleSection">
     <div class="container">
         <link rel="stylesheet" href="css/homepage.css">
         {{>actionResults}}
@@ -14,40 +13,10 @@
             <h1 class="innovationHeader">INNOVATION RACE</h1>
         </div>
 
-        <table class="table table-hover table-responsive table-curved rankingTable">
-            <thead class="rankingTableHead">
-            <tr>
-                <th>Position</th>
-                <th>Idea</th>
-                <th>Pontuation</th>
-                <th>Qualitative Evaluation</th>
-            </tr>
-            </thead>
-            <tbody class="rankingTableBody">
-            <tr>
-                <td>1</td>
-                <td>Comer sem ganhar calorias</td>
-                <td>105</td>
-                <td>A</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Programar de forma mais eficaz</td>
-                <td>99</td>
-                <td>B+</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Correr sem suar</td>
-                <td>90</td>
-                <td>B</td>
-            </tr>
-            </tbody>
-        </table>
-
     </div>
 </div>
-<section id="contact">
+
+<section id="contact" class="contactSection">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -77,57 +46,43 @@
                             <div class="row">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-8">
-                                    <form action=" " method="post"  id="contact_form">
+                                    <form action="contact" method="post" id="contact_form">
                                             <div class="form-group">
                                             <label class="control-label">Name</label>
                                             <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                    <input  name="name" placeholder="Name" class="form-control"  type="text">
-                                                </div>
+                                                <input  name="name" class="form-control" type="text">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">E-Mail</label>
                                             <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                                    <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
-                                                </div>
+                                                <input name="email" class="form-control" type="text">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Subject</label>
                                             <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <input name="subject" placeholder="Subject" class="form-control"  type="text">
-                                                </div>
+                                                <input name="subject" class="form-control" type="text">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Message</label>
                                             <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <textarea class="form-control" name="message" placeholder="Message content"></textarea>
-                                                </div>
+                                                <textarea class="form-control" name="message"></textarea>
                                             </div>
                                         </div>
 
                                         <div class="form-group submitContactButton">
                                             <label class="control-label"></label>
-                                                <button type="submit" class="btn btn-sucess" >Send <span class="glyphicon glyphicon-send"></span></button>
+                                            <button type="submit" class="btn btn-sucess">Send<span class="glyphicon glyphicon-send"></span></button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-md-2"></div>
                             </div>
-
-
                     </div>
                 </div>
             </div>
@@ -136,14 +91,21 @@
     </div>
 </section>
 
-<section id="about">
+<section id="about" class="aboutSection">
     <div class="container">
-        <div class="aboutPage">
-            <h2>About page</h2>
-            <h2>About page</h2>
-            <h2>About page</h2>
-            <h2>About page</h2>
-            <h2>About page</h2>
+        <div class="col-md-12">
+            <h1 class="aboutHeader">About Us</h1>
+            <br><br>
+            <h4>Com mais de 1000 colaboradores, a Altran Portugal, é hoje um dos
+                principais players na Consultoria de Inovação e Tecnológica em Portu-
+                gal. Estamos presentes em vários setores de atividade como o Finan-
+                ceiro, Telecomunicações & Media, Administração Pública, Indústria,
+                Energy & Life Sciences, Intelligent Systems e Utilities, sendo que a
+                nossa atividade tem uma estrutura assente na venda de soluções
+                inovadoras.</h4>
+            <!--Tamanho do texto e a formatação vai ficar em stand-by até recebermos o texto da raquel.
+             Se o texto for menos que este aumentar tamanho, senão manter.
+             Se o texto for maior que este exemplo ponderar usar o <pre> para uma formatação de texto mais livre-->
         </div>
     </div>
 </section>
@@ -151,3 +113,7 @@
 </body>
 
 <script src="../js/contact.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+
