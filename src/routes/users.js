@@ -98,11 +98,24 @@ router.get('/:id/ideas', function (req, res) {
   }
 });
 
+//dar update nisto basicamente separar
 router.post('/', function (req, res) {
     if (req.session.userID === undefined)
         res.sendStatus(401);
 
-    db.updateUser(req.body.id, req.body.newName, req.body.newMail, function(error, results){
+    db.updateUserName(req.body.id, req.body.newName, function(error, results){
+        if (error) {
+            irp.addError(req, 'Unknown error occurred.');
+        } else if (results.affectedRows === 0) {
+            irp.addError(req, 'Could not update user information.');
+        } else {
+            irp.addSuccess(req, 'User information successfully updated.');
+        }
+        res.redirect('back');
+        return;
+    });
+
+    db.updateUserMail(req.body.id, req.body.newMail, function(error, results){
         if (error) {
             irp.addError(req, 'Unknown error occurred.');
         } else if (results.affectedRows === 0) {

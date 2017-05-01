@@ -18,10 +18,10 @@ module.exports = {
       });
   },
 
-  updateUser: function(id, newName, newMail, next){
+  updateUserName: function(id, newName, next){
     poolquery('UPDATE users' +
-      ' SET name = ?, mail = ? ' +
-      ' WHERE id = ?',[newName, newMail, id],
+      ' SET name = ? ' +
+      ' WHERE id = ?',[newName, id],
         function (err, result){
           if (error) {
               console.error(error);
@@ -32,6 +32,19 @@ module.exports = {
     });
   },
 
+  updateUserMail: function(id, newMail, next){
+      poolquery('UPDATE users' +
+          ' SET  email = ? ' +
+          ' WHERE id = ?',[newMail, id],
+          function (err, result){
+              if (error) {
+                  console.error(error);
+                  next(error);
+              } else {
+                  next(null, results);
+              }
+          });
+  },
 
   getUserByEmail: function (email, callback) {
     pool.query('SELECT * FROM users WHERE email = ?',

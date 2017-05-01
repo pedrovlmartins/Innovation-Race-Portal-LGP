@@ -23,8 +23,8 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input name="name" value="{{name}}" class="form-control"  type="text" readonly>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                            <input name="name" value="{{name}}" class="form-control"  type="text" readonly ondblclick="this.readOnly='';">
+                            <span class="input-group-addon"><button class="glyphicon glyphicon-edit"></button></span>
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
                     <div class="col-md-4 selectContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <input name="email" value="{{email}}" class="form-control"  type="text" readonly>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                            <input name="email" value="{{email}}" class="form-control" type="text" readonly ondblclick="this.readOnly='';">
+                            <span class="input-group-addon"><button class="glyphicon glyphicon-edit"></button></span>
                         </div>
                     </div>
                 </div>
