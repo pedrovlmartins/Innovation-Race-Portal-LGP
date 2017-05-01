@@ -150,7 +150,7 @@ module.exports = {
     },
 
     listUsers: function (limit, offset, next) {
-        pool.query('SELECT users.name, users.email, users.blocked, users.role ' +
+        pool.query('SELECT users.id, users.name, users.email, users.blocked, users.role ' +
             'FROM users ' +
             'ORDER BY name ' +
             'LIMIT ?, ?;', [limit, offset], function (error, results) {

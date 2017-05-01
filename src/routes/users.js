@@ -102,7 +102,8 @@ router.get('/:id/block', function(req, res) {
     if (req.session.userID === undefined)
         res.sendStatus(401);
     else {
-        db.getUserType(req.params.id, function (type) {
+
+        db.getUserType(req.session.userID, function (type) {
             if (users.isAdmin(type)) {
                 db.blockUser(req.params.id, function () {
                     res.redirect("back");
