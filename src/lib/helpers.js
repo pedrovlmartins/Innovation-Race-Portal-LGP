@@ -43,8 +43,8 @@ module.exports = {
 
     return new hbs.SafeString(out);
   },
-
-  compare: function (lvalue, operator, rvalue, options) {
+  
+compare: function (lvalue, operator, rvalue, options) {
     var operators;
     var result;
 

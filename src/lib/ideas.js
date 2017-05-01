@@ -2,7 +2,9 @@ const path = require('path');
 const email = require(path.join(__base, 'lib', 'mailer'));
 const EmailTemplate = require('email-templates').EmailTemplate;
 const evaluationNotificationEmailTemplateDir =
-  path.join(__base, 'views', 'emails', 'evaluationNotification');
+   path.join(__base, 'views', 'emails', 'evaluationNotification');
+const selectionNotificationEmailTemplateDir =
+   path.join(__base, 'views', 'emails', 'selectionNotification');
 
 var states = {
   DRAFT: 0,
@@ -46,7 +48,7 @@ module.exports = {
     return true;
   },
 
-  sendEvaluationNotificationEmail: function (to, ideaName, approved, callback) {
+sendEvaluationNotificationEmail: function (to, ideaName, approved, callback) {
     var newsletter = new EmailTemplate(evaluationNotificationEmailTemplateDir);
     var data = {
       ideaName: ideaName,
@@ -73,9 +75,7 @@ module.exports = {
     };
     newsletter.render(data, function (err, result) {
       if (err) console.error(err);
-      email.send(to,
-        'Innovation Race Portal - Your idea has been analyzed by the committee',
-        result.text, result.html,
+      email.send(to, 'Innovation Race Portal - Your idea has been analyzed by the committee', result.text, result.html,
         function (error, body) {
           callback(error, body);
         });
