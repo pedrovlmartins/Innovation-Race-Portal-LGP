@@ -187,13 +187,13 @@ router.post('/:id/goKickOff', function (req, res, next) {
 
         irp.addSuccess(req, 'The idea has been selected to advance to the implementation phase.');
         res.redirect('back');
-        sendSelectionNotificationEmail(ideaInfo.creatorId, ideaInfo.title, true);
+        sendCoachingEndNotificationEmail(ideaInfo.creatorId, ideaInfo.title, true);
       });
     } else {
       db.updateIdeaState_decline(req.params.id, function (result) {
         irp.addSuccess(req, 'The idea has been rejected.');
         res.redirect('back');
-        sendSelectionNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
+        sendCoachingEndNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
       });
     }
   });
@@ -277,6 +277,19 @@ function sendSelectionNotificationEmail(creatorID, title, selected) {
       console.error(err);
     } else {
       ideas.sendSelectionNotificationEmail(email, title, selected, function (error, body) {
+        if (error)
+          console.error(error);
+      });
+    }
+  });
+}
+
+function sendCoachingEndNotificationEmail(creatorID, title, go) {
+  db.getUserEmail(creatorID, function (err, email) {
+    if (err) {
+      console.error(err);
+    } else {
+      ideas.sendCoachingEndNotificationEmail(email, title, go, function (error, body) {
         if (error)
           console.error(error);
       });
