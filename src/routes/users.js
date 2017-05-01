@@ -115,4 +115,17 @@ router.get('/:id/block', function(req, res) {
     }
 });
 
+router.get('/:id/submitIdea', function(req, res) {
+
+    if (req.session.userID === undefined)
+        res.sendStatus(401);
+        else if(req.session.userID != req.params.id)
+            res.sendStatus(403);
+    else {
+        var userInfo = {};
+        userInfo.userID = req.session.userID;
+        res.render('submitIdea', userInfo);
+    }
+});
+
 module.exports = router;
