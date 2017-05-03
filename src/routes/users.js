@@ -260,7 +260,7 @@ router.post('/:id/draft', function (req, res) {
         return;
     }
 
-    db.saveDraft(req.session.userID, req.body.ideaTitle, req.body.description, req.body.teamIdea, req.body.teammembers,
+    db.saveDraft(req.session.userID, req.body.title, req.body.description, req.body.teamIdea, req.body.teammembers,
         req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence, req.body.techHumanResources,
         req.body.results, function(err) {
             if (err) {
