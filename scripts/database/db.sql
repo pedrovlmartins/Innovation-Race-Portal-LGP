@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `BMC`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `BMC` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idIdea` int(11) DEFAULT NULL,
+  `ideaID` int(11) NOT NULL,
   `keyPartners` varchar(1000) DEFAULT NULL,
   `keyActivities` varchar(1000) DEFAULT NULL,
   `keyResources` varchar(1000) DEFAULT NULL,

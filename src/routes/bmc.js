@@ -10,29 +10,32 @@ router.get('/', function(req, res) {
     if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
     res.render('bmc', vars);
-});
+  });
 
 module.exports = router;
 
-router.post('/', function(req, res) {
-    if (irp.currentUserType(req) !== users.types.MANAGER) {
-        irp.addError(req, 'You are not a I&D manager.');
-        res.redirect('back');
-        return;
+router.post('/', function (req, res) {
+    if (!users.isParticipant(irp.currentUserType(req))) {
+      irp.addError(req, 'You must be a participant in the contest in order to fill the BMC.');
+      res.redirect('back');
+      return;
     }
     db.insertBMC(req.body.keyPartners, req.body.keyActivities,
         req.body.keyResources, req.body.valuePropositions,
         req.body.costumerSegments, req.body.costumerRelationships,
         req.body.channels, req.body.costStructure, req.body.revenueStreams,
-        function(err) {
+        function (err) {
             if (err) {
-                console.error(err);
-                irp.addError(req, err);
-                res.redirect('../../');
-                irp.cleanActionResults(req);
+              console.error(err);
+              irp.addError(req, err);
+              res.redirect('../../');
+              irp.cleanActionResults(req);
+            } else {
+              res.redirect(req.get('referer'));
             }
-        })
-});
+          }
+          );
+  });
 
 module.exports = router;
 

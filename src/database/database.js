@@ -283,12 +283,12 @@ module.exports = {
   insertBMC: function (keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure,
                        revenueStreams, callback) {
         pool.query('INSERT INTO bmc' +
-            ' (keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, ' +
+            ' (ideaID, keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, ' +
             ' costumerRelationships, channels, costStructure, revenueStreams)' +
-            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure, revenueStreams],
+            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [ideas.states.AWAITING_EVALUATION, keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure, revenueStreams],
             function (err, rows, fields) {
                 callback(err);
-            })
-      },
+            });
+      }
 };
