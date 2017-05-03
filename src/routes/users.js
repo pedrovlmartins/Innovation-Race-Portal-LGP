@@ -6,6 +6,7 @@ var irp = require(path.join(__base, 'lib', 'irp'));
 var users = require(path.join(__base, 'lib', 'users'));
 var ideas = require(path.join(__base, 'lib', 'ideas'));
 
+
 const itemsPerPage = 10.0;
 
 function nextUserInfo(req, res, userInfo, typeDescription) {
@@ -98,24 +99,14 @@ router.get('/:id/ideas', function (req, res) {
   }
 });
 
-//dar update nisto basicamente separar
-router.post('/', function (req, res) {
+router.post('/:id/profile', function (req, res) {
     if (req.session.userID === undefined)
         res.sendStatus(401);
 
-    db.updateUserName(req.body.id, req.body.newName, function(error, results){
-        if (error) {
-            irp.addError(req, 'Unknown error occurred.');
-        } else if (results.affectedRows === 0) {
-            irp.addError(req, 'Could not update user information.');
-        } else {
-            irp.addSuccess(req, 'User information successfully updated.');
-        }
-        res.redirect('back');
-        return;
-    });
+console.log(req.body);
+console.log(req.params.id);
 
-    db.updateUserMail(req.body.id, req.body.newMail, function(error, results){
+    db.updateUserName(req.params.id, req.body.name, function(error, results){
         if (error) {
             irp.addError(req, 'Unknown error occurred.');
         } else if (results.affectedRows === 0) {
@@ -125,7 +116,41 @@ router.post('/', function (req, res) {
         }
         res.redirect('back');
         return;
-    });
+    });/*
+    db.updateUserMail(req.params.id, req.body.email, function(error, results){
+        if (error) {
+            irp.addError(req, 'Unknown error occurred.');
+        } else if (results.affectedRows === 0) {
+            irp.addError(req, 'Could not update user information.');
+        } else {
+            irp.addSuccess(req, 'User information successfully updated.');
+        }
+        res.redirect('back');
+        return;
+    });*/
+
+    /*
+      //hashing and salting of newpassword
+      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
+        if (error) {
+            console.error(err);
+            irp.addError(req, error);
+            res.redirect('../../');
+            irp.cleanActionResults(req);
+        };
+
+        db.updateUserPassword(req.params.id, req, passwordHash, function(error,results){
+          if(error){
+            irp.addError(req, 'Unknown error occurred.');
+          } else if(results.affectedRows === 0) {
+              irp.addError(req, 'Could not update user information.');
+          } else {
+              irp.addSuccess(req, 'User information successfully updated.');
+          }
+          res.redirect('back');
+        });
+
+    });*/
 });
 
 module.exports = router;

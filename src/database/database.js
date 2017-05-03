@@ -19,32 +19,48 @@ module.exports = {
   },
 
   updateUserName: function(id, newName, next){
-    poolquery('UPDATE users' +
+    pool.query('UPDATE users' +
       ' SET name = ? ' +
       ' WHERE id = ?',[newName, id],
-        function (err, result){
+        function (error, result){
           if (error) {
               console.error(error);
               next(error);
           } else {
-              next(null, results);
+              next(null, result);
           }
     });
   },
 
   updateUserMail: function(id, newMail, next){
-      poolquery('UPDATE users' +
+
+      pool.query('UPDATE users' +
           ' SET  email = ? ' +
           ' WHERE id = ?',[newMail, id],
           function (err, result){
-              if (error) {
-                  console.error(error);
-                  next(error);
+              if (err) {
+                  console.error(err);
+                  next(err);
               } else {
-                  next(null, results);
+                  next(null, result);
               }
           });
   },
+
+  updateUserPassword:(function(id, newPassword, netx){
+
+    pool.query('UPDATE users'+
+    'SET password =?' +
+    'WHERE id= ?', [newPassword, id],
+    function(err, result){
+      if(err){
+        console.error(err);
+        next(err);
+      } else {
+        next(null, result);
+      }
+      });
+  }),
 
   getUserByEmail: function (email, callback) {
     pool.query('SELECT * FROM users WHERE email = ?',
