@@ -380,17 +380,6 @@ module.exports = {
             });
     }
 
-  insertBMC: function (keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure,
-                       revenueStreams, callback) {
-        pool.query('INSERT INTO bmc' +
-            ' (ideaID, keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, ' +
-            ' costumerRelationships, channels, costStructure, revenueStreams)' +
-            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [ideas.states.AWAITING_GO_NO_GO, keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure, revenueStreams],
-            function (err, rows, fields) {
-                callback(err);
-              });
-      },
 };
 
 
