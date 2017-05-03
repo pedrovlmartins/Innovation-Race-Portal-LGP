@@ -236,6 +236,9 @@ router.get('/:id', function (req, res) {
                   canSelectIdea: !ideaInfo.cancelled[0]
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
+                  canCoachIdea: !ideaInfo.cancelled[0]
+                    && ideaInfo.state === ideas.states.IN_COACHING_PHASE
+                    && irp.currentIsParticipant(req),
                   canGoKickOffIdea: !ideaInfo.cancelled[0]
                   && ideaInfo.state === ideas.states.AWAITING_GO_NO_GO
                   && irp.currentCanSelectIdea(req),
