@@ -199,6 +199,40 @@ router.post('/:id/goKickOff', function (req, res, next) {
   });
 });
 
+router.post('/:id/bmc', function (req, res) {
+    /*if (!users.isParticipant(irp.currentUserType(req))) {
+     irp.addError(req, 'You must be a participant in the contest in order to fill the BMC.');
+     res.redirect('back');
+     return;
+     }*/
+
+    db.insertBMC(req.params.id, req.body.keyPartners, req.body.keyActivities,
+        req.body.keyResources, req.body.valuePropositions,
+        req.body.costumerSegments, req.body.costumerRelationships,
+        req.body.channels, req.body.costStructure, req.body.revenueStreams,
+        function (err) {
+            if (err) {
+              console.error(err);
+              irp.addError(req, err);
+              res.redirect('../../');
+              irp.cleanActionResults(req);
+            } else {
+                db.updatedIdeaState_coaching(req.params.id, function (error, result) {
+                    if (error) {
+                        console.error(error);
+                        irp.addError(req, 'Unknown error occurred, please try again later.');
+                        res.redirect('back');
+                        return;
+                    }
+
+                    irp.addSuccess(req, 'The idea is now waiting for GO / NO GO after the coaching!');
+                    res.redirect('back');
+                });
+            }
+          }
+    );
+});
+
 router.get('/:id', function (req, res) {
   var ids = [];
   if (req.session.userID === undefined)
@@ -237,8 +271,7 @@ router.get('/:id', function (req, res) {
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
                   canCoachIdea: !ideaInfo.cancelled[0]
-                    && ideaInfo.state === ideas.states.IN_COACHING_PHASE
-                    && irp.currentIsParticipant(req),
+                    && ideaInfo.state === ideas.states.IN_COACHING_PHASE,
                   canGoKickOffIdea: !ideaInfo.cancelled[0]
                   && ideaInfo.state === ideas.states.AWAITING_GO_NO_GO
                   && irp.currentCanSelectIdea(req),

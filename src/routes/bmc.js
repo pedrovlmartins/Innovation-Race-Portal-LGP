@@ -15,12 +15,13 @@ router.get('/', function(req, res) {
 module.exports = router;
 
 router.post('/', function (req, res) {
-    if (!users.isParticipant(irp.currentUserType(req))) {
+    /*if (!users.isParticipant(irp.currentUserType(req))) {
       irp.addError(req, 'You must be a participant in the contest in order to fill the BMC.');
       res.redirect('back');
       return;
-    }
-  console.log(req.body);
+    }*/
+
+    console.log(req.params.id);
 
   db.insertBMC(req.body.keyPartners, req.body.keyActivities,
         req.body.keyResources, req.body.valuePropositions,

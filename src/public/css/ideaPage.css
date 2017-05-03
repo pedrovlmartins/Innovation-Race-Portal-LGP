@@ -1,3 +1,15 @@
+#bmcEdit {
+    background-color: rgb(35, 127, 195);
+    width: 120px;
+    border-radius: 0;
+    margin-top: 1%;
+    color: white;
+    margin: -20px -50px;
+    position:relative;
+    top:50%;
+    left:50%;
+}
+
 #textArea {
     resize: none;
 }
