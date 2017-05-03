@@ -14,7 +14,7 @@
     <div id="imaginary_container">
         <form action="/manageUsers" method="get">
             <div class="input-group stylish-input-group">
-                <input type="text" class="form-control"  placeholder="Search" name="keyword" value=''>
+                <input type="text" class="form-control" placeholder="Search" name="keyword" value=''>
                 <span class="input-group-addon">
                     <button type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -37,18 +37,24 @@
         </thead>
         <tbody>
         {{#each users}}
-        <tr>
-            <td><a href="/users/{{id}}">{{name}}</a></td>
-            <td>{{email}}</a></td>
-            <td>{{type}}</td>
-            {{#if blocked}}
-                <td>Yes</td>
-            {{else}}
-                <td>No</td>
-            {{/if}}
+            <tr>
+                <td><a href="/users/{{id}}">{{name}}</a></td>
+                <td>{{email}}</a></td>
+                <td>{{type}}</td>
+                {{#if blocked}}
+                    <td>Yes</td>
+                {{else}}
+                    <td>No</td>
+                {{/if}}
 
-            <td><a href="/users/{{id}}/block">Block</a></td>
-        </tr>
+                <td>{{#if blocked}}
+                    <a href="/users/{{id}}/unblock">Unblock</a>
+                {{else}}
+                    <a href="/users/{{id}}/block">Block</a>
+                {{/if}}
+                </td>
+
+            </tr>
         {{/each}}
         </tbody>
     </table>

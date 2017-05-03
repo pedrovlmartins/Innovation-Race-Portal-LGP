@@ -308,6 +308,16 @@ module.exports = {
             });
     },
 
+    unblockUser: function (id, next) {
+        pool.query(
+            'UPDATE users ' +
+            'SET blocked = 0 ' +
+            'WHERE users.id = ?;', [id], function (err, result) {
+                if (typeof next === 'function')
+                    next(result);
+            });
+    },
+
     saveDraft: function (user_id, title, description, teamIdeas, teamMembers,
                          uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources,
                          results, callback, next) {
