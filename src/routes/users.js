@@ -156,6 +156,104 @@ router.get('/:id/submitIdea', function(req, res) {
     }
 });
 
+router.post('/:id/submit', function (req, res) {
+    if (!irp.currentUserID(req)) {
+        irp.addError(req, 'You are not logged in.');
+        res.redirect('../../');
+        return;
+    }
+
+    if (!irp.currentIsParticipant(req)) {
+        irp.addError(req, 'You are not allowed to submit new ideas.');
+        res.redirect('../');
+        return;
+    }
+
+    validateSubmitIdea(req);
+
+    req.Validator.getErrors(function (errors) {
+        if (errors.length == 0) {
+            db.getActiveRaces(function (err, races) {
+                if (races.length == 0) {
+                    irp.addError(req, 'You cannot submit a new idea because there is no active race.');
+                    res.redirect('back');
+                    return;
+                }
+
+                var race = races[0].id;
+                db.createIdea(irp.currentUserID(req), race, req.body.title, req.body.description,
+                    req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
+                    req.body.techHumanResources, req.body.resultsToProduce,
+                    function (err, id) {
+                        if (err) {
+                            console.error(err);
+                            irp.addError(req, err);
+                            res.redirect('back');
+                        } else {
+                            irp.addSuccess(req, 'Idea successfully created.');
+                            res.redirect(id);
+                            irp.cleanActionResults(req);
+                        }
+                    });
+            });
+        } else {
+            console.log("else");
+            errors.forEach(function (item, index) {
+                irp.addError(req, item);
+            });
+
+            res.redirect('back');
+        }
+    });
+});
+
+var validateSubmitIdea = function (req) {
+    // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+    req.Validator.validate('title', 'Title', {
+        required: true,
+        length: {
+            min: 3,
+            max: 1000,
+        },
+    })
+        .filter('title', {
+            trim: true,
+        })
+        .validate('description', 'Description', {
+            required: true,
+            length: {
+                min: 3,
+            },
+        })
+        .validate('uncertaintyToSolve',
+            'Scientific/Technological uncertainty that the project aims to solve', {
+                required: true,
+                length: {
+                    min: 3,
+                },
+            })
+        .validate('solutionTechnicalCompetence',
+            'Why can\'t the solutions found be implemented by' +
+            'someone with technical skills in the field?', {
+                required: true,
+                length: {
+                    min: 3,
+                },
+            })
+        .validate('techHumanResources', 'Human and technological resources needed', {
+            required: true,
+            length: {
+                min: 3,
+            },
+        })
+        .validate('results', 'Results to be produced by the project', {
+            required: true,
+            length: {
+                min: 3,
+            },
+        });
+};
+
 router.post('/:id/draft', function (req, res) {
     if (!irp.currentUserID(req)) {
         irp.addError(req, 'You are not logged in.');

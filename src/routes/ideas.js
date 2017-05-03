@@ -255,9 +255,6 @@ router.get('/:id', function (req, res) {
   }
 });
 
-router.get('/submit', function (req, res, next) {
-});
-
 function sendEvaluationNotificationEmail(creatorID, title, approved) {
   db.getUserEmail(creatorID, function (err, email) {
     if (err) {

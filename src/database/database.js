@@ -18,6 +18,23 @@ module.exports = {
             });
     },
 
+    createIdea: function (creatorId, race, title, description, uncertaintyToSolve,
+                          solutionTechnicalCompetence, techHumanResources, resultsToProduce,
+                          callback) {
+        pool.query('INSERT INTO ideas' +
+            ' (idCreator, race, title, description' +
+            ', uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, resultsToProduce)' +
+            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [creatorId, race, title, description, uncertaintyToSolve, solutionTechnicalCompetence,
+                techHumanResources, resultsToProduce],
+            function (err, results, fields) {
+                if (err)
+                    callback(err);
+                else
+                    callback(null, results.insertId);
+            });
+    },
+
     getUserByEmail: function (email, callback) {
         pool.query('SELECT * FROM users WHERE email = ?',
             [email],
@@ -188,6 +205,18 @@ module.exports = {
             if (typeof next === 'function')
                 next(results);
         });
+    },
+
+    getActiveRaces: function (next) {
+        pool.query('SELECT * FROM races WHERE CURRENT_TIMESTAMP BETWEEN phase1Start AND phase2Start',
+            function (error, results) {
+                if (error) {
+                    console.error(error);
+                    next(error);
+                } else {
+                    next(null, results);
+                }
+            });
     },
 
     searchUsers: function (key, limit, offset, next) {
