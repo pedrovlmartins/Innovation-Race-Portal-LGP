@@ -386,11 +386,11 @@ module.exports = {
             ' (ideaID, keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, ' +
             ' costumerRelationships, channels, costStructure, revenueStreams)' +
             ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [ideas.states.AWAITING_EVALUATION, keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure, revenueStreams],
+            [ideas.states.AWAITING_GO_NO_GO, keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure, revenueStreams],
             function (err, rows, fields) {
                 callback(err);
-            });
-      }
+              });
+      },
 };
 
 
