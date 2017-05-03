@@ -200,11 +200,11 @@ router.post('/:id/goKickOff', function (req, res, next) {
 });
 
 router.post('/:id/bmc', function (req, res) {
-    /*if (!users.isParticipant(irp.currentUserType(req))) {
+    if (!users.isParticipant(irp.currentUserType(req))) {
      irp.addError(req, 'You must be a participant in the contest in order to fill the BMC.');
      res.redirect('back');
      return;
-     }*/
+     }
 
     db.insertBMC(req.params.id, req.body.keyPartners, req.body.keyActivities,
         req.body.keyResources, req.body.valuePropositions,
@@ -271,7 +271,8 @@ router.get('/:id', function (req, res) {
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
                   canCoachIdea: !ideaInfo.cancelled[0]
-                    && ideaInfo.state === ideas.states.IN_COACHING_PHASE,
+                    && ideaInfo.state === ideas.states.IN_COACHING_PHASE
+                    && irp.currentIsParticipant(req),
                   canGoKickOffIdea: !ideaInfo.cancelled[0]
                   && ideaInfo.state === ideas.states.AWAITING_GO_NO_GO
                   && irp.currentCanSelectIdea(req),
