@@ -1,0 +1,147 @@
+.tooltip-inner {
+    max-width: 300px;
+    width: 300px;
+}
+
+.glyphicon:hover {
+    color: rgb(35, 127, 195);
+}
+
+.glyhiconStyleOne {
+    position: absolute;
+    top: 3%;
+    right: 15px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleTwo {
+    position: absolute;
+    top: 4%;
+    right: 25px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleThree {
+    position: absolute;
+    top: 6%;
+    right: 25px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleFour {
+    position: absolute;
+    top: 10%;
+    right: 15px;
+    z-index: 1;
+    height: 10px;
+}
+
+.titleLabelOne {
+    position: absolute;
+    top: 3%;
+    left: 15px;
+    z-index: 1;
+    height: 10px;
+    color: #7d7d7d;
+}
+
+.titleLabelTwo {
+    position: absolute;
+    top: 4%;
+    left: 25px;
+    z-index: 1;
+    height: 10px;
+    color: #7d7d7d;
+}
+
+.titleLabelThree {
+    position: absolute;
+    top: 6%;
+    left: 25px;
+    z-index: 1;
+    height: 10px;
+    color: #7d7d7d;
+}
+
+.titleLabelFour {
+    position: absolute;
+    top: 10%;
+    left: 15px;
+    z-index: 1;
+    height: 10px;
+    color: #7d7d7d;
+}
+
+#keyPartnersTextarea, #keyActivitiesTextarea, #keyResourcesTextarea, #keyValueTextarea,
+#keyCostumerTextarea, #keyChannelsTextarea, #keySegmentsTextarea, #keyCostTextarea, #keyRevenueTextarea {
+  width:100%;
+  max-width:100%;
+  min-width:100%;
+  padding:30px 2%;
+  height:480px;
+  resize: none;
+    outline: none !important;
+    border:1px solid black;
+    box-shadow: 0 0 10px rgb(35, 127, 195);
+  outline-style: solid;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;
+  display: block;
+  background-color: #e7e7e7;
+}
+
+#keyActivitiesTextarea, #keyResourcesTextarea, #keyCostumerTextarea, #keyChannelsTextarea{
+  height:235px;
+}
+
+#titleBMC {
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  color: rgb(24, 178, 232);
+  margin-top: 10%;
+  font-weight: bold;
+}
+
+#submitBMC {
+  background-color: rgb(35, 127, 195);
+  width: 120px;
+  border-radius: 0;
+  margin-top: 1%;
+}
+
+.textareabmc {
+  padding:5px;
+}
+
+#keyActivitiesTextarea, #keyCostumerTextarea {
+  margin-bottom: 5px;
+}
+
+#keyResourcesTextarea, #keyChannelsTextarea {
+  margin-top: 5px;
+}
+
+#keyCostTextarea, #keyRevenueTextarea {
+  height:120px;
+}
+
+#submitBMC {
+  float: right;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+}
+:-moz-placeholder {
+  text-align: center;
+}
+::-moz-placeholder {
+  text-align: center;
+}
+:-ms-input-placeholder {
+  text-align: center;
+}
