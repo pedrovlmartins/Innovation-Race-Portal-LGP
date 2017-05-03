@@ -378,11 +378,11 @@ module.exports = {
             function (err, result) {
                 next(result);
             });
-    }
+    },
 
   insertBMC: function (keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure,
                        revenueStreams, callback) {
-        pool.query('INSERT INTO bmc' +
+        pool.query('INSERT INTO BMC' +
             ' (ideaID, keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, ' +
             ' costumerRelationships, channels, costStructure, revenueStreams)' +
             ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',

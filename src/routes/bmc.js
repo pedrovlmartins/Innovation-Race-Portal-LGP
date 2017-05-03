@@ -20,7 +20,9 @@ router.post('/', function (req, res) {
       res.redirect('back');
       return;
     }
-    db.insertBMC(req.body.keyPartners, req.body.keyActivities,
+  console.log(req.body);
+
+  db.insertBMC(req.body.keyPartners, req.body.keyActivities,
         req.body.keyResources, req.body.valuePropositions,
         req.body.costumerSegments, req.body.costumerRelationships,
         req.body.channels, req.body.costStructure, req.body.revenueStreams,
