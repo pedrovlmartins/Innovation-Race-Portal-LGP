@@ -124,7 +124,8 @@ router.get('/:id/submitIdea', function(req, res) {
     else {
         var userInfo = {};
         userInfo.userID = req.session.userID;
-        res.render('submitIdea', userInfo);
+        userInfo.page = 'submitIdea';
+        res.render('user', userInfo);
     }
 });
 

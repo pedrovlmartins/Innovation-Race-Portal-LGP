@@ -2,6 +2,8 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
 <link rel="stylesheet" href="../../css/userPage.css">
 <script src="../../js/userPage.js"></script>
+<link rel="stylesheet" href="/css/ideaPage.css">
+<script src="/js/draftIdeas.js"></script>
 
 
 <div class="container">
@@ -13,141 +15,214 @@
         </ul>
     </div>
     {{#compare page "profile"}}
-    <div id="profileDiv" class="profileDiv">
-        <form class="well form-horizontal" action="" method="post" id="user_page">
-            <fieldset>
-                <!-- Name -->
+        <div id="profileDiv" class="profileDiv">
+            <form class="well form-horizontal" action="" method="post" id="user_page">
+                <fieldset>
+                    <!-- Name -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" >Name</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input name="name" value="{{name}}" class="form-control"  type="text" readonly>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Name</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="name" value="{{name}}" class="form-control" type="text" readonly>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Email -->
+                    <!-- Email -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Email</label>
-                    <div class="col-md-4 selectContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <input name="email" value="{{email}}" class="form-control"  type="text" readonly>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Email</label>
+                        <div class="col-md-4 selectContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input name="email" value="{{email}}" class="form-control" type="text" readonly>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Email -->
+                    <!-- Email -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Role</label>
-                    <div class="col-md-4 selectContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                            <input name="role" value="{{typeDescription}}" class="form-control"  type="text" readonly>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Role</label>
+                        <div class="col-md-4 selectContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                <input name="role" value="{{typeDescription}}" class="form-control" type="text"
+                                       readonly>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {{#compare typeDescription "Altran member"}}
-                <!-- Collaborator Number -->
+                    {{#compare typeDescription "Altran member"}}
+                        <!-- Collaborator Number -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Employee nr.</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                            <input name="collaboratorNumber" value="{{colaboratorNum}}" class="form-control"  type="text" readonly>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Employee nr.</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    <input name="collaboratorNumber" value="{{colaboratorNum}}" class="form-control"
+                                           type="text" readonly>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Job Position / Business Area -->
+                        <!-- Job Position / Business Area -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Job Position/Business Area</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-wrench"></i></span>
-                            <input name="businessField" value="{{businessField}}" class="form-control"  type="text" readonly>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Job Position/Business Area</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-wrench"></i></span>
+                                    <input name="businessField" value="{{businessField}}" class="form-control"
+                                           type="text" readonly>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Associated Manager -->
+                        <!-- Associated Manager -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Associated Manager</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-                            <input name="manager" value="{{manager}}" class="form-control"  type="text" readonly>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Associated Manager</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                    <input name="manager" value="{{manager}}" class="form-control" type="text" readonly>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                {{else}}
-                <!-- Referrer -->
+                    {{else}}
+                        <!-- Referrer -->
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Referral</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-                            <input name="referral" value="{{referral}}" class="form-control"  type="text" readonly>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Referral</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                    <input name="referral" value="{{referral}}" class="form-control" type="text"
+                                           readonly>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                {{/compare}}
-            </fieldset>
-        </form>
-    </div>
+                    {{/compare}}
+                </fieldset>
+            </form>
+        </div>
     {{/compare}}
 
     {{#compare page "ideas"}}
-    <div id="ideasDiv" class="ideas">
-        <table class="table table-hover table-bordered">
-            <thead class="userIdeasTableHead">
-            <tr>
-                <th>Idea</th>
-                <th>State</th>
-                <th>Score</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#if ideas}}
-                {{#each ideas}}
-                    <tr>
-                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                        <td>{{state}}</td>
-                        <td>{{score}}</td>
-                    </tr>
-                {{/each}}
-            {{else}}
+        <div id="ideasDiv" class="ideas">
+            <table class="table table-hover table-bordered">
+                <thead class="userIdeasTableHead">
                 <tr>
-                    <td class="noIdeas" colspan="3">No ideas yet.</td>
+                    <th>Idea</th>
+                    <th>State</th>
+                    <th>Score</th>
                 </tr>
-            {{/if}}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {{#if ideas}}
+                    {{#each ideas}}
+                        <tr>
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td>{{state}}</td>
+                            <td>{{score}}</td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    <tr>
+                        <td class="noIdeas" colspan="3">No ideas yet.</td>
+                    </tr>
+                {{/if}}
+                </tbody>
+            </table>
 
-        <!-- Pagination -->
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                     {{add-pagination page pageNo pageTotal ""}}
-                </ul>
+            <!-- Pagination -->
+            <div class="row text-center">
+                <div class="col-lg-12">
+                    <ul class="pagination">
+                        {{add-pagination page pageNo pageTotal ""}}
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
     {{/compare}}
     {{#compare page "submitIdea"}}
-    <div id="submitDiv" class="submitIdea">
+        <div id="submitDiv" class="submitIdea">
+                <div class="row" id="submit_idea">
+                    <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+                        <div class="modal-body">
+                            <div class="modal-body main-submit main-center">
+                                <form id="idea-form" method="post" action="submit">
+                                    <div class="form-group">
+                                        <label for="ideaTitle">Title</label>
+                                        <input type="text" id="ideaTitle" name="ideaTitle" class="form-control"
+                                               autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea rows=8 cols=50 type="description" id="description" name="description"
+                                                  class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="teamIdea">Team name</label>
+                                        <input type="text" id="teamIdea" name="teamIdea" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="uncertaintyToSolve">Scientific/Technological uncertainty that the
+                                            project aims
+                                            to solve</label>
+                                        <textarea rows=8 cols=50 type="text" id="uncertaintyToSolve"
+                                                  name="uncertaintyToSolve"
+                                                  class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="solutionTechnicalCompetence">Why can't the solutions found be
+                                            implemented by
+                                            someone
+                                            with technical skills in the field?</label>
+                                        <textarea rows=8 cols=50 type="text" id="solutionTechnicalCompetence"
+                                                  name="solutionTechnicalCompetence" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="techHumanResources">Human and technological resources needed
+                                            (technologies,
+                                            partners, universities, etc.)</label>
+                                        <textarea rows=8 cols=50 type="text" id="techHumanResources"
+                                                  name="techHumanResources"
+                                                  class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="results">Results to be produced by the project</label>
+                                        <textarea rows=8 cols=50 type="text" id="results" name="results"
+                                                  class="form-control"></textarea>
+                                    </div>
+                                    <div class="submiteButton">
+                                        <div class="row">
+                                            <div class="col-xs-8 col-xs-offset-2">
+                                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="saveDraftButton">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-xs-offset-3">
+                                                <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form> <!-- /form -->
+                            </div>
+                        </div>
+                    </div>
 
-    </div>
+            </div>
+
+            {{> footer}}
+        </div>
     {{/compare}}
 </div>

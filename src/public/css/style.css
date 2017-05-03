@@ -70,14 +70,10 @@ input::-webkit-input-placeholder {
     margin-bottom: 5%;
 }
 
-#submit_idea .panel-title{
-    text-align: center;
-}
-
 .saveDraftButton {
     margin-top: 15px;
 }
 
-#submit_idea.container {
+#submit_idea {
     margin-bottom: 40px;
-}}
+}
