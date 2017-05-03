@@ -169,3 +169,18 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2017-04-25 22:43:58
+
+DROP TABLE IF EXISTS `irp`.`drafts`;
+CREATE TABLE `irp`.`drafts` (
+  `user_id` INT NOT NULL,
+  `title` VARCHAR(45) NULL,
+  `description` VARCHAR(1000) NULL,
+  `teamIdeas` VARCHAR(1000) NULL,
+  `teammembers` VARCHAR(1000) NULL,
+  `uncertaintyToSolve` VARCHAR(1000) NULL,
+  `solutionTechnicalCompetence` VARCHAR(1000) NULL,
+  `techHumanResources` VARCHAR(1000) NULL,
+  `results` VARCHAR(1000) NULL,
+  PRIMARY KEY (`user_id`));
+
+

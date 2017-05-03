@@ -125,8 +125,34 @@ router.get('/:id/submitIdea', function(req, res) {
         var userInfo = {};
         userInfo.userID = req.session.userID;
         userInfo.page = 'submitIdea';
+        db.loadDraft(userInfo.userID, function(draft){
+            if (draft != undefined && draft.length > 0)
+            userInfo.draft = draft[0];
+        });
         res.render('user', userInfo);
     }
+});
+
+router.post('/:id/draft', function (req, res) {
+    if (!irp.currentUserID(req)) {
+        irp.addError(req, 'You are not logged in.');
+        res.redirect('../../');
+        return;
+    }
+
+    db.saveDraft(req.session.userID, req.body.ideaTitle, req.body.description, req.body.teamIdea, req.body.teammembers,
+        req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence, req.body.techHumanResources,
+        req.body.results, function(err) {
+            if (err) {
+                console.error(err);
+                irp.addError(req, err);
+                res.redirect('back');
+            } else {
+                irp.addSuccess(req, 'Idea draft successfully saved.');
+                res.redirect('back');
+                irp.cleanActionResults(req);
+            }
+        });
 });
 
 module.exports = router;
