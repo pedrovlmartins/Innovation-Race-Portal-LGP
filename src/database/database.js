@@ -378,7 +378,7 @@ module.exports = {
             function (err, result) {
                 next(result);
             });
-    }
+    },
 
   insertBMC: function (keyPartners, keyActivities, keyResources, valuePropositions, costumerSegments, costumerRelationships, channels, costStructure,
                        revenueStreams, callback) {
