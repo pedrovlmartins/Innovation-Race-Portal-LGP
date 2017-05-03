@@ -183,7 +183,7 @@ router.post('/:id/submit', function (req, res) {
                 var race = races[0].id;
                 db.createIdea(irp.currentUserID(req), race, req.body.title, req.body.description,
                     req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
-                    req.body.techHumanResources, req.body.resultsToProduce,
+                    req.body.techHumanResources, req.body.results,
                     function (err, id) {
                         if (err) {
                             console.error(err);
@@ -191,13 +191,12 @@ router.post('/:id/submit', function (req, res) {
                             res.redirect('back');
                         } else {
                             irp.addSuccess(req, 'Idea successfully created.');
-                            res.redirect(id);
+                            res.redirect('back');
                             irp.cleanActionResults(req);
                         }
                     });
             });
         } else {
-            console.log("else");
             errors.forEach(function (item, index) {
                 irp.addError(req, item);
             });
