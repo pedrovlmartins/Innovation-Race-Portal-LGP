@@ -378,7 +378,7 @@ module.exports = {
             function (err, result) {
                 next(result);
             });
-    }
+    },
 
 };
 
