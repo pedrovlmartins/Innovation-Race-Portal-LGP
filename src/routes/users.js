@@ -126,10 +126,16 @@ router.get('/:id/submitIdea', function(req, res) {
         userInfo.userID = req.session.userID;
         userInfo.page = 'submitIdea';
         db.loadDraft(userInfo.userID, function(draft){
-            if (draft != undefined && draft.length > 0)
-            userInfo.draft = draft[0];
+            userInfo.draft = {};
+
+            if (draft != undefined && draft.length > 0){
+                userInfo.draft = draft[0];
+                res.render('user', userInfo);
+            }
+                else {
+                res.render('user', userInfo);
+            }
         });
-        res.render('user', userInfo);
     }
 });
 

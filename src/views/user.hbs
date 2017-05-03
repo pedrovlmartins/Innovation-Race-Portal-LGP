@@ -160,16 +160,17 @@
                                 <form id="idea-form" method="post" action="submit">
                                     <div class="form-group">
                                         <label for="ideaTitle">Title</label>
-                                        <input type="text" id="ideaTitle" name="ideaTitle" class="form-control" autofocus>
+                                        <input type="text" id="ideaTitle" name="ideaTitle" class="form-control"
+                                               value="{{draft.title}}" autofocus>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea rows=8 cols=50 type="description" id="description" name="description"
-                                                  class="form-control"></textarea>
+                                                  class="form-control">{{draft.description}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="teamIdea">Team name</label>
-                                        <input type="text" id="teamIdea" name="teamIdea" class="form-control">
+                                        <input type="text" id="teamIdea" name="teamIdea" class="form-control" value="{{draft.teamIdeas}}" >
                                     </div>
                                     <div class="form-group">
                                         <label for="uncertaintyToSolve">Scientific/Technological uncertainty that the
@@ -177,7 +178,7 @@
                                             to solve</label>
                                         <textarea rows=8 cols=50 type="text" id="uncertaintyToSolve"
                                                   name="uncertaintyToSolve"
-                                                  class="form-control"></textarea>
+                                                  class="form-control">{{draft.uncertaintyToSolve}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="solutionTechnicalCompetence">Why can't the solutions found be
@@ -185,7 +186,7 @@
                                             someone
                                             with technical skills in the field?</label>
                                         <textarea rows=8 cols=50 type="text" id="solutionTechnicalCompetence"
-                                                  name="solutionTechnicalCompetence" class="form-control"></textarea>
+                                                  name="solutionTechnicalCompetence" class="form-control">{{draft.solutionTechnicalCompetence}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="techHumanResources">Human and technological resources needed
@@ -193,12 +194,12 @@
                                             partners, universities, etc.)</label>
                                         <textarea rows=8 cols=50 type="text" id="techHumanResources"
                                                   name="techHumanResources"
-                                                  class="form-control"></textarea>
+                                                  class="form-control">{{draft.techHumanResources}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="results">Results to be produced by the project</label>
                                         <textarea rows=8 cols=50 type="text" id="results" name="results"
-                                                  class="form-control"></textarea>
+                                                  class="form-control">{{draft.results}}</textarea>
                                     </div>
                                     <div class="submiteButton">
                                         <div class="row">
