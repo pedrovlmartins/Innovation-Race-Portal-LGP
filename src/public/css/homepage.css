@@ -56,17 +56,6 @@ img.bg {
 	margin-top: 20%;
 }
 
-.aboutSection {
-	padding: 50px 0;
-	height: 100%;
-	width: 100%;
-	background-color: rgba(24, 178, 232, 0.8);
-}
-
-.aboutPage {
-	margin-top: 15%;
-}
-
 .managerInfo {
 	margin-top: 5%;
 }
@@ -82,4 +71,19 @@ img.bg {
 .buttonSend {
 	color: white;
 	background-color: rgb(24, 178, 232);
+}
+
+.aboutSection {
+	padding-top: 18%;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(24, 178, 232, 0.8);
+	padding-bottom: 18%;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+.aboutPage {
+	text-align: center;
+	margin-top: 15%;
 }
