@@ -47,7 +47,7 @@ module.exports = {
           });
   },
 
-  updateUserPassword:(function(id, newPassword, netx){
+  updateUserPassword:function(id, newPassword, netx){
 
     pool.query('UPDATE users'+
     'SET password =?' +
@@ -60,7 +60,7 @@ module.exports = {
         next(null, result);
       }
       });
-  }),
+  },
 
   getUserByEmail: function (email, callback) {
     pool.query('SELECT * FROM users WHERE email = ?',

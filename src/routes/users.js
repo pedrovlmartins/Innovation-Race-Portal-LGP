@@ -1,10 +1,12 @@
 var express = require('express');
-var router = express.Router();
 var path = require('path');
+const crypto = require('crypto');
+var passwordHashAndSalt = require('password-hash-and-salt');
 var db = require(path.join(__base, 'database', 'database'));
 var irp = require(path.join(__base, 'lib', 'irp'));
 var users = require(path.join(__base, 'lib', 'users'));
 var ideas = require(path.join(__base, 'lib', 'ideas'));
+var router = express.Router();
 
 
 const itemsPerPage = 10.0;
@@ -85,7 +87,7 @@ router.get('/:id/ideas', function (req, res) {
               vars.page = 'ideas';
               if (vars.userIdeas.length > 0) {
                 vars.userIdeas.forEach(
-                  (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
+                  //(idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
               );
                 vars.ideas = userIdeas;
               }
@@ -99,12 +101,12 @@ router.get('/:id/ideas', function (req, res) {
   }
 });
 
-router.post('/:id/profile', function (req, res) {
+router.post('/:id/name', function (req, res) {
+
     if (req.session.userID === undefined)
         res.sendStatus(401);
 
-console.log(req.body);
-console.log(req.params.id);
+    console.log('Entrou no update name');
 
     db.updateUserName(req.params.id, req.body.name, function(error, results){
         if (error) {
@@ -116,7 +118,17 @@ console.log(req.params.id);
         }
         res.redirect('back');
         return;
-    });/*
+
+    });
+
+});
+
+router.post('/:id/email', function (req, res) {
+
+    if (req.session.userID === undefined)
+        res.sendStatus(401);
+    console.log('Entrou no update email');
+
     db.updateUserMail(req.params.id, req.body.email, function(error, results){
         if (error) {
             irp.addError(req, 'Unknown error occurred.');
@@ -127,30 +139,37 @@ console.log(req.params.id);
         }
         res.redirect('back');
         return;
-    });*/
+    });
 
-    /*
-      //hashing and salting of newpassword
-      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
-        if (error) {
-            console.error(err);
-            irp.addError(req, error);
-            res.redirect('../../');
-            irp.cleanActionResults(req);
-        };
+});
 
-        db.updateUserPassword(req.params.id, req, passwordHash, function(error,results){
-          if(error){
-            irp.addError(req, 'Unknown error occurred.');
-          } else if(results.affectedRows === 0) {
-              irp.addError(req, 'Could not update user information.');
-          } else {
-              irp.addSuccess(req, 'User information successfully updated.');
-          }
-          res.redirect('back');
-        });
+router.post('/:id/password', function (req, res){
 
-    });*/
+    if (req.session.userID === undefined)
+        res.sendStatus(401);
+    console.log('Entrou no update pasword');
+    console.log(req.body);
+     //hashing and salting of newpassword
+     passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
+         if (error) {
+             console.error(error);
+             irp.addError(req, error);
+             res.redirect('../../');
+     irp.cleanActionResults(req);
+         };
+console.log("fez hash da pass");
+console.log(passwordHash);
+     db.updateUserPassword(req.params.id, req, passwordHash, function(error,results){
+         if(error){
+     irp.addError(req, 'Unknown error occurred.');
+         } else if(results.affectedRows === 0) {
+             irp.addError(req, 'Could not update user information.');
+     } else {
+             irp.addSuccess(req, 'User information successfully updated.');
+     }
+     res.redirect('back');
+     });
+     });
 });
 
 module.exports = router;
