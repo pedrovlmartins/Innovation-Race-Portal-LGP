@@ -78,7 +78,7 @@ CREATE TABLE `ideas` (
 -- Dumping data for table `ideas`
 --
 
-/*LOCK TABLES `ideas` WRITE;*/
+LOCK TABLES `ideas` WRITE;
 /*!40000 ALTER TABLE `ideas` DISABLE KEYS */;
 INSERT INTO `ideas` VALUES
 (1,4,'Idea #1',NULL,NULL,'\0',NULL,NULL,0,1, '\0', NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),

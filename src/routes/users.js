@@ -48,6 +48,7 @@ router.get('/:id/profile', function(req, res) {
           nextUserInfo(req, res, userInfo, users.getTypeDescription(type))
         });
       } else {
+          console.log(type);
         res.sendStatus(404);
       }
     });
