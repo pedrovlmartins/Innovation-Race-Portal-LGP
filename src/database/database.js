@@ -48,6 +48,62 @@ module.exports = {
             });
     },
 
+  updateUserName: function(id, newName, next){
+    pool.query('UPDATE users' +
+      ' SET name = ? ' +
+      ' WHERE id = ?',[newName, id],
+        function (error, result){
+          if (error) {
+              console.error(error);
+              next(error);
+          } else {
+              next(null, result);
+          }
+    });
+  },
+
+  updateUserMail: function(id, newMail, next){
+
+      pool.query('UPDATE users' +
+          ' SET  email = ? ' +
+          ' WHERE id = ?',[newMail, id],
+          function (err, result){
+              if (err) {
+                  console.error(err);
+                  next(err);
+              } else {
+                  next(null, result);
+              }
+          });
+  },
+
+  updateUserPassword:function(id, newPassword, next){
+      pool.query('UPDATE users' +
+          ' SET  passwordHash = ? ' +
+          ' WHERE id = ?',[newPassword, id],
+          function (err, result){
+              if (err) {
+                  console.error(err);
+                  next(err);
+              } else {
+                  next(null, result);
+              }
+          });
+  },
+
+  getUserByEmail: function (email, callback) {
+    pool.query('SELECT * FROM users WHERE email = ?',
+      [email],
+      function (error, results, fields) {
+        if (error) {
+          console.error(error);
+          callback(error);
+        } else {
+          callback(null, results.length > 0 ? results[0] : null);
+        }
+      });
+  },
+
     getPartnerClientInfo: function(id, next) {
         pool.query(
             'SELECT users.id, users.name, users.email, users.referral ' +

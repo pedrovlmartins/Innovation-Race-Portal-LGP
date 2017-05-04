@@ -48,28 +48,27 @@ DROP TABLE IF EXISTS `ideas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ideas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idCreator` int(11) NOT NULL,
-  `title` varchar(1000) NOT NULL,
-  `description` varchar(1000) DEFAULT NULL,
-  `teamName` varchar(50) DEFAULT NULL,
-  `approved` bit(1) DEFAULT b'0',
-  `disapproveReason` varchar(1000) DEFAULT NULL,
-  `potential` varchar(1000) DEFAULT NULL,
-  `score` int(11) DEFAULT '0',
-  `state` int(11) DEFAULT '0',
-  `cancelled` bit(1) DEFAULT b'0',
-  `strategyAlignment` varchar(1000) DEFAULT NULL,
-  `offerType` int(11) DEFAULT NULL,
-  `market` varchar(1000) DEFAULT NULL,
-  `technicalViability` varchar(1000) DEFAULT NULL,
-  `economicalViability` varchar(1000) DEFAULT NULL,
-  `riskFactors` varchar(1000) DEFAULT NULL,
-  `otherRequirements` varchar(1000) DEFAULT NULL,
-  `uncertaintyToSolve` varchar(1000) DEFAULT NULL,
-  `solutionTechnicalCompetence` varchar(1000) DEFAULT NULL,
-  `techHumanResources` varchar(1000) DEFAULT NULL,
-  `resultsToProduce` varchar(1000) DEFAULT NULL,
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `idCreator` int(11) NOT NULL,
+      `race` int(11) DEFAULT NULL,
+      `title` varchar(1000) NOT NULL,
+      `description` varchar(1000) NOT NULL,
+      `teamName` varchar(50) DEFAULT NULL,
+      `approved` bit(1) DEFAULT b'0',
+      `disapproveReason` varchar(1000) DEFAULT NULL,
+      `potential` varchar(1000) DEFAULT NULL,
+      `score` int(11) DEFAULT '0',
+      `state` int(11) DEFAULT '0',
+      `cancelled` bit(1) DEFAULT b'0',
+      `offerType` int(11) DEFAULT NULL,
+      `market` varchar(1000) DEFAULT NULL,
+      `technicalViability` varchar(1000) DEFAULT NULL,
+      `economicalViability` varchar(1000) DEFAULT NULL,
+      `riskFactors` varchar(1000) DEFAULT NULL,
+      `uncertaintyToSolve` varchar(1000) NOT NULL,
+      `solutionTechnicalCompetence` varchar(1000) NOT NULL,
+      `techHumanResources` varchar(1000) NOT NULL,
+      `resultsToProduce` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCreator` (`idCreator`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
@@ -79,7 +78,7 @@ CREATE TABLE `ideas` (
 -- Dumping data for table `ideas`
 --
 
-LOCK TABLES `ideas` WRITE;
+/*LOCK TABLES `ideas` WRITE;*/
 /*!40000 ALTER TABLE `ideas` DISABLE KEYS */;
 INSERT INTO `ideas` VALUES
 (1,4,'Idea #1',NULL,NULL,'\0',NULL,NULL,0,1, '\0', NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),

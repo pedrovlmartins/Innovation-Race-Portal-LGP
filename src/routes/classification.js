@@ -3,10 +3,9 @@ var router = express.Router();
 const path = require('path');
 const db = require(path.join(__base, 'database', 'database'));
 const irp = require(path.join(__base, 'lib', 'irp'));
-const users = require(path.join(__base, 'lib', 'users'));
 
 router.post('/', function (req, res) {
-  if (irp.currentUserType(req) !== users.types.MANAGER) {
+  if (!irp.currentIsManager(req)) {
     irp.addError(req, 'You are not a I&D manager.');
     res.redirect('back');
     return;

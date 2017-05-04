@@ -16,36 +16,46 @@
         </ul>
     </div>
     {{#compare page "profile"}}
-        <div id="profileDiv" class="profileDiv">
-            <form class="well form-horizontal" action="" method="post" id="user_page">
-                <fieldset>
-                    <!-- Name -->
+    <div id="profileDiv" class="profileDiv">
+        <div class="well form-horizontal"  id="user_page">
+            <fieldset>
+                <!-- Name -->
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Name</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input name="name" value="{{name}}" class="form-control" type="text" readonly>
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-                            </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" >Name</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+
+                            <form class="input-group" style="width:100%;"  action="/users/{{id}}/name" method="post">
+                                <div style="width:calc(100% - 39px);">
+                                <input name="name" value="{{name}}" class="form-control" style="overflow:auto;" type="text" readonly ondblclick="this.readOnly='';"></input>
+                                </div>
+                                <button type="submit" value="Submit" class="input-group-addon" style="width:39px;height:34px;" ><i class="glyphicon glyphicon-edit"></i></button>
+                            </form>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Email -->
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Email</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Email</label>
-                        <div class="col-md-4 selectContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input name="email" value="{{email}}" class="form-control" type="text" readonly>
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-                            </div>
+                            <form class="input-group" style="width:100%;" action="/users/{{id}}/email" method="post">
+                                <div style="width:calc(100% - 39px);">
+                                <input name="email" value="{{email}}" class="form-control" type="text" readonly ondblclick="this.readOnly='';" ></input>
+                                </div>
+                                <button type="submit" value="Submit" class="input-group-addon" style="width:39px;height:34px;" ><i class="glyphicon glyphicon-edit"></i></button>
+                            </form>
+
                         </div>
                     </div>
+                </div>
 
-                    <!-- Email -->
+                <!-- Role -->
 
                     <div class="form-group">
                         <label class="col-md-4 control-label">Role</label>
@@ -112,7 +122,24 @@
                     {{/compare}}
                 </fieldset>
             </form>
+                <!-- Edit Password-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Change Password</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <form class="input-group" style="width:100%;" action="/users/{{id}}/password" method="post">
+                                <div style="width:calc(100% - 39px);">
+                                    <input name="password"  class="form-control" type="password" readonly ondblclick="this.readOnly='';" ></input>
+                                </div>
+                                <button type="submit" value="Submit" class="input-group-addon" style="width:39px;height:34px;" ><i class="glyphicon glyphicon-edit"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
         </div>
+    </div>
     {{/compare}}
 
     {{#compare page "ideas"}}
@@ -222,8 +249,6 @@
                     </div>
 
             </div>
-
-            {{> footer}}
         </div>
     {{/compare}}
 </div>
