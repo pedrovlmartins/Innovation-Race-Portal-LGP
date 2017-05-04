@@ -47,19 +47,18 @@ module.exports = {
           });
   },
 
-  updateUserPassword:function(id, newPassword, netx){
-
-    pool.query('UPDATE users'+
-    'SET password =?' +
-    'WHERE id= ?', [newPassword, id],
-    function(err, result){
-      if(err){
-        console.error(err);
-        next(err);
-      } else {
-        next(null, result);
-      }
-      });
+  updateUserPassword:function(id, newPassword, next){
+      pool.query('UPDATE users' +
+          ' SET  passwordHash = ? ' +
+          ' WHERE id = ?',[newPassword, id],
+          function (err, result){
+              if (err) {
+                  console.error(err);
+                  next(err);
+              } else {
+                  next(null, result);
+              }
+          });
   },
 
   getUserByEmail: function (email, callback) {

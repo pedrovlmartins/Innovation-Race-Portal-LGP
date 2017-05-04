@@ -153,13 +153,12 @@ router.post('/:id/password', function (req, res){
              res.redirect('../../');
      irp.cleanActionResults(req);
          };
-
-     db.updateUserPassword(req.params.id, req, passwordHash, function(error,results){
+     db.updateUserPassword(req.params.id, passwordHash, function(error,results){
          if(error){
      irp.addError(req, 'Unknown error occurred.');
          } else if(results.affectedRows === 0) {
              irp.addError(req, 'Could not update user information.');
-     } else {
+         } else {
              irp.addSuccess(req, 'User information successfully updated.');
      }
      res.redirect('back');
