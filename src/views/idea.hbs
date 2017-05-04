@@ -1,17 +1,16 @@
 {{>header pageName="Idea"}}
-<div class="container">
+<div class="container ideaPage">
 
     {{>actionResults}}
 
     <link rel="stylesheet" href="/css/ideaPage.css">
-    <form class="well form-horizontal" action=" " method="post"  id="idea_page">
+    <form class="well form-horizontal" action=" " method="post" id="idea_page">
         <fieldset>
 
             <!-- Form Name -->
             <legend>{{name}}</legend>
 
             <!-- Team Leader -->
-
             <div class="form-group">
                 <label class="col-md-4 control-label" >Team Leader</label>
                 <div class="col-md-4 inputGroupContainer">
@@ -118,20 +117,16 @@
         </fieldset>
     </form>
 
-    {{#compare type 7}}
-        {{#compare ideaState 3}}
-            {{#compare ideaCancelled 0}}
-                <div id="validationButtons">
-                    <form action="/ideas/{{id}}/validate" method="post">
-                        <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
-                    </form>
-                    <form action="/ideas/{{id}}/decline" method="post">
-                        <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
-                    </form>
-                </div>
-            {{/compare}}
-        {{/compare}}
-    {{/compare}}
+    {{#if canEvaluateIdea}}
+        <div id="validationButtons">
+            <form action="/ideas/{{id}}/validate" method="post">
+                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
+            </form>
+            <form action="/ideas/{{id}}/decline" method="post">
+                <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
+            </form>
+        </div>
+    {{/if}}
 
     {{#if canSelectIdea}}
         <div id="selectionButtons">
@@ -145,4 +140,18 @@
             </form>
         </div>
     {{/if}}
+
+    {{#if canGoKickOffIdea}}
+        <div id="selectionButtons">
+            <form action="/ideas/{{id}}/goKickOff" method="post">
+                <input type="hidden" name="goKickOff" value="true" />
+                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Select idea</button>
+            </form>
+            <form action="/ideas/{{id}}/goKickOff" method="post">
+                <input type="hidden" name="goKickOff" value="false" />
+                <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Reject idea</button>
+            </form>
+        </div>
+    {{/if}}
+
 </div>

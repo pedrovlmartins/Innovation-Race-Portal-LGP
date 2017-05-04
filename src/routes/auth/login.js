@@ -18,7 +18,10 @@ router.post('/', function (req, res, next) {
           } else if (!verified) {
             irp.addError(req, 'Invalid password for user with email "' +
               req.body.email + '".');
-          } else {
+          } else if(user.blocked) {
+              irp.addError(req, 'Login unsuccessful, account blocked.');
+          }
+          else {
             if (user.emailConfirmationToken == null) { // E-mail validated
               req.session.userID = user.id;
               req.session.userType = user.type;

@@ -28,6 +28,8 @@ const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
 const ideas = require(path.join(__base, 'routes', 'ideas'));
 const users = require(path.join(__base, 'routes', 'users'));
 const classification = require(path.join(__base, 'routes', 'classification'));
+const ranking = require(path.join(__base, 'routes', 'ranking'));
+const bmc = require(path.join(__base, 'routes', 'bmc'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
   login: require(path.join(__base, 'routes', 'auth', 'login')),
@@ -47,6 +49,8 @@ hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
 hbs.registerHelper('add-pagination', helpers.addPagination);
 hbs.registerHelper('compare', helpers.compare);
 
+
+
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
 
@@ -64,19 +68,19 @@ bb.extend(app, {
 // Routes
 app.use('/', routes);
 app.use('/about', about);
-app.use('/contact', contact);
-app.use('/innovationRules', innovationRules);
-app.use('/manageUsers', manageUsers);
-app.use('/manageIdeas', manageIdeas);
-app.use('/ideas', ideas);
-app.use('/users', users);
-app.use('/classification', classification);
-
-
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);
 app.use('/auth/logout', auth.logout);
 app.use('/auth/register', auth.register);
+app.use('/bmc', bmc);
+app.use('/contact', contact);
+app.use('/classification', classification);
+app.use('/ideas', ideas);
+app.use('/innovationRules', innovationRules);
+app.use('/manageUsers', manageUsers);
+app.use('/manageIdeas', manageIdeas);
+app.use('/ranking', ranking);
+app.use('/users', users);
 
 // Favicon
 app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));

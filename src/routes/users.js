@@ -87,7 +87,7 @@ router.get('/:id/ideas', function (req, res) {
               vars.page = 'ideas';
               if (vars.userIdeas.length > 0) {
                 vars.userIdeas.forEach(
-                  //(idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
+                  (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
               );
                 vars.ideas = userIdeas;
               }
@@ -99,6 +99,183 @@ router.get('/:id/ideas', function (req, res) {
       }
     });
   }
+});
+
+router.get('/:id/block', function(req, res) {
+    if (req.session.userID === undefined)
+        res.sendStatus(401);
+    else {
+
+        db.getUserType(req.session.userID, function (type) {
+            if (users.isAdmin(type)) {
+                db.blockUser(req.params.id, function () {
+                    res.redirect("back");
+                });
+            } else {
+                res.sendStatus(403);
+            }
+        });
+    }
+});
+
+router.get('/:id/unblock', function(req, res) {
+    if (req.session.userID === undefined)
+        res.sendStatus(401);
+    else {
+
+        db.getUserType(req.session.userID, function (type) {
+            if (users.isAdmin(type)) {
+                db.unblockUser(req.params.id, function () {
+                    res.redirect("back");
+                });
+            } else {
+                res.sendStatus(403);
+            }
+        });
+    }
+});
+
+router.get('/:id/submitIdea', function(req, res) {
+
+    if (req.session.userID === undefined)
+        res.sendStatus(401);
+        else if(req.session.userID != req.params.id)
+            res.sendStatus(403);
+    else {
+        var userInfo = {};
+        userInfo.userID = req.session.userID;
+        userInfo.page = 'submitIdea';
+        db.loadDraft(userInfo.userID, function(draft){
+            userInfo.draft = {};
+
+            if (draft != undefined && draft.length > 0){
+                userInfo.draft = draft[0];
+                res.render('user', userInfo);
+            }
+                else {
+                res.render('user', userInfo);
+            }
+        });
+    }
+});
+
+router.post('/:id/submit', function (req, res) {
+    if (!irp.currentUserID(req)) {
+        irp.addError(req, 'You are not logged in.');
+        res.redirect('../../');
+        return;
+    }
+
+    if (!irp.currentIsParticipant(req)) {
+        irp.addError(req, 'You are not allowed to submit new ideas.');
+        res.redirect('../');
+        return;
+    }
+
+    validateSubmitIdea(req);
+
+    req.Validator.getErrors(function (errors) {
+        if (errors.length == 0) {
+            db.getActiveRaces(function (err, races) {
+                if (races.length == 0) {
+                    irp.addError(req, 'You cannot submit a new idea because there is no active race.');
+                    res.redirect('back');
+                    return;
+                }
+
+                var race = races[0].id;
+                db.createIdea(irp.currentUserID(req), race, req.body.title, req.body.description,
+                    req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
+                    req.body.techHumanResources, req.body.results,
+                    function (err, id) {
+                        if (err) {
+                            console.error(err);
+                            irp.addError(req, err);
+                            res.redirect('back');
+                        } else {
+                            irp.addSuccess(req, 'Idea successfully created.');
+                            res.redirect('back');
+                            irp.cleanActionResults(req);
+                        }
+                    });
+            });
+        } else {
+            errors.forEach(function (item, index) {
+                irp.addError(req, item);
+            });
+
+            res.redirect('back');
+        }
+    });
+});
+
+var validateSubmitIdea = function (req) {
+    // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+    req.Validator.validate('title', 'Title', {
+        required: true,
+        length: {
+            min: 3,
+            max: 1000,
+        },
+    })
+        .filter('title', {
+            trim: true,
+        })
+        .validate('description', 'Description', {
+            required: true,
+            length: {
+                min: 3,
+            },
+        })
+        .validate('uncertaintyToSolve',
+            'Scientific/Technological uncertainty that the project aims to solve', {
+                required: true,
+                length: {
+                    min: 3,
+                },
+            })
+        .validate('solutionTechnicalCompetence',
+            'Why can\'t the solutions found be implemented by' +
+            'someone with technical skills in the field?', {
+                required: true,
+                length: {
+                    min: 3,
+                },
+            })
+        .validate('techHumanResources', 'Human and technological resources needed', {
+            required: true,
+            length: {
+                min: 3,
+            },
+        })
+        .validate('results', 'Results to be produced by the project', {
+            required: true,
+            length: {
+                min: 3,
+            },
+        });
+};
+
+router.post('/:id/draft', function (req, res) {
+    if (!irp.currentUserID(req)) {
+        irp.addError(req, 'You are not logged in.');
+        res.redirect('../../');
+        return;
+    }
+
+    db.saveDraft(req.session.userID, req.body.title, req.body.description, req.body.teamIdea, req.body.teammembers,
+        req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence, req.body.techHumanResources,
+        req.body.results, function(err) {
+            if (err) {
+                console.error(err);
+                irp.addError(req, err);
+                res.redirect('back');
+            } else {
+                irp.addSuccess(req, 'Idea draft successfully saved.');
+                res.redirect('back');
+                irp.cleanActionResults(req);
+            }
+        });
 });
 
 router.post('/:id/name', function (req, res) {

@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $('#contact_form').bootstrapValidator({
+
     // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
     feedbackIcons: {
       valid: 'glyphicon glyphicon-ok',
@@ -68,6 +69,24 @@ $(document).ready(function () {
       $.post($form.attr('action'), $form.serialize(), function (result) {
         console.log(result);
         url: '/contact';
-      }, 'json');
+      })
+        .done(function (data) {
+          swal({
+            title: 'Contact Form',
+            text: 'Your question was sucessfully sent!',
+            type: 'success',
+          }, function () {
+            window.location.reload();
+          });
+        })
+        .fail(function (data) {
+          swal({
+            title: 'Something went wrong',
+            text: 'Please try again later!',
+            type: 'error',
+          }, function () {
+            window.location.reload();
+          });
+        });
     });
 });
