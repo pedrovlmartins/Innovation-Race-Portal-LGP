@@ -17,17 +17,12 @@
         <div class="well form-horizontal"  id="user_page">
             <fieldset>
                 <!-- Name -->
-<!--isto é o formulario-->
+
                 <div class="form-group">
                     <label class="col-md-4 control-label" >Name</label>
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-
-                            <!--<form action="/users/{{id}}/name" method="post">
-                                <input name="name" value="{{name}}" class="form-control" type="text" readonly ondblclick="this.readOnly='';"/>
-                                <button type="submit" value="Submit" style="position:absolute; float:right; margin-left: -33px; margin-top:4px; z-index:10;"> <i class="glyphicon glyphicon-edit"></i> </button>
-                            </form>-->
 
                             <form class="input-group" style="width:100%;"  action="/users/{{id}}/name" method="post">
                                 <div style="width:calc(100% - 39px);">

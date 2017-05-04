@@ -106,8 +106,6 @@ router.post('/:id/name', function (req, res) {
     if (req.session.userID === undefined)
         res.sendStatus(401);
 
-    console.log('Entrou no update name');
-
     db.updateUserName(req.params.id, req.body.name, function(error, results){
         if (error) {
             irp.addError(req, 'Unknown error occurred.');
@@ -127,7 +125,6 @@ router.post('/:id/email', function (req, res) {
 
     if (req.session.userID === undefined)
         res.sendStatus(401);
-    console.log('Entrou no update email');
 
     db.updateUserMail(req.params.id, req.body.email, function(error, results){
         if (error) {
@@ -148,7 +145,6 @@ router.post('/:id/password', function (req, res){
     if (req.session.userID === undefined)
         res.sendStatus(401);
     console.log('Entrou no update pasword');
-    console.log(req.body);
      //hashing and salting of newpassword
      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
          if (error) {
@@ -157,8 +153,7 @@ router.post('/:id/password', function (req, res){
              res.redirect('../../');
      irp.cleanActionResults(req);
          };
-console.log("fez hash da pass");
-console.log(passwordHash);
+
      db.updateUserPassword(req.params.id, req, passwordHash, function(error,results){
          if(error){
      irp.addError(req, 'Unknown error occurred.');
