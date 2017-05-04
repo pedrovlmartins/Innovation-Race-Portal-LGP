@@ -73,17 +73,16 @@ img.bg {
 	background-color: rgb(24, 178, 232);
 }
 
-.aboutSection {
+.aboutHeader{
+    text-align: center;
+}
+.aboutContainer {
 	padding-top: 18%;
+    padding-bottom: 18%;
+    padding-left: 18%;
+    padding-right: 18%;
 	height: 100%;
 	width: 100%;
 	background-color: rgba(24, 178, 232, 0.8);
-	padding-bottom: 18%;
 	text-align: justify;
-	text-justify: inter-word;
-}
-
-.aboutPage {
-	text-align: center;
-	margin-top: 15%;
 }
