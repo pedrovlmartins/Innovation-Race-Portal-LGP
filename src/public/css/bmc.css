@@ -7,6 +7,12 @@
     color: rgb(35, 127, 195);
 }
 
+@media screen and (max-width: 1200px) {
+    #keyPartnersLabel, #keyValueLabel, #keyCostumerLabel, #keySegmentsLabel {
+        width: 10px;
+    }
+}
+
 .glyhiconStyleOne {
     position: absolute;
     top: 3%;
@@ -80,7 +86,7 @@
   width:100%;
   max-width:100%;
   min-width:100%;
-  padding:30px 2%;
+  padding:30px 4%;
   height:480px;
   resize: none;
     outline: none !important;

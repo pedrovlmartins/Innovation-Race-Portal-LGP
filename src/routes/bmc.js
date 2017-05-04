@@ -23,7 +23,7 @@ router.post('/', function (req, res) {
 
     console.log(req.params.id);
 
-  db.insertBMC(req.body.keyPartners, req.body.keyActivities,
+  db.insertBMC(req.params.id, req.body.keyPartners, req.body.keyActivities,
         req.body.keyResources, req.body.valuePropositions,
         req.body.costumerSegments, req.body.costumerRelationships,
         req.body.channels, req.body.costStructure, req.body.revenueStreams,
