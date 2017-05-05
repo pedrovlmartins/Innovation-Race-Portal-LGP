@@ -178,13 +178,15 @@ router.post('/:id/submit', function (req, res) {
     req.Validator.getErrors(function (errors) {
         if (errors.length == 0) {
             db.getActiveRaces(function (err, races) {
-                if (races.length == 0) {
+               /* if (races.length == 0) {
                     irp.addError(req, 'You cannot submit a new idea because there is no active race.');
                     res.redirect('back');
                     return;
-                }
+                }*/
 
-                var race = races[0].id;
+                //var race = races[0].id;
+
+                var race = 0;
                 db.createIdea(irp.currentUserID(req), race, req.body.title, req.body.description,
                     req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
                     req.body.techHumanResources, req.body.results,
