@@ -30,6 +30,7 @@ const users = require(path.join(__base, 'routes', 'users'));
 const classification = require(path.join(__base, 'routes', 'classification'));
 const ranking = require(path.join(__base, 'routes', 'ranking'));
 const bmc = require(path.join(__base, 'routes', 'bmc'));
+const errorPage = require(path.join(__base, 'routes', 'errorPage'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
   login: require(path.join(__base, 'routes', 'auth', 'login')),
@@ -48,8 +49,6 @@ hbs.registerPartials(path.join(__base, 'views', 'partials'));
 hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
 hbs.registerHelper('add-pagination', helpers.addPagination);
 hbs.registerHelper('compare', helpers.compare);
-
-
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
