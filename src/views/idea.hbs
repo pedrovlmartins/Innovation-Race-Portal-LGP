@@ -123,7 +123,7 @@
     {{#if canEvaluateIdea}}
         <div id="validationButtons">
             <form action="/ideas/{{id}}/validate" method="post">
-                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
+                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Approve idea</button>
             </form>
             <form action="/ideas/{{id}}/decline" method="post">
                 <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
@@ -135,7 +135,7 @@
         <div id="selectionButtons">
             <form action="/ideas/{{id}}/selection" method="post">
                 <input type="hidden" name="selected" value="true" />
-                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Select idea</button>
+                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Approve idea</button>
             </form>
             <form action="/ideas/{{id}}/selection" method="post">
                 <input type="hidden" name="selected" value="false" />
@@ -148,7 +148,7 @@
         <div id="selectionButtons">
             <form action="/ideas/{{id}}/goKickOff" method="post">
                 <input type="hidden" name="goKickOff" value="true" />
-                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Select idea</button>
+                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Approve idea</button>
             </form>
             <form action="/ideas/{{id}}/goKickOff" method="post">
                 <input type="hidden" name="goKickOff" value="false" />
