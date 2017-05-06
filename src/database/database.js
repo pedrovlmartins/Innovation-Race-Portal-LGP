@@ -310,16 +310,6 @@ module.exports = {
             });
     },
 
-    updateIdeaState_validate: function(id, state, next) {
-        pool.query(
-            'UPDATE ideas ' +
-            'SET state = ? ' +
-            'WHERE ideas.id = ? AND cancelled = FALSE;', [state, id], function(err, result) {
-                if (typeof next === 'function')
-                    next(result);
-            });
-    },
-
     updateIdeaState_decline: function(id, next) {
         pool.query(
             'UPDATE ideas ' +
@@ -328,6 +318,23 @@ module.exports = {
                 if (typeof next === 'function')
                     next(result);
             });
+    },
+
+    updatedIdeaState_evaluate: function(id, next) {
+      pool.query(
+        'UPDATE ideas ' +
+        'SET state = ? ' +
+        'WHERE ideas.id = ? ' +
+        'AND state = ? ' +
+        'AND cancelled = FALSE;',
+        [ideas.states.AWAITING_SELECTION, id, ideas.states.AWAITING_EVALUATION],
+        function(err, result) {
+          if (err) {
+            next(err);
+          } else {
+            next(null, result);
+          }
+        });
     },
 
     updatedIdeaState_select: function(id, next) {

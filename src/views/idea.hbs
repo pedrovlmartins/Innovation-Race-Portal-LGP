@@ -121,11 +121,13 @@
     </form>
 
     {{#if canEvaluateIdea}}
-        <div id="validationButtons">
-            <form action="/ideas/{{id}}/validate" method="post">
+        <div id="selectionButtons">
+            <form action="/ideas/{{id}}/evaluation" method="post">
+                <input type="hidden" name="evaluate" value="true" />
                 <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Approve idea</button>
             </form>
-            <form action="/ideas/{{id}}/decline" method="post">
+            <form action="/ideas/{{id}}/evaluation" method="post">
+                <input type="hidden" name="evaluate" value="false" />
                 <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Reject idea</button>
             </form>
         </div>
