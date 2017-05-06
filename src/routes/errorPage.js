@@ -7,6 +7,7 @@ router.get('/', function (req, res) {
   var vars = irp.getActionResults(req);
   if (req.session.userID !== undefined)
     vars.userID = req.session.userID;
+
   res.render('errorPage', vars);
 });
 

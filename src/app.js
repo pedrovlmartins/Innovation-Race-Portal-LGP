@@ -88,6 +88,11 @@ app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
 app.use(express.static(path.join(__base, 'public')));
 app.use(express.static(path.join(__base, 'images')));
 
+app.use(function (req, res, next) {
+  if (res.status(404))
+    res.render(errorPage);
+});
+
 if (!module.parent) {
   app.listen(PORT);
 }
