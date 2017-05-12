@@ -30,7 +30,6 @@ const users = require(path.join(__base, 'routes', 'users'));
 const classification = require(path.join(__base, 'routes', 'classification'));
 const ranking = require(path.join(__base, 'routes', 'ranking'));
 const bmc = require(path.join(__base, 'routes', 'bmc'));
-const errorPage = require(path.join(__base, 'routes', 'errorPage'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
   login: require(path.join(__base, 'routes', 'auth', 'login')),
@@ -81,13 +80,6 @@ app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
 app.use('/ranking', ranking);
 app.use('/users', users);
-app.use(function (req, res, next) {
-  res.status(404);
-  var vars = irp.getActionResults(req);
-  if (req.session.userID !== undefined)
-    vars.userID = req.session.userID;
-  res.render('errorPage', vars);
-});
 
 // Favicon
 app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
@@ -95,6 +87,14 @@ app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
 // Static Dirs
 app.use(express.static(path.join(__base, 'public')));
 app.use(express.static(path.join(__base, 'images')));
+
+app.use('*', function (req, res, next) {
+  res.status(404);
+  var vars = irp.getActionResults(req);
+  if (req.session.userID !== undefined)
+    vars.userID = req.session.userID;
+  res.render('errorPage', vars);
+});
 
 if (!module.parent) {
   app.listen(PORT);
