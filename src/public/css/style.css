@@ -77,3 +77,11 @@ input::-webkit-input-placeholder {
 #submit_idea {
     margin-bottom: 40px;
 }
+
+.error {
+    color: #a94442;
+}
+
+input.error {
+    border-color: red;
+}
