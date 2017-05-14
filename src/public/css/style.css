@@ -78,7 +78,7 @@ input::-webkit-input-placeholder {
     margin-bottom: 40px;
 }
 
-.error {
+label.error {
     color: #a94442;
 }
 
