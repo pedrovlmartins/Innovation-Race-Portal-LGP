@@ -263,6 +263,23 @@ module.exports = {
         });
     },
 
+    getRaceCount: function(next) {
+      pool.query('SELECT COUNT(*) AS count ' +
+        'FROM races;', function(error, results) {
+        if (typeof next === 'function')
+          next(results);
+      });
+    },
+
+    listRaces: function(limit, offset, next) {
+      pool.query('SELECT * FROM races ' +
+        'ORDER BY phase1Start DESC ' +
+        'LIMIT ?, ?;', [limit, offset], function(error, results) {
+        if (typeof next === 'function')
+          next(results);
+      });
+    },
+
     getActiveRaces: function(next) {
         pool.query('SELECT * FROM races WHERE CURRENT_TIMESTAMP BETWEEN phase1Start AND phase2Start',
             function(error, results) {
