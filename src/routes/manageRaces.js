@@ -47,6 +47,8 @@ router.get('/', function (req, res) {
           });
 
           vars.races = result;
+          vars.currentDate = new Date(currentDate.getTime() - currentDate.getTimezoneOffset() * 60000)
+            .toISOString().substring(0, 19);
           if (req.session.userID !== undefined)
             vars.userID = req.session.userID;
           res.render('manageRaces', vars);
@@ -55,6 +57,12 @@ router.get('/', function (req, res) {
       });
     }
   });
+});
+
+Date.prototype.toDateInputValue = (function() {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0,10);
 });
 
 module.exports = router;

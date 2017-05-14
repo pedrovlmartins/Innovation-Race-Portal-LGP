@@ -1,0 +1,62 @@
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script src="js/createRace.js"></script>
+<div class="modal fade" id="createRaceModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="panel-title text-center">
+                    <h1 class="title">Create new race</h1>
+                </div>
+            </div>
+
+            <div class="login-body">
+                <div class="row">
+                    <div class="col-xs-offset-2 col-xs-8">
+                        <br>
+                        <form id="createRace-form" action="manageRaces/create" method="post" role="form">
+                            <div class="form-group">
+                                <input type="text" name="title" class="form-control" placeholder="Title" required/>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Think Geek start date</label>
+                                <input type="datetime-local" name="phase1Start" id="phase1Start" class="form-control" value="{{currentDate}}" required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Validation start date</label>
+                                <input type="datetime-local" name="phase2Start" id="phase2Start" class="form-control" value="{{currentDate}}"
+                                       data-rule-date_not_smaller_than="#phase1Start" data-msg-date_not_smaller_than="The Validation phase cannot start before the Think Geek phase" required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Coaching start date</label>
+                                <input type="datetime-local" name="phase3Start" id="phase3Start" class="form-control" value="{{currentDate}}"
+                                       data-rule-date_not_smaller_than="#phase2Start" data-msg-date_not_smaller_than="The Coaching phase cannot start before the Validation phase" required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Kick-Off start date</label>
+                                <input type="datetime-local" name="phase4Start" id="phase4Start" class="form-control" value="{{currentDate}}"
+                                       data-rule-date_not_smaller_than="#phase3Start" data-msg-date_not_smaller_than="The Kick-Off pahse cannot start before the Coaching phase" required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Kick-Off end date</label>
+                                <input type="datetime-local" name="phase4End" id="phase4End" class="form-control" value="{{currentDate}}"
+                                       data-rule-date_not_smaller_than="#phase4Start" data-msg-date_not_smaller_than="The Kick-Off phase cannot end before starting" required/>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <button type="submit" name="login-submit" id="login-submit" class="btn btn-primary btn-block">Create</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
