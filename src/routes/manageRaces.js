@@ -64,14 +64,14 @@ router.post('/create', function (req, res) {
   req.Validator.getErrors(function (errors) {
     if (errors.length == 0) {
       database.createRace(req.body.title, req.body.description, req.body.phase1Start,
-        req.body.phase2Start, req.body.phase3Start, req.body.phase4Start, req.body.phase4End),
+        req.body.phase2Start, req.body.phase3Start, req.body.phase4Start, req.body.phase4End,
         function (error, result) {
         if (error) {
           irp.addError(req, 'Unknown error occured.');
         } else {
           irp.addSuccess(req, 'Race successfully created.');
         }
-      };
+      });
     } else {
       errors.forEach(function (item, index) {
         irp.addError(req, item);
