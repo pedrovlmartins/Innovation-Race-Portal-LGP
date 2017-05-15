@@ -12,8 +12,8 @@ const itemsPerPage = 10.0;
 router.get('/', function (req, res) {
   database.getUserType(req.session.userID, function (type) {
     if (!users.isAdmin(type)) {
-      irp.addError('You need to be a manager in order to manage races.');
-      res.redirect('back');
+      irp.addError(req, 'You need to be a manager in order to manage races.');
+      res.redirect('../');
     } else {
       var vars = irp.getActionResults(req);
       var keyword = req.query.keyword;
@@ -42,9 +42,10 @@ router.get('/', function (req, res) {
         database.listRaces(offset, itemsPerPage, function (result) {
           var currentDate = new Date();
           result.forEach(function (race) {
-            race.phase = races.getPhaseDescription(
-              races.getPhase(race.phase1Start, race.phase2Start,
-              race.phase3Start, race.phase4Start, race.phase4End));
+            var phase = races.getPhase(race.phase1Start, race.phase2Start,
+              race.phase3Start, race.phase4Start, race.phase4End);
+            race.phase = races.getPhaseDescription(phase);
+            race.finished = (phase == races.phases.FINISHED);
           });
 
           vars.races = result;
@@ -62,8 +63,8 @@ router.get('/', function (req, res) {
 
 router.post('/create', function (req, res) {
   if (irp.currentUserType(req) !== users.types.MANAGER) {
-    irp.addError('You need to be a manager in order to create a race.');
-    res.redirect('back');
+    irp.addError(req, 'You need to be a manager in order to create a race.');
+    res.redirect('../');
     return;
   }
 
@@ -85,18 +86,27 @@ router.post('/create', function (req, res) {
       });
     }
 
-    res.redirect('back');
+    res.redirect('../');
   });
 });
 
 router.post('/terminate/:id', function (req, res) {
   if (irp.currentUserType(req) !== users.types.MANAGER) {
-    irp.addError('You need to be a manager in order to terminate a race.');
+    irp.addError(req, 'You need to be a manager in order to terminate a race.');
     res.redirect('back');
+    return;
   }
 
   database.terminateRace(req.params.id, function (error, result) {
+    if (error) {
+      irp.addError(req, 'Unknown error occurred.');
+    } else if (result.affectedRows == 0) {
+      irp.addError(req, 'The race provided cannot be terminated.');
+    } else {
+      irp.addSuccess(req, 'Successfully terminated race.');
+    }
 
+    res.sendStatus(200);
   });
 });
 

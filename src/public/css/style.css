@@ -113,3 +113,7 @@ thead {
     background-color: #4298b5;
     color: white;
 }
+
+.table-column-smallest {
+    width: 1px;
+}

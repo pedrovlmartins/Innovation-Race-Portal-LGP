@@ -1,4 +1,7 @@
 {{>header pageName="Manage Races"}}
+<script src="js/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+<script src="js/manageRaces.js"></script>
 <div class="container">
 
     {{>actionResults}}
@@ -13,12 +16,13 @@
 
     <button class="btn btn-default" data-toggle="modal" data-target="#createRaceModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New race</button>
 
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered table-responsive">
         <thead>
         <tr>
             <th>Title</th>
             <th>Description</th>
             <th>Phase</th>
+            <th class="table-column-smallest"></th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +31,7 @@
                 <td>{{title}}</td>
                 <td>{{description}}</td>
                 <td>{{phase}}</td>
+                <td>{{#unless finished}}<a href="#"><span class="glyphicon glyphicon-remove race-remove" data-id="{{id}}" aria-hidden="true"></span></a>{{/unless}}</td>
             </tr>
         {{/each}}
         </tbody>

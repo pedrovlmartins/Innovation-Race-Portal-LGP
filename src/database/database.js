@@ -312,13 +312,14 @@ module.exports = {
 
   terminateRace: function (id, next) {
     pool.query('UPDATE races SET' +
-      ' phase1Start = LEAST(CURRENT_TIMESTAMP, phase1Start)',
-      ' phase2Start = LEAST(CURRENT_TIMESTAMP, phase2Start)',
-      ' phase3Start = LEAST(CURRENT_TIMESTAMP, phase3Start)',
-      ' phase4Start = LEAST(CURRENT_TIMESTAMP, phase4Start)',
-      ' phase4End = LEAST(CURRENT_TIMESTAMP, phase4End)' +
+      ' phase1Start = LEAST(CURRENT_TIMESTAMP, phase1Start)' +
+      ', phase2Start = LEAST(CURRENT_TIMESTAMP, phase2Start)' +
+      ', phase3Start = LEAST(CURRENT_TIMESTAMP, phase3Start)' +
+      ', phase4Start = LEAST(CURRENT_TIMESTAMP, phase4Start)' +
+      ', phase4End = LEAST(CURRENT_TIMESTAMP, phase4End)' +
       ' WHERE id = ?', [id],
       function (error, results) {
+        console.error(error);
         next(error, results);
       });
   },
