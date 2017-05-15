@@ -59,6 +59,62 @@ router.get('/', function (req, res) {
   });
 });
 
+router.post('/create', function (req, res) {
+  validate(req);
+  req.Validator.getErrors(function (errors) {
+    if (errors.length == 0) {
+      database.createRace(req.body.title, req.body.description, req.body.phase1Start,
+        req.body.phase2Start, req.body.phase3Start, req.body.phase4Start, req.body.phase4End),
+        function (error, result) {
+        if (error) {
+          irp.addError(req, 'Unknown error occured.');
+        } else {
+          irp.addSuccess(req, 'Race successfully created.');
+        }
+      };
+    } else {
+      errors.forEach(function (item, index) {
+        irp.addError(req, item);
+      });
+    }
+
+    res.redirect('back');
+    irp.cleanActionResults(req);
+  });
+});
+
+var validate = function (req) {
+  // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+  req.Validator.validate('title', 'Title', {
+    required: true,
+    length: {
+      min: 3,
+      max: 1000,
+    },
+  })
+    .validate('description', 'Description', {
+      required: false,
+      length: {
+        max: 5000,
+      },
+    })
+    .validate('phase1Start', 'Think Geek phase start date', {
+      required: true,
+    })
+    .validate('phase2Start', 'Validation phase start date', {
+      required: true,
+    })
+    .validate('phase3Start', 'Coaching phase start date', {
+      required: true,
+    })
+    .validate('phase4Start', 'Kick-Off phase start date', {
+      required: true,
+    })
+    .validate('phase4End', 'Kick-Off phase end date', {
+      required: true,
+    });
+};
+
 Date.prototype.toDateInputValue = (function() {
   var local = new Date(this);
   local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
