@@ -17,6 +17,7 @@
     <table class="table table-hover table-bordered rankingTable">
         <thead class="rankingTableHead">
         <tr>
+            <th>Title</th>
             <th>Description</th>
             <th>Phase</th>
         </tr>
@@ -24,7 +25,8 @@
         <tbody>
         {{#each races}}
             <tr>
-                <td><a href="/races/{{id}}">{{description}}</a></td>
+                <td><a href="/races/{{id}}">{{title}}</a></td>
+                <td>{{description}}</td>
                 <td>{{phase}}</td>
             </tr>
         {{/each}}

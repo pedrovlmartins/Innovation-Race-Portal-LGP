@@ -274,7 +274,7 @@ module.exports = {
 
   listRaces: function (limit, offset, next) {
     pool.query('SELECT * FROM races ' +
-      'ORDER BY phase1Start DESC ' +
+      'ORDER BY phase1Start ASC ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
