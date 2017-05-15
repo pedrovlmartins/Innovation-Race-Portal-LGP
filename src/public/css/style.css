@@ -77,3 +77,43 @@ input::-webkit-input-placeholder {
 #submit_idea {
     margin-bottom: 40px;
 }
+
+label.error {
+    color: #a94442;
+}
+
+input.error {
+    border-color: red;
+}
+
+header {
+    margin-top: 100px;
+}
+
+h1, h2 {
+    color: rgb(24, 178, 232);
+    text-transform: uppercase;
+    text-align: center;
+    margin: 15px 0px;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+table {
+    margin: 20px 0px;
+}
+
+thead {
+    background-color: #4298b5;
+    color: white;
+}
+
+.table-column-smallest {
+    width: 1px;
+}

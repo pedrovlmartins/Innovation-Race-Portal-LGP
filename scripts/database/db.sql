@@ -97,7 +97,6 @@ DROP TABLE IF EXISTS `races`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `races` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` int(11) NOT NULL,
   `title` varchar(1000) NOT NULL,
   `description` varchar(5000) DEFAULT NULL,
   `phase1Start` timestamp NOT NULL,
