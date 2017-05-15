@@ -302,12 +302,25 @@ module.exports = {
         phase3Start, phase4Start, phase4End,
       ],
       function (error, results) {
-      if (error) {
-        next(error);
-      } else {
-        next(null, results);
-      }
-    });
+        if (error) {
+          next(error);
+        } else {
+          next(null, results);
+        }
+      });
+  },
+
+  terminateRace: function (id, next) {
+    pool.query('UPDATE races SET' +
+      ' phase1Start = LEAST(CURRENT_TIMESTAMP, phase1Start)',
+      ' phase2Start = LEAST(CURRENT_TIMESTAMP, phase2Start)',
+      ' phase3Start = LEAST(CURRENT_TIMESTAMP, phase3Start)',
+      ' phase4Start = LEAST(CURRENT_TIMESTAMP, phase4Start)',
+      ' phase4End = LEAST(CURRENT_TIMESTAMP, phase4End)' +
+      ' WHERE id = ?', [id],
+      function (error, results) {
+        next(error, results);
+      });
   },
 
   searchUsers: function (key, limit, offset, next) {

@@ -12,7 +12,8 @@ const itemsPerPage = 10.0;
 router.get('/', function (req, res) {
   database.getUserType(req.session.userID, function (type) {
     if (!users.isAdmin(type)) {
-      res.sendStatus(403);
+      irp.addError('You need to be a manager in order to manage races.');
+      res.redirect('back');
     } else {
       var vars = irp.getActionResults(req);
       var keyword = req.query.keyword;
@@ -60,6 +61,12 @@ router.get('/', function (req, res) {
 });
 
 router.post('/create', function (req, res) {
+  if (irp.currentUserType(req) !== users.types.MANAGER) {
+    irp.addError('You need to be a manager in order to create a race.');
+    res.redirect('back');
+    return;
+  }
+
   validate(req);
   req.Validator.getErrors(function (errors) {
     if (errors.length == 0) {
@@ -79,7 +86,17 @@ router.post('/create', function (req, res) {
     }
 
     res.redirect('back');
-    irp.cleanActionResults(req);
+  });
+});
+
+router.post('/terminate/:id', function (req, res) {
+  if (irp.currentUserType(req) !== users.types.MANAGER) {
+    irp.addError('You need to be a manager in order to terminate a race.');
+    res.redirect('back');
+  }
+
+  database.terminateRace(req.params.id, function (error, result) {
+
   });
 });
 
