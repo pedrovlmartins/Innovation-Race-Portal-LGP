@@ -16,14 +16,6 @@ $(document).ready(function () {
 
 function firstClick(id){
   var button = document.getElementById(id);
-  /*if(id=="nameButton"){
-      document.getElementById('name').removeAttribute("disabled");
-  }
-  else if(id=="emailButton"){
-      document.getElementById('email').removeAttribute("disabled");
-  }*/
-
-  //alert(button.previousElementSibling.lastElementChild.getAttribute('value'));
   button.previousElementSibling.lastElementChild.removeAttribute("disabled");
 
   button.removeAttribute("onclick");

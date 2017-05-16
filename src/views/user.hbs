@@ -56,16 +56,47 @@
 
                 <!-- Role -->
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Role</label>
-                        <div class="col-md-4 selectContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                <input name="role" value="{{typeDescription}}" class="form-control" type="text"
-                                       readonly>
-                            </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Role</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <input name="role" value="{{typeDescription}}" class="form-control" type="text" readonly>
                         </div>
                     </div>
+                </div>
+
+    {{#compare typeDescription "Altran member"}}
+        <div class="form-group">
+            <label class="col-md-4 control-label">Role</label>
+            <div class="col-md-4 selectContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                    <form class="input-group" style="width:100%;" action="/users/{{id}}/typeDescription" method="post">
+                        <div style="width:calc(100% - 39px);">
+                            <input id="typeDescription" name="typeDescription" value="{{typeDescription}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text"></input>
+                        </div>
+                        <button id="emailButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {{/compare}}
+                <!-- Edit Password-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Change Password</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <form class="input-group" style="width:100%;" action="/users/{{id}}/password" method="post">
+                                <div style="width:calc(100% - 39px);">
+                                    <input id="password" name="password" disabled="disabled" class="form-control" type="password"  ></input>
+                                </div>
+                                <button id="passwordButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
                     {{#compare typeDescription "Altran member"}}
                         <!-- Collaborator Number -->
@@ -119,23 +150,6 @@
                             </div>
                         </div>
                     {{/compare}}
-                </fieldset>
-            </form>
-                <!-- Edit Password-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Change Password</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <form class="input-group" style="width:100%;" action="/users/{{id}}/password" method="post">
-                                <div style="width:calc(100% - 39px);">
-                                    <input id="password" name="password" disabled="disabled" class="form-control" type="password"  ></input>
-                                </div>
-                                <button id="passwordButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </fieldset>
         </div>
     </div>

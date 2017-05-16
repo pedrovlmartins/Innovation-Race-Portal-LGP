@@ -77,7 +77,7 @@ module.exports = {
           });
   },
 
-  updateUserPassword:function(id, newPassword, next){
+  updateUserPassword: function(id, newPassword, next){
       pool.query('UPDATE users' +
           ' SET  passwordHash = ? ' +
           ' WHERE id = ?',[newPassword, id],
@@ -89,6 +89,20 @@ module.exports = {
                   next(null, result);
               }
           });
+  },
+
+  updateUserType: function(id, newUserType, next){
+      pool.query('UPDATE users'+
+      'SET type = ?'+
+      'WHERE id = ?',[newUserType, id],
+      function (err, result){
+          if (err){
+              console.error(err);
+              next(err);
+          } else {
+              next(null, result);
+          }
+      })
   },
 
   getUserByEmail: function (email, callback) {

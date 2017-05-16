@@ -346,4 +346,22 @@ router.post('/:id/password', function (req, res){
      });
 });
 
+router.post('/:id/typeDescription', function (req, res){
+
+    if(req.session.userID === undefined)
+        res.sendStatus(401);
+
+    db.updateUserType(req.params.id, req.body.type, function(error, results){
+        if (error){
+            irp.addError(req, 'Unkown error occurred.');
+        } else if (results.affectedRows === 0) {
+            irp.addError(req, 'Could not update user information.');
+        } else {
+            irp.addSuccess(req, 'User information successfully updated.');
+        }
+        res.redirect('back');
+        return;
+    });
+});
+
 module.exports = router;
