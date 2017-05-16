@@ -64,7 +64,7 @@ router.get('/', function (req, res) {
 router.post('/create', function (req, res) {
   if (irp.currentUserType(req) !== users.types.MANAGER) {
     irp.addError(req, 'You need to be a manager in order to create a race.');
-    res.redirect('../');
+    res.redirect('back');
     return;
   }
 
@@ -79,14 +79,15 @@ router.post('/create', function (req, res) {
         } else {
           irp.addSuccess(req, 'Race successfully created.');
         }
+        res.redirect('back');
       });
     } else {
       errors.forEach(function (item, index) {
         irp.addError(req, item);
       });
-    }
 
-    res.redirect('../');
+      res.redirect('back');
+    }
   });
 });
 
