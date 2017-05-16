@@ -25,6 +25,7 @@ const contact = require(path.join(__base, 'routes', 'contact'));
 const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
 const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
 const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
+const manageRaces = require(path.join(__base, 'routes', 'manageRaces'));
 const ideas = require(path.join(__base, 'routes', 'ideas'));
 const users = require(path.join(__base, 'routes', 'users'));
 const classification = require(path.join(__base, 'routes', 'classification'));
@@ -78,6 +79,7 @@ app.use('/ideas', ideas);
 app.use('/innovationRules', innovationRules);
 app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
+app.use('/manageRaces', manageRaces);
 app.use('/ranking', ranking);
 app.use('/users', users);
 
