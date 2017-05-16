@@ -79,6 +79,7 @@ router.post('/create', function (req, res) {
         } else {
           irp.addSuccess(req, 'Race successfully created.');
         }
+
         res.redirect('back');
       });
     } else {
