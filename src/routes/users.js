@@ -20,6 +20,7 @@ function nextUserInfo(req, res, userInfo, typeDescription) {
       if (req.session !== undefined) {
         if (users.isAdmin(type) || (req.session.userID === parseInt(req.params.id))) {
           userInfo.userID = req.session.userID;
+          userInfo.isManager = users.isAdmin(type);
           userInfo.typeDescription = typeDescription;
           userInfo.page = 'profile';
           res.render('user', userInfo);
@@ -39,6 +40,7 @@ router.get('/:id/profile', function(req, res) {
     res.sendStatus(401);
   else {
     db.getUserType(req.params.id, function (type) {
+
       if (type === users.types.ALTRAN_MEMBER) {
         db.getEmployeeInfo(req.params.id, function (userInfo) {
           nextUserInfo(req, res, userInfo, users.getTypeDescription(type))

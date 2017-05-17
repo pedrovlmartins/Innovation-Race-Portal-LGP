@@ -12,7 +12,10 @@
         <ul class="userNavbar">
             <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
             <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
+
+            {{#unless isManager}}
             <li id="submit"><h4><a href="submitIdea">SUBMIT IDEA</a></h4></li>
+            {{/unless}}
         </ul>
     </div>
     {{#compare page "profile"}}
