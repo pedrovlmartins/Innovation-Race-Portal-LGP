@@ -136,6 +136,23 @@ router.get('/:id/unblock', function(req, res) {
     }
 });
 
+router.get('/:id/confirm', function(req, res) {
+    if (req.session.userID === undefined)
+        res.sendStatus(401);
+    else {
+
+        db.getUserType(req.session.userID, function (type) {
+            if (users.isAdmin(type)) {
+                db.confirmUser(req.params.id, function () {
+                    res.redirect("back");
+                });
+            } else {
+                res.sendStatus(403);
+            }
+        });
+    }
+});
+
 router.get('/:id/submitIdea', function(req, res) {
 
     if (req.session.userID === undefined)
