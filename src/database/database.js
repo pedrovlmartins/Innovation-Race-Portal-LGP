@@ -230,7 +230,7 @@ module.exports = {
       'ORDER BY name ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
-        next(results);
+        next(error, results);
     });
   },
 
