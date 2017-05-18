@@ -527,4 +527,22 @@ module.exports = {
         callback(err);
       });
   },
+
+  // CSV-exporting queries
+
+  getTableNames: function (next) {
+    pool.query('SELECT table_name ' +
+      'FROM information_schema.tables ' +
+      'WHERE table_schema=' + config.mysql[config.env].database, [], function(err, rows, fields) {
+      if (typeof next === 'function')
+        next(rows);
+    });
+  },
+
+  getTableInfo: function(next, table) {
+    pool.query('SELECT * FROM ?', [table], function(err, rows, fields) {
+      if(typeof next === 'function')
+        next(rows);
+    })
+  }
 };
