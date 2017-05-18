@@ -25,11 +25,11 @@
         <tbody>
         {{#each ideas}}
             {{#compare score 0}}
-                <tr class="cancelledLine">
+                <tr>
                     <td><a href="/ideas/{{id}}">{{title}}</a></td>
                     <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
                     <td>{{state}}</td>
-                    <td>{{score}}</td>
+                    <td class="noScore">{{score}}</td>
                 </tr>
             {{/compare}}
             {{#compare score "!==" 0}}

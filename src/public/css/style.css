@@ -119,3 +119,10 @@ thead {
 .table-column-smallest {
     width: 1px;
 }
+
+/* Ranking page */
+
+.noScore {
+    /*background-color: lightsalmon;*/
+    color: red;
+}
