@@ -36,9 +36,10 @@ router.get('/:id', function(req,res) {
 });
 
 router.get('/:id/profile', function(req, res) {
-  if (req.session.userID === undefined)
-    res.sendStatus(401);
-  else {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('/');
+  } else {
     db.getUserType(req.params.id, function (type) {
 
       if (type === users.types.ALTRAN_MEMBER) {
