@@ -35,32 +35,37 @@
         </tr>
         </thead>
         <tbody>
-        {{#each users}}
-            <tr>
-                <td><a href="/users/{{id}}">{{name}}</a></td>
-                <td>{{email}}</a></td>
-                <td>{{type}}</td>
-                {{#if blocked}}
-                    <td>Yes</td>
-                {{else}}
-                    <td>No</td>
-                {{/if}}
-
-                <td>{{#unless isManager}}
-                    {{#if confirmed}}
-                {{#if blocked}}
-                    <a href="/users/{{id}}/unblock">Unblock</a>
+        {{#if users}}
+            {{#each users}}
+                <tr>
+                    <td><a href="/users/{{id}}">{{name}}</a></td>
+                    <td>{{email}}</a></td>
+                    <td>{{type}}</td>
+                    {{#if blocked}}
+                        <td>Yes</td>
                     {{else}}
-                     <a href="/users/{{id}}/block">Block</a>
+                        <td>No</td>
                     {{/if}}
-                {{else}}
-                    <a href="/users/{{id}}/confirm">Confirm</a>
-                    {{/if}}
-                    {{/unless}}
-                </td>
 
+                    <td>{{#unless isManager}}
+                        {{#if confirmed}}
+                    {{#if blocked}}
+                        <a href="/users/{{id}}/unblock">Unblock</a>
+                        {{else}}
+                         <a href="/users/{{id}}/block">Block</a>
+                        {{/if}}
+                    {{else}}
+                        <a href="/users/{{id}}/confirm">Confirm</a>
+                        {{/if}}
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/each}}
+        {{else}}
+            <tr>
+                <td class="noUsers" colspan="4">No users found.</td>
             </tr>
-        {{/each}}
+        {{/if}}
         </tbody>
     </table>
 
