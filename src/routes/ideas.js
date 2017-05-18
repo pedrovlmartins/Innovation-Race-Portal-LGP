@@ -317,16 +317,16 @@ router.get('/:id', function (req, res) {
                   members: members,
                   type: type,
                   ideaState: ideaInfo.state,
-                  ideaCancelled: ideaInfo.cancelled[0],
-                  canEvaluateIdea: !ideaInfo.cancelled[0]
+                  ideaCancelled: ideaInfo.cancelled,
+                  canEvaluateIdea: !ideaInfo.cancelled
                     && ideaInfo.state == ideas.states.AWAITING_EVALUATION
                     && irp.currentCanEvaluateIdea(req),
-                  canSelectIdea: !ideaInfo.cancelled[0]
+                  canSelectIdea: !ideaInfo.cancelled
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
-                  canCoachIdea: !ideaInfo.cancelled[0]
+                  canCoachIdea: !ideaInfo.cancelled
                     && ideaInfo.state === ideas.states.IN_COACHING_PHASE,
-                  canGoKickOffIdea: !ideaInfo.cancelled[0]
+                  canGoKickOffIdea: !ideaInfo.cancelled
                   && ideaInfo.state === ideas.states.AWAITING_GO_NO_GO
                   && irp.currentCanSelectIdea(req),
                 };
