@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i');
+
+.errorImageCentered {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.errorImage {
+    height: 40%;
+    width: 40%;
+}
+
+.text404Page {
+    margin-top: 3%;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    color: rgb(36, 127, 195);
+    font-size: 500%;
+    font-weight: bold;
+}

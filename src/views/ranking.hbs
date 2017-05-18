@@ -24,12 +24,22 @@
         </thead>
         <tbody>
         {{#each ideas}}
-            <tr>
-                <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                <td>{{state}}</td>
-                <td>{{score}}</td>
-            </tr>
+            {{#compare score 0}}
+                <tr class="cancelledLine">
+                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                    <td>{{state}}</td>
+                    <td>{{score}}</td>
+                </tr>
+            {{/compare}}
+            {{#compare score "!==" 0}}
+                <tr>
+                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                    <td>{{state}}</td>
+                    <td>{{score}}</td>
+                </tr>
+            {{/compare}}
         {{/each}}
         </tbody>
     </table>

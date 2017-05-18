@@ -43,14 +43,13 @@ const app = express();
 
 // View engine setup
 const helpers = require(path.join(__base, 'lib', 'helpers'));
+var irp = require("./lib/irp.js");
 app.set('view engine', 'hbs');
 app.set('views', path.join(__base, 'views'));
 hbs.registerPartials(path.join(__base, 'views', 'partials'));
 hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
 hbs.registerHelper('add-pagination', helpers.addPagination);
 hbs.registerHelper('compare', helpers.compare);
-
-
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
@@ -90,6 +89,14 @@ app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
 // Static Dirs
 app.use(express.static(path.join(__base, 'public')));
 app.use(express.static(path.join(__base, 'images')));
+
+app.use('*', function (req, res, next) {
+  res.status(404);
+  var vars = irp.getActionResults(req);
+  if (req.session.userID !== undefined)
+    vars.userID = req.session.userID;
+  res.render('errorPage', vars);
+});
 
 if (!module.parent) {
   app.listen(PORT);

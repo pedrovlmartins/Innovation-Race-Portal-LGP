@@ -11,7 +11,8 @@ const itemsPerPage = 10.0;
 router.get('/', function (req, res) {
   database.getUserType(req.session.userID, function (type) {
     if (!users.isAdmin(type)) {
-      res.sendStatus(403);
+      irp.addError(req, 'You need to be a manager in order to manage ideas.');
+      res.redirect('back');
     } else {
       var vars = irp.getActionResults(req);
       var keyword = req.query.keyword;
