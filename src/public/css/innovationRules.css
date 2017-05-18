@@ -25,7 +25,7 @@ body{
     border-color: rgb(24, 178, 232);
 }
 
-.buttonThink:hover, .buttonThink:focus, .buttonThink:active .buttonThink:a {
+.buttonThink:hover, .buttonThink:focus, .buttonThink:active {
     background-color: rgb(24, 178, 232);
     border-color: rgb(24, 178, 232);
 }
