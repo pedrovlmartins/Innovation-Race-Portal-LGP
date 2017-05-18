@@ -35,7 +35,7 @@ router.get('/:id', function(req,res) {
   res.redirect(req.params.id + '/profile');
 });
 
-router.get('/:id/profile', function(req, res) {
+router.get('/:id/profile', function(req, res, next) {
   if (!irp.currentUserID(req)) {
     irp.addError(req, 'You are not logged in.');
     res.redirect('/');
@@ -51,8 +51,7 @@ router.get('/:id/profile', function(req, res) {
           nextUserInfo(req, res, userInfo, users.getTypeDescription(type))
         });
       } else {
-          console.log(type);
-        res.sendStatus(404);
+          next();
       }
     });
   }
