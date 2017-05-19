@@ -100,6 +100,7 @@ router.post('/exportDatabase', function(req, res) {
               if (err) {
                 console.log(err);
                 irp.addError(req, 'Error exporting database.');
+                res.redirect('back');
               }
             });
             resolve(rows_array);
