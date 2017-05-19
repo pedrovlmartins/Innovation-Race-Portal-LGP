@@ -369,6 +369,7 @@ module.exports = {
           next(result);
       });
   },
+*/
 
   updateIdeaState_decline: function (id, next) {
     pool.query(
@@ -379,7 +380,7 @@ module.exports = {
           next(result);
       });
   },
-  */
+
 
   updatedIdeaState_evaluate: function (id, next) {
     pool.query(
