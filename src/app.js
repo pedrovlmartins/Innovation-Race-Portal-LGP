@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const hbs = require('hbs');
 const hbsutils = require('hbs-utils')(hbs);
 
@@ -97,6 +98,13 @@ app.use('*', function (req, res, next) {
     vars.userID = req.session.userID;
   res.render('errorPage', vars);
 });
+
+// Create Necessary Dirs
+
+var dir = path.join(__dirname, 'csv');
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir);
+}
 
 if (!module.parent) {
   app.listen(PORT);

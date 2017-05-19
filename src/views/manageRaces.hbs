@@ -14,8 +14,11 @@
         </div>
     </header>
 
-    <button class="btn btn-default" data-toggle="modal" data-target="#createRaceModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New race</button>
+    <form id="exportDatabaseForm" action="manageRaces/exportDatabase" method="post">
+    </form>
 
+    <button class="btn btn-default" data-toggle="modal" data-target="#createRaceModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New race</button>
+    <button class="btn btn-default" id="exportDatabase"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export database</button>
     <table class="table table-hover table-bordered table-responsive">
         <thead>
         <tr>
