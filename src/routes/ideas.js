@@ -84,7 +84,7 @@ router.post('/:id/evaluation', function (req, res, next) {
       return;
     }
 
-    if (req.body.evaluate === 'true') {
+    if (req.body.evaluated === 'true') {
       db.updatedIdeaState_evaluate(req.params.id, function (error, result) {
         if (error) {
           console.error(error);
