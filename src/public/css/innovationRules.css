@@ -72,6 +72,8 @@ body{
     margin-top: 5%;
     text-align: center;
     color: rgb(24, 178, 232);
+    font-weight: bold;
+    font-size: 300%;
 }
 
 .rules {

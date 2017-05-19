@@ -17,13 +17,23 @@
     background:transparent;
 }
 
+/* Ranking page */
 .rankingTable {
     margin-top: 10%;
     margin-left: 2%;
 }
 
+.rankingTableStyle {
+    margin-top: 5%;
+    margin-left: 2%;
+}
+
 .rankingTableHead {
     background-color: #4298b5;
+}
+
+#homeHeading {
+    font-weight: bold;
 }
 
 .clickable-row {
