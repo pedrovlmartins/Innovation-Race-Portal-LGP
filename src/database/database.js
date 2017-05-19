@@ -389,7 +389,7 @@ module.exports = {
       'WHERE ideas.id = ? ' +
       'AND state = ? ' +
       'AND cancelled = FALSE;',
-      [ideas.states.IN_COACHING_PHASE, id, ideas.states.AWAITING_EVALUATION],
+      [ideas.states.AWAITING_SELECTION, id, ideas.states.AWAITING_EVALUATION],
       function (err, result) {
         if (err) {
           next(err);
@@ -406,7 +406,7 @@ module.exports = {
       'WHERE ideas.id = ? ' +
       'AND state = ? ' +
       'AND cancelled = FALSE;',
-      [ideas.states.SELECTED, id, ideas.states.AWAITING_SELECTION],
+      [ideas.states.IN_COACHING_PHASE, id, ideas.states.AWAITING_SELECTION],
       function (err, result) {
         if (err) {
           next(err);
