@@ -9,7 +9,13 @@
 
 @media screen and (max-width: 1200px) {
     #keyPartnersLabel, #keyValueLabel, #keyCostumerLabel, #keySegmentsLabel {
-        width: 10px;
+        font-size: 83%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #keyValueLabel, #keySegmentsLabel {
+        font-size: 55%;
     }
 }
 
@@ -50,8 +56,8 @@
     top: 3%;
     left: 15px;
     z-index: 1;
-    height: 10px;
     color: #7d7d7d;
+    background-color: #e7e7e7;
 }
 
 .titleLabelTwo {
@@ -59,8 +65,8 @@
     top: 4%;
     left: 25px;
     z-index: 1;
-    height: 10px;
     color: #7d7d7d;
+    background-color: #e7e7e7;
 }
 
 .titleLabelThree {
@@ -68,8 +74,8 @@
     top: 6%;
     left: 25px;
     z-index: 1;
-    height: 10px;
     color: #7d7d7d;
+    background-color: #e7e7e7;
 }
 
 .titleLabelFour {
@@ -77,8 +83,8 @@
     top: 10%;
     left: 15px;
     z-index: 1;
-    height: 10px;
     color: #7d7d7d;
+    background-color: #e7e7e7;
 }
 
 #keyPartnersTextarea, #keyActivitiesTextarea, #keyResourcesTextarea, #keyValueTextarea,
@@ -89,9 +95,9 @@
   padding:30px 4%;
   height:480px;
   resize: none;
-    outline: none !important;
-    border:1px solid black;
-    box-shadow: 0 0 10px rgb(35, 127, 195);
+  outline: none !important;
+  border:1px solid black;
+  box-shadow: 0 0 10px rgb(35, 127, 195);
   outline-style: solid;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -102,6 +108,39 @@
 
 #keyActivitiesTextarea, #keyResourcesTextarea, #keyCostumerTextarea, #keyChannelsTextarea{
   height:235px;
+}
+
+.containerBMC:before{
+    content:'';
+    display: block;
+    height: 30px;
+    background: #e7e7e7;
+    position: absolute;
+    left: 8px;
+    right: 13px;
+    top: 6px;
+}
+
+.containerBMC2:before {
+    content:'';
+    display: block;
+    height: 35px;
+    background: #e7e7e7;
+    position: absolute;
+    left: 18px;
+    right: 25px;
+    top: 1px;
+}
+
+.containerBMC3:before {
+    content:'';
+    display: block;
+    height: 35px;
+    background: #e7e7e7;
+    position: absolute;
+    left: 18px;
+    right: 25px;
+    top: 6px;
 }
 
 #titleBMC {
@@ -150,4 +189,38 @@
 }
 :-ms-input-placeholder {
   text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: #797979;
+    border: 28px none #ffffff;
+    border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #7d7d7d;
+}
+::-webkit-scrollbar-thumb:active {
+    background: #797979;
+}
+::-webkit-scrollbar-track {
+    background: #d6d6d6;
+    border: 100px none #ffffff;
+    border-radius: 100px;
+}
+::-webkit-scrollbar-track:hover {
+    background: #d6d6d6;
+}
+::-webkit-scrollbar-track:active {
+    background: #d6d6d6;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
 }

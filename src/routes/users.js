@@ -20,6 +20,7 @@ function nextUserInfo(req, res, userInfo, typeDescription) {
       if (req.session !== undefined) {
         if (users.isAdmin(type) || (req.session.userID === parseInt(req.params.id))) {
           userInfo.userID = req.session.userID;
+          userInfo.isManager = users.isAdmin(type);
           userInfo.typeDescription = typeDescription;
           userInfo.page = 'profile';
           res.render('user', userInfo);
@@ -39,6 +40,7 @@ router.get('/:id/profile', function(req, res) {
     res.sendStatus(401);
   else {
     db.getUserType(req.params.id, function (type) {
+
       if (type === users.types.ALTRAN_MEMBER) {
         db.getEmployeeInfo(req.params.id, function (userInfo) {
           nextUserInfo(req, res, userInfo, users.getTypeDescription(type))
@@ -127,6 +129,23 @@ router.get('/:id/unblock', function(req, res) {
         db.getUserType(req.session.userID, function (type) {
             if (users.isAdmin(type)) {
                 db.unblockUser(req.params.id, function () {
+                    res.redirect("back");
+                });
+            } else {
+                res.sendStatus(403);
+            }
+        });
+    }
+});
+
+router.get('/:id/confirm', function(req, res) {
+    if (req.session.userID === undefined)
+        res.sendStatus(401);
+    else {
+
+        db.getUserType(req.session.userID, function (type) {
+            if (users.isAdmin(type)) {
+                db.confirmUser(req.params.id, function () {
                     res.redirect("back");
                 });
             } else {
@@ -324,7 +343,6 @@ router.post('/:id/password', function (req, res){
 
     if (req.session.userID === undefined)
         res.sendStatus(401);
-    console.log('Entrou no update pasword');
      //hashing and salting of newpassword
      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
          if (error) {

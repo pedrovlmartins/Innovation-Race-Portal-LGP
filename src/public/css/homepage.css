@@ -75,6 +75,7 @@ img.bg {
 
 .aboutHeader{
     text-align: center;
+	color: white;
 }
 .aboutContainer {
 	padding-top: 18%;
@@ -85,4 +86,5 @@ img.bg {
 	width: 100%;
 	background-color: rgba(24, 178, 232, 0.8);
 	text-align: justify;
+	color: white;
 }

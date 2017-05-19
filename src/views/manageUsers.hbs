@@ -32,7 +32,7 @@
             <th>Email</th>
             <th>Position in Altran</th>
             <th>Blocked</th>
-            <th>Actions</th>
+            <th colspan="2">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -47,11 +47,17 @@
                     <td>No</td>
                 {{/if}}
 
-                <td>{{#if blocked}}
+                <td>{{#unless isManager}}
+                    {{#if confirmed}}
+                {{#if blocked}}
                     <a href="/users/{{id}}/unblock">Unblock</a>
+                    {{else}}
+                     <a href="/users/{{id}}/block">Block</a>
+                    {{/if}}
                 {{else}}
-                    <a href="/users/{{id}}/block">Block</a>
-                {{/if}}
+                    <a href="/users/{{id}}/confirm">Confirm</a>
+                    {{/if}}
+                    {{/unless}}
                 </td>
 
             </tr>

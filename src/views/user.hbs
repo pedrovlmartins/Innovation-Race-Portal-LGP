@@ -12,7 +12,10 @@
         <ul class="userNavbar">
             <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
             <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
+
+            {{#unless isManager}}
             <li id="submit"><h4><a href="submitIdea">SUBMIT IDEA</a></h4></li>
+            {{/unless}}
         </ul>
     </div>
     {{#compare page "profile"}}
@@ -27,9 +30,9 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                            <form class="input-group" style="width:100%;" action="/users/{{id}}/name"  method="post" >
+                            <form class="input-group" style="width:100%;" action="users/{{id}}/name"  method="post" >
                                 <div style="width:calc(100% - 39px);">
-                                <input id="name" name="name" value="{{name}}" disabled="disabled" class="form-control" style="overflow:auto;" type="text"></input>
+                                <input id="name" name="name" value="{{name}}" disabled="disabled" class="form-control" style="overflow:auto;" type="text">
                                 </div>
                                 <button id="nameButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id);  return false;"><i class="glyphicon glyphicon-edit"></i></button>
                             </form>
@@ -46,7 +49,7 @@
 
                             <form class="input-group" style="width:100%;" action="/users/{{id}}/email" method="post">
                                 <div style="width:calc(100% - 39px);">
-                                <input id="email" name="email" value="{{email}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text"></input>
+                                <input id="email" name="email" value="{{email}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text">
                                 </div>
                                 <button id="emailButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
                             </form>
@@ -54,34 +57,6 @@
                     </div>
                 </div>
 
-                <!-- Role -->
-
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Role</label>
-                    <div class="col-md-4 selectContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                            <input name="role" value="{{typeDescription}}" class="form-control" type="text" readonly>
-                        </div>
-                    </div>
-                </div>
-
-    {{#compare typeDescription "Altran member"}}
-        <div class="form-group">
-            <label class="col-md-4 control-label">Role</label>
-            <div class="col-md-4 selectContainer">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                    <form class="input-group" style="width:100%;" action="/users/{{id}}/typeDescription" method="post">
-                        <div style="width:calc(100% - 39px);">
-                            <input id="typeDescription" name="typeDescription" value="{{typeDescription}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text"></input>
-                        </div>
-                        <button id="emailButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    {{/compare}}
                 <!-- Edit Password-->
                 <div class="form-group">
                     <label class="col-md-4 control-label">Change Password</label>
@@ -90,13 +65,77 @@
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <form class="input-group" style="width:100%;" action="/users/{{id}}/password" method="post">
                                 <div style="width:calc(100% - 39px);">
-                                    <input id="password" name="password" disabled="disabled" class="form-control" type="password"  ></input>
+                                    <input id="password" name="password" disabled="disabled" class="form-control" type="password"  >
                                 </div>
                                 <button id="passwordButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
                             </form>
                         </div>
                     </div>
                 </div>
+
+                <!-- ROLE -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Role</label>
+                        <div class="col-md-4 selectContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+                                <form class="input-group" style="width:100%;" action="/users/{{id}}/typeDescription"  method="post">
+                                    <div style="width:calc(100% - 39px);">
+                                        <input id="type" name="type" value="{{typeDescription}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text">
+                                    </div>
+                                    <button id="typeButton" class="input-group-addon" style="width:39px;height:34px;" onclick="showDiv(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
+                                    <!-- AUXILIAR FOR ROLE-->
+
+                                    <div id="userTypeOptions" class="form-group"  style="display:none;">
+                                        <label class="control-label col-sm-2">User Type</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="MemberRadio" name="type" value="2" >Member
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="PartnerRadio" name="type" value="1"
+                                                        >Partner
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="CustomerRadio" name="type" value="0"
+                                                        >Customer
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="R&DCommitteeRadio" name="type" value="5"
+                                                        >R&D Committee
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="R&DTeamRadio" name="type" value="6"
+                                                        >R&D Team
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="TechnicalRadio" name="type" value="7"
+                                                        >Technical Director
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     {{#compare typeDescription "Altran member"}}
                         <!-- Collaborator Number -->

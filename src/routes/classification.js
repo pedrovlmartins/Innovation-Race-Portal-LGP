@@ -11,7 +11,7 @@ router.post('/', function (req, res) {
     return;
   }
 
-  db.classifyIdea(req.body.id, req.body.strategyAlignment, 2, // TODO change to req.body.offerType
+  db.classifyIdea(req.body.id, req.body.strategyAlignment, req.body.offerType,
     req.body.market, req.body.technicalViability, req.body.economicalViability, req.body.riskFactors,
     req.body.otherRequirements, function (error, results) {
       if (error) {

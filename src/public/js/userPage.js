@@ -23,8 +23,7 @@ function firstClick(id){
   button.setAttribute('value','Submit');
   button.style.setProperty('background','white');
 
-  // A partir daqui ja nao interessa
-  var glyphiconsend = document.createElement('i');// tens que destruir o antigo nao?
+  var glyphiconsend = document.createElement('i');
     glyphiconsend.className = "glyphicon glyphicon-check";
     glyphiconsend.setAttribute('style','z-index:3;display:none;margin-left:-'+button.lastElementChild.offsetWidth +'px;');
     button.appendChild(glyphiconsend);
@@ -33,7 +32,25 @@ function firstClick(id){
     $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
 }
 
+function showDiv(id) {{
+  document.getElementById("userTypeOptions").style.display ="block";
+//funcçao par aparecer a merda das opçoes
+    var button = document.getElementById(id);
 
+    button.removeAttribute("onclick");
+    button.setAttribute('type','submit');
+    button.setAttribute('value','Submit');
+
+    var glyphiconsend = document.createElement('i');
+    glyphiconsend.className = "glyphicon glyphicon-check";
+    glyphiconsend.setAttribute('style','z-index:3;display:none;margin-left:-'+button.lastElementChild.offsetWidth +'px;');
+    button.appendChild(glyphiconsend);
+
+    $(glyphiconsend).toggle('slide');
+    $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
+}
+
+}
 
 
 
