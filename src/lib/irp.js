@@ -50,6 +50,11 @@ module.exports = {
     return currentUserID(req) && (type == users.types.TECHNICAL_DIRECTOR || type == users.types.MANAGER);
   },
 
+    currentCanChangeUserType: function (req) {
+        var type = currentUserType(req);
+        return currentUserID(req) && ( type == users.types.MANAGER);
+    },
+
   currentCanGoIdea: function (req) {
     var type = currentUserType(req);
     return currentUserID(req) && (type == users.types.MANAGER);
