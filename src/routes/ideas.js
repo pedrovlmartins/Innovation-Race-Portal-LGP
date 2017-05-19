@@ -289,9 +289,10 @@ router.post('/:id/bmc', function (req, res) {
 
 router.get('/:id', function (req, res) {
   var ids = [];
-  if (req.session.userID === undefined)
-    res.sendStatus(401);
-  else {
+  if (req.session.userID === undefined) {
+    irp.addError(req, 'You need to be logged in to see ideas info.');
+    res.redirect('back');
+  } else {
     db.getIdea(req.params.id, function (ideaInfo) {
       if (ideaInfo === undefined)
         res.sendStatus(404);
