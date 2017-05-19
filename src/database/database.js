@@ -388,7 +388,7 @@ module.exports = {
       'WHERE ideas.id = ? ' +
       'AND state = ? ' +
       'AND cancelled = FALSE;',
-      [ideas.states.AWAITING_SELECTION, id, ideas.states.AWAITING_EVALUATION],
+      [ideas.states.IN_COACHING_PHASE, id, ideas.states.AWAITING_EVALUATION],
       function (err, result) {
         if (err) {
           next(err);
@@ -552,7 +552,7 @@ module.exports = {
   getTableNames: function (next) {
     pool.query('SELECT table_name ' +
       'FROM information_schema.tables ' +
-      'WHERE table_schema=?', [config.mysql[config.env].database], function(err, rows, fields) {
+      'WHERE table_schema=?', [config.mysql[config.env].database], function (err, rows, fields) {
       if (typeof next === 'function')
         next(rows);
     });
