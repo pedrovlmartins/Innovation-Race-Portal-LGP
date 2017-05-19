@@ -1,11 +1,15 @@
 const path = require('path');
 const irp = require(path.join(__base, 'lib', 'irp'));
+const toCSV = require('array-to-csv');
+const fs = require('fs');
+
 var express = require('express');
 var router = express.Router();
 var database = require('../database/database');
 var ideas = require(path.join(__base, 'lib', 'ideas'));
 var races = require(path.join(__base, 'lib', 'races'));
 var users = require(path.join(__base, 'lib', 'users'));
+
 
 const itemsPerPage = 10.0;
 
@@ -61,6 +65,56 @@ router.get('/', function (req, res) {
   });
 });
 
+router.post('/exportDatabase', function(req, res) {
+  database.getUserType(req.session.userID, function (type) {
+    if (!users.isAdmin(type)) {
+      irp.addError(req, 'You need to be a manager in order to export databases.');
+      res.redirect('/');
+    } else {
+      var today = new Date();
+      var cDate = today.getDate();
+      var cMonth = today.getMonth() + 1;
+      var cYear = today.getFullYear();
+
+      var cHour = today.getHours();
+      var cMin = today.getMinutes();
+      var cSec = today.getSeconds();
+
+      var dateString = cYear.toString() + cMonth.toString() + cDate.toString() + '_' + cHour.toString() + cMin.toString() + cSec.toString();
+
+      var dir = path.join(__base, 'csv', dateString);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+
+      database.getTableNames(function (tables) {
+        var foo = tables.map((table) => new Promise((resolve, reject) => database.getTableInfo(table.table_name, function (rows) {
+            var rows_array = [];
+            for (var row = 0; row < rows.length; ++row) {
+              var row_array = [];
+              for (var col in rows[row]) {
+                row_array.push(rows[row][col]);
+              }
+              rows_array.push(row_array);
+            }
+            var csv = toCSV(rows_array);
+            fs.writeFile(path.join(dir, table.table_name + '.csv'), csv, function (err) {
+              if (err) {
+                console.log(err);
+                irp.addError(req, 'Error exporting database.');
+              }
+            });
+            resolve(rows_array);
+          })
+        ))
+        ;
+      });
+      irp.addSuccess(req, 'Database exported successfully.');
+      res.redirect('back');
+    }
+  });
+});
+
 router.post('/create', function (req, res) {
   if (irp.currentUserType(req) !== users.types.MANAGER) {
     irp.addError(req, 'You need to be a manager in order to create a race.');
@@ -85,7 +139,7 @@ router.post('/create', function (req, res) {
         irp.addError(req, item);
       });
     }
-
+    //fs.writeFile();
     res.redirect('../');
   });
 });

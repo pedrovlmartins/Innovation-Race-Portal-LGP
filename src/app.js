@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const hbs = require('hbs');
 const hbsutils = require('hbs-utils')(hbs);
 
@@ -50,8 +51,6 @@ hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
 hbs.registerHelper('add-pagination', helpers.addPagination);
 hbs.registerHelper('compare', helpers.compare);
 
-
-
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
 
@@ -90,6 +89,13 @@ app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
 // Static Dirs
 app.use(express.static(path.join(__base, 'public')));
 app.use(express.static(path.join(__base, 'images')));
+
+// Create Necessary Dirs
+
+var dir = path.join(__dirname, 'csv');
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir);
+}
 
 if (!module.parent) {
   app.listen(PORT);
