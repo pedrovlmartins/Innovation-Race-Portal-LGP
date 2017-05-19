@@ -81,10 +81,21 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 
                                 <form class="input-group" style="width:100%;" action="/users/{{id}}/typeDescription"  method="post">
+
+                                {{#compare typeDescription "R&D Manager"}}
+
                                     <div style="width:calc(100% - 39px);">
                                         <input id="type" name="type" value="{{typeDescription}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text">
                                     </div>
                                     <button id="typeButton" class="input-group-addon" style="width:39px;height:34px;" onclick="showDiv(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
+                                {{/compare}}
+                                {{#compare typeDescription "!==" "R&D Manager"}}
+
+                                <div style="width:calc(100% - 39px);">
+                                     <input id="type" name="type" value="{{typeDescription}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text">
+                                </div>
+
+                                {{/compare}}
                                     <!-- AUXILIAR FOR ROLE-->
 
                                     <div id="userTypeOptions" class="form-group"  style="display:none;">
