@@ -38,7 +38,14 @@ router.get('/', function (req, res) {
         database.getUsersCount(function (result) {
           var numberOfUsers = result[0].count;
           vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
-          database.listUsers(offset, itemsPerPage, function (result) {
+          database.listUsers(offset, itemsPerPage, function (error, result) {
+            if (error) {
+              console.error(error);
+              irp.addError(req, 'Unknown error occurred.');
+              res.redirect('/');
+              return;
+            }
+
             result.forEach(
               function (user) {
                 user.isManager = users.isManager(user.type);

@@ -35,10 +35,11 @@ router.get('/:id', function(req,res) {
   res.redirect(req.params.id + '/profile');
 });
 
-router.get('/:id/profile', function(req, res) {
-  if (req.session.userID === undefined)
-    res.sendStatus(401);
-  else {
+router.get('/:id/profile', function(req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('/');
+  } else {
     db.getUserType(req.params.id, function (type) {
 
       if (type === users.types.ALTRAN_MEMBER) {
@@ -50,8 +51,7 @@ router.get('/:id/profile', function(req, res) {
           nextUserInfo(req, res, userInfo, users.getTypeDescription(type))
         });
       } else {
-          console.log(type);
-        res.sendStatus(404);
+          next();
       }
     });
   }
