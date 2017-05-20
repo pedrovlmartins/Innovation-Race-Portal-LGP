@@ -33,6 +33,10 @@ module.exports = {
     return typeNum === types.ALTRAN_MEMBER || typeNum === types.PARTNER || typeNum === types.CLIENT;
   },
 
+  isManager: function (typeNum) {
+    return typeNum === types.MANAGER;
+  },
+
   isAdmin: function (typeNum) {
     return typeNum === types.MANAGER || typeNum === types.COMMITTEE || typeNum === types.TEAM
       || typeNum === types.TECHNICAL_DIRECTOR;

@@ -1,0 +1,94 @@
+{{>header pageName="Business Model Canvas"}}
+<script src="../js/bmc.js"></script>
+
+<div id="bmcContainer" class="container">
+    <div class="bmcTitle">
+        <h4 id="titleBMC">BUSINESS MODEL CANVAS
+        </h4>
+    </div>
+    <form id="bmcForm" action="/bmc" method="post">
+        <div class="row rowmargin">
+            <div class="textareabmc col-sm-2 col-md-2">
+                <label id="keyPartnersLabel" class="titleLabelOne" for="keyPartnersTextarea">Key Partners</label>
+                <span data-toggle="tooltip" data-placement="bottom"
+                      title="Who are our Key Partners?&#13;&#10;Who are our key suppliers?&#13;&#10;Which Key Resources are we acquiring from partners?&#13;&#10;Which Key Activities do partners perform?"
+                      class="glyphicon glyphicon-question-sign glyhiconStyleOne"></span>
+                <textarea id="keyPartnersTextarea" class="form-control" name="keyPartners"></textarea>
+            </div>
+            <div class="textareabmc col-sm-3">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label id="keyActivitiesLabel" class="titleLabelTwo" for="keyActivitiesTextarea">Key
+                            Activities</label>
+                        <span data-toggle="tooltip" data-placement="top"
+                              title="What Key Activities do our Value Propositions require?&#13;&#10;Our Distribution Channels?&#13;&#10;Customer Relationships?&#13;&#10;Revenue streams?"
+                              class="glyphicon glyphicon-question-sign glyhiconStyleTwo"></span>
+                        <textarea id="keyActivitiesTextarea" class="form-control" name="keyActivities"></textarea>
+                    </div>
+                    <div class="col-xs-12">
+                        <label id="keyResourcesLabel" class="titleLabelThree" for="keyResourcesTextarea">Key
+                            Resources</label>
+                        <span data-toggle="tooltip" data-placement="top"
+                              title="What Key Resources do our Value Propositions require?&#13;&#10;Our Distribution Channels?&#13;&#10;Customer Relationships?&#13;&#10;Revenue Streams?&#13;&#10;Types of resources? &#13;&#10;Physical Intellectual (brand patents, copyrights, data) and Human Financial"
+                              class="glyphicon glyphicon-question-sign glyhiconStyleThree"></span>
+                        <textarea id="keyResourcesTextarea" class="form-control" name="keyResources"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="textareabmc col-sm-2">
+                <label id="keyValueLabel" class="titleLabelOne" for="keyValueTextarea">Value Propositions</label>
+                <span data-toggle="tooltip" data-placement="top"
+                      title="Who are our Key Partners?&#13;&#10;Who are our key suppliers?&#13;&#10;Which Key Resources are we acquiring from partners?&#13;&#10;Which Key Activities do partners perform?"
+                      class="glyphicon glyphicon-question-sign glyhiconStyleOne"></span>
+                <textarea id="keyValueTextarea" class="form-control" name="valuePropositions"></textarea>
+            </div>
+            <div class="textareabmc col-sm-3">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label id="keyCostumerLabel" class="titleLabelTwo" for="keyCostumerTextarea">Customer
+                            Relationships</label>
+                        <span data-toggle="tooltip" data-placement="top"
+                              title="Who are our Key Partners?&#13;&#10;Who are our key suppliers?&#13;&#10;Which Key Resources are we acquiring from partners?&#13;&#10;Which Key Activities do partners perform?"
+                              class="glyphicon glyphicon-question-sign glyhiconStyleTwo"></span>
+                        <textarea id="keyCostumerTextarea" class="form-control" name="costumerRelationships"></textarea>
+                    </div>
+                    <div class="col-xs-12">
+                        <label id="keyChannelsLabel" class="titleLabelThree" for="keyChannelsTextarea">Channels</label>
+                        <span data-toggle="tooltip" data-placement="top"
+                              title="Who are our Key Partners?&#13;&#10;Who are our key suppliers?&#13;&#10;Which Key Resources are we acquiring from partners?&#13;&#10;Which Key Activities do partners perform?"
+                              class="glyphicon glyphicon-question-sign glyhiconStyleThree"></span>
+                        <textarea id="keyChannelsTextarea" class="form-control" name="channels"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="textareabmc col-sm-2">
+                <label id="keySegmentsLabel" class="titleLabelOne" for="keySegmentsTextarea">Customer segments</label>
+                <span data-toggle="tooltip" data-placement="top"
+                      title="Who are our Key Partners?&#13;&#10;Who are our key suppliers?&#13;&#10;Which Key Resources are we acquiring from partners?&#13;&#10;Which Key Activities do partners perform?"
+                      class="glyphicon glyphicon-question-sign glyhiconStyleOne"></span>
+                <textarea id="keySegmentsTextarea" class="form-control" name="costumerSegments"></textarea>
+            </div>
+        </div>
+
+        <div class="row rowmargin">
+            <div class="textareabmc col-md-6">
+                <label id="keyCostLabel" class="titleLabelFour" for="keyCostTextarea">Cost Structure</label>
+                <span data-toggle="tooltip" data-placement="top"
+                      title="Who are our Key Partners?&#13;&#10;Who are our key suppliers?&#13;&#10;Which Key Resources are we acquiring from partners?&#13;&#10;Which Key Activities do partners perform?"
+                      class="glyphicon glyphicon-question-sign glyhiconStyleFour"></span>
+                <textarea id="keyCostTextarea" class="form-control" name="costStructure"></textarea>
+            </div>
+            <div class="lowerbmc textareabmc col-md-6">
+                <label id="keyRevenueLabel" class="titleLabelFour" for="keyRevenueTextarea">Revenue Streams</label>
+                <span data-toggle="tooltip" data-placement="top"
+                      title="Who are our Key Partners?&#13;&#10;Who are our key suppliers?&#13;&#10;Which Key Resources are we acquiring from partners?&#13;&#10;Which Key Activities do partners perform?"
+                      class="glyphicon glyphicon-question-sign glyhiconStyleFour"></span>
+                <textarea id="keyRevenueTextarea" class="form-control" name="revenueStreams"></textarea>
+            </div>
+        </div>
+
+        <div class="container">
+            <button id="submitBMC" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

@@ -4,8 +4,6 @@ services:
     build: "src"
     expose:
       - "8080"
-    depends_on:
-      - "database"
     environment:
       - NODE_ENV
       - DEBUG=$${DEBUG}

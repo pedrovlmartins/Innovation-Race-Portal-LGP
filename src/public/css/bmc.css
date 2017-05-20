@@ -1,0 +1,226 @@
+.tooltip-inner {
+    max-width: 300px;
+    width: 300px;
+}
+
+.glyphicon:hover {
+    color: rgb(35, 127, 195);
+}
+
+@media screen and (max-width: 1200px) {
+    #keyPartnersLabel, #keyValueLabel, #keyCostumerLabel, #keySegmentsLabel {
+        font-size: 83%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #keyValueLabel, #keySegmentsLabel {
+        font-size: 55%;
+    }
+}
+
+.glyhiconStyleOne {
+    position: absolute;
+    top: 3%;
+    right: 15px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleTwo {
+    position: absolute;
+    top: 4%;
+    right: 25px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleThree {
+    position: absolute;
+    top: 6%;
+    right: 25px;
+    z-index: 1;
+    height: 10px;
+}
+
+.glyhiconStyleFour {
+    position: absolute;
+    top: 10%;
+    right: 15px;
+    z-index: 1;
+    height: 10px;
+}
+
+.titleLabelOne {
+    position: absolute;
+    top: 3%;
+    left: 15px;
+    z-index: 1;
+    color: #7d7d7d;
+    background-color: #e7e7e7;
+}
+
+.titleLabelTwo {
+    position: absolute;
+    top: 4%;
+    left: 25px;
+    z-index: 1;
+    color: #7d7d7d;
+    background-color: #e7e7e7;
+}
+
+.titleLabelThree {
+    position: absolute;
+    top: 6%;
+    left: 25px;
+    z-index: 1;
+    color: #7d7d7d;
+    background-color: #e7e7e7;
+}
+
+.titleLabelFour {
+    position: absolute;
+    top: 10%;
+    left: 15px;
+    z-index: 1;
+    color: #7d7d7d;
+    background-color: #e7e7e7;
+}
+
+#keyPartnersTextarea, #keyActivitiesTextarea, #keyResourcesTextarea, #keyValueTextarea,
+#keyCostumerTextarea, #keyChannelsTextarea, #keySegmentsTextarea, #keyCostTextarea, #keyRevenueTextarea {
+  width:100%;
+  max-width:100%;
+  min-width:100%;
+  padding:30px 4%;
+  height:480px;
+  resize: none;
+  outline: none !important;
+  border:1px solid black;
+  box-shadow: 0 0 10px rgb(35, 127, 195);
+  outline-style: solid;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;
+  display: block;
+  background-color: #e7e7e7;
+}
+
+#keyActivitiesTextarea, #keyResourcesTextarea, #keyCostumerTextarea, #keyChannelsTextarea{
+  height:235px;
+}
+
+.containerBMC:before{
+    content:'';
+    display: block;
+    height: 30px;
+    background: #e7e7e7;
+    position: absolute;
+    left: 8px;
+    right: 13px;
+    top: 6px;
+}
+
+.containerBMC2:before {
+    content:'';
+    display: block;
+    height: 35px;
+    background: #e7e7e7;
+    position: absolute;
+    left: 18px;
+    right: 25px;
+    top: 1px;
+}
+
+.containerBMC3:before {
+    content:'';
+    display: block;
+    height: 35px;
+    background: #e7e7e7;
+    position: absolute;
+    left: 18px;
+    right: 25px;
+    top: 6px;
+}
+
+#titleBMC {
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  color: rgb(24, 178, 232);
+  margin-top: 10%;
+  font-weight: bold;
+}
+
+#submitBMC {
+  background-color: rgb(35, 127, 195);
+  width: 120px;
+  border-radius: 0;
+  margin-top: 1%;
+}
+
+.textareabmc {
+  padding:5px;
+}
+
+#keyActivitiesTextarea, #keyCostumerTextarea {
+  margin-bottom: 5px;
+}
+
+#keyResourcesTextarea, #keyChannelsTextarea {
+  margin-top: 5px;
+}
+
+#keyCostTextarea, #keyRevenueTextarea {
+  height:120px;
+}
+
+#submitBMC {
+  float: right;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+}
+:-moz-placeholder {
+  text-align: center;
+}
+::-moz-placeholder {
+  text-align: center;
+}
+:-ms-input-placeholder {
+  text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: #797979;
+    border: 28px none #ffffff;
+    border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #7d7d7d;
+}
+::-webkit-scrollbar-thumb:active {
+    background: #797979;
+}
+::-webkit-scrollbar-track {
+    background: #d6d6d6;
+    border: 100px none #ffffff;
+    border-radius: 100px;
+}
+::-webkit-scrollbar-track:hover {
+    background: #d6d6d6;
+}
+::-webkit-scrollbar-track:active {
+    background: #d6d6d6;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}

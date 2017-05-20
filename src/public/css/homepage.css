@@ -9,6 +9,7 @@ body {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
+	font-family: 'Open Sans', sans-serif;
 }
 
 img.bg {
@@ -17,12 +18,11 @@ img.bg {
 
 .innovationHeader{
     text-align: center;
-    margin-top: 25%;
-    font-size: 7em;
+    margin-top: 20%;
+    font-size: 5vw;
 	font-weight: bold;
     letter-spacing: 1px;
     color: #4298b5;
-    font-family: 'Open Sans', sans-serif;
 }
 
 .titleSection {
@@ -35,31 +35,27 @@ img.bg {
 	margin-top: 30%;
 	height: 100%;
 	width: 100%;
-	background-color: rgba(24, 178, 232, 0.8);
+	background-color: rgba(255, 255, 255, 0.9);
     padding-bottom: 5%;
 }
 
 .contactPage {
 	margin-top: 20%;
+	margin-left: 20%;
 }
 
 .contactHeader {
-	text-align: center;
+	color: rgb(24, 178, 232);
+	text-align: left;
+}
+
+.contactHeaderForm {
+	text-align: left;
+	color: rgb(24, 178, 232);
 }
 
 .contactPageForm {
 	margin-top: 20%;
-}
-
-.aboutSection {
-	padding: 50px 0;
-	height: 100%;
-	width: 100%;
-	background-color: white;
-}
-
-.aboutPage {
-	margin-top: 15%;
 }
 
 .managerInfo {
@@ -72,4 +68,25 @@ img.bg {
 
 .submitContactButton {
 	text-align: right;
+}
+
+.buttonSend {
+	color: white;
+	background-color: rgb(24, 178, 232);
+}
+
+.aboutHeader{
+    text-align: center;
+	color: white;
+}
+.aboutContainer {
+	padding-top: 18%;
+    padding-bottom: 18%;
+    padding-left: 18%;
+    padding-right: 18%;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(24, 178, 232, 0.8);
+	text-align: justify;
+	color: white;
 }

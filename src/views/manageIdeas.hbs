@@ -7,24 +7,28 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">Manage Ideas</h1>
-                <hr>
+                <div class="row">
+                    <div class="col-md-9">
+                        <h1 id="homeHeading">Manage Ideas</h1>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="imaginary_container">
+                            <form action="/manageIdeas" method="get">
+                                <div class="input-group stylish-input-group">
+                                    <input type="text" class="form-control searchWord" placeholder="Search" name="keyword" value=''>
+                                    <span class="input-group-addon">
+                                        <button type="submit">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
-
-    <div id="imaginary_container">
-        <form action="/manageIdeas" method="get">
-            <div class="input-group stylish-input-group">
-                <input type="text" class="form-control"  placeholder="Search" name="keyword" value=''>
-                <span class="input-group-addon">
-                    <button type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
-            </div>
-        </form>
-    </div>
 
 
     <table class="table table-hover table-bordered rankingTable">
@@ -37,14 +41,30 @@
         </tr>
         </thead>
         <tbody>
-        {{#each ideas}}
+        {{#if ideas}}
+            {{#each ideas}}
+                {{#compare state "Cancelled"}}
+                <tr class="cancelledLine">
+                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                    <td>{{state}}</td>
+                    <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
+                </tr>
+                {{/compare}}
+                {{#compare state "!==" "Cancelled"}}
+                <tr class="tablesBackground">
+                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                    <td>{{state}}</td>
+                    <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
+                </tr>
+                {{/compare}}
+            {{/each}}
+        {{else}}
             <tr>
-                <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                <td>{{state}}</td>
-                <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
+                <td class="noIdeas" colspan="4">No ideas found.</td>
             </tr>
-        {{/each}}
+        {{/if}}
         </tbody>
     </table>
 

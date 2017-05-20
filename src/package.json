@@ -10,6 +10,7 @@
     "acceptance_tests": "./node_modules/.bin/wdio wdio.conf.js"
   },
   "dependencies": {
+    "array-to-csv": "^1.0.1",
     "body-parser": "latest",
     "cookie-parser": "^1.4.3",
     "email-templates": "^2.5.4",

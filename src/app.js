@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const hbs = require('hbs');
 const hbsutils = require('hbs-utils')(hbs);
 
@@ -25,8 +26,12 @@ const contact = require(path.join(__base, 'routes', 'contact'));
 const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
 const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
 const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
+const manageRaces = require(path.join(__base, 'routes', 'manageRaces'));
 const ideas = require(path.join(__base, 'routes', 'ideas'));
+const users = require(path.join(__base, 'routes', 'users'));
 const classification = require(path.join(__base, 'routes', 'classification'));
+const ranking = require(path.join(__base, 'routes', 'ranking'));
+const bmc = require(path.join(__base, 'routes', 'bmc'));
 const auth = {
   activate: require(path.join(__base, 'routes', 'auth', 'activate')),
   login: require(path.join(__base, 'routes', 'auth', 'login')),
@@ -39,48 +44,13 @@ const app = express();
 
 // View engine setup
 const helpers = require(path.join(__base, 'lib', 'helpers'));
+var irp = require("./lib/irp.js");
 app.set('view engine', 'hbs');
 app.set('views', path.join(__base, 'views'));
-hbs.registerHelper('add-pagination', helpers.addPagination);
 hbs.registerPartials(path.join(__base, 'views', 'partials'));
 hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
-
-hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
-  var operators;
-  var result;
-
-  if (arguments.length < 3) {
-    throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
-  }
-
-  if (options === undefined) {
-    options = rvalue;
-    rvalue = operator;
-    operator = '===';
-  }
-
-  operators = {
-    '==': function (l, r) { return l == r; },
-    '===': function (l, r) { return l === r; },
-    '!=': function (l, r) { return l != r; },
-    '!==': function (l, r) { return l !== r; },
-    '<': function (l, r) { return l < r; },
-    '>': function (l, r) { return l > r; },
-    '<=': function (l, r) { return l <= r; },
-    '>=': function (l, r) { return l >= r; },
-    'typeof': function (l, r) { return typeof l == r; },
-  };
-  if (!operators[operator]) {
-    throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
-  }
-
-  result = operators[operator](lvalue, rvalue);
-  if (result) {
-    return options.fn(this);
-  } else {
-    return options.inverse(this);
-  }
-});
+hbs.registerHelper('add-pagination', helpers.addPagination);
+hbs.registerHelper('compare', helpers.compare);
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));
@@ -99,17 +69,20 @@ bb.extend(app, {
 // Routes
 app.use('/', routes);
 app.use('/about', about);
-app.use('/contact', contact);
-app.use('/innovationRules', innovationRules);
-app.use('/manageUsers', manageUsers);
-app.use('/manageIdeas', manageIdeas);
-app.use('/ideas', ideas);
-app.use('/classification', classification);
-
 app.use('/auth/activate', auth.activate);
 app.use('/auth/login', auth.login);
 app.use('/auth/logout', auth.logout);
 app.use('/auth/register', auth.register);
+app.use('/bmc', bmc);
+app.use('/contact', contact);
+app.use('/classification', classification);
+app.use('/ideas', ideas);
+app.use('/innovationRules', innovationRules);
+app.use('/manageUsers', manageUsers);
+app.use('/manageIdeas', manageIdeas);
+app.use('/manageRaces', manageRaces);
+app.use('/ranking', ranking);
+app.use('/users', users);
 
 // Favicon
 app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
@@ -117,6 +90,21 @@ app.use(favicon(path.join(__base, 'public', 'images', 'ico', 'favicon.ico')));
 // Static Dirs
 app.use(express.static(path.join(__base, 'public')));
 app.use(express.static(path.join(__base, 'images')));
+
+app.use('*', function (req, res, next) {
+  res.status(404);
+  var vars = irp.getActionResults(req);
+  if (req.session.userID !== undefined)
+    vars.userID = req.session.userID;
+  res.render('errorPage', vars);
+});
+
+// Create Necessary Dirs
+
+var dir = path.join(__dirname, 'csv');
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir);
+}
 
 if (!module.parent) {
   app.listen(PORT);

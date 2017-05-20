@@ -1,9 +1,13 @@
 #imaginary_container{
-    margin-top: 5%;
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-bottom: -5%;
+    text-align: right;
+    width: 100%;
+    margin-top: 4%;
 }
+
+.searchWord {
+    text-align: center;
+}
+
 .stylish-input-group .input-group-addon{
     background: white !important;
 }
@@ -17,20 +21,44 @@
     background:transparent;
 }
 
-#homeHeading {
-    text-align: center;
-    margin-top: 10%;
-}
-
-.rankingTable {
-    margin-top: 10%;
-    margin-left: 2%;
+.rankingTableStyle {
+    margin-top: 5%;
 }
 
 .rankingTableHead {
     background-color: #4298b5;
 }
 
+#homeHeading {
+    font-weight: bold;
+    text-align: left;
+}
+
 .clickable-row {
     cursor: pointer;
+}
+
+.cancelledLine {
+    background-color: #d9d9d9;
+    color:red;
+}
+
+.noIdeas {
+    text-align: center;
+}
+
+.noUsers {
+    text-align: center;
+}
+
+.tablesBackground {
+    background-color: rgba(233,227,220,0.7);
+}
+
+.newRaceButton {
+    margin-top: 4%;
+}
+
+.exportDatabaseButton {
+    margin-top: 4%;
 }

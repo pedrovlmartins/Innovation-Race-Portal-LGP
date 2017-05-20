@@ -5,24 +5,28 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">Manage Users</h1>
-                <hr>
+                <div class="row">
+                    <div class="col-md-9">
+                        <h1 id="homeHeading">Manage Users</h1>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="imaginary_container">
+                            <form action="/manageUsers" method="get">
+                                <div class="input-group stylish-input-group">
+                                    <input type="text" class="form-control searchWord" placeholder="Search" name="keyword" value=''>
+                                    <span class="input-group-addon">
+                                        <button type="submit">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
-
-    <div id="imaginary_container">
-        <form action="/manageUsers" method="get">
-            <div class="input-group stylish-input-group">
-                <input type="text" class="form-control"  placeholder="Search" name="keyword" value=''>
-                <span class="input-group-addon">
-                    <button type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
-            </div>
-        </form>
-    </div>
 
 
     <table class="table table-hover table-bordered rankingTable">
@@ -31,16 +35,42 @@
             <th>Name</th>
             <th>Email</th>
             <th>Position in Altran</th>
+            <th>Blocked</th>
+            <th colspan="2">Actions</th>
         </tr>
         </thead>
         <tbody>
-        {{#each users}}
-        <tr>
-            <td><a href="/users/{{id}}">{{name}}</a></td>
-            <td>{{email}}</a></td>
-            <td>{{role}}</td>
-        </tr>
-        {{/each}}
+        {{#if users}}
+            {{#each users}}
+                <tr class="tablesBackground">
+                    <td><a href="/users/{{id}}">{{name}}</a></td>
+                    <td>{{email}}</a></td>
+                    <td>{{type}}</td>
+                    {{#if blocked}}
+                        <td>Yes</td>
+                    {{else}}
+                        <td>No</td>
+                    {{/if}}
+
+                    <td>{{#unless isAdmin}}
+                        {{#if confirmed}}
+                    {{#if blocked}}
+                        <a href="/users/{{id}}/unblock">Unblock</a>
+                        {{else}}
+                         <a href="/users/{{id}}/block">Block</a>
+                        {{/if}}
+                    {{else}}
+                        <a href="/users/{{id}}/confirm">Confirm</a>
+                        {{/if}}
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/each}}
+        {{else}}
+            <tr>
+                <td class="noUsers" colspan="5">No users found.</td>
+            </tr>
+        {{/if}}
         </tbody>
     </table>
 
