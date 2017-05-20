@@ -41,14 +41,16 @@ img.bg {
 
 .contactPage {
 	margin-top: 20%;
+	margin-left: 20%;
 }
 
 .contactHeader {
-	color: rgb(24, 178, 232);;
+	color: rgb(24, 178, 232);
+	text-align: left;
 }
 
 .contactHeaderForm {
-	text-align: center;
+	text-align: left;
 	color: rgb(24, 178, 232);
 }
 

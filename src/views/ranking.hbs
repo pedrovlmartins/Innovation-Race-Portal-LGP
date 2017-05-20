@@ -25,7 +25,7 @@
         <tbody>
         {{#each ideas}}
             {{#compare score 0}}
-                <tr>
+                <tr class="tablesBackground">
                     <td><a href="/ideas/{{id}}">{{title}}</a></td>
                     <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
                     <td>{{state}}</td>
@@ -33,7 +33,7 @@
                 </tr>
             {{/compare}}
             {{#compare score "!==" 0}}
-                <tr>
+                <tr class="tablesBackground">
                     <td><a href="/ideas/{{id}}">{{title}}</a></td>
                     <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
                     <td>{{state}}</td>
