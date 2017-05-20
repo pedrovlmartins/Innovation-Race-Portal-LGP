@@ -20,7 +20,7 @@
     </div>
     {{#compare page "profile"}}
     <div id="profileDiv" class="profileDiv">
-        <div class="well form-horizontal"  id="user_page">
+        <div class="well form-horizontal formsBackground"  id="user_page">
             <fieldset>
                 <!-- Name -->
 
@@ -157,7 +157,7 @@
                 <tbody>
                 {{#if ideas}}
                     {{#each ideas}}
-                        <tr>
+                        <tr class="tablesBackground">
                             <td><a href="/ideas/{{id}}">{{title}}</a></td>
                             <td>{{state}}</td>
                             <td>{{score}}</td>
@@ -185,7 +185,7 @@
         <div id="submitDiv" class="submitIdea">
                 <div class="row" id="submit_idea">
                     <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                        <div class="modal-body">
+                        <div class="modal-body formsBackground">
                             <div class="modal-body main-submit main-center">
                                 <form id="idea-form" method="post" action="submit">
                                     <div class="form-group">
@@ -231,20 +231,38 @@
                                         <textarea rows=8 cols=50 type="text" id="results" name="results"
                                                   class="form-control">{{draft.results}}</textarea>
                                     </div>
-                                    <div class="submiteButton">
-                                        <div class="row">
-                                            <div class="col-xs-8 col-xs-offset-2">
+
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="saveDraftButton">
+                                                <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="submiteButton">
                                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!--<div class="submiteButton">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="saveDraftButton">
                                         <div class="row">
                                             <div class="col-xs-6 col-xs-offset-3">
                                                 <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </form> <!-- /form -->
                             </div>
                         </div>
