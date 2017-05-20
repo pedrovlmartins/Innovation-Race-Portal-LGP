@@ -48,7 +48,7 @@ router.get('/', function (req, res) {
 
             result.forEach(
               function (user) {
-                user.isManager = users.isManager(user.type);
+                user.isAdmin = users.isAdmin(user.type);
                 user.type = users.getTypeDescription(user.type);
 
               }
@@ -66,7 +66,7 @@ router.get('/', function (req, res) {
           vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
           result.forEach(
             function (user) {
-              user.isManager = users.isManager(user.type);
+              user.isAdmin = users.isAdmin(user.type);
               user.type = users.getTypeDescription(user.type);
             }
           );
