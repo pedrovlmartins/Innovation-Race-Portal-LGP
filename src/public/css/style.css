@@ -126,3 +126,7 @@ thead {
     /*background-color: lightsalmon;*/
     color: red;
 }
+
+.actionsResultsBox {
+    margin-top: 2%;
+}
