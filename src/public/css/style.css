@@ -149,4 +149,10 @@ thead {
 
 .loginButton {
     margin-top: 10%;
+    width: 95%;
 }
+
+.confirmPassRegister {
+    margin-top: 3%;
+}
+
