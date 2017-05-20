@@ -524,6 +524,15 @@ module.exports = {
       });
   },
 
+  removeDraft: function (userId, next) {
+
+      pool.query('DELETE FROM drafts WHERE drafts.user_id = ? ;',
+          [userId],
+          function (err, result) {
+              next(result);
+          });
+  },
+
   loadDraft: function (userId, next) {
 
     pool.query('SELECT * FROM drafts WHERE drafts.user_id = ? ;',

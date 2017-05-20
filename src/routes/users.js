@@ -216,8 +216,11 @@ router.post('/:id/submit', function (req, res) {
                             res.redirect('back');
                         } else {
                             irp.addSuccess(req, 'Idea successfully created.');
-                            res.redirect('back');
-                            irp.cleanActionResults(req);
+                            db.removeDraft(irp.currentUserID(req),function() {
+                                console.log("remove");
+                                res.redirect('back');
+                                irp.cleanActionResults(req);
+                            });
                         }
                     });
             });
