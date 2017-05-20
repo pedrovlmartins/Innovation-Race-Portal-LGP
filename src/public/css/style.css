@@ -142,3 +142,13 @@ thead {
     font-weight: bold;
     text-align: center;
 }
+
+.registerModalOpening {
+    margin-bottom: 10%;
+}
+
+.loginButton {
+    margin-top: 10%;
+    width: 50%;
+    text-align: center;
+}
