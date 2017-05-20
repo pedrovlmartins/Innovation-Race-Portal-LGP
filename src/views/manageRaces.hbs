@@ -9,16 +9,23 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">Manage Races</h1>
+                <div class="row">
+                    <div class="col-md-9">
+                        <h1 id="homeHeading">Manage Races</h1>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-default newRaceButton" data-toggle="modal" data-target="#createRaceModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New race</button>
+                        <button class="btn btn-default exportDatabaseButton" id="exportDatabase"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export database</button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
+
     <form id="exportDatabaseForm" action="manageRaces/exportDatabase" method="post">
     </form>
 
-    <button class="btn btn-default" data-toggle="modal" data-target="#createRaceModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New race</button>
-    <button class="btn btn-default" id="exportDatabase"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export database</button>
     <table class="table table-hover table-bordered table-responsive">
         <thead>
         <tr>

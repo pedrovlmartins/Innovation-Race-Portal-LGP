@@ -1,6 +1,7 @@
 #imaginary_container{
     text-align: right;
-    width: 35%;
+    width: 100%;
+    margin-top: 5%;
 }
 
 .searchWord {
@@ -20,12 +21,6 @@
     background:transparent;
 }
 
-/* Ranking page */
-.rankingTable {
-    margin-top: 10%;
-    margin-left: 2%;
-}
-
 .rankingTableStyle {
     margin-top: 5%;
     margin-left: 2%;
@@ -37,6 +32,7 @@
 
 #homeHeading {
     font-weight: bold;
+    text-align: left;
 }
 
 .clickable-row {
@@ -57,4 +53,12 @@
 
 .tablesBackground {
     background-color: rgb(233,227,220);
+}
+
+.newRaceButton {
+    margin-top: 5%;
+}
+
+.exportDatabaseButton {
+    margin-top: 5%;
 }
