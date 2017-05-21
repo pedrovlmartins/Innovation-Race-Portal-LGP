@@ -40,7 +40,21 @@
             <tr>
                 <td><a href="/users/{{id}}">{{name}}</a></td>
                 <td>{{email}}</a></td>
-                <td>{{type}}</td>
+
+                <td>{{type}}
+                    <form class="input-group" action="/users/{{id}}/typeDescription"  method="post" >
+                <select name="type">
+                    <option value="0">Unknown</option>
+                    <option value="1">Altran member</option>
+                    <option id="type" name="type" value="2">Partner</option>
+                    <option id="type" name="type" value="3">Client</option>
+                    <option id="type" name="type" value="4">R&D Manager</option>
+                    <option id="type" name="type" value="5">R&D Committee</option>
+                    <option id="type" name="type" value="6">R&D Team</option>
+                    <option id="type" name="type" value="7">Technical Director</option>
+                    <input type="submit" value="Submit"/>
+                </select>
+                    </form> </td>
                 {{#if blocked}}
                     <td>Yes</td>
                 {{else}}

@@ -366,17 +366,11 @@ router.post('/:id/password', function (req, res){
 
 router.post('/:id/typeDescription', function (req, res){
 
+    console.log(req.body);
+    console.log("teste");
     if(req.session.userID === undefined)
         res.sendStatus(401);
 
-
-    console.log(req.session.userType);
-
-        if (req.session.userType !== 4) {
-            console.log("t123este");
-
-        }
-        else if(req.session.userType ===4){
             db.updateUserType(req.params.id, req.body.type, function (error, results) {
                 if (error) {
                     irp.addError(req, 'Unkown error occurred.');
@@ -388,10 +382,6 @@ router.post('/:id/typeDescription', function (req, res){
                 res.redirect('back');
                 return;
             });
-        }
-        else{
-            console.log(erro);
-        }
 });
 
 module.exports = router;

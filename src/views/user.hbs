@@ -79,65 +79,10 @@
                         <div class="col-md-4 selectContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-
-                                <form class="input-group" style="width:100%;" action="/users/{{id}}/typeDescription"  method="post">
-
-                                    <div style="width:calc(100% - 39px);">
-                                        <input id="type" name="type" value="{{typeDescription}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text">
-                                    </div>
-                                    <button id="typeButton" class="input-group-addon" style="width:39px;height:34px;" onclick="showDiv(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
-
-                                    <!-- AUXILIAR FOR ROLE-->
-
-                                    <div id="userTypeOptions" class="form-group"  style="display:none;">
-                                        <label class="control-label col-sm-2">User Type</label>
-                                        <div class="col-sm-10">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <label class="radio-inline">
-                                                        <input type="radio" id="MemberRadio" name="type" value="2" >Member
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <label class="radio-inline">
-                                                        <input type="radio" id="PartnerRadio" name="type" value="1"
-                                                        >Partner
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <label class="radio-inline">
-                                                        <input type="radio" id="CustomerRadio" name="type" value="0"
-                                                        >Customer
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <label class="radio-inline">
-                                                        <input type="radio" id="R&DCommitteeRadio" name="type" value="5"
-                                                        >R&D Committee
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <label class="radio-inline">
-                                                        <input type="radio" id="R&DTeamRadio" name="type" value="6"
-                                                        >R&D Team
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <label class="radio-inline">
-                                                        <input type="radio" id="TechnicalRadio" name="type" value="7"
-                                                        >Technical Director
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
+                                <input id="type" name="type" value="{{typeDescription}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text">
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-
 
                     {{#compare typeDescription "Altran member"}}
                         <!-- Collaborator Number -->
