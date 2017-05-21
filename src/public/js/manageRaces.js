@@ -1,4 +1,8 @@
 $(document).ready(function () {
+  $('#exportDatabase').click(function() {
+    $('#exportDatabaseForm').submit();
+  });
+
   $('.race-remove').click(function (event) {
     var raceID = $(this).data('id');
     swal({

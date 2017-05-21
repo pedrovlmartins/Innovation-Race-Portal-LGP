@@ -7,13 +7,12 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">Rankings</h1>
-                <hr>
+                <h1 id="rankingHeading">Ranking</h1>
             </div>
         </div>
     </header>
 
-    <table class="table table-hover table-bordered rankingTable">
+    <table class="table table-hover table-bordered rankingTableStyle">
         <thead class="rankingTableHead">
         <tr>
             <th>Ideas</th>
@@ -24,12 +23,22 @@
         </thead>
         <tbody>
         {{#each ideas}}
-            <tr>
-                <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                <td>{{state}}</td>
-                <td>{{score}}</td>
-            </tr>
+            {{#compare score 0}}
+                <tr class="tablesBackground">
+                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                    <td>{{state}}</td>
+                    <td class="noScore">{{score}}</td>
+                </tr>
+            {{/compare}}
+            {{#compare score "!==" 0}}
+                <tr class="tablesBackground">
+                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                    <td>{{state}}</td>
+                    <td>{{score}}</td>
+                </tr>
+            {{/compare}}
         {{/each}}
         </tbody>
     </table>

@@ -6,7 +6,7 @@ const ideas = require(path.join(__base, 'lib', 'ideas'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 const users = require(path.join(__base, 'lib', 'users'));
 
-router.post('/:id/validate', function (req, res, next) { // Evaluation
+/*router.post('/:id/validate', function (req, res, next) { // Evaluation
   db.getUserType(req.session.userID, function (type) {
     if (!irp.currentCanEvaluateIdea(req)) {
       irp.addError(req, 'You are not allowed to evaluate an idea.');
@@ -56,7 +56,56 @@ router.post('/:id/decline', function (req, res, next) { // Evaluation
     }
   });
 });
+*/
 
+router.post('/:id/evaluation', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  if (!irp.currentCanEvaluateIdea(req)) {
+    irp.addError(req, 'Only a R&D Director may may evaluate an idea.');
+    res.redirect('back');
+    return;
+  }
+
+  db.getIdea(req.params.id, function (ideaInfo) {
+    if (ideaInfo === undefined) {
+      irp.addError(req, 'Could not find idea.');
+      res.redirect('back');
+      return;
+    }
+
+    if (ideaInfo.cancelled[0]) {
+      irp.addError(req, 'You cannot evaluate a cancelled idea.');
+      res.redirect('back');
+      return;
+    }
+
+    if (req.body.evaluated === 'true') {
+      db.updatedIdeaState_evaluate(req.params.id, function (error, result) {
+        if (error) {
+          console.error(error);
+          irp.addError(req, 'Unknown error occurred, please try again later.');
+          res.redirect('back');
+          return;
+        }
+
+        irp.addSuccess(req, 'The idea has been evaluated sucessfully.');
+        res.redirect('back');
+        sendCoachingEndNotificationEmail(ideaInfo.creatorId, ideaInfo.title, true);
+      });
+    } else {
+      db.updateIdeaState_decline(req.params.id, function (result) {
+        irp.addSuccess(req, 'The idea has been rejected.');
+        res.redirect('back');
+        sendCoachingEndNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
+      });
+    }
+  });
+});
 
 router.post('/:id/selection', function (req, res, next) {
   if (!irp.currentUserID(req)) {
@@ -107,6 +156,7 @@ router.post('/:id/selection', function (req, res, next) {
   });
 });
 
+/*
 router.post('/:id/commissionDecline', function (req, res, next) {
   db.getUserType(req.session.userID, function (type) {
     if (type !== 4) {
@@ -123,7 +173,9 @@ router.post('/:id/commissionDecline', function (req, res, next) {
     }
   });
 });
+*/
 
+/*
 router.post('/:id/select', function (req, res, next) {
   if (!irp.currentUserID(req)) {
     irp.addError(req, 'You are not logged in.');
@@ -149,6 +201,7 @@ router.post('/:id/select', function (req, res, next) {
     res.redirect('back');
   });
 });
+*/
 
 /* R&D Manager Permission to go or not to next phase (Kick-Off) */
 router.post('/:id/goKickOff', function (req, res, next) {
@@ -201,44 +254,45 @@ router.post('/:id/goKickOff', function (req, res, next) {
 });
 
 router.post('/:id/bmc', function (req, res) {
-    /*if (!users.isParticipant(irp.currentUserType(req))) {
-     irp.addError(req, 'You must be a participant in the contest in order to fill the BMC.');
-     res.redirect('back');
-     return;
-     }*/
+  /*if (!users.isParticipant(irp.currentUserType(req))) {
+   irp.addError(req, 'You must be a participant in the contest in order to fill the BMC.');
+   res.redirect('back');
+   return;
+   }*/
 
-    db.insertBMC(req.params.id, req.body.keyPartners, req.body.keyActivities,
-        req.body.keyResources, req.body.valuePropositions,
-        req.body.costumerSegments, req.body.costumerRelationships,
-        req.body.channels, req.body.costStructure, req.body.revenueStreams,
-        function (err) {
-            if (err) {
-              console.error(err);
-              irp.addError(req, err);
-              res.redirect('../../');
-              irp.cleanActionResults(req);
-            } else {
-                db.updatedIdeaState_coaching(req.params.id, function (error, result) {
-                    if (error) {
-                        console.error(error);
-                        irp.addError(req, 'Unknown error occurred, please try again later.');
-                        res.redirect('back');
-                        return;
-                    }
-
-                    irp.addSuccess(req, 'The idea is now waiting for GO / NO GO after the coaching!');
-                    res.redirect('back');
-                });
-            }
+  db.insertBMC(req.params.id, req.body.keyPartners, req.body.keyActivities,
+    req.body.keyResources, req.body.valuePropositions,
+    req.body.costumerSegments, req.body.costumerRelationships,
+    req.body.channels, req.body.costStructure, req.body.revenueStreams,
+    function (err) {
+      if (err) {
+        console.error(err);
+        irp.addError(req, err);
+        res.redirect('../../');
+        irp.cleanActionResults(req);
+      } else {
+        db.updatedIdeaState_coaching(req.params.id, function (error, result) {
+          if (error) {
+            console.error(error);
+            irp.addError(req, 'Unknown error occurred, please try again later.');
+            res.redirect('back');
+            return;
           }
-    );
+
+          irp.addSuccess(req, 'The idea is now waiting for GO / NO GO after the coaching!');
+          res.redirect('back');
+        });
+      }
+    }
+  );
 });
 
 router.get('/:id', function (req, res) {
   var ids = [];
-  if (req.session.userID === undefined)
-    res.sendStatus(401);
-  else {
+  if (req.session.userID === undefined) {
+    irp.addError(req, 'You need to be logged in to see ideas info.');
+    res.redirect('back');
+  } else {
     db.getIdea(req.params.id, function (ideaInfo) {
       if (ideaInfo === undefined)
         res.sendStatus(404);
@@ -264,16 +318,16 @@ router.get('/:id', function (req, res) {
                   members: members,
                   type: type,
                   ideaState: ideaInfo.state,
-                  ideaCancelled: ideaInfo.cancelled[0],
-                  canEvaluateIdea: !ideaInfo.cancelled[0]
+                  ideaCancelled: ideaInfo.cancelled,
+                  canEvaluateIdea: !ideaInfo.cancelled
                     && ideaInfo.state == ideas.states.AWAITING_EVALUATION
                     && irp.currentCanEvaluateIdea(req),
-                  canSelectIdea: !ideaInfo.cancelled[0]
+                  canSelectIdea: !ideaInfo.cancelled
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
-                  canCoachIdea: !ideaInfo.cancelled[0]
+                  canCoachIdea: !ideaInfo.cancelled
                     && ideaInfo.state === ideas.states.IN_COACHING_PHASE,
-                  canGoKickOffIdea: !ideaInfo.cancelled[0]
+                  canGoKickOffIdea: !ideaInfo.cancelled
                   && ideaInfo.state === ideas.states.AWAITING_GO_NO_GO
                   && irp.currentCanSelectIdea(req),
                 };

@@ -231,7 +231,7 @@ module.exports = {
       'ORDER BY name ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
-        next(results);
+        next(error, results);
     });
   },
 
@@ -275,7 +275,7 @@ module.exports = {
 
   listRaces: function (limit, offset, next) {
     pool.query('SELECT * FROM races ' +
-      'ORDER BY phase1Start ASC ' +
+      'ORDER BY phase1Start DESC ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
@@ -360,6 +360,7 @@ module.exports = {
       });
   },
 
+  /*
   updateIdeaState_validate: function (id, state, next) {
     pool.query(
       'UPDATE ideas ' +
@@ -369,6 +370,7 @@ module.exports = {
           next(result);
       });
   },
+*/
 
   updateIdeaState_decline: function (id, next) {
     pool.query(
@@ -380,6 +382,24 @@ module.exports = {
       });
   },
 
+
+  updatedIdeaState_evaluate: function (id, next) {
+    pool.query(
+      'UPDATE ideas ' +
+      'SET state = ? ' +
+      'WHERE ideas.id = ? ' +
+      'AND state = ? ' +
+      'AND cancelled = FALSE;',
+      [ideas.states.AWAITING_SELECTION, id, ideas.states.AWAITING_EVALUATION],
+      function (err, result) {
+        if (err) {
+          next(err);
+        } else {
+          next(null, result);
+        }
+      });
+  },
+
   updatedIdeaState_select: function (id, next) {
     pool.query(
       'UPDATE ideas ' +
@@ -387,7 +407,7 @@ module.exports = {
       'WHERE ideas.id = ? ' +
       'AND state = ? ' +
       'AND cancelled = FALSE;',
-      [ideas.states.SELECTED, id, ideas.states.AWAITING_SELECTION],
+      [ideas.states.IN_COACHING_PHASE, id, ideas.states.AWAITING_SELECTION],
       function (err, result) {
         if (err) {
           next(err);
@@ -505,6 +525,15 @@ module.exports = {
       });
   },
 
+  removeDraft: function (userId, next) {
+
+      pool.query('DELETE FROM drafts WHERE drafts.user_id = ? ;',
+          [userId],
+          function (err, result) {
+              next(result);
+          });
+  },
+
   loadDraft: function (userId, next) {
 
     pool.query('SELECT * FROM drafts WHERE drafts.user_id = ? ;',
@@ -527,5 +556,24 @@ module.exports = {
       function (err, rows, fields) {
         callback(err);
       });
+  },
+
+  // CSV-exporting queries
+
+  getTableNames: function (next) {
+    pool.query('SELECT table_name ' +
+      'FROM information_schema.tables ' +
+      'WHERE table_schema=?', [config.mysql[config.env].database], function (err, rows, fields) {
+      if (typeof next === 'function')
+        next(rows);
+    });
+  },
+
+  getTableInfo: function (table, next) {
+    pool.query('SELECT * FROM ' + table, [], function (err, rows, fields) {
+      if (typeof next === 'function') {
+        next(rows);
+      }
+    });
   },
 };

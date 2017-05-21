@@ -21,29 +21,59 @@ body{
     margin-right: 5%;
     width: 150px;
     border-radius: 10px;
+    background-color: rgb(24, 178, 232);
+    border-color: rgb(24, 178, 232);
+}
+
+.buttonThink:hover, .buttonThink:focus, .buttonThink:active {
+    background-color: rgb(24, 178, 232);
+    border-color: rgb(24, 178, 232);
 }
 
 .buttonValidation {
     margin-right: 5%;
     width: 150px;
     border-radius: 10px;
+    background-color: rgb(24, 178, 232);
+    border-color: rgb(24, 178, 232);
+}
+
+.buttonValidation:hover, .buttonValidation:focus, .buttonValidation:active {
+    background-color: rgb(24, 178, 232);
+    border-color: rgb(24, 178, 232);
 }
 
 .buttonCoaching {
     width: 150px;
     border-radius: 10px;
+    background-color: rgb(24, 178, 232);
+    border-color: rgb(24, 178, 232);
+}
+
+.buttonCoaching:hover, .buttonCoaching:focus, .buttonCoaching:active {
+    background-color: rgb(24, 178, 232);
+    border-color: rgb(24, 178, 232);
 }
 
 .buttonKick {
     margin-left: 5%;
     width: 150px;
     border-radius: 10px;
+    background-color: rgb(24, 178, 232);
+    border-color: rgb(24, 178, 232);
+}
+
+.buttonKick:hover, .buttonKick:focus, .buttonKick:active {
+    background-color: rgb(24, 178, 232);
+    border-color: rgb(24, 178, 232);
 }
 
 .innovationRulesHeader {
     margin-top: 5%;
     text-align: center;
     color: rgb(24, 178, 232);
+    font-weight: bold;
+    font-size: 300%;
 }
 
 .rules {
