@@ -7,7 +7,7 @@ services:
       service: web
     environment:
       - DEBUG=0
-      - VIRTUAL_HOST=production.altran.musaic.ml
+      - VIRTUAL_HOST=production.altran.musaic.ml,altran.musaic.ml
     restart: always
   staging:
     extends:
@@ -17,6 +17,13 @@ services:
       - DEBUG=1
       - VIRTUAL_HOST=staging.altran.musaic.ml
     restart: always
+  #webhook:
+  #  extends:
+  #    file: development/scripts/server/webhook/docker-compose.yml
+  #    service: web
+  #  environment:
+  #    - VIRTUAL_HOST=webhook.altran.musaic.ml
+  #  restart: always
   nginx-proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
