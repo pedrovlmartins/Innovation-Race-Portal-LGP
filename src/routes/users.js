@@ -317,8 +317,6 @@ router.post('/:id/name', function (req, res) {
             irp.addSuccess(req, 'User information successfully updated.');
         }
         res.redirect('back');
-        return;
-
     });
 
 });
@@ -337,7 +335,6 @@ router.post('/:id/email', function (req, res) {
             irp.addSuccess(req, 'User information successfully updated.');
         }
         res.redirect('back');
-        return;
     });
 
 });
@@ -353,7 +350,7 @@ router.post('/:id/password', function (req, res){
              irp.addError(req, error);
              res.redirect('../../');
      irp.cleanActionResults(req);
-         };
+         }
      db.updateUserPassword(req.params.id, passwordHash, function(error,results){
          if(error){
      irp.addError(req, 'Unknown error occurred.');
@@ -369,11 +366,8 @@ router.post('/:id/password', function (req, res){
 
 router.post('/:id/typeDescription', function (req, res){
 
-    console.log(req.body);
-    console.log("teste");
     if(req.session.userID === undefined)
         res.sendStatus(401);
-
             db.updateUserType(req.params.id, req.body.type, function (error, results) {
                 if (error) {
                     irp.addError(req, 'Unkown error occurred.');

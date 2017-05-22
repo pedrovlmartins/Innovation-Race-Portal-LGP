@@ -40,6 +40,9 @@ module.exports = {
     return currentUserID(req) && users.isParticipant(currentUserType(req));
   },
 
+  currentIsManager: function (req) {
+        return currentUserID(req) && users.isManager(currentUserType(req));
+    },
   currentCanSelectIdea: function (req) {
     var type = currentUserType(req);
     return currentUserID(req) && (type == users.types.COMMITTEE || type == users.types.MANAGER);
