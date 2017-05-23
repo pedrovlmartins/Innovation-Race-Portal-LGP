@@ -19,6 +19,22 @@ router.get('/', function(req, res) {
     res.render('passwordReset', vars);
 });
 
+router.get('/:token', function(req, res) {
+    database.getUserByToken(req.params.token, function(err, user) {
+        if (err) {
+            irp.addError(req, 'Unknown error occurred, please try again later.');
+            res.redirect('../../');
+        } else if (user) {
+            var vars = irp.getActionResults(req);
+            if (req.session.userID !== undefined)
+                vars.userID = req.session.userID;
+            res.render('passwordChange', vars);
+        }  else {
+            res.sendStatus(404);
+        }
+    });
+});
+
 router.post('/', function(req, res, next) {
     database.getUserByEmail(req.body.email, function(err, user) {
         if (err) {
@@ -27,17 +43,21 @@ router.post('/', function(req, res, next) {
         } else if (user) {
             var token = crypto.randomBytes(32).toString('hex');
 
-            sendResetEmail('esquilofeup@gmail.com', token, function(err) {
+            database.updateToken(token, user.id, function () {
+            });
+
+            sendResetEmail(req.body.email, token, function(err) {
                 if (err) {
                     console.error(err);
                     irp.addError(req, err);
                 } else {
-                    irp.addSuccess(req, 'Enviado para ' + token);
+                    irp.addSuccess(req, 'Thank you! Please follow the instructions that were sent to ' + token);
                 }
 
                 res.redirect('../../');
                 irp.cleanActionResults(req);
             });
+
         } else {
             irp.addError(req, 'No user found with email "' + req.body.email + '".');
             res.redirect('../../');
@@ -49,7 +69,7 @@ var sendResetEmail = function(to, token, callback) {
     var mailer = new EmailTemplate(resetEmailTemplateDir);
     var user = {
         resetToken: token,
-        resetURL: token,
+        resetURL: 'http://localhost:8080/passwordReset/' + token,
         replyTo: 'altran@musaic.ml',
     };
     mailer.render(user, function(err, result) {
