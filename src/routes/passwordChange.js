@@ -9,14 +9,11 @@ var crypto = require('crypto');
 var EmailTemplate = require('email-templates').EmailTemplate;
 var email = require(path.join(__base, 'lib', 'mailer'));
 
-var resetEmailTemplateDir = path.join(__base, 'views', 'emails', 'reset');
-var activationEmailTemplateDir = path.join(__base, 'views', 'emails', 'activation');
-
 router.get('/', function(req, res) {
     var vars = irp.getActionResults(req);
     if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
-    res.render('passwordReset', vars);
+    res.render('passwordChange', vars);
 });
 
 router.post('/', function(req, res, next) {
@@ -27,7 +24,7 @@ router.post('/', function(req, res, next) {
         } else if (user) {
             var token = crypto.randomBytes(32).toString('hex');
 
-            sendResetEmail('esquilofeup@gmail.com', token, function(err) {
+            sendActivationEmail('esquilofeup@gmail.com', token, function(err) {
                 if (err) {
                     console.error(err);
                     irp.addError(req, err);
@@ -44,21 +41,5 @@ router.post('/', function(req, res, next) {
         }
     });
 });
-
-var sendResetEmail = function(to, token, callback) {
-    var mailer = new EmailTemplate(resetEmailTemplateDir);
-    var user = {
-        resetToken: token,
-        resetURL: token,
-        replyTo: 'altran@musaic.ml',
-    };
-    mailer.render(user, function(err, result) {
-        if (err) console.error(err);
-        email.send(to, 'Innovation Race Portal - Password reset required', result.text, result.html,
-            function(error, body) {
-                callback(error, body);
-            });
-    });
-};
 
 module.exports = router;
