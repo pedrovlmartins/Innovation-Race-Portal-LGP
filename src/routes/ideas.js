@@ -6,58 +6,6 @@ const ideas = require(path.join(__base, 'lib', 'ideas'));
 const irp = require(path.join(__base, 'lib', 'irp'));
 const users = require(path.join(__base, 'lib', 'users'));
 
-/*router.post('/:id/validate', function (req, res, next) { // Evaluation
-  db.getUserType(req.session.userID, function (type) {
-    if (!irp.currentCanEvaluateIdea(req)) {
-      irp.addError(req, 'You are not allowed to evaluate an idea.');
-      res.redirect('back');
-    } else {
-      var vars = irp.getActionResults(req);
-      var id = req.params.id;
-
-      db.updateIdeaState_validate(id, ideas.states.AWAITING_SELECTION, function (err, result) {
-        if (err) {
-          irp.addError(req, 'An unknown error occured. The idea was not validated.');
-        } else {
-          irp.addSuccess(req, 'Idea successfully validated.');
-          vars.userID = irp.currentUserID(req);
-          db.getIdea(req.params.id, function (ideaInfo) {
-            sendEvaluationNotificationEmail(ideaInfo.creatorId, ideaInfo.title, true);
-          });
-        }
-
-        res.redirect('back');
-      });
-    }
-  });
-});
-
-router.post('/:id/decline', function (req, res, next) { // Evaluation
-  db.getUserType(req.session.userID, function (type) {
-    if (!irp.currentCanEvaluateIdea(req)) {
-      res.sendStatus(403);
-    } else {
-      var vars = irp.getActionResults(req);
-      var id = req.params.id;
-
-      db.updateIdeaState_decline(id, function (err, result) {
-        if (err) {
-          irp.addError(req, 'An unknown error occured. The idea was not declined.');
-        } else {
-          irp.addSuccess(req, 'Idea successfully declined.');
-          vars.userID = irp.currentUserID(req);
-          db.getIdea(req.params.id, function (ideaInfo) {
-            sendEvaluationNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
-          });
-        }
-
-        res.redirect(req.get('referer'));
-      });
-    }
-  });
-});
-*/
-
 router.post('/:id/evaluation', function (req, res, next) {
   if (!irp.currentUserID(req)) {
     irp.addError(req, 'You are not logged in.');
@@ -155,53 +103,6 @@ router.post('/:id/selection', function (req, res, next) {
     }
   });
 });
-
-/*
-router.post('/:id/commissionDecline', function (req, res, next) {
-  db.getUserType(req.session.userID, function (type) {
-    if (type !== 4) {
-      res.sendStatus(403);
-    } else {
-      var vars = irp.getActionResults(req);
-      var id = req.params.id;
-
-      db.updateIdeaState_decline(id, function (result) {
-        if (req.session.userID !== undefined)
-          vars.userID = req.session.userID;
-        res.redirect(req.get('referer'));
-      });
-    }
-  });
-});
-*/
-
-/*
-router.post('/:id/select', function (req, res, next) {
-  if (!irp.currentUserID(req)) {
-    irp.addError(req, 'You are not logged in.');
-    res.redirect('../../');
-    return;
-  }
-
-  if (!irp.currentCanSelectIdea(req)) {
-    irp.addError(req, 'Only a member of the R&D committee may select an idea.');
-    res.redirect('back');
-    return;
-  }
-
-  db.updatedIdeaState_select(req.params.id, function (error, result) {
-    if (error) {
-      console.error(error);
-      irp.addError(req, 'Unknown error occurred, please try again later.');
-      res.redirect('back');
-      return;
-    }
-
-    irp.addSuccess(req, 'The idea has been selected to advance to the coaching phase.');
-    res.redirect('back');
-  });
-});
-*/
 
 /* R&D Manager Permission to go or not to next phase (Kick-Off) */
 router.post('/:id/goKickOff', function (req, res, next) {
@@ -337,7 +238,7 @@ router.get('/:id', function (req, res) {
                 res.render('idea', irp.mergeRecursive(vars, irp.getActionResults(req)));
                 irp.cleanActionResults(req);
               } else
-                res.sendStatus(403);
+                res.sendStatus(404);
             }
           });
         });

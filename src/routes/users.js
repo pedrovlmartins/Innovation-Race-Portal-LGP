@@ -25,7 +25,7 @@ function nextUserInfo(req, res, userInfo, typeDescription) {
           userInfo.page = 'profile';
           res.render('user', userInfo);
         } else
-        res.sendStatus(403);
+        res.sendStatus(404);
       }
     });
   }
@@ -61,9 +61,10 @@ router.get('/:id/ideas', function (req, res) {
   var offset;
   var pageNo;
   var vars = {};
-  if (req.session.userID === undefined)
-    res.sendStatus(401);
-  else {
+  if (req.session.userID === undefined){
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('/');
+  } else {
     if (req.query.page === undefined) {
       offset = 0;
       pageNo = 1;
@@ -98,58 +99,58 @@ router.get('/:id/ideas', function (req, res) {
             });
           });
         } else
-          res.sendStatus(403);
+          res.sendStatus(404);
       }
     });
   }
 });
 
 router.get('/:id/block', function(req, res) {
-    if (req.session.userID === undefined)
-        res.sendStatus(401);
-    else {
-
+    if (req.session.userID === undefined){
+      irp.addError(req, 'You are not logged in.');
+      res.redirect('/');
+    } else {
         db.getUserType(req.session.userID, function (type) {
             if (users.isAdmin(type)) {
                 db.blockUser(req.params.id, function () {
                     res.redirect("back");
                 });
             } else {
-                res.sendStatus(403);
+                res.sendStatus(404);
             }
         });
     }
 });
 
 router.get('/:id/unblock', function(req, res) {
-    if (req.session.userID === undefined)
-        res.sendStatus(401);
-    else {
-
+    if (req.session.userID === undefined){
+      irp.addError(req, 'You are not logged in.');
+      res.redirect('/');
+    } else {
         db.getUserType(req.session.userID, function (type) {
             if (users.isAdmin(type)) {
                 db.unblockUser(req.params.id, function () {
                     res.redirect("back");
                 });
             } else {
-                res.sendStatus(403);
+                res.sendStatus(404);
             }
         });
     }
 });
 
 router.get('/:id/confirm', function(req, res) {
-    if (req.session.userID === undefined)
-        res.sendStatus(401);
-    else {
-
+    if (req.session.userID === undefined){
+      irp.addError(req, 'You are not logged in.');
+      res.redirect('/');
+    } else {
         db.getUserType(req.session.userID, function (type) {
             if (users.isAdmin(type)) {
                 db.confirmUser(req.params.id, function () {
                     res.redirect("back");
                 });
             } else {
-                res.sendStatus(403);
+                res.sendStatus(404);
             }
         });
     }
@@ -157,11 +158,13 @@ router.get('/:id/confirm', function(req, res) {
 
 router.get('/:id/submitIdea', function(req, res) {
 
-    if (req.session.userID === undefined)
-        res.sendStatus(401);
-        else if(req.session.userID != req.params.id)
-            res.sendStatus(403);
-    else {
+    if (req.session.userID === undefined){
+      irp.addError(req, 'You are not logged in.');
+      res.redirect('/');
+    } else if(req.session.userID != req.params.id){
+      irp.addError(req, 'Invalid request');
+      res.redirect('/');
+    } else {
         var userInfo = {};
         userInfo.userID = req.session.userID;
         userInfo.page = 'submitIdea';
@@ -304,8 +307,11 @@ router.post('/:id/draft', function (req, res) {
 
 router.post('/:id/name', function (req, res) {
 
-    if (req.session.userID === undefined)
-        res.sendStatus(401);
+    if (req.session.userID === undefined) {
+      irp.addError(req, 'You are not logged in.');
+      res.redirect('/');
+      return;
+    }
 
     db.updateUserName(req.params.id, req.body.name, function(error, results){
         if (error) {
@@ -322,8 +328,11 @@ router.post('/:id/name', function (req, res) {
 
 router.post('/:id/email', function (req, res) {
 
-    if (req.session.typeDescription === undefined)
-     res.sendStatus(401);
+    if (req.session.typeDescription === undefined) {
+      irp.addError(req, 'You are not logged in.');
+      res.redirect('/');
+      return;
+    }
 
     db.updateUserMail(req.params.id, req.body.email, function (error, results) {
         if (error) {
@@ -340,8 +349,12 @@ router.post('/:id/email', function (req, res) {
 
 router.post('/:id/password', function (req, res){
 
-    if (req.session.userID === undefined)
-        res.sendStatus(401);
+    if (req.session.userID === undefined) {
+      irp.addError(req, 'You are not logged in.');
+      res.redirect('/');
+      return;
+    }
+
      //hashing and salting of newpassword
      passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
          if (error) {
@@ -365,19 +378,23 @@ router.post('/:id/password', function (req, res){
 
 router.post('/:id/typeDescription', function (req, res){
 
-    if(req.session.userID === undefined)
-        res.sendStatus(401);
-            db.updateUserType(req.params.id, req.body.type, function (error, results) {
-                if (error) {
-                    irp.addError(req, 'Unkown error occurred.');
-                } else if (results.affectedRows === 0) {
-                    irp.addError(req, 'Could not update user information.');
-                } else {
-                    irp.addSuccess(req, 'User information successfully updated.');
-                }
-                res.redirect('back');
-                return;
-            });
+    if(req.session.userID === undefined) {
+      irp.addError(req, 'You are not logged in.');
+      res.redirect('/');
+      return;
+    }
+
+    db.updateUserType(req.params.id, req.body.type, function (error, results) {
+      if (error) {
+          irp.addError(req, 'Unkown error occurred.');
+      } else if (results.affectedRows === 0) {
+          irp.addError(req, 'Could not update user information.');
+      } else {
+          irp.addSuccess(req, 'User information successfully updated.');
+      }
+      res.redirect('back');
+      return;
+    });
 });
 
 module.exports = router;
