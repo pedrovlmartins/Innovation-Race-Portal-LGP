@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
         irp.addError(req, 'You need to be a manager in order to manage races.');
         res.redirect('../');
     } else {
-        var vars = irp.getActionResults(req);
+        var vars = irp.getGlobalTemplateVariables(req);
         var keyword = req.query.keyword;
         var offset;
         var page;

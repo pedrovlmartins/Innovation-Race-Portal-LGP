@@ -8,7 +8,7 @@ var ideas = require(path.join(__base, 'lib', 'ideas'));
 const itemsPerPage = 10;
 
 router.get('/', function (req, res) {
-  var vars = irp.getActionResults(req);
+  var vars = irp.getGlobalTemplateVariables(req);
   var offset;
   var page;
 

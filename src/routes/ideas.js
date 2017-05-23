@@ -235,7 +235,7 @@ router.get('/:id', function (req, res) {
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
 
-                res.render('idea', irp.mergeRecursive(vars, irp.getActionResults(req)));
+                res.render('idea', irp.mergeRecursive(vars, irp.getGlobalTemplateVariables(req)));
                 irp.cleanActionResults(req);
               } else
                 res.sendStatus(404);

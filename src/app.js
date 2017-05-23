@@ -44,7 +44,7 @@ const app = express();
 
 // View engine setup
 const helpers = require(path.join(__base, 'lib', 'helpers'));
-var irp = require("./lib/irp.js");
+var irp = require('./lib/irp.js');
 app.set('view engine', 'hbs');
 app.set('views', path.join(__base, 'views'));
 hbs.registerPartials(path.join(__base, 'views', 'partials'));
@@ -93,7 +93,7 @@ app.use(express.static(path.join(__base, 'images')));
 
 app.use('*', function (req, res, next) {
   res.status(404);
-  var vars = irp.getActionResults(req);
+  var vars = irp.getGlobalTemplateVariables(req);
   if (req.session.userID !== undefined)
     vars.userID = req.session.userID;
   res.render('errorPage', vars);

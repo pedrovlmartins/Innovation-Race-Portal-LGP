@@ -5,7 +5,7 @@ const users = require(path.join(__base, 'lib', 'users'));
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-  var vars = irp.getActionResults(req);
+  var vars = irp.getGlobalTemplateVariables(req);
   if (req.session.userID !== undefined)
     vars.userID = req.session.userID;
   vars.userTypes = users.types;

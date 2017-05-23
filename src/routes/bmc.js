@@ -6,7 +6,7 @@ const irp = require(path.join(__base, 'lib', 'irp'));
 const users = require(path.join(__base, 'lib', 'users'));
 
 router.get('/', function(req, res) {
-    var vars = irp.getActionResults(req);
+    var vars = irp.getGlobalTemplateVariables(req);
     if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
     res.render('bmc', vars);
