@@ -16,14 +16,6 @@ $(document).ready(function () {
 
 function firstClick(id){
   var button = document.getElementById(id);
-  /*if(id=="nameButton"){
-      document.getElementById('name').removeAttribute("disabled");
-  }
-  else if(id=="emailButton"){
-      document.getElementById('email').removeAttribute("disabled");
-  }*/
-
-  //alert(button.previousElementSibling.lastElementChild.getAttribute('value'));
   button.previousElementSibling.lastElementChild.removeAttribute("disabled");
 
   button.removeAttribute("onclick");
@@ -31,8 +23,7 @@ function firstClick(id){
   button.setAttribute('value','Submit');
   button.style.setProperty('background','white');
 
-  // A partir daqui ja nao interessa
-  var glyphiconsend = document.createElement('i');// tens que destruir o antigo nao?
+  var glyphiconsend = document.createElement('i');
     glyphiconsend.className = "glyphicon glyphicon-check";
     glyphiconsend.setAttribute('style','z-index:3;display:none;margin-left:-'+button.lastElementChild.offsetWidth +'px;');
     button.appendChild(glyphiconsend);
@@ -40,7 +31,6 @@ function firstClick(id){
     $(glyphiconsend).toggle('slide');
     $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
 }
-
 
 
 

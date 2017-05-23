@@ -92,17 +92,18 @@ module.exports = {
       });
   },
 
-  getUserByEmail: function (email, callback) {
-    pool.query('SELECT * FROM users WHERE email = ?',
-      [email],
-      function (error, results, fields) {
-        if (error) {
-          console.error(error);
-          callback(error);
-        } else {
-          callback(null, results.length > 0 ? results[0] : null);
-        }
-      });
+  updateUserType: function(id, newUserType, next){
+    pool.query('UPDATE users' +
+      ' SET type = ? '+
+      ' WHERE id = ?', [newUserType, id],
+      function (err, result){
+          if (err){
+              console.error(err);
+              next(err);
+          } else {
+              next(null, result);
+          }
+      })
   },
 
   getPartnerClientInfo: function (id, next) {

@@ -57,6 +57,7 @@ CREATE TABLE `ideas` (
       `score` int(11) DEFAULT '0',
       `state` int(11) DEFAULT '0',
       `cancelled` bit(1) DEFAULT b'0',
+      `strategyAlignment` varchar(1000) DEFAULT NULL,
       `offerType` int(11) DEFAULT NULL,
       `strategyAlignment` varchar(1000) DEFAULT NULL,
       `market` varchar(1000) DEFAULT NULL,
