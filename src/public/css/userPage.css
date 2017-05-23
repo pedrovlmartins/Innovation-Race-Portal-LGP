@@ -79,7 +79,8 @@ h2 {
 
 .userNavbar li.active {
     text-decoration: underline;
-    text-decoration-color: #499ab4;
+    text-decoration-color: #ffffff;
+    color: #ffffff;
     cursor: default;
 }
 
@@ -98,5 +99,4 @@ h2 {
 .saveDraftButton {
     margin-left: 70%;
 }
-
 

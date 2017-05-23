@@ -98,7 +98,6 @@ router.post('/exportDatabase', function(req, res) {
                         var csv = toCSV(rows_array);
                         fs.writeFile(path.join(dir, table.table_name + '.csv'), csv, function (err) {
                             if (err) {
-                                console.log(err);
                                 irp.addError(req, 'Error exporting database.');
                                 res.redirect('back');
                             }

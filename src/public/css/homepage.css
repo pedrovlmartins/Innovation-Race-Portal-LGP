@@ -90,3 +90,13 @@ img.bg {
 	text-align: justify;
 	color: white;
 }
+
+.innovationDescription {
+	width: 50%;
+	margin-top: 1%;
+	margin-left: 25%;
+	background-color: #4298b5;
+	text-align: center;
+	color: white;
+	border-radius: 15px;
+}
