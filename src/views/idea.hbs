@@ -19,31 +19,14 @@
     <form class="well form-horizontal" action=" " method="post" id="idea_page">
         <fieldset>
 
-            <!-- Team Leader -->
+            <!-- Idea creator -->
             <div class="form-group">
-                <label class="col-md-4 control-label">Team Leader</label>
+                <label class="col-md-4 control-label">Idea Creator</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input name="team_leader" value="{{leader}}" class="form-control" type="text" readonly>
+                        <input name="idea_creator" value="{{leader}}" class="form-control" type="text" readonly>
                         <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Team Members -->
-
-            <div class="form-group">
-                <label class="col-md-4 control-label">Team Members</label>
-                <div class="col-md-4 selectContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        <select name="state" class="form-control selectpicker" readonly>
-                            <option>Members</option>
-                            {{#each members}}
-                                <option> {{name}} </option>
-                            {{/each}}
-                        </select>
                     </div>
                 </div>
             </div>

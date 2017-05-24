@@ -199,14 +199,8 @@ router.get('/:id', function (req, res) {
         res.sendStatus(404);
       else {
         db.getUserType(req.session.userID, function (type) {
-          db.getTeamMembers(req.params.id, function (members) {
-            ids = members.map(function (member) {
-                member.id;
-              });
-
-            ids.push(ideaInfo.creatorId);
             if (req.session !== undefined) {
-              if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
+              if (type >= 3 || req.session.userID !== -1) {
                 var vars = {
                   id: req.params.id,
                   name: ideaInfo.title,
@@ -216,7 +210,6 @@ router.get('/:id', function (req, res) {
                   uncertaintyToSolve: ideaInfo.uncertaintyToSolve,
                   techHumanResources: ideaInfo.techHumanResources,
                   solutionTechnicalCompetence: ideaInfo.solutionTechnicalCompetence,
-                  members: members,
                   type: type,
                   ideaCancelled: ideaInfo.cancelled,
                   canEvaluateIdea: !ideaInfo.cancelled
@@ -262,7 +255,6 @@ router.get('/:id', function (req, res) {
               } else
                 res.sendStatus(404);
             }
-          });
         });
       }
     });

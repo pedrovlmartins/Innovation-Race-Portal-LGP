@@ -177,18 +177,6 @@ module.exports = {
       });
   },
 
-  getTeamMembers: function (id, next) {
-    pool.query(
-      'SELECT users.id, users.name ' +
-      'FROM users ' +
-      'JOIN ideamember ON ideamember.idMember = users.id ' +
-      'JOIN ideas ON ideamember.idIdea = ideas.id ' +
-      'WHERE ideas.id = ?;', [id], function (err, result) {
-        if (typeof next === 'function')
-          next(result);
-      });
-  },
-
   validateAccount: function (token, callback, next) {
     pool.query('UPDATE users SET emailConfirmationToken = NULL, accountStatus = 1' +
       ' WHERE emailConfirmationToken = ?', [token], function (error, results, fields) {
@@ -533,24 +521,23 @@ module.exports = {
         });
   },
 
-  saveDraft: function (userId, title, description, teamIdeas, teamMembers,
+  saveDraft: function (userId, title, description, teamIdeas,
                        uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources,
                        results, callback, next) {
 
     pool.query('INSERT INTO drafts' +
-      ' (user_id, title, description, teamIdeas, teammembers, ' +
+      ' (user_id, title, description, teamIdeas, ' +
       'uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, results)' +
-      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE ' +
+      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE ' +
       'title = ?, ' +
       'description = ?, ' +
       'teamIdeas = ?, ' +
-      'teammembers = ?, ' +
       'uncertaintyToSolve = ?, ' +
       'solutionTechnicalCompetence =?, ' +
       'techHumanResources = ?, ' +
       'results = ?;',
-      [userId, title, description, teamIdeas, teamMembers, uncertaintyToSolve,
-        solutionTechnicalCompetence, techHumanResources, results, title, description, teamIdeas, teamMembers,
+      [userId, title, description, teamIdeas, uncertaintyToSolve,
+        solutionTechnicalCompetence, techHumanResources, results, title, description, teamIdeas,
         uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, results,
       ],
       function (err, rows, fields) {
