@@ -57,12 +57,13 @@ CREATE TABLE `ideas` (
       `score` int(11) DEFAULT '0',
       `state` int(11) DEFAULT '0',
       `cancelled` bit(1) DEFAULT b'0',
-      `offerType` int(11) DEFAULT NULL,
+      `offerType` varchar(1000) DEFAULT NULL,
       `strategyAlignment` varchar(1000) DEFAULT NULL,
       `market` varchar(1000) DEFAULT NULL,
       `technicalViability` varchar(1000) DEFAULT NULL,
       `economicalViability` varchar(1000) DEFAULT NULL,
       `riskFactors` varchar(1000) DEFAULT NULL,
+      `otherRequirements` varchar(1000) DEFAULT NULL,
       `uncertaintyToSolve` varchar(1000) NOT NULL,
       `solutionTechnicalCompetence` varchar(1000) NOT NULL,
       `techHumanResources` varchar(1000) NOT NULL,
@@ -79,12 +80,12 @@ CREATE TABLE `ideas` (
 LOCK TABLES `ideas` WRITE;
 /*!40000 ALTER TABLE `ideas` DISABLE KEYS */;
 INSERT INTO `ideas` VALUES
-(1,4,1,'Idea #1',NULL,NULL,NULL,0,1,'\0', NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
-(2,4,1,'Idea #2',NULL,NULL,NULL,0,6,'\0', NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
-(3,4,1,'Idea #3',NULL,NULL,NULL,0,2,'\0', NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
-(4,4,1,'Idea #4',NULL,NULL,NULL,0,3,'\0', NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
-(5,4,1,'Idea #5',NULL,NULL,NULL,0,4,'\0', NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
-(6,4,1,'Idea #6',NULL,NULL,NULL,0,6,'\0', NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL);
+(1,4,1,'Idea #1',NULL,NULL,NULL,0,1,'\0', NULL, NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
+(2,4,1,'Idea #2',NULL,NULL,NULL,0,6,'\0', NULL, NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
+(3,4,1,'Idea #3',NULL,NULL,NULL,0,2,'\0', NULL, NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
+(4,4,1,'Idea #4',NULL,NULL,NULL,0,3,'\0', NULL, NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
+(5,4,1,'Idea #5',NULL,NULL,NULL,0,4,'\0', NULL, NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL),
+(6,4,1,'Idea #6',NULL,NULL,NULL,0,6,'\0', NULL, NULL, NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL);
 UNLOCK TABLES;
 
 --
