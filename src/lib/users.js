@@ -41,4 +41,8 @@ module.exports = {
     return typeNum === types.MANAGER || typeNum === types.COMMITTEE || typeNum === types.TEAM
       || typeNum === types.TECHNICAL_DIRECTOR;
   },
+
+  isManager: function (typeNum) {
+    return typeNum === types.MANAGER;
+  },
 };

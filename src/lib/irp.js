@@ -17,6 +17,10 @@ function currentIsAdmin(req) {
   return currentUserID(req) && users.isAdmin(currentUserType(req));
 }
 
+function currentIsManager(req) {
+  return currentUserID(req) && users.isManager(currentUserType(req));
+}
+
 module.exports = {
   addError: function (req, msg) {
     req.session.errorMessages = req.session.errorMessages || [];
@@ -35,6 +39,7 @@ module.exports = {
       userType: currentUserType(req),
       isParticipant: currentIsParticipant(req),
       isAdmin: currentIsAdmin(req),
+      isManager: currentIsManager(req),
     };
   },
 
@@ -51,9 +56,7 @@ module.exports = {
 
   currentIsAdmin: currentIsAdmin,
 
-  currentIsManager: function (req) {
-    return currentUserID(req) && users.isManager(currentUserType(req));
-  },
+  currentIsManager: currentIsManager,
 
   currentCanSelectIdea: function (req) {
     var type = currentUserType(req);
@@ -65,10 +68,10 @@ module.exports = {
     return currentUserID(req) && (type == users.types.TECHNICAL_DIRECTOR || type == users.types.MANAGER);
   },
 
-    currentCanChangeUserType: function (req) {
-        var type = currentUserType(req);
-        return currentUserID(req) && ( type == users.types.MANAGER);
-    },
+  currentCanChangeUserType: function (req) {
+      var type = currentUserType(req);
+      return currentUserID(req) && (type == users.types.MANAGER);
+  },
 
   currentCanGoIdea: function (req) {
     var type = currentUserType(req);
