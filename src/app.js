@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 'use strict';
 
 const path = require('path');
@@ -24,6 +26,7 @@ const routes = require(path.join(__base, 'routes', 'index'));
 const about = require(path.join(__base, 'routes', 'about'));
 const contact = require(path.join(__base, 'routes', 'contact'));
 const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
+const passwordReset = require(path.join(__base, 'routes', 'passwordReset'));
 const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
 const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
 const manageRaces = require(path.join(__base, 'routes', 'manageRaces'));
@@ -78,6 +81,7 @@ app.use('/contact', contact);
 app.use('/classification', classification);
 app.use('/ideas', ideas);
 app.use('/innovationRules', innovationRules);
+app.use('/passwordReset', passwordReset);
 app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
 app.use('/manageRaces', manageRaces);

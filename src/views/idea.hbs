@@ -5,13 +5,19 @@
 <div class="container ideaPage">
 
     {{>actionResults}}
-
     <link rel="stylesheet" href="/css/ideaPage.css">
+
+    <header id="ideaNameHeading">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1> {{ name }}</h1>
+            </div>
+        </div>
+    </header>
+
+
     <form class="well form-horizontal" action=" " method="post" id="idea_page">
         <fieldset>
-
-            <!-- Form Name -->
-            <legend>{{name}}</legend>
 
             <!-- Team Leader -->
             <div class="form-group">

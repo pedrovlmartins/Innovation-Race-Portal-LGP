@@ -5,14 +5,14 @@
 <link rel="stylesheet" href="../../css/userPage.css">
 <script src="../../js/userPage.js"></script>
 <link rel="stylesheet" href="/css/ideaPage.css">
+<link rel="stylesheet" href="/css/separators.css">
 <script src="/js/draftIdeas.js"></script>
 
 <div class="container">
     <div class="menu">
-        <ul class="userNavbar">
+        <ul class="separators">
             <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
             <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
-
             {{#unless isManager}}
             <li id="submit"><h4><a href="submitIdea">SUBMIT IDEA</a></h4></li>
             {{/unless}}
