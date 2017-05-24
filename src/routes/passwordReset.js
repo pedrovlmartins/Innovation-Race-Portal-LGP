@@ -12,7 +12,7 @@ var email = require(path.join(__base, 'lib', 'mailer'));
 var resetEmailTemplateDir = path.join(__base, 'views', 'emails', 'reset');
 
 router.get('/', function(req, res) {
-    var vars = irp.getActionResults(req);
+    var vars = irp.getGlobalTemplateVariables(req);
     if (req.session.userID !== undefined)
         vars.userID = req.session.userID;
     res.render('passwordReset', vars);
@@ -24,7 +24,7 @@ router.get('/:token', function(req, res) {
             irp.addError(req, 'Unknown error occurred, please try again later.');
             res.redirect('../../');
         } else if (user) {
-            var vars = irp.getActionResults(req);
+            var vars = irp.getGlobalTemplateVariables(req);
             vars.token = req.params.token;
             if (req.session.userID !== undefined)
                 vars.userID = req.session.userID;
