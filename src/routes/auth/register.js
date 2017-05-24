@@ -50,7 +50,7 @@ router.post('/', function (req, res, next) {
                       console.error(err);
                       irp.addError(req, err);
                     } else {
-                      irp.addSuccess(req, 'Account successfully created');
+                      irp.addSuccess(req, 'Account successfully created. Please check your email to validate your account.');
                     }
 
                     res.redirect('../../');
