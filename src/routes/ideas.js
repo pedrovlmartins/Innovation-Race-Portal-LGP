@@ -209,7 +209,7 @@ router.get('/:id', function (req, res) {
               if (type >= 3 || ids.indexOf(req.session.userID) !== -1) {
                 var vars = {
                   id: req.params.id,
-                  name: ideaInfo.name,
+                  name: ideaInfo.title,
                   leader: ideaInfo.creator,
                   description: ideaInfo.description,
                   resultsToProduce: ideaInfo.resultsToProduce,
