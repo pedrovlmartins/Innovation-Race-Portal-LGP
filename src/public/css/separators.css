@@ -1,0 +1,23 @@
+.separators {
+    list-style: none;
+}
+
+.separators li {
+    float: left;
+    padding-right: 20px;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.separators li.active {
+    text-decoration: underline;
+    text-decoration-color: #ffffff;
+    color: #ffffff;
+    cursor: default;
+}
+
+.separators li a {
+    color: #6d6e71;
+}

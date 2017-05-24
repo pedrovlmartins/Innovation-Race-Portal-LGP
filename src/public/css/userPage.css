@@ -64,11 +64,11 @@ h2 {
     float: right;
 }
 
-.userNavbar {
+.separators {
     list-style: none;
 }
 
-.userNavbar li {
+.separators li {
     float: left;
     padding-right: 20px;
     font-family: 'Open Sans', sans-serif;
@@ -77,14 +77,14 @@ h2 {
     margin-top: 2%;
 }
 
-.userNavbar li.active {
+.separators li.active {
     text-decoration: underline;
     text-decoration-color: #ffffff;
     color: #ffffff;
     cursor: default;
 }
 
-.userNavbar li a {
+.separators li a {
     color: #6d6e71;
 }
 
