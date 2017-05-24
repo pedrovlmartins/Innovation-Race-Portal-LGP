@@ -10,7 +10,6 @@ var EmailTemplate = require('email-templates').EmailTemplate;
 var email = require(path.join(__base, 'lib', 'mailer'));
 
 var resetEmailTemplateDir = path.join(__base, 'views', 'emails', 'reset');
-var activationEmailTemplateDir = path.join(__base, 'views', 'emails', 'activation');
 
 router.get('/', function(req, res) {
     var vars = irp.getActionResults(req);
@@ -26,11 +25,46 @@ router.get('/:token', function(req, res) {
             res.redirect('../../');
         } else if (user) {
             var vars = irp.getActionResults(req);
+            vars.token = req.params.token;
             if (req.session.userID !== undefined)
                 vars.userID = req.session.userID;
             res.render('passwordChange', vars);
         }  else {
             res.sendStatus(404);
+        }
+    });
+});
+
+router.post('/:token', function(req, res, next) {
+    database.getUserByToken(req.params.token, function(err, user) {
+        if (err) {
+            irp.addError(req, 'Unknown error occurred, please try again later.');
+            res.redirect('../../');
+        } else if (user) {
+            database.updateToken('NULL', user.id, function () {
+            });
+
+            passwordHashAndSalt(req.body.secondPassword).hash(function(error, passwordHash) {
+                if (error) {
+                    irp.addError(req, error);
+                    res.redirect('../../');
+                    irp.cleanActionResults(req);
+                }
+                ;
+                database.updateUserPassword(user.id, passwordHash, function(error, results) {
+                    if (error) {
+                        irp.addError(req, 'Unknown error occurred.');
+                    } else if (results.affectedRows === 0) {
+                        irp.addError(req, 'Sorry, error occurred, please try again later.');
+                    } else {
+                        irp.addSuccess(req, 'Congratulations! Your password for ' + user.email + ' has been successfully changed!');
+                    }
+                    res.redirect('../../');
+                });
+            });
+        } else {
+            irp.addError(req, 'Sorry, but no such user has been found!');
+            res.redirect('../../');
         }
     });
 });
@@ -51,7 +85,7 @@ router.post('/', function(req, res, next) {
                     console.error(err);
                     irp.addError(req, err);
                 } else {
-                    irp.addSuccess(req, 'Thank you! Please follow the instructions that were sent to ' + token);
+                    irp.addSuccess(req, 'Thank you! Please follow the instructions that were sent to ' + req.body.email);
                 }
 
                 res.redirect('../../');

@@ -503,13 +503,23 @@ module.exports = {
   },
 
   updateToken: function (token, id, next) {
-      pool.query(
-          'UPDATE users ' +
-          'SET resetPasswordToken = ? ' +
-          'WHERE users.id = ?;', [token, id], function (err, result) {
-              if (typeof next === 'function')
-                  next(result);
-          });
+      if (token == 'NULL') {
+          pool.query(
+              'UPDATE users ' +
+              'SET resetPasswordToken = NULL ' +
+              'WHERE users.id = ?;', [id], function(err, result) {
+                  if (typeof next === 'function')
+                      next(result);
+              });
+      } else {
+          pool.query(
+              'UPDATE users ' +
+              'SET resetPasswordToken = ? ' +
+              'WHERE users.id = ?;', [token, id], function(err, result) {
+                  if (typeof next === 'function')
+                      next(result);
+              });
+      }
   },
 
   confirmUser: function (id, next) {
