@@ -1,5 +1,6 @@
 var express = require('express');
 const path = require('path');
+const config = require(path.join(__base, 'config'));
 const crypto = require('crypto');
 var database = require(path.join(__base, 'database', 'database'));
 var email = require(path.join(__base, 'lib', 'mailer'));
@@ -141,7 +142,7 @@ var sendActivationEmail = function (to, token, callback) {
   var newsletter = new EmailTemplate(activationEmailTemplateDir);
   var user = {
     activationCode: token,
-    activationURL: 'http://localhost:8080/auth/activate?code=' + token,
+    activationURL: config.baseURL + 'auth/activate?code=' + token,
     replyTo: 'altran@musaic.ml',
   };
   newsletter.render(user, function (err, result) {

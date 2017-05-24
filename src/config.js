@@ -10,6 +10,12 @@ var castField = function(field, useDefaultTypeCasting) {
 
 config.env = process.env.NODE_ENV || 'development';
 
+if (config.env === 'development') {
+  config.baseURL = 'http://localhost:8080/';
+} else {
+  config.baseURL = 'http://altran.musaic.ml/';
+}
+
 config.mysql = {
   production: {
     connectionLimit: 10,
