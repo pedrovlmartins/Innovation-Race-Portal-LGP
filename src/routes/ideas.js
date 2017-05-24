@@ -232,6 +232,29 @@ router.get('/:id', function (req, res) {
                   && ideaInfo.state === ideas.states.AWAITING_GO_NO_GO
                   && irp.currentCanSelectIdea(req),
                 };
+
+                if (ideaInfo.state == 1)
+                    vars.ideaState = 'This idea is still in the drafting stages.';
+                else if (ideaInfo.state == 1)
+                  vars.ideaState = 'The idea is waiting to be classified.';
+                else if (ideaInfo.state == 2)
+                    vars.ideaState = 'At the present moment, this idea is being classified.';
+                else if (ideaInfo.state == 3)
+                    vars.ideaState = 'The idea is waiting to be evaluated.';
+                else if (ideaInfo.state == 4)
+                    vars.ideaState = 'The idea is waiting to be selected.';
+                else if (ideaInfo.state == 5)
+                    vars.ideaState = 'The idea has been selected (PA REMOVER).';
+                else if (ideaInfo.state == 6)
+                    vars.ideaState = 'The idea is in the coaching phase, waiting for the BMC to be analyzed.';
+                else if (ideaInfo.state == 7)
+                    vars.ideaState = 'The idea is waiting for the green light (GO) or the red light (NO GO) in order to be implemented.';
+                else if (ideaInfo.state == 8)
+                    vars.ideaState = 'The idea is being implemented.';
+                else if (ideaInfo.state == -1)
+                    vars.ideaState = 'The idea has been canceled';
+
+
                 if (req.session.userID !== undefined)
                   vars.userID = req.session.userID;
 
