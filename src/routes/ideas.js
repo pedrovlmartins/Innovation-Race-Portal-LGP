@@ -218,7 +218,6 @@ router.get('/:id', function (req, res) {
                   solutionTechnicalCompetence: ideaInfo.solutionTechnicalCompetence,
                   members: members,
                   type: type,
-                  ideaState: ideaInfo.state,
                   ideaCancelled: ideaInfo.cancelled,
                   canEvaluateIdea: !ideaInfo.cancelled
                     && ideaInfo.state == ideas.states.AWAITING_EVALUATION
