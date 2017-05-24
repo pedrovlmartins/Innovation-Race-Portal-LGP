@@ -49,6 +49,19 @@ module.exports = {
       });
   },
 
+    getUserByToken: function (token, callback) {
+        pool.query('SELECT * FROM users WHERE resetPasswordToken = ?',
+            [token],
+            function (error, results, fields) {
+                if (error) {
+                    console.error(error);
+                    callback(error);
+                } else {
+                    callback(null, results.length > 0 ? results[0] : null);
+                }
+            });
+    },
+
   updateUserName: function (id, newName, next) {
     pool.query('UPDATE users' +
       ' SET name = ? ' +
@@ -488,6 +501,26 @@ module.exports = {
         if (typeof next === 'function')
           next(result);
       });
+  },
+
+  updateToken: function (token, id, next) {
+      if (token == 'NULL') {
+          pool.query(
+              'UPDATE users ' +
+              'SET resetPasswordToken = NULL ' +
+              'WHERE users.id = ?;', [id], function(err, result) {
+                  if (typeof next === 'function')
+                      next(result);
+              });
+      } else {
+          pool.query(
+              'UPDATE users ' +
+              'SET resetPasswordToken = ? ' +
+              'WHERE users.id = ?;', [token, id], function(err, result) {
+                  if (typeof next === 'function')
+                      next(result);
+              });
+      }
   },
 
   confirmUser: function (id, next) {
