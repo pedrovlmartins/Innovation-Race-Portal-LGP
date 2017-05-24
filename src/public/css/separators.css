@@ -12,12 +12,14 @@
 }
 
 .separators li.active {
-    text-decoration: underline;
-    text-decoration-color: #ffffff;
+    text-decoration: none;
+    text-decoration-color: rgb(24, 178, 232);
     color: #ffffff;
     cursor: default;
 }
 
 .separators li a {
     color: #6d6e71;
+    text-decoration-color: rgb(24, 178, 232);
+    border-bottom: 2px solid rgb(24, 178, 232);
 }
