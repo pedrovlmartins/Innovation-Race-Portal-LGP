@@ -165,18 +165,20 @@ router.get('/:id/submitIdea', function(req, res) {
       irp.addError(req, 'Invalid request');
       res.redirect('/');
     } else {
-        var userInfo = {};
-        userInfo.userID = req.session.userID;
-        userInfo.page = 'submitIdea';
-        db.loadDraft(userInfo.userID, function(draft){
-            userInfo.draft = {};
+        var vars = irp.getGlobalTemplateVariables(req);
+        irp.cleanActionResults(req);
+        vars.userInfo = {};
+        vars.userID = req.session.userID;
+        vars.page = 'submitIdea';
+        db.loadDraft(vars.userInfo.userID, function(draft){
+            vars.userInfo.draft = {};
 
             if (draft != undefined && draft.length > 0){
-                userInfo.draft = draft[0];
-                res.render('user', userInfo);
+                vars.userInfo.draft = draft[0];
+                res.render('user', vars);
             }
                 else {
-                res.render('user', userInfo);
+                res.render('user', vars);
             }
         });
     }

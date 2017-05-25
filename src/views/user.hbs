@@ -188,16 +188,16 @@
                                     <div class="form-group">
                                         <label for="title">Title</label>
                                         <input type="text" id="title" name="title" class="form-control"
-                                               value="{{draft.title}}" autofocus>
+                                               value="{{userInfo.draft.title}}" autofocus>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea rows=8 cols=50 type="description" id="description" name="description"
-                                                  class="form-control">{{draft.description}}</textarea>
+                                                  class="form-control">{{userInfo.draft.description}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="teamIdea">Team name</label>
-                                        <input type="text" id="teamIdea" name="teamIdea" class="form-control" value="{{draft.teamIdeas}}" >
+                                        <input type="text" id="teamIdea" name="teamIdea" class="form-control" value="{{userInfo.draft.teamIdeas}}" >
                                     </div>
                                     <div class="form-group">
                                         <label for="uncertaintyToSolve">Scientific/Technological uncertainty that the
@@ -205,7 +205,7 @@
                                             to solve</label>
                                         <textarea rows=8 cols=50 type="text" id="uncertaintyToSolve"
                                                   name="uncertaintyToSolve"
-                                                  class="form-control">{{draft.uncertaintyToSolve}}</textarea>
+                                                  class="form-control">{{userInfo.draft.uncertaintyToSolve}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="solutionTechnicalCompetence">Why can't the solutions found be
@@ -213,7 +213,7 @@
                                             someone
                                             with technical skills in the field?</label>
                                         <textarea rows=8 cols=50 type="text" id="solutionTechnicalCompetence"
-                                                  name="solutionTechnicalCompetence" class="form-control">{{draft.solutionTechnicalCompetence}}</textarea>
+                                                  name="solutionTechnicalCompetence" class="form-control">{{userInfo.draft.solutionTechnicalCompetence}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="techHumanResources">Human and technological resources needed
@@ -221,12 +221,12 @@
                                             partners, universities, etc.)</label>
                                         <textarea rows=8 cols=50 type="text" id="techHumanResources"
                                                   name="techHumanResources"
-                                                  class="form-control">{{draft.techHumanResources}}</textarea>
+                                                  class="form-control">{{userInfo.draft.techHumanResources}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="results">Results to be produced by the project</label>
                                         <textarea rows=8 cols=50 type="text" id="results" name="results"
-                                                  class="form-control">{{draft.results}}</textarea>
+                                                  class="form-control">{{userInfo.draft.results}}</textarea>
                                     </div>
 
                                     <div class="row">
@@ -241,25 +241,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!--<div class="submiteButton">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="saveDraftButton">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-xs-offset-3">
-                                                <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
-                                            </div>
-                                        </div>
-                                    </div>-->
                                 </form> <!-- /form -->
                             </div>
                         </div>
