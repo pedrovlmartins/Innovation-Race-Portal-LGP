@@ -200,7 +200,6 @@ CREATE TABLE `irp`.`drafts` (
   `user_id` INT NOT NULL,
   `title` VARCHAR(45) NULL,
   `description` VARCHAR(1000) NULL,
-  `teamIdeas` VARCHAR(1000) NULL,
   `uncertaintyToSolve` VARCHAR(1000) NULL,
   `solutionTechnicalCompetence` VARCHAR(1000) NULL,
   `techHumanResources` VARCHAR(1000) NULL,

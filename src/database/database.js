@@ -521,23 +521,22 @@ module.exports = {
         });
   },
 
-  saveDraft: function (userId, title, description, teamIdeas,
+  saveDraft: function (userId, title, description,
                        uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources,
                        results, callback, next) {
 
     pool.query('INSERT INTO drafts' +
-      ' (user_id, title, description, teamIdeas, ' +
+      ' (user_id, title, description, ' +
       'uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, results)' +
-      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE ' +
+      ' VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE ' +
       'title = ?, ' +
       'description = ?, ' +
-      'teamIdeas = ?, ' +
       'uncertaintyToSolve = ?, ' +
       'solutionTechnicalCompetence =?, ' +
       'techHumanResources = ?, ' +
       'results = ?;',
-      [userId, title, description, teamIdeas, uncertaintyToSolve,
-        solutionTechnicalCompetence, techHumanResources, results, title, description, teamIdeas,
+      [userId, title, description, uncertaintyToSolve,
+        solutionTechnicalCompetence, techHumanResources, results, title, description,
         uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, results,
       ],
       function (err, rows, fields) {
