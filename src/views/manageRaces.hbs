@@ -8,14 +8,15 @@
     {{>actionResults}}
 
     <header>
-        <ul class="separators">
-            <li id="manageIdeas"><h4><a href="manageIdeas">MANAGE IDEAS</a></h4></li>
-            {{#if isManager}}
-                <li id="manageRaces" class="active"><h4><a href="manageRaces">MANAGE RACES</a></h4></li>
-                <li id="manageUsers"><h4><a href="manageUsers">MANAGE USERS</a></h4></li>
-            {{/if}}
-        </ul>
-        <br>
+        <div class="row">
+            <ul class="separators">
+                <li id="manageIdeas"><h4><a href="manageIdeas">MANAGE IDEAS</a></h4></li>
+                {{#if isManager}}
+                    <li id="manageRaces" class="active"><h4><a href="manageRaces">MANAGE RACES</a></h4></li>
+                    <li id="manageUsers"><h4><a href="manageUsers">MANAGE USERS</a></h4></li>
+                {{/if}}
+            </ul>
+        </div>
         <div class="header-content">
             <div class="header-content-inner">
                 <div class="row">

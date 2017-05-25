@@ -9,15 +9,24 @@
 <script src="/js/draftIdeas.js"></script>
 
 <div class="container">
-    <div class="menu">
-        <ul class="separators">
-            <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
-            <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
-            {{#unless isManager}}
-            <li id="submit"><h4><a href="submitIdea">SUBMIT IDEA</a></h4></li>
-            {{/unless}}
-        </ul>
-    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <div class="menu">
+                    <div class="row">
+                        <ul class="separators">
+                            <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
+                            <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
+                            {{#unless isManager}}
+                            <li id="submit"><h4><a href="submitIdea">SUBMIT IDEA</a></h4></li>
+                            {{/unless}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     {{#compare page "profile"}}
     <div id="profileDiv" class="profileDiv">
         <div class="well form-horizontal formsBackground"  id="user_page">
