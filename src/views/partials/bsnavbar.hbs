@@ -33,7 +33,7 @@
                     <li><a href="/#about"><h4 class="navbarLetterColor">ABOUT US</h4> </a> </li>
                     {{#if userID}}
                         {{#unless isAdmin}}
-                            <li><a class="MainNavText" id="MainNavHelp" href="/users/{{userID}}"><h4 class="navbarLetterColor">PROFILE</h4></a></li>
+                            <li {{#compare pageName "User Page"}}class="active"{{/compare}}><a class="MainNavText" id="MainNavHelp" href="/users/{{userID}}"><h4 class="navbarLetterColor">PROFILE</h4></a></li>
                         {{/unless}}
                         <li><a class="MainNavText" id="MainNavHelp" href="/auth/logout"><h4 class="navbarLetterColor">LOGOUT</h4></a></li>
                     {{else}}
