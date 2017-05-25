@@ -18,48 +18,51 @@ router.get('/', function (req, res) {
         irp.addError(req, 'You need to be a manager in order to manage races.');
         res.redirect('../');
     } else {
+      database.getUserName(req.session.userID, function (name) {
         var vars = irp.getGlobalTemplateVariables(req);
         var keyword = req.query.keyword;
         var offset;
         var page;
 
         if (req.query.page === undefined) {
+          offset = 0;
+          page = 1;
+        } else {
+          page = parseInt(req.query.page);
+          if (isNaN(page)) {
             offset = 0;
             page = 1;
-        } else {
-            page = parseInt(req.query.page);
-            if (isNaN(page)) {
-                offset = 0;
-                page = 1;
-            } else if (page < 1) {
-                offset = 0;
-                page = 1;
-            } else offset = (page - 1) * itemsPerPage;
+          } else if (page < 1) {
+            offset = 0;
+            page = 1;
+          } else offset = (page - 1) * itemsPerPage;
         }
 
         vars.page = page;
+        vars.name = name[0].name;
 
         database.getRaceCount(function (result) {
-            var numberOfRaces = result[0].count;
-            vars.totalPages = Math.ceil(numberOfRaces / itemsPerPage);
-            database.listRaces(offset, itemsPerPage, function (result) {
-                var currentDate = new Date();
-                result.forEach(function (race) {
-                    var phase = races.getPhase(race.phase1Start, race.phase2Start,
-                        race.phase3Start, race.phase4Start, race.phase4End);
-                    race.phase = races.getPhaseDescription(phase);
-                    race.finished = (phase == races.phases.FINISHED);
-                });
-
-                vars.races = result;
-                vars.currentDate = new Date(currentDate.getTime() - currentDate.getTimezoneOffset() * 60000)
-                    .toISOString().substring(0, 19);
-                if (req.session.userID !== undefined)
-                    vars.userID = req.session.userID;
-                res.render('manageRaces', vars);
-                irp.cleanActionResults(req);
+          var numberOfRaces = result[0].count;
+          vars.totalPages = Math.ceil(numberOfRaces / itemsPerPage);
+          database.listRaces(offset, itemsPerPage, function (result) {
+            var currentDate = new Date();
+            result.forEach(function (race) {
+              var phase = races.getPhase(race.phase1Start, race.phase2Start,
+                race.phase3Start, race.phase4Start, race.phase4End);
+              race.phase = races.getPhaseDescription(phase);
+              race.finished = (phase == races.phases.FINISHED);
             });
+
+            vars.races = result;
+            vars.currentDate = new Date(currentDate.getTime() - currentDate.getTimezoneOffset() * 60000)
+              .toISOString().substring(0, 19);
+            if (req.session.userID !== undefined)
+              vars.userID = req.session.userID;
+            res.render('manageRaces', vars);
+            irp.cleanActionResults(req);
+          });
         });
+      });
     };
 });
 

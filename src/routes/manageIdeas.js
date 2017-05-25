@@ -14,32 +14,49 @@ router.get('/', function (req, res) {
       irp.addError(req, 'You need to be a manager in order to manage ideas.');
       res.redirect('back');
     } else {
-      var vars = irp.getGlobalTemplateVariables(req);
-      var keyword = req.query.keyword;
-      var offset;
-      var page;
+      database.getUserName(req.session.userID, function (name) {
+        var vars = irp.getGlobalTemplateVariables(req);
+        vars.name = name[0].name;
+        var keyword = req.query.keyword;
+        var offset;
+        var page;
 
-      if (req.query.page === undefined) {
-        offset = 0;
-        page = 1;
-      } else {
-        page = parseInt(req.query.page);
-        if (isNaN(page)) {
+        if (req.query.page === undefined) {
           offset = 0;
           page = 1;
-        } else if (page < 1) {
-          offset = 0;
-          page = 1;
-        } else offset = (page - 1) * itemsPerPage;
-      }
+        } else {
+          page = parseInt(req.query.page);
+          if (isNaN(page)) {
+            offset = 0;
+            page = 1;
+          } else if (page < 1) {
+            offset = 0;
+            page = 1;
+          } else offset = (page - 1) * itemsPerPage;
+        }
 
-      vars.page = page;
+        vars.page = page;
 
-      if (req.query.keyword === undefined) {
-        database.getIdeaCount(function (result) {
-          var numberOfIdeas = result[0].count;
-          vars.totalPages = Math.ceil(numberOfIdeas / itemsPerPage);
-          database.listIdeas(offset, itemsPerPage, function (result) {
+        if (req.query.keyword === undefined) {
+          database.getIdeaCount(function (result) {
+            var numberOfIdeas = result[0].count;
+            vars.totalPages = Math.ceil(numberOfIdeas / itemsPerPage);
+            database.listIdeas(offset, itemsPerPage, function (result) {
+              result.forEach(
+                (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
+              );
+              vars.ideas = result;
+              if (req.session.userID !== undefined)
+                vars.userID = req.session.userID;
+              res.render('manageIdeas', vars);
+              irp.cleanActionResults(req);
+            });
+          });
+        } else {
+          database.searchIdeas(keyword, offset, itemsPerPage, function (error, result) {
+            var numberOfIdeas = result.length;
+            vars.keyword = keyword;
+            vars.totalPages = Math.ceil(numberOfIdeas / itemsPerPage);
             result.forEach(
               (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
             );
@@ -49,22 +66,8 @@ router.get('/', function (req, res) {
             res.render('manageIdeas', vars);
             irp.cleanActionResults(req);
           });
-        });
-      } else {
-        database.searchIdeas(keyword, offset, itemsPerPage, function (error, result) {
-          var numberOfIdeas = result.length;
-          vars.keyword = keyword;
-          vars.totalPages = Math.ceil(numberOfIdeas / itemsPerPage);
-          result.forEach(
-            (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
-          );
-          vars.ideas = result;
-          if (req.session.userID !== undefined)
-            vars.userID = req.session.userID;
-          res.render('manageIdeas', vars);
-          irp.cleanActionResults(req);
-        });
-      }
+        }
+      });
     }
   });
 });

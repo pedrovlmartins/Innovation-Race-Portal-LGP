@@ -85,18 +85,21 @@ router.get('/:id/ideas', function (req, res) {
           db.getUserIdeas(req.params.id, offset, 10, function (userIdeas) {
             vars.userIdeas = userIdeas;
             db.getUserIdeasCount(req.params.id, function (ideaCount) {
-              vars.pageTotal = Math.ceil(ideaCount/itemsPerPage);
-              vars.userID = req.session.userID;
-              vars.isManager = users.isAdmin(type);
-              vars.pageNo = pageNo;
-              vars.page = 'ideas';
-              if (vars.userIdeas.length > 0) {
-                vars.userIdeas.forEach(
-                  (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
-              );
-                vars.ideas = userIdeas;
-              }
-              res.render('user', vars);
+              db.getUserName(req.params.id, function(name) {
+                vars.pageTotal = Math.ceil(ideaCount/itemsPerPage);
+                vars.userID = req.session.userID;
+                vars.isManager = users.isAdmin(type);
+                vars.pageNo = pageNo;
+                vars.page = 'ideas';
+                vars.name = name[0].name;
+                if (vars.userIdeas.length > 0) {
+                  vars.userIdeas.forEach(
+                    (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
+                );
+                  vars.ideas = userIdeas;
+                }
+                res.render('user', vars);
+              })
             });
           });
         } else
@@ -172,15 +175,17 @@ router.get('/:id/submitIdea', function(req, res) {
         vars.userID = req.session.userID;
         vars.page = 'submitIdea';
         db.loadDraft(vars.userInfo.userID, function(draft){
+          db.getUserName(vars.userID, function(name) {
             vars.userInfo.draft = {};
-
+            vars.name = name[0].name;
             if (draft != undefined && draft.length > 0){
-                vars.userInfo.draft = draft[0];
-                res.render('user', vars);
+              vars.userInfo.draft = draft[0];
+              res.render('user', vars);
             }
-                else {
-                res.render('user', vars);
+            else {
+              res.render('user', vars);
             }
+          });
         });
     }
 });

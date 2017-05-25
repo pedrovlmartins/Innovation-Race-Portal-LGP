@@ -218,6 +218,17 @@ module.exports = {
       });
   },
 
+  getUserName: function(id, next) {
+    pool.query(
+      'SELECT name ' +
+      'FROM users ' +
+      'WHERE id = ?', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      }
+    )
+  },
+
   getUsersCount: function (next) {
     pool.query('SELECT COUNT(*) AS count ' +
       'FROM users;', function (error, results) {

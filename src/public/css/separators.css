@@ -1,3 +1,11 @@
+.hello {
+    color: #499ab4;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
 .separators {
     list-style: none;
     text-align: left;
