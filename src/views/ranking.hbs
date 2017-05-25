@@ -22,24 +22,30 @@
         </tr>
         </thead>
         <tbody>
-        {{#each ideas}}
-            {{#compare score 0}}
-                <tr class="tablesBackground">
-                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                    <td>{{state}}</td>
-                    <td class="noScore">{{score}}</td>
-                </tr>
-            {{/compare}}
-            {{#compare score "!==" 0}}
-                <tr class="tablesBackground">
-                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                    <td>{{state}}</td>
-                    <td>{{score}}</td>
-                </tr>
-            {{/compare}}
-        {{/each}}
+        {{#if ideas}}
+            {{#each ideas}}
+                {{#compare score 0}}
+                    <tr class="tablesBackground">
+                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                        <td>{{state}}</td>
+                        <td class="noScore">{{score}}</td>
+                    </tr>
+                {{/compare}}
+                {{#compare score "!==" 0}}
+                    <tr class="tablesBackground">
+                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                        <td>{{state}}</td>
+                        <td>{{score}}</td>
+                    </tr>
+                {{/compare}}
+            {{/each}}
+        {{else}}
+        <tr>
+            <td class="noIdeas" colspan="4">No ideas found.</td>
+        </tr>
+        {{/if}}
         </tbody>
     </table>
 
