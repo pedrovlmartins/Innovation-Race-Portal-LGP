@@ -42,8 +42,8 @@ $(document).ready(function () {
         validators: {
           stringLength: {
             min: 10,
-            max: 200,
-            message: 'Please enter at least 10 characters and no more than 200',
+            max: 1000,
+            message: 'Please enter at least 10 characters and no more than 1000',
           },
           notEmpty: {
             message: 'Please supply your question',
