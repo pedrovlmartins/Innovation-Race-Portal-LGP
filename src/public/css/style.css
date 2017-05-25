@@ -4,10 +4,6 @@
     margin-bottom: 15px;
 }
 
-label{
-    margin-bottom: 15px;
-}
-
 input,
 input::-webkit-input-placeholder {
     font-size: 11px;
