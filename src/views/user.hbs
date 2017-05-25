@@ -9,11 +9,13 @@
 <script src="/js/draftIdeas.js"></script>
 
 <div class="container">
-
     <header>
         <div class="header-content">
             <div class="header-content-inner">
                 <div class="menu">
+                    {{#unless isManager}}
+                        <p class="hello"> Hello {{name}} </p>
+                    {{/unless}}
                     <div class="row">
                         <ul class="separators">
                             <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
