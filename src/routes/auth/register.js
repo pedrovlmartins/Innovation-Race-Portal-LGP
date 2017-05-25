@@ -1,11 +1,13 @@
 var express = require('express');
 const path = require('path');
+const config = require(path.join(__base, 'config'));
 const crypto = require('crypto');
 var database = require(path.join(__base, 'database', 'database'));
 var email = require(path.join(__base, 'lib', 'mailer'));
 var EmailTemplate = require('email-templates').EmailTemplate;
 const irp = require(path.join(__base, 'lib', 'irp'));
 var passwordHashAndSalt = require('password-hash-and-salt');
+var users = require(path.join(__base, 'lib', 'users'));
 var router = express.Router();
 
 var activationEmailTemplateDir = path.join(__base, 'views', 'emails', 'activation');
@@ -50,7 +52,7 @@ router.post('/', function (req, res, next) {
                       console.error(err);
                       irp.addError(req, err);
                     } else {
-                      irp.addSuccess(req, 'Account successfully created');
+                      irp.addSuccess(req, 'Account successfully created. Please check your email to validate your account.');
                     }
 
                     res.redirect('../../');
@@ -104,15 +106,15 @@ var validate = function (req) {
     .validate('type', 'Account type', {
       required: true,
       between: {
-        min: 0,
-        max: 2,
+        min: 1,
+        max: 3,
       },
     });
 
-  if (req.body.type === 0 || req.body.type === 1) {
+  if (req.body.type === users.types.CLIENT || req.body.type === users.types.PARTNER) {
     // Client/Partner
     req.Validator.validate('referral', 'Referência');
-  } else if (req.body.type === 2) {
+  } else if (req.body.type === users.types.ALTRAN_MEMBER) {
     // Altran Member
     req.Validator.validate('businessField', 'Business Field', {
       required: true,
@@ -140,7 +142,7 @@ var sendActivationEmail = function (to, token, callback) {
   var newsletter = new EmailTemplate(activationEmailTemplateDir);
   var user = {
     activationCode: token,
-    activationURL: 'http://localhost:8080/auth/activate?code=' + token,
+    activationURL: config.baseURL + 'auth/activate?code=' + token,
     replyTo: 'altran@musaic.ml',
   };
   newsletter.render(user, function (err, result) {

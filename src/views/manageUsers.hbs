@@ -1,8 +1,19 @@
 {{>header pageName="Manage Users"}}
-
+<script src="../../js/manageUsers.js"></script>
+<link rel="stylesheet" href="/css/separators.css">
 <div class="container">
 
     <header>
+        <div class="row">
+            <ul class="separators">
+                <p class="hello"> Hello {{name}} </p>
+                <li id="manageIdeas"><h4><a href="manageIdeas">MANAGE IDEAS</a></h4></li>
+                {{#if isManager}}
+                    <li id="manageRaces"><h4><a href="manageRaces">MANAGE RACES</a></h4></li>
+                    <li id="manageUsers" class="active"><h4><a href="manageUsers">MANAGE USERS</a></h4></li>
+                {{/if}}
+            </ul>
+        </div>
         <div class="header-content">
             <div class="header-content-inner">
                 <div class="row">
@@ -40,12 +51,30 @@
         </tr>
         </thead>
         <tbody>
-        {{#if users}}
-            {{#each users}}
+    {{#if users}}
+        {{#each users}}
                 <tr class="tablesBackground">
                     <td><a href="/users/{{id}}">{{name}}</a></td>
                     <td>{{email}}</a></td>
-                    <td>{{type}}</td>
+                    <td>{{type}}
+                        <form id="selectLayout-{{email}}" class="input-group" action="/users/{{id}}/typeDescription"  method="post" style="background:transparent;">
+                            <select name="type" style="display:none;background:white;">
+                                <option id="unkown" value="0">Unknown</option>
+                                <option id="altranMember" value="1">Altran member</option>
+                                <option id="Partner" value="2">Partner</option>
+                                <option id="Client" value="3">Client</option>
+                                <option id="R&DManager" value="4">R&D Manager</option>
+                                <option id="R&DCommittee" value="5">R&D Committee</option>
+                                <option id="R&DTeam" value="6">R&D Team</option>
+                                <option id="technicalDirector" value="7">Technical Director</option>
+                                <!--<input type="submit" value="Submit"/>-->
+                            </select>
+                            <button type="submit" value="Submit" style="background:none !important;border:none;z-index:1;outline:none;padding:0px;" disabled>
+                                <i id="editIcon-{{email}}" class="glyphicon glyphicon-edit" onclick="firstClick(id); return false;"></i>
+                            </button>
+                        </form>
+
+                    </td>
                     {{#if blocked}}
                         <td>Yes</td>
                     {{else}}
@@ -54,23 +83,23 @@
 
                     <td>{{#unless isAdmin}}
                         {{#if confirmed}}
-                    {{#if blocked}}
-                        <a href="/users/{{id}}/unblock">Unblock</a>
+                            {{#if blocked}}
+                                <a href="/users/{{id}}/unblock">Unblock</a>
+                            {{else}}
+                                <a href="/users/{{id}}/block">Block</a>
+                            {{/if}}
                         {{else}}
-                         <a href="/users/{{id}}/block">Block</a>
+                            <a href="/users/{{id}}/confirm">Confirm</a>
                         {{/if}}
-                    {{else}}
-                        <a href="/users/{{id}}/confirm">Confirm</a>
-                        {{/if}}
-                        {{/unless}}
+                    {{/unless}}
                     </td>
                 </tr>
-            {{/each}}
-        {{else}}
-            <tr>
-                <td class="noUsers" colspan="5">No users found.</td>
-            </tr>
-        {{/if}}
+        {{/each}}
+    {{else}}
+        <tr>
+            <td class="noUsers" colspan="5">No users found.</td>
+        </tr>
+    {{/if}}
         </tbody>
     </table>
 

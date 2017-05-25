@@ -1,0 +1,38 @@
+.hello {
+    color: #499ab4;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.separators {
+    list-style: none;
+    text-align: left;
+    margin-left: -2%;
+}
+
+.separators li a {
+    color: black;
+}
+
+.separators li {
+    float: left;
+    padding-right: 20px;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    color: black;
+}
+
+.separators li.active a {
+    color: black;
+    border-bottom: 2px solid rgb(24, 178, 232);
+}
+
+.separators li:hover a {
+    text-decoration: none;
+    /*border-bottom: 2px solid rgb(24, 178, 232);*/
+    border-bottom: 2px solid lightgrey;
+}

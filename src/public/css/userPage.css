@@ -60,31 +60,12 @@ h2 {
     font-weight: bold;
 }
 
-.profileDiv {
-    float: right;
-}
-
-.userNavbar {
+.separators {
     list-style: none;
 }
 
-.userNavbar li {
-    float: left;
-    padding-right: 20px;
-    font-family: 'Open Sans', sans-serif;
-    cursor: pointer;
-    margin-bottom: 2%;
-    margin-top: 2%;
-}
-
-.userNavbar li.active {
-    text-decoration: underline;
-    text-decoration-color: #499ab4;
-    cursor: default;
-}
-
-.userNavbar li a {
-    color: #6d6e71;
+.menu {
+    margin-top: 3%;
 }
 
 .userIdeasTableHead {
@@ -93,5 +74,9 @@ h2 {
 
 .noIdeas {
     text-align: center;
+}
+
+.saveDraftButton {
+    margin-left: 70%;
 }
 

@@ -1,12 +1,23 @@
 {{>header pageName="Manage Races"}}
 <script src="js/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+<link rel="stylesheet" href="/css/separators.css">
 <script src="js/manageRaces.js"></script>
 <div class="container">
 
     {{>actionResults}}
 
     <header>
+        <div class="row">
+            <ul class="separators">
+                <p class="hello"> Hello {{name}} </p>
+                <li id="manageIdeas"><h4><a href="manageIdeas">MANAGE IDEAS</a></h4></li>
+                {{#if isManager}}
+                    <li id="manageRaces" class="active"><h4><a href="manageRaces">MANAGE RACES</a></h4></li>
+                    <li id="manageUsers"><h4><a href="manageUsers">MANAGE USERS</a></h4></li>
+                {{/if}}
+            </ul>
+        </div>
         <div class="header-content">
             <div class="header-content-inner">
                 <div class="row">
@@ -36,14 +47,20 @@
         </tr>
         </thead>
         <tbody>
-        {{#each races}}
-            <tr class="tablesBackground">
-                <td>{{title}}</td>
-                <td>{{description}}</td>
-                <td>{{phase}}</td>
-                <td>{{#unless finished}}<a href="#"><span class="glyphicon glyphicon-remove race-remove" data-id="{{id}}" aria-hidden="true"></span></a>{{/unless}}</td>
-            </tr>
-        {{/each}}
+        {{#if races}}
+            {{#each races}}
+                <tr class="tablesBackground">
+                    <td>{{title}}</td>
+                    <td>{{description}}</td>
+                    <td>{{phase}}</td>
+                    <td>{{#unless finished}}<a href="#"><span class="glyphicon glyphicon-remove race-remove" data-id="{{id}}" aria-hidden="true"></span></a>{{/unless}}</td>
+                </tr>
+            {{/each}}
+        {{else}}
+        <tr>
+            <td class="noRaces" colspan="4">No races found.</td>
+        </tr>
+        {{/if}}
         </tbody>
     </table>
 

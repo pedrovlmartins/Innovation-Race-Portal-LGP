@@ -9,6 +9,18 @@ function currentUserType(req) {
   return req.session.userType;
 }
 
+function currentIsParticipant(req) {
+  return currentUserID(req) && users.isParticipant(currentUserType(req));
+}
+
+function currentIsAdmin(req) {
+  return currentUserID(req) && users.isAdmin(currentUserType(req));
+}
+
+function currentIsManager(req) {
+  return currentUserID(req) && users.isManager(currentUserType(req));
+}
+
 module.exports = {
   addError: function (req, msg) {
     req.session.errorMessages = req.session.errorMessages || [];
@@ -20,10 +32,14 @@ module.exports = {
     req.session.successMessages.push(msg);
   },
 
-  getActionResults: function (req) {
+  getGlobalTemplateVariables: function (req) {
     return {
       errorMessages: req.session.errorMessages || [],
       successMessages: req.session.successMessages || [],
+      userType: currentUserType(req),
+      isParticipant: currentIsParticipant(req),
+      isAdmin: currentIsAdmin(req),
+      isManager: currentIsManager(req),
     };
   },
 
@@ -36,9 +52,11 @@ module.exports = {
 
   currentUserType: currentUserType,
 
-  currentIsParticipant: function (req) {
-    return currentUserID(req) && users.isParticipant(currentUserType(req));
-  },
+  currentIsParticipant: currentIsParticipant,
+
+  currentIsAdmin: currentIsAdmin,
+
+  currentIsManager: currentIsManager,
 
   currentCanSelectIdea: function (req) {
     var type = currentUserType(req);
@@ -48,6 +66,11 @@ module.exports = {
   currentCanEvaluateIdea: function (req) {
     var type = currentUserType(req);
     return currentUserID(req) && (type == users.types.TECHNICAL_DIRECTOR || type == users.types.MANAGER);
+  },
+
+  currentCanChangeUserType: function (req) {
+      var type = currentUserType(req);
+      return currentUserID(req) && (type == users.types.MANAGER);
   },
 
   currentCanGoIdea: function (req) {

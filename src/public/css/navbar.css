@@ -27,19 +27,22 @@
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
   background-color: transparent;
-  text-decoration: underline;
-  color:deepskyblue;
 }
 
-.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav>li>a>h4:focus, .navbar-default .navbar-nav>li>a>h4:hover {
   background-color: transparent;
-  text-decoration: underline;
-  color:deepskyblue;
+  text-decoration: none;
+  border-bottom: 2px solid lightgrey;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-    text-decoration: underline;
-    color:deepskyblue;
+  text-decoration: underline;
+  text-decoration-color: rgb(24, 178, 232);
+}
+
+.navbar-default li.active h4 {
+  text-decoration: none;
+  border-bottom: 2px solid rgb(24, 178, 232);
 }
 
 .navbarContent {
@@ -49,3 +52,49 @@
 body {
   margin-top: 69px;
 }
+
+.navbar-toggle {
+  margin-top: 2%;
+}
+
+/* toggle in small size ---> responsive navbar */
+@media (max-width: 1000px) {
+  .navbar-header {
+    float: none;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    margin-bottom: 3%;
+    text-align: center;
+  }
+  .navbar-collapse.collapse {
+    display: none!important;
+  }
+  .navbar-nav {
+    float: none!important;
+    margin: 7.5px -15px;
+  }
+  .navbar-nav>li {
+    float: none;
+  }
+  .navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .navbar-text {
+    float: none;
+    margin: 15px 0;
+  }
+  /* since 3.1.0 */
+  .navbar-collapse.collapse.in {
+    display: block!important;
+  }
+  .collapsing {
+    overflow: hidden!important;
+  }
+}
+

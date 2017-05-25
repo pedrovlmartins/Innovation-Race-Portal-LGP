@@ -5,22 +5,33 @@
 <link rel="stylesheet" href="../../css/userPage.css">
 <script src="../../js/userPage.js"></script>
 <link rel="stylesheet" href="/css/ideaPage.css">
+<link rel="stylesheet" href="/css/separators.css">
 <script src="/js/draftIdeas.js"></script>
 
 <div class="container">
-    <div class="menu">
-        <ul class="userNavbar">
-            <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
-            <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
-
-            {{#unless isManager}}
-            <li id="submit"><h4><a href="submitIdea">SUBMIT IDEA</a></h4></li>
-            {{/unless}}
-        </ul>
-    </div>
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <div class="menu">
+                    {{#unless isManager}}
+                        <p class="hello"> Hello {{name}} </p>
+                    {{/unless}}
+                    <div class="row">
+                        <ul class="separators">
+                            <li id="profile"><h4><a href="profile">PROFILE</a></h4></li>
+                            <li id="ideas"><h4><a href="ideas">IDEAS</a></h4></li>
+                            {{#unless isManager}}
+                            <li id="submit"><h4><a href="submitIdea">SUBMIT IDEA</a></h4></li>
+                            {{/unless}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     {{#compare page "profile"}}
     <div id="profileDiv" class="profileDiv">
-        <div class="well form-horizontal"  id="user_page">
+        <div class="well form-horizontal formsBackground"  id="user_page">
             <fieldset>
                 <!-- Name -->
 
@@ -32,7 +43,7 @@
 
                             <form class="input-group" style="width:100%;" action="users/{{id}}/name"  method="post" >
                                 <div style="width:calc(100% - 39px);">
-                                <input id="name" name="name" value="{{name}}" disabled="disabled" class="form-control" style="overflow:auto;" type="text"></input>
+                                <input id="name" name="name" value="{{name}}" disabled="disabled" class="form-control" style="overflow:auto;" type="text">
                                 </div>
                                 <button id="nameButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id);  return false;"><i class="glyphicon glyphicon-edit"></i></button>
                             </form>
@@ -49,7 +60,7 @@
 
                             <form class="input-group" style="width:100%;" action="/users/{{id}}/email" method="post">
                                 <div style="width:calc(100% - 39px);">
-                                <input id="email" name="email" value="{{email}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text"></input>
+                                <input id="email" name="email" value="{{email}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text">
                                 </div>
                                 <button id="emailButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
                             </form>
@@ -57,18 +68,32 @@
                     </div>
                 </div>
 
-                <!-- Role -->
+                <!-- Edit Password-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Change Password</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <form class="input-group" style="width:100%;" action="/users/{{id}}/password" method="post">
+                                <div style="width:calc(100% - 39px);">
+                                    <input id="password" name="password" disabled="disabled" class="form-control" type="password"  >
+                                </div>
+                                <button id="passwordButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- ROLE -->
                     <div class="form-group">
                         <label class="col-md-4 control-label">Role</label>
                         <div class="col-md-4 selectContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                <input name="role" value="{{typeDescription}}" class="form-control" type="text"
-                                       readonly>
+                                <input id="type" name="type" value="{{typeDescription}}" disabled="disabled" class="form-control"style="overflow:auto;" type="text">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     {{#compare typeDescription "Altran member"}}
                         <!-- Collaborator Number -->
@@ -122,23 +147,6 @@
                             </div>
                         </div>
                     {{/compare}}
-                </fieldset>
-            </form>
-                <!-- Edit Password-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Change Password</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <form class="input-group" style="width:100%;" action="/users/{{id}}/password" method="post">
-                                <div style="width:calc(100% - 39px);">
-                                    <input id="password" name="password" disabled="disabled" class="form-control" type="password"  ></input>
-                                </div>
-                                <button id="passwordButton" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </fieldset>
         </div>
     </div>
@@ -157,7 +165,7 @@
                 <tbody>
                 {{#if ideas}}
                     {{#each ideas}}
-                        <tr>
+                        <tr class="tablesBackground">
                             <td><a href="/ideas/{{id}}">{{title}}</a></td>
                             <td>{{state}}</td>
                             <td>{{score}}</td>
@@ -185,22 +193,22 @@
         <div id="submitDiv" class="submitIdea">
                 <div class="row" id="submit_idea">
                     <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                        <div class="modal-body">
+                        <div class="modal-body formsBackground">
                             <div class="modal-body main-submit main-center">
                                 <form id="idea-form" method="post" action="submit">
                                     <div class="form-group">
                                         <label for="title">Title</label>
                                         <input type="text" id="title" name="title" class="form-control"
-                                               value="{{draft.title}}" autofocus>
+                                               value="{{userInfo.draft.title}}" autofocus>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea rows=8 cols=50 type="description" id="description" name="description"
-                                                  class="form-control">{{draft.description}}</textarea>
+                                                  class="form-control">{{userInfo.draft.description}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="teamIdea">Team name</label>
-                                        <input type="text" id="teamIdea" name="teamIdea" class="form-control" value="{{draft.teamIdeas}}" >
+                                        <input type="text" id="teamIdea" name="teamIdea" class="form-control" value="{{userInfo.draft.teamIdeas}}" >
                                     </div>
                                     <div class="form-group">
                                         <label for="uncertaintyToSolve">Scientific/Technological uncertainty that the
@@ -208,7 +216,7 @@
                                             to solve</label>
                                         <textarea rows=8 cols=50 type="text" id="uncertaintyToSolve"
                                                   name="uncertaintyToSolve"
-                                                  class="form-control">{{draft.uncertaintyToSolve}}</textarea>
+                                                  class="form-control">{{userInfo.draft.uncertaintyToSolve}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="solutionTechnicalCompetence">Why can't the solutions found be
@@ -216,7 +224,7 @@
                                             someone
                                             with technical skills in the field?</label>
                                         <textarea rows=8 cols=50 type="text" id="solutionTechnicalCompetence"
-                                                  name="solutionTechnicalCompetence" class="form-control">{{draft.solutionTechnicalCompetence}}</textarea>
+                                                  name="solutionTechnicalCompetence" class="form-control">{{userInfo.draft.solutionTechnicalCompetence}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="techHumanResources">Human and technological resources needed
@@ -224,24 +232,23 @@
                                             partners, universities, etc.)</label>
                                         <textarea rows=8 cols=50 type="text" id="techHumanResources"
                                                   name="techHumanResources"
-                                                  class="form-control">{{draft.techHumanResources}}</textarea>
+                                                  class="form-control">{{userInfo.draft.techHumanResources}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="results">Results to be produced by the project</label>
                                         <textarea rows=8 cols=50 type="text" id="results" name="results"
-                                                  class="form-control">{{draft.results}}</textarea>
+                                                  class="form-control">{{userInfo.draft.results}}</textarea>
                                     </div>
-                                    <div class="submiteButton">
-                                        <div class="row">
-                                            <div class="col-xs-8 col-xs-offset-2">
-                                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="saveDraftButton">
+                                                <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="saveDraftButton">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-xs-offset-3">
-                                                <a id="draftButton" class="btn btn-primary btn-block">Save Draft</a>
+                                        <div class="col-sm-3">
+                                            <div class="submiteButton">
+                                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
                                             </div>
                                         </div>
                                     </div>

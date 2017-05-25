@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 'use strict';
 
 const path = require('path');
@@ -24,6 +26,7 @@ const routes = require(path.join(__base, 'routes', 'index'));
 const about = require(path.join(__base, 'routes', 'about'));
 const contact = require(path.join(__base, 'routes', 'contact'));
 const innovationRules = require(path.join(__base, 'routes', 'innovationRules'));
+const passwordReset = require(path.join(__base, 'routes', 'passwordReset'));
 const manageUsers = require(path.join(__base, 'routes', 'manageUsers'));
 const manageIdeas = require(path.join(__base, 'routes', 'manageIdeas'));
 const manageRaces = require(path.join(__base, 'routes', 'manageRaces'));
@@ -44,7 +47,7 @@ const app = express();
 
 // View engine setup
 const helpers = require(path.join(__base, 'lib', 'helpers'));
-var irp = require("./lib/irp.js");
+var irp = require('./lib/irp.js');
 app.set('view engine', 'hbs');
 app.set('views', path.join(__base, 'views'));
 hbs.registerPartials(path.join(__base, 'views', 'partials'));
@@ -78,6 +81,7 @@ app.use('/contact', contact);
 app.use('/classification', classification);
 app.use('/ideas', ideas);
 app.use('/innovationRules', innovationRules);
+app.use('/passwordReset', passwordReset);
 app.use('/manageUsers', manageUsers);
 app.use('/manageIdeas', manageIdeas);
 app.use('/manageRaces', manageRaces);
@@ -93,7 +97,7 @@ app.use(express.static(path.join(__base, 'images')));
 
 app.use('*', function (req, res, next) {
   res.status(404);
-  var vars = irp.getActionResults(req);
+  var vars = irp.getGlobalTemplateVariables(req);
   if (req.session.userID !== undefined)
     vars.userID = req.session.userID;
   res.render('errorPage', vars);

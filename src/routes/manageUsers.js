@@ -13,44 +13,63 @@ router.get('/', function (req, res) {
       irp.addError(req, 'You need to be a manager in order to manage users.');
       res.redirect('back');
     } else {
-      var vars = irp.getActionResults(req);
-      var keyword = req.query.keyword;
-      var offset;
-      var page;
+      database.getUserName(req.session.userID, function (name) {
+        var vars = irp.getGlobalTemplateVariables(req);
+        var keyword = req.query.keyword;
+        var offset;
+        var page;
 
-      if (req.query.page === undefined) {
-        offset = 0;
-        page = 1;
-      } else {
-        page = parseInt(req.query.page);
-        if (isNaN(page)) {
+        if (req.query.page === undefined) {
           offset = 0;
           page = 1;
-        } else if (page < 1) {
-          offset = 0;
-          page = 1;
-        } else offset = (page - 1) * itemsPerPage;
-      }
+        } else {
+          page = parseInt(req.query.page);
+          if (isNaN(page)) {
+            offset = 0;
+            page = 1;
+          } else if (page < 1) {
+            offset = 0;
+            page = 1;
+          } else offset = (page - 1) * itemsPerPage;
+        }
 
-      vars.page = page;
+        vars.page = page;
+        vars.name = name[0].name;
 
-      if (req.query.keyword === undefined) {
-        database.getUsersCount(function (result) {
-          var numberOfUsers = result[0].count;
-          vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
-          database.listUsers(offset, itemsPerPage, function (error, result) {
-            if (error) {
-              console.error(error);
-              irp.addError(req, 'Unknown error occurred.');
-              res.redirect('/');
-              return;
-            }
+        if (req.query.keyword === undefined) {
+          database.getUsersCount(function (result) {
+            var numberOfUsers = result[0].count;
+            vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
+            database.listUsers(offset, itemsPerPage, function (error, result) {
+              if (error) {
+                console.error(error);
+                irp.addError(req, 'Unknown error occurred.');
+                res.redirect('/');
+                return;
+              }
 
+              result.forEach(
+                function (user) {
+                  user.isAdmin = users.isAdmin(user.type);
+                  user.type = users.getTypeDescription(user.type);
+
+                }
+              );
+              vars.users = result;
+              if (req.session.userID !== undefined)
+                vars.userID = req.session.userID;
+              res.render('manageUsers', vars);
+            });
+          });
+        } else {
+          database.searchUsers(keyword, offset, itemsPerPage, function (error, result) {
+            var numberOfUsers = result.length;
+            vars.keyword = keyword;
+            vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
             result.forEach(
               function (user) {
                 user.isAdmin = users.isAdmin(user.type);
                 user.type = users.getTypeDescription(user.type);
-
               }
             );
             vars.users = result;
@@ -58,24 +77,8 @@ router.get('/', function (req, res) {
               vars.userID = req.session.userID;
             res.render('manageUsers', vars);
           });
-        });
-      } else {
-        database.searchUsers(keyword, offset, itemsPerPage, function (error, result) {
-          var numberOfUsers = result.length;
-          vars.keyword = keyword;
-          vars.totalPages = Math.ceil(numberOfUsers / itemsPerPage);
-          result.forEach(
-            function (user) {
-              user.isAdmin = users.isAdmin(user.type);
-              user.type = users.getTypeDescription(user.type);
-            }
-          );
-          vars.users = result;
-          if (req.session.userID !== undefined)
-            vars.userID = req.session.userID;
-          res.render('manageUsers', vars);
-        });
-      }
+        }
+      });
     }
   });
 });

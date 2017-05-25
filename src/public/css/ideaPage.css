@@ -1,3 +1,12 @@
+#ideaNameHeading {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+#ideaNameHeading h1 {
+    font-weight: bold;
+}
+
 #bmcEdit {
     background-color: rgb(35, 127, 195);
     width: 120px;

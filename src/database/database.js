@@ -49,6 +49,19 @@ module.exports = {
       });
   },
 
+    getUserByToken: function (token, callback) {
+        pool.query('SELECT * FROM users WHERE resetPasswordToken = ?',
+            [token],
+            function (error, results, fields) {
+                if (error) {
+                    console.error(error);
+                    callback(error);
+                } else {
+                    callback(null, results.length > 0 ? results[0] : null);
+                }
+            });
+    },
+
   updateUserName: function (id, newName, next) {
     pool.query('UPDATE users' +
       ' SET name = ? ' +
@@ -92,17 +105,18 @@ module.exports = {
       });
   },
 
-  getUserByEmail: function (email, callback) {
-    pool.query('SELECT * FROM users WHERE email = ?',
-      [email],
-      function (error, results, fields) {
-        if (error) {
-          console.error(error);
-          callback(error);
-        } else {
-          callback(null, results.length > 0 ? results[0] : null);
-        }
-      });
+  updateUserType: function(id, newUserType, next){
+    pool.query('UPDATE users' +
+      ' SET type = ? '+
+      ' WHERE id = ?', [newUserType, id],
+      function (err, result){
+          if (err){
+              console.error(err);
+              next(err);
+          } else {
+              next(null, result);
+          }
+      })
   },
 
   getPartnerClientInfo: function (id, next) {
@@ -163,18 +177,6 @@ module.exports = {
       });
   },
 
-  getTeamMembers: function (id, next) {
-    pool.query(
-      'SELECT users.id, users.name ' +
-      'FROM users ' +
-      'JOIN ideamember ON ideamember.idMember = users.id ' +
-      'JOIN ideas ON ideamember.idIdea = ideas.id ' +
-      'WHERE ideas.id = ?;', [id], function (err, result) {
-        if (typeof next === 'function')
-          next(result);
-      });
-  },
-
   validateAccount: function (token, callback, next) {
     pool.query('UPDATE users SET emailConfirmationToken = NULL, accountStatus = 1' +
       ' WHERE emailConfirmationToken = ?', [token], function (error, results, fields) {
@@ -214,6 +216,17 @@ module.exports = {
           next(null, result[0].email);
         }
       });
+  },
+
+  getUserName: function(id, next) {
+    pool.query(
+      'SELECT name ' +
+      'FROM users ' +
+      'WHERE id = ?', [id], function (err, result) {
+        if (typeof next === 'function')
+          next(result);
+      }
+    )
   },
 
   getUsersCount: function (next) {
@@ -489,6 +502,26 @@ module.exports = {
       });
   },
 
+  updateToken: function (token, id, next) {
+      if (token == 'NULL') {
+          pool.query(
+              'UPDATE users ' +
+              'SET resetPasswordToken = NULL ' +
+              'WHERE users.id = ?;', [id], function(err, result) {
+                  if (typeof next === 'function')
+                      next(result);
+              });
+      } else {
+          pool.query(
+              'UPDATE users ' +
+              'SET resetPasswordToken = ? ' +
+              'WHERE users.id = ?;', [token, id], function(err, result) {
+                  if (typeof next === 'function')
+                      next(result);
+              });
+      }
+  },
+
   confirmUser: function (id, next) {
     pool.query(
         'UPDATE users ' +
@@ -499,24 +532,22 @@ module.exports = {
         });
   },
 
-  saveDraft: function (userId, title, description, teamIdeas, teamMembers,
+  saveDraft: function (userId, title, description,
                        uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources,
                        results, callback, next) {
 
     pool.query('INSERT INTO drafts' +
-      ' (user_id, title, description, teamIdeas, teammembers, ' +
+      ' (user_id, title, description, ' +
       'uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, results)' +
-      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE ' +
+      ' VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE ' +
       'title = ?, ' +
       'description = ?, ' +
-      'teamIdeas = ?, ' +
-      'teammembers = ?, ' +
       'uncertaintyToSolve = ?, ' +
       'solutionTechnicalCompetence =?, ' +
       'techHumanResources = ?, ' +
       'results = ?;',
-      [userId, title, description, teamIdeas, teamMembers, uncertaintyToSolve,
-        solutionTechnicalCompetence, techHumanResources, results, title, description, teamIdeas, teamMembers,
+      [userId, title, description, uncertaintyToSolve,
+        solutionTechnicalCompetence, techHumanResources, results, title, description,
         uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, results,
       ],
       function (err, rows, fields) {

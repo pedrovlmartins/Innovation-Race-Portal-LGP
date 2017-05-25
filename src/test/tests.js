@@ -111,7 +111,7 @@ describe('Idea Page', function () {
     it('should return 401 because the user is not logged in', function () {
       chai.request(server)
       .get('/ideas/1')
-      .end(function(err, res) {
+      .end(function (err, res) {
         assert.equal(res.statusCode, 401);
         done();
       });
@@ -141,20 +141,20 @@ describe('Action results', function () {
   it('should add error and success messages keeping the order in each group', function () {
     irp.addError(req, 'Error 1');
     irp.addError(req, 'Error 2');
-    assert.equal('Error 1', irp.getActionResults(req).errorMessages[0]);
-    assert.equal('Error 2', irp.getActionResults(req).errorMessages[1]);
-    assert.equal(0, irp.getActionResults(req).successMessages.length);
+    assert.equal('Error 1', irp.getGlobalTemplateVariables(req).errorMessages[0]);
+    assert.equal('Error 2', irp.getGlobalTemplateVariables(req).errorMessages[1]);
+    assert.equal(0, irp.getGlobalTemplateVariables(req).successMessages.length);
     irp.addSuccess(req, 'Success 1');
-    assert.equal(2, irp.getActionResults(req).errorMessages.length);
-    assert.equal('Success 1', irp.getActionResults(req).successMessages[0]);
+    assert.equal(2, irp.getGlobalTemplateVariables(req).errorMessages.length);
+    assert.equal('Success 1', irp.getGlobalTemplateVariables(req).successMessages[0]);
   });
 
   it('should clean messages', function () {
     irp.addError(req, 'Error 1');
     irp.addError(req, 'Success 1');
     irp.cleanActionResults(req);
-    assert.equal(0, irp.getActionResults(req).errorMessages.length);
-    assert.equal(0, irp.getActionResults(req).successMessages.length);
+    assert.equal(0, irp.getGlobalTemplateVariables(req).errorMessages.length);
+    assert.equal(0, irp.getGlobalTemplateVariables(req).successMessages.length);
   });
 
   it('should accept new sessions', function () {
@@ -164,9 +164,9 @@ describe('Action results', function () {
       },
     };
 
-    assert.equal(0, irp.getActionResults(req).errorMessages.length);
-    assert.equal(0, irp.getActionResults(req).successMessages.length);
+    assert.equal(0, irp.getGlobalTemplateVariables(req).errorMessages.length);
+    assert.equal(0, irp.getGlobalTemplateVariables(req).successMessages.length);
     irp.addError(req, 'Error 1');
-    assert.equal(1, irp.getActionResults(req).errorMessages.length);
+    assert.equal(1, irp.getGlobalTemplateVariables(req).errorMessages.length);
   });
 });
