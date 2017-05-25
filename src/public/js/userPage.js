@@ -8,7 +8,7 @@ $(document).ready(function () {
     $("#ideas").addClass("active");
     $("#ideas").find("a").removeAttr("href");
   }
-  else if(window.location.href.indexOf("ideas") > -1) {
+  else if(window.location.href.indexOf("submitIdea") > -1) {
     $("#submit").addClass("active");
     $("#submit").find("a").removeAttr("href");
   }
