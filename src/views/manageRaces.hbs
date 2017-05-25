@@ -47,14 +47,20 @@
         </tr>
         </thead>
         <tbody>
-        {{#each races}}
-            <tr class="tablesBackground">
-                <td>{{title}}</td>
-                <td>{{description}}</td>
-                <td>{{phase}}</td>
-                <td>{{#unless finished}}<a href="#"><span class="glyphicon glyphicon-remove race-remove" data-id="{{id}}" aria-hidden="true"></span></a>{{/unless}}</td>
-            </tr>
-        {{/each}}
+        {{#if races}}
+            {{#each races}}
+                <tr class="tablesBackground">
+                    <td>{{title}}</td>
+                    <td>{{description}}</td>
+                    <td>{{phase}}</td>
+                    <td>{{#unless finished}}<a href="#"><span class="glyphicon glyphicon-remove race-remove" data-id="{{id}}" aria-hidden="true"></span></a>{{/unless}}</td>
+                </tr>
+            {{/each}}
+        {{else}}
+        <tr>
+            <td class="noRaces" colspan="4">No races found.</td>
+        </tr>
+        {{/if}}
         </tbody>
     </table>
 
