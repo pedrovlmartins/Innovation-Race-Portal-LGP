@@ -55,7 +55,6 @@ body {
 }
 
 /* toggle in small size ---> responsive navbar */
-
 @media (max-width: 1000px) {
   .navbar-header {
     float: none;
