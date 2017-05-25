@@ -27,14 +27,12 @@
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
   background-color: transparent;
-  text-decoration: underline;
-  text-decoration-color: rgb(24, 178, 232);
 }
 
-.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav>li>a>h4:focus, .navbar-default .navbar-nav>li>a>h4:hover {
   background-color: transparent;
-  text-decoration: underline;
-  text-decoration-color: rgb(24, 178, 232);
+  text-decoration: none;
+  border-bottom: 2px solid lightgrey;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
@@ -43,8 +41,8 @@
 }
 
 .navbar-default li.active h4 {
-  text-decoration: underline;
-  text-decoration-color: rgb(24, 178, 232);
+  text-decoration: none;
+  border-bottom: 2px solid rgb(24, 178, 232);
 }
 
 .navbarContent {
