@@ -87,6 +87,7 @@ router.get('/:id/ideas', function (req, res) {
             db.getUserIdeasCount(req.params.id, function (ideaCount) {
               vars.pageTotal = Math.ceil(ideaCount/itemsPerPage);
               vars.userID = req.session.userID;
+              vars.isManager = users.isAdmin(type);
               vars.pageNo = pageNo;
               vars.page = 'ideas';
               if (vars.userIdeas.length > 0) {
