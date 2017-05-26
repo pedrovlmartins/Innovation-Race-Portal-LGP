@@ -21,6 +21,6 @@
     visibility: hidden;
 }
 
-textarea {
+#classificationModal textarea {
     min-height: 300px;
 }
