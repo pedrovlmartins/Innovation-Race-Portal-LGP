@@ -22,9 +22,9 @@ module.exports = {
                         solutionTechnicalCompetence, techHumanResources, resultsToProduce,
                         callback) {
     pool.query('INSERT INTO ideas' +
-      ' (idCreator, race, title, description' +
+      ' (idCreator, race, title, description, state' +
       ', uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, resultsToProduce)' +
-      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      ' VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?)',
       [creatorId, race, title, description, uncertaintyToSolve, solutionTechnicalCompetence,
         techHumanResources, resultsToProduce,
       ],
