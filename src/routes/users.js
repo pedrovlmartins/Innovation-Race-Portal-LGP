@@ -206,41 +206,41 @@ router.post('/:id/submit', function (req, res) {
     validateSubmitIdea(req);
 
     req.Validator.getErrors(function (errors) {
-        if (errors.length == 0) {
-            db.getActiveRaces(function (err, races) {
-               /* if (races.length == 0) {
-                    irp.addError(req, 'You cannot submit a new idea because there is no active race.');
+      if (errors.length == 0) {
+        db.getActiveRaces(function (err, races) {
+         /* if (races.length == 0) {
+              irp.addError(req, 'You cannot submit a new idea because there is no active race.');
+              res.redirect('back');
+              return;
+          }*/
+
+          //var race = races[0].id;
+
+          var race = 0;
+          db.createIdea(irp.currentUserID(req), race, req.body.title, req.body.description,
+            req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
+            req.body.techHumanResources, req.body.results,
+            function (err, id) {
+              if (err) {
+                console.error(err);
+                irp.addError(req, err);
+                res.redirect('back');
+              } else {
+                irp.addSuccess(req, 'Idea successfully created.');
+                db.removeDraft(irp.currentUserID(req),function() {
                     res.redirect('back');
-                    return;
-                }*/
-
-                //var race = races[0].id;
-
-                var race = 0;
-                db.createIdea(irp.currentUserID(req), race, req.body.title, req.body.description,
-                    req.body.uncertaintyToSolve, req.body.solutionTechnicalCompetence,
-                    req.body.techHumanResources, req.body.results,
-                    function (err, id) {
-                        if (err) {
-                            console.error(err);
-                            irp.addError(req, err);
-                            res.redirect('back');
-                        } else {
-                            irp.addSuccess(req, 'Idea successfully created.');
-                            db.removeDraft(irp.currentUserID(req),function() {
-                                res.redirect('back');
-                                irp.cleanActionResults(req);
-                            });
-                        }
-                    });
+                    irp.cleanActionResults(req);
+                });
+              }
             });
-        } else {
-            errors.forEach(function (item, index) {
-                irp.addError(req, item);
-            });
+        });
+      } else {
+        errors.forEach(function (item, index) {
+          irp.addError(req, item);
+        });
 
-            res.redirect('back');
-        }
+        res.redirect('back');
+      }
     });
 });
 

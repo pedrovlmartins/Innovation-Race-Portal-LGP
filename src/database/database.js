@@ -109,13 +109,13 @@ module.exports = {
     pool.query('UPDATE users' +
       ' SET type = ? '+
       ' WHERE id = ?', [newUserType, id],
-      function (err, result){
-          if (err){
-              console.error(err);
-              next(err);
-          } else {
-              next(null, result);
-          }
+      function (err, result) {
+        if (err) {
+          console.error(err);
+          next(err);
+        } else {
+          next(null, result);
+        }
       })
   },
 
@@ -240,7 +240,7 @@ module.exports = {
   listUsers: function (limit, offset, next) {
     pool.query('SELECT users.id, users.name, users.email, users.blocked, users.confirmed, users.type ' +
       'FROM users ' +
-      'ORDER BY name ' +
+      'ORDER BY users.type ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(error, results);
@@ -251,7 +251,7 @@ module.exports = {
     pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
       'ideas.state, ideas.cancelled, users.id AS idCreator, users.name AS creator ' +
       'FROM ideas ' +
-      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.cancelled, ideas.title ASC ' +
+      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.cancelled, ideas.state ASC ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
@@ -360,7 +360,7 @@ module.exports = {
       'FROM ideas ' +
       'JOIN users ON users.id = ideas.idCreator ' +
       'WHERE users.name LIKE ? OR ideas.title LIKE ? OR ideas.state LIKE ?' +
-      'ORDER BY ideas.title ' +
+      'ORDER BY ideas.state ' +
       'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
         if (error) {

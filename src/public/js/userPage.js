@@ -14,7 +14,7 @@ $(document).ready(function () {
   }
 });
 
-function firstClick(id){
+function firstClick(id) {
   var button = document.getElementById(id);
   button.previousElementSibling.lastElementChild.removeAttribute("disabled");
 
@@ -24,14 +24,10 @@ function firstClick(id){
   button.style.setProperty('background','white');
 
   var glyphiconsend = document.createElement('i');
-    glyphiconsend.className = "glyphicon glyphicon-check";
-    glyphiconsend.setAttribute('style','z-index:3;display:none;margin-left:-'+button.lastElementChild.offsetWidth +'px;');
-    button.appendChild(glyphiconsend);
+  glyphiconsend.className = "glyphicon glyphicon-check";
+  glyphiconsend.setAttribute('style','z-index:3;display:none;margin-left:-'+button.lastElementChild.offsetWidth +'px;');
+  button.appendChild(glyphiconsend);
 
-    $(glyphiconsend).toggle('slide');
-    $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
+  $(glyphiconsend).toggle('slide');
+  $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
 }
-
-
-
-
