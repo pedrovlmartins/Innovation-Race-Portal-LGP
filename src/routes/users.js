@@ -320,7 +320,6 @@ router.post('/:id/name', function (req, res) {
       res.redirect('/');
       return;
     }
-
     db.updateUserName(req.params.id, req.body.name, function(error, results){
         if (error) {
             irp.addError(req, 'Unknown error occurred.');
@@ -330,18 +329,18 @@ router.post('/:id/name', function (req, res) {
             irp.addSuccess(req, 'User information successfully updated.');
         }
         res.redirect('back');
+        irp.cleanActionResults(req);
     });
 
 });
 
 router.post('/:id/email', function (req, res) {
 
-    if (req.session.typeDescription === undefined) {
-      irp.addError(req, 'You are not logged in.');
-      res.redirect('/');
-      return;
+    if (req.session.userID === undefined) {
+        irp.addError(req, 'You are not logged in.');
+        res.redirect('/');
+        return;
     }
-
     db.updateUserMail(req.params.id, req.body.email, function (error, results) {
         if (error) {
             irp.addError(req, 'Unknown error occurred.');
@@ -351,6 +350,7 @@ router.post('/:id/email', function (req, res) {
             irp.addSuccess(req, 'User information successfully updated.');
         }
         res.redirect('back');
+        irp.cleanActionResults(req);
     });
 
 });
@@ -380,6 +380,7 @@ router.post('/:id/password', function (req, res){
              irp.addSuccess(req, 'User information successfully updated.');
      }
      res.redirect('back');
+     irp.cleanActionResults(req);
      });
      });
 });
@@ -401,7 +402,7 @@ router.post('/:id/typeDescription', function (req, res){
           irp.addSuccess(req, 'User information successfully updated.');
       }
       res.redirect('back');
-      return;
+      irp.cleanActionResults(req);
     });
 });
 
