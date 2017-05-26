@@ -18,6 +18,18 @@ module.exports = {
       });
   },
 
+  createAdmin: function (name, email, passwordHash, type, role,
+                         emailConfirmationToken, callback, next) {
+    pool.query('INSERT INTO users' +
+      ' (name, email, passwordHash, type' +
+      ', role, emailConfirmationToken)' +
+      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [name, email, passwordHash, type, role, emailConfirmationToken],
+      function (err, rows, fields) {
+        callback(err);
+      });
+  },
+
   createIdea: function (creatorId, race, title, description, uncertaintyToSolve,
                         solutionTechnicalCompetence, techHumanResources, resultsToProduce,
                         callback) {
