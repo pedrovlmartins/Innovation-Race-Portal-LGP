@@ -174,7 +174,7 @@ router.get('/:id/submitIdea', function(req, res) {
         vars.userInfo = {};
         vars.userID = req.session.userID;
         vars.page = 'submitIdea';
-        db.loadDraft(vars.userInfo.userID, function(draft){
+        db.loadDraft(vars.userID, function(draft){
           db.getUserName(vars.userID, function(name) {
             vars.userInfo.draft = {};
             vars.name = name[0].name;
