@@ -320,6 +320,17 @@ router.post('/:id/name', function (req, res) {
       res.redirect('/');
       return;
     }
+    req.Validator.validate('name', 'Name', {
+        required: true,
+        length: {
+            min: 3,
+            max: 100,
+        },
+    })
+        .filter('name', {
+            trim: true,
+        })
+
     db.updateUserName(req.params.id, req.body.name, function(error, results){
         if (error) {
             irp.addError(req, 'Unknown error occurred.');
