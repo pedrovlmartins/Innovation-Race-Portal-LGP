@@ -14,7 +14,7 @@ router.post('/:id/evaluation', function (req, res, next) {
   }
 
   if (!irp.currentCanEvaluateIdea(req)) {
-    irp.addError(req, 'Only a R&D Director may may evaluate an idea.');
+    irp.addError(req, 'Only a R&D Director may evaluate an idea.');
     res.redirect('back');
     return;
   }
