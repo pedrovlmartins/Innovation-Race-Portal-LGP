@@ -4,7 +4,7 @@ $(document).ready(function() {
 );
 
 $(document).ready(function() {
-    $('#submitBMC').click(function () {
-                $('#submitBMC').attr('disabled', true);
-    }
-);}
+    $('#keyRevenueTextarea').mouseover(function() {
+        $('#keyRevenueTextarea').hide();
+    });
+}
