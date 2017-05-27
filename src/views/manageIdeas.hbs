@@ -27,7 +27,8 @@
                         <div id="imaginary_container">
                             <form action="/manageIdeas" method="get">
                                 <div class="input-group stylish-input-group">
-                                    <input type="text" class="form-control searchWord" placeholder="Search" name="keyword" value=''>
+                                    <input type="text" class="form-control searchWord" placeholder="Search"
+                                           name="keyword" value=''>
                                     <span class="input-group-addon">
                                         <button type="submit">
                                             <span class="glyphicon glyphicon-search"></span>
@@ -48,89 +49,167 @@
             <th>Ideas</th>
             <th>Creator of the idea</th>
             <th>State</th>
-            <th>Classification</th>
+            {{#if isManager}}
+                <th>Classification</th>
+            {{/if}}
         </tr>
         </thead>
         <tbody>
-        {{#if ideas}}
-            {{#each ideas}}
-                {{#compare state "Cancelled"}}
-                <tr class="cancelledLine">
-                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                    <td>{{state}}</td>
-                    <td></td>
+        {{#if isManager}}
+            {{#if ideas}}
+                {{#each ideas}}
+                    {{#compare state "Cancelled"}}
+                        <tr class="cancelledLine">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td></td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Draft State"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td>Idea still in draft stages</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Awaiting classification"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}"
+                                   class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a>
+                            </td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Awaiting evaluation"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td>Idea already classified.</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Awaiting selection"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td>Idea already classified.</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "In coaching phase"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td>Idea already classified.</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Awaiting GO / NO GO"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td>Idea already classified.</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Being implemented"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td>Idea already classified.</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Being classified"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                            <td>Idea already classified.</td>
+                        </tr>
+                    {{/compare}}
+                {{/each}}
+            {{else}}
+                <tr>
+                    <td class="noIdeas" colspan="4">No ideas found.</td>
                 </tr>
-                {{/compare}}
-                {{#compare state "Draft State"}}
-                <tr class="tablesBackground">
-                    <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                    <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                    <td>{{state}}</td>
-                    <td>Idea still in draft stages</td>
-                </tr>
-                {{/compare}}
-                {{#compare state "Awaiting classification"}}
-                    <tr class="tablesBackground">
-                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                        <td>{{state}}</td>
-                        <td><a data-target="#classificationModal" data-toggle="modal" data-id="{{id}}" class="MainNavText" id="MainNavHelp" href="#classificationModal">Classify Idea</a></td>
-                    </tr>
-                {{/compare}}
-                {{#compare state "Awaiting evaluation"}}
-                    <tr class="tablesBackground">
-                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                        <td>{{state}}</td>
-                        <td>Idea already classified.</td>
-                    </tr>
-                {{/compare}}
-                {{#compare state "Awaiting selection"}}
-                    <tr class="tablesBackground">
-                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                        <td>{{state}}</td>
-                        <td>Idea already classified.</td>
-                    </tr>
-                {{/compare}}
-                {{#compare state "In coaching phase"}}
-                    <tr class="tablesBackground">
-                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                        <td>{{state}}</td>
-                        <td>Idea already classified.</td>
-                    </tr>
-                {{/compare}}
-                {{#compare state "Awaiting GO / NO GO"}}
-                    <tr class="tablesBackground">
-                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                        <td>{{state}}</td>
-                        <td>Idea already classified.</td>
-                    </tr>
-                {{/compare}}
-                {{#compare state "Being implemented"}}
-                    <tr class="tablesBackground">
-                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                        <td>{{state}}</td>
-                        <td>Idea already classified.</td>
-                    </tr>
-                {{/compare}}
-                {{#compare state "Being classified"}}
-                    <tr class="tablesBackground">
-                        <td><a href="/ideas/{{id}}">{{title}}</a></td>
-                        <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
-                        <td>{{state}}</td>
-                        <td>Idea already classified.</td>
-                    </tr>
-                {{/compare}}
-            {{/each}}
+            {{/if}}
         {{else}}
-            <tr>
-                <td class="noIdeas" colspan="4">No ideas found.</td>
-            </tr>
+            {{#if ideas}}
+                {{#each ideas}}
+                    {{#compare state "Cancelled"}}
+                        <tr class="cancelledLine">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Draft State"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Awaiting classification"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Awaiting evaluation"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Awaiting selection"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "In coaching phase"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Awaiting GO / NO GO"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Being implemented"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                    {{#compare state "Being classified"}}
+                        <tr class="tablesBackground">
+                            <td><a href="/ideas/{{id}}">{{title}}</a></td>
+                            <td><a href="/users/{{idCreator}}">{{creator}}</a></td>
+                            <td>{{state}}</td>
+                        </tr>
+                    {{/compare}}
+                {{/each}}
+            {{else}}
+                <tr>
+                    <td class="noIdeas" colspan="4">No ideas found.</td>
+                </tr>
+            {{/if}}
         {{/if}}
         </tbody>
     </table>
