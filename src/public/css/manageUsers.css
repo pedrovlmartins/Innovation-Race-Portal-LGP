@@ -58,3 +58,7 @@
 .createAdmin {
     text-align: right;
 }
+
+#createAdminModal {
+    height: 100%;
+}

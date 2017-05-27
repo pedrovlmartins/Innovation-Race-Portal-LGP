@@ -4,6 +4,11 @@ var express = require('express');
 var router = express.Router();
 var database = require(path.join(__base, 'database', 'database'));
 var users = require(path.join(__base, 'lib', 'users'));
+var passwordHashAndSalt = require('password-hash-and-salt');
+const crypto = require('crypto');
+var email = require(path.join(__base, 'lib', 'mailer'));
+var EmailTemplate = require('email-templates').EmailTemplate;
+var activationEmailTemplateDir = path.join(__base, 'views', 'emails', 'activation');
 
 const itemsPerPage = 10.0;
 
@@ -183,4 +188,5 @@ var validateAdmin = function (req) {
       },
     });
 };
+
 module.exports = router;
