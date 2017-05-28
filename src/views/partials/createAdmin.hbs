@@ -46,30 +46,53 @@
                         </div>
                     </div>
 
+                    <br>
+                    <div class="form-group adminTypeTag">
+                        <div class="row">
+                            <label for="type" class="control-label col-sm-3">Admin Type</label>
+                            <div class="col-md-7">
+                                <select class="form-control" id="sel1">
+                                    <option>R&D Manager</option>
+                                    <option>R&D Committee</option>
+                                    <option>R&D Team</option>
+                                    <option>Technical Director</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="form-group">
                         <label class="control-label col-sm-3">User Type</label>
                         <div class="col-sm-7">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <label class="radio-inline memberOptionsRegister">
-                                        <input type="radio" id="MemberRadio" name="type" value="{{userTypes.ALTRAN_MEMBER}}" onclick="fMember()">Member
+                                        <input type="radio" id="ManagerRadio" name="type" value="{{userTypes.MANAGER}}" onclick="fMember()">R&D Manager
                                     </label>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input type="radio" id="PartnerRadio" name="type" value="{{userTypes.PARTNER}}"
-                                               onclick="fPartner()">Partner
+                                        <input type="radio" id="CommitteRadio" name="type" value="{{userTypes.COMMITTEE}}"
+                                               onclick="fPartner()">R&D Committee
                                     </label>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input type="radio" id="CustomerRadio" name="type" value="{{userTypes.CLIENT}}"
-                                               onclick="fCustomer()">Customer
+                                        <input type="radio" id="TeamRadio" name="type" value="{{userTypes.TEAM}}"
+                                               onclick="fCustomer()">R&D Team
+                                    </label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="DirectorRadio" name="type" value="{{userTypes.TECHNICAL_DIRECTOR}}"
+                                               onclick="fCustomer()">Technical Director
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div> <!-- /.form-group -->
+
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-6">

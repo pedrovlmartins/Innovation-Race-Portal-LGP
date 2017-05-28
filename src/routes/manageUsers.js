@@ -115,7 +115,7 @@ router.post('/createAdmin', function (req, res) {
 
               var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
               database.createAdmin(req.body.name, req.body.email, passwordHash, req.body.type,
-                req.body.role, emailConfirmationToken,
+                emailConfirmationToken,
                 function (err) {
                   if (err) {
                     console.error(err);
