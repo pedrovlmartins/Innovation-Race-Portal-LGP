@@ -176,15 +176,19 @@ router.get('/:id/submitIdea', function(req, res) {
         vars.page = 'submitIdea';
         db.loadDraft(vars.userID, function(draft){
           db.getUserName(vars.userID, function(name) {
-            vars.userInfo.draft = {};
-            vars.name = name[0].name;
-            if (draft != undefined && draft.length > 0){
-              vars.userInfo.draft = draft[0];
-              res.render('user', vars);
-            }
-            else {
-              res.render('user', vars);
-            }
+              db.getActiveRaces(function (results) {
+                  vars.userInfo.draft = {};
+                  vars.name = name[0].name;
+                  if (draft != undefined && draft.length > 0) {
+                      vars.userInfo.draft = draft[0];
+                      res.render('user', vars);
+                  } else if (results.length == 0) {
+                      vars.page = 'notSubmitIdea';
+                      res.render('user', vars);
+                  } else {
+                      res.render('user', vars);
+                  }
+              });
           });
         });
     }

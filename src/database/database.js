@@ -313,7 +313,7 @@ module.exports = {
           console.error(error);
           next(error);
         } else {
-          next(null, results);
+          next(results);
         }
       });
   },

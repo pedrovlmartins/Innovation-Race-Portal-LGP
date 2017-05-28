@@ -1,3 +1,13 @@
+#notSubmitDiv header {
+    margin-top: 0px;
+}
+
+#notSubmitDiv h5 {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+}
+
 .hello {
     color: #499ab4;
     font-family: 'Open Sans', sans-serif;
