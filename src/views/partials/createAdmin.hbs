@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="modal-body main-login main-center">
-                <form class="form-horizontal" method="post" action="auth/register/createAdmin">
+                <form class="form-horizontal" method="post" action="manageUsers/createAdmin">
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="name">Full Name</label>
@@ -50,7 +50,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label class="radio-inline memberOptionsRegister">
-                                        <input type="radio" id="ManagerRadio" name="type" value="4">Manager
+                                        <input type="radio" id="ManagerRadio" name="type" value="{{userTypes.MANAGER}}">Manager
                                     </label>
                                 </div>
                                 <div class="col-sm-3">

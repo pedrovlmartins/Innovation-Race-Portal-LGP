@@ -37,6 +37,7 @@ module.exports = {
       errorMessages: req.session.errorMessages || [],
       successMessages: req.session.successMessages || [],
       userType: currentUserType(req),
+      userTypes: users.types,
       isParticipant: currentIsParticipant(req),
       isAdmin: currentIsAdmin(req),
       isManager: currentIsManager(req),

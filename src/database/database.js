@@ -18,7 +18,7 @@ module.exports = {
       });
   },
 
-  createAdmin: function (name, email, passwordHash, type, role,
+  createAdmin: function (name, email, passwordHash, type,
                          emailConfirmationToken, callback, next) {
     pool.query('INSERT INTO users' +
       ' (name, email, passwordHash, type' +
