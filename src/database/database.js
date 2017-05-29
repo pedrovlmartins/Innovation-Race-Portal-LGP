@@ -18,13 +18,13 @@ module.exports = {
       });
   },
 
-  createAdmin: function (name, email, passwordHash, type,
+  createAdmin: function (name, email, passwordHash, type, accountStatus,
                          emailConfirmationToken, callback, next) {
     pool.query('INSERT INTO users' +
-      ' (name, email, passwordHash, type' +
+      ' (name, email, passwordHash, type, accountStatus' +
       ', emailConfirmationToken)' +
-      ' VALUES (?, ?, ?, ?, ?)',
-      [name, email, passwordHash, type, emailConfirmationToken],
+      ' VALUES (?, ?, ?, ?, ?, ?)',
+      [name, email, passwordHash, type, accountStatus, emailConfirmationToken],
       function (err, rows, fields) {
         callback(err);
       });
