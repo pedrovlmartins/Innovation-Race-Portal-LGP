@@ -384,17 +384,20 @@ module.exports = {
       });
   },
 
-  /*
-  updateIdeaState_validate: function (id, state, next) {
+  updatedIdeaScore: function (id, score, next) {
     pool.query(
       'UPDATE ideas ' +
-      'SET state = ? ' +
-      'WHERE ideas.id = ? AND cancelled = FALSE;', [state, id], function (err, result) {
-        if (typeof next === 'function')
-          next(result);
+      'SET score = ? ' +
+      'WHERE ideas.id = ?;',
+      [score, id],
+      function (err, result) {
+        if (err) {
+          next(err);
+        } else {
+          next(null, result);
+        }
       });
   },
-*/
 
   updateIdeaState_decline: function (id, next) {
     pool.query(
@@ -405,7 +408,6 @@ module.exports = {
           next(result);
       });
   },
-
 
   updatedIdeaState_evaluate: function (id, next) {
     pool.query(
