@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="modal-body main-login main-center">
-                <form class="form-horizontal" method="post" action="auth/register">
+                <form class="form-horizontal" method="post" action="auth/register/createAdmin">
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="name">Full Name</label>
@@ -50,28 +50,27 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label class="radio-inline memberOptionsRegister">
-                                        <input type="radio" id="MemberRadio" name="type" value="{{userTypes.MANAGER}}">Manager
+                                        <input type="radio" id="ManagerRadio" name="type" value="4">Manager
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input type="radio" id="PartnerRadio" name="type" value="{{userTypes.COMMITTE}}">R&D Committe
+                                        <input type="radio" id="CommitteRadio" name="type" value="{{userTypes.COMMITTE}}">R&D Committe
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input type="radio" id="CustomerRadio" name="type" value="{{userTypes.TEAM}}">R&D Team
+                                        <input type="radio" id="TeamRadio" name="type" value="{{userTypes.TEAM}}">R&D Team
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input type="radio" id="CustomerRadio" name="type" value="{{userTypes.TECHNICAL_DIRECTOR}}">Technical Director
+                                        <input type="radio" id="DirectorRadio" name="type" value="{{userTypes.TECHNICAL_DIRECTOR}}">Technical Director
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div> <!-- /.form-group -->
-
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-6">
