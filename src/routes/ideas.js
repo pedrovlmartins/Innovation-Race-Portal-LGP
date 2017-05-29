@@ -206,6 +206,7 @@ router.get('/:id', function (req, res) {
                   name: ideaInfo.title,
                   leader: ideaInfo.creator,
                   description: ideaInfo.description,
+                  score: ideaInfo.score,
                   resultsToProduce: ideaInfo.resultsToProduce,
                   uncertaintyToSolve: ideaInfo.uncertaintyToSolve,
                   techHumanResources: ideaInfo.techHumanResources,

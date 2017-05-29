@@ -44,6 +44,20 @@
                 </div>
             </div>
 
+            <!-- Idea Score -->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Idea Score</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+                        <input id="type" name="type" value="{{score}}" disabled="disabled"
+                               class="form-control" style="overflow:auto;" type="text">
+                    </div>
+                </div>
+            </div>
+
+
             <!-- Technical/scientific uncertainty to solve -->
 
             <div class="form-group">
@@ -114,16 +128,27 @@
     </form>
 
     {{#if canEvaluateIdea}}
-        <div id="validationButtons">
-            <form action="/ideas/{{id}}/evaluation" method="post">
-                <input type="hidden" name="evaluated" value="true"/>
-                <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
-            </form>
-            <form action="/ideas/{{id}}/evaluation" method="post">
-                <input type="hidden" name="evaluated" value="false"/>
-                <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
-            </form>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="score">Score:</label>
+                    <input type="number" class="form-control" id="score">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="validationButtons">
+                    <form action="/ideas/{{id}}/evaluation" method="post">
+                        <input type="hidden" name="evaluated" value="true"/>
+                        <button type="submit" class="btn btn-success btn-arrow-right validateIdeaButton">Validate idea</button>
+                    </form>
+                    <form action="/ideas/{{id}}/evaluation" method="post">
+                        <input type="hidden" name="evaluated" value="false"/>
+                        <button type="submit" class="btn btn-danger btn-arrow-right declineIdeaButton">Decline idea</button>
+                    </form>
+                </div>
+            </div>
         </div>
+
     {{/if}}
 
     {{#if canSelectIdea}}
