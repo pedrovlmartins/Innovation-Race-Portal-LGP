@@ -22,7 +22,7 @@ module.exports = {
                          emailConfirmationToken, callback, next) {
     pool.query('INSERT INTO users' +
       ' (name, email, passwordHash, type' +
-      ', role, emailConfirmationToken)' +
+      ', emailConfirmationToken)' +
       ' VALUES (?, ?, ?, ?, ?)',
       [name, email, passwordHash, type, emailConfirmationToken],
       function (err, rows, fields) {

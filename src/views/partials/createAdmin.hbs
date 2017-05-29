@@ -1,5 +1,3 @@
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
-
 <div class="modal fade" id="createAdminModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -10,7 +8,7 @@
                 </div>
             </div>
             <div class="modal-body main-login main-center">
-                <form id="createAdmin-form" action="manageUsers/createAdmin" method="post" role="form">
+                <form class="form-horizontal" method="post" action="auth/register">
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="name">Full Name</label>
@@ -46,32 +44,28 @@
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <label class="control-label col-sm-3">User Type</label>
                         <div class="col-sm-7">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label class="radio-inline memberOptionsRegister">
-                                        <input type="radio" id="ManagerRadio" name="type" value="{{userTypes.MANAGER}}" onclick="fMember()">R&D Manager
+                                        <input type="radio" id="MemberRadio" name="type" value="{{userTypes.MANAGER}}">Manager
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input type="radio" id="CommitteRadio" name="type" value="{{userTypes.COMMITTEE}}"
-                                               onclick="fPartner()">R&D Committee
+                                        <input type="radio" id="PartnerRadio" name="type" value="{{userTypes.COMMITTE}}">R&D Committe
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input type="radio" id="TeamRadio" name="type" value="{{userTypes.TEAM}}"
-                                               onclick="fCustomer()">R&D Team
+                                        <input type="radio" id="CustomerRadio" name="type" value="{{userTypes.TEAM}}">R&D Team
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="radio-inline">
-                                        <input type="radio" id="DirectorRadio" name="type" value="{{userTypes.TECHNICAL_DIRECTOR}}"
-                                               onclick="fCustomer()">Technical Director
+                                        <input type="radio" id="CustomerRadio" name="type" value="{{userTypes.TECHNICAL_DIRECTOR}}">Technical Director
                                     </label>
                                 </div>
                             </div>
@@ -83,7 +77,7 @@
                         <div class="col-xs-offset-3 col-xs-6">
                             <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">
-                                    <button id="createAdminButton" type="submit" class="btn btn-primary btn-block registerButton">Create Admin</button>
+                                    <button id="registerButton" type="submit" class="btn btn-primary btn-block registerButton">Create Admin</button>
                                 </div>
                             </div>
                         </div>

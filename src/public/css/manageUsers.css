@@ -61,9 +61,4 @@
 
 #createAdminModal {
     margin-top: 4%;
-    height: 100%;
-}
-
-#createAdminModal .modal-body {
-    height: 300px;
 }

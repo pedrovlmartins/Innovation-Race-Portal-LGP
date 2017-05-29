@@ -35,11 +35,6 @@
   border-bottom: 2px solid lightgrey;
 }
 
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-  text-decoration: underline;
-  text-decoration-color: rgb(24, 178, 232);
-}
-
 .navbar-default li.active h4 {
   text-decoration: none;
   border-bottom: 2px solid rgb(24, 178, 232);
