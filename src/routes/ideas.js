@@ -32,6 +32,15 @@ router.post('/:id/evaluation', function (req, res, next) {
       return;
     }
 
+    db.updatedIdeaScore(req.params.id, req.body.scoreNumber, function (error, result) {
+      if (error) {
+        console.error(error);
+        irp.addError(req, 'Unknown error occurred, please try again later.');
+        res.redirect('back');
+        return;
+      }
+    });
+
     if (req.body.evaluated === 'true') {
       db.updatedIdeaState_evaluate(req.params.id, function (error, result) {
         if (error) {
@@ -83,16 +92,7 @@ router.post('/:id/evaluationScore', function (req, res, next) {
       return;
     }
 
-    db.updatedIdeaScore(req.params.id, req.body.scoreNumber, function (error, result) {
-      if (error) {
-        console.error(error);
-        irp.addError(req, 'Unknown error occurred, please try again later.');
-        res.redirect('back');
-        return;
-      }
-      irp.addSuccess(req, 'The score has been updated sucessfully.');
-      res.redirect('back');
-    });
+
   });
 });
 
