@@ -62,3 +62,7 @@
 #createAdminModal {
     margin-top: 4%;
 }
+
+.scoreTag {
+    font-weight: bold;
+}
