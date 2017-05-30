@@ -281,6 +281,15 @@ module.exports = {
     });
   },
 
+  getRankingIdeaCount: function(next) {
+    pool.query('SELECT COUNT(*) as count ' +
+    'FROM ideas ' +
+    'JOIN users ON users.id = ideas.idCreator;', function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    })
+  },
+
   getIdeaCount: function (next) {
     pool.query('SELECT COUNT(*) AS count ' +
       'FROM ideas;', function (error, results) {

@@ -28,7 +28,7 @@ router.get('/', function (req, res) {
 
   vars.page = page;
 
-  database.getIdeaCount(function (result) {
+  database.getRankingIdeaCount(function (result) {
     var numberOfIdeas = result[0].count;
     vars.totalPages = Math.floor(numberOfIdeas / itemsPerPage);
     if (numberOfIdeas % itemsPerPage > 0)
