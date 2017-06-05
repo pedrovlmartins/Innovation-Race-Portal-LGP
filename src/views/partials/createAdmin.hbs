@@ -1,0 +1,89 @@
+<div class="modal fade" id="createAdminModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="panel-title text-center">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h1 class="title">Create Admin</h1>
+                </div>
+            </div>
+            <div class="modal-body main-login main-center">
+                <form class="form-horizontal" method="post" action="manageUsers/createAdmin">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="name">Full Name</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="fullnameID" name="name" placeholder="Full Name" class="form-control"
+                                   autofocus>
+                            <span id="errorFullName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-7">
+                            <input type="email" id="registerEmail" name="email" placeholder="Email"
+                                   class="form-control">
+                            <span id="errorEmail" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-7">
+                            <input type="password" id="registerPassword" name="password" placeholder="Password"
+                                   class="form-control">
+                            <span id="errorPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
+                        <div class="col-sm-7">
+                            <input type="password" id="registerConfirmPassword" placeholder="Confirm Password"
+                                   class="form-control confirmPassRegister">
+                            <span id="errorConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">User Type</label>
+                        <div class="col-sm-7">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label class="radio-inline memberOptionsRegister">
+                                        <input type="radio" id="ManagerRadio" name="type" value="{{userTypes.MANAGER}}">Manager
+                                    </label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="CommitteRadio" name="type" value="{{userTypes.COMMITTEE}}">R&D Committee
+                                    </label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="TeamRadio" name="type" value="{{userTypes.TEAM}}">R&D Team
+                                    </label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="DirectorRadio" name="type" value="{{userTypes.TECHNICAL_DIRECTOR}}">Technical Director
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-6">
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <button id="registerButton" type="submit" class="btn btn-primary btn-block registerButton">Create Admin</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form> <!-- /form -->
+            </div>
+        </div>
+    </div>
+</div>
