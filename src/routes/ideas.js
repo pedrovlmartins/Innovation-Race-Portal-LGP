@@ -32,6 +32,15 @@ router.post('/:id/evaluation', function (req, res, next) {
       return;
     }
 
+    db.updatedIdeaScore(req.params.id, req.body.scoreNumber, function (error, result) {
+      if (error) {
+        console.error(error);
+        irp.addError(req, 'Unknown error occurred, please try again later.');
+        res.redirect('back');
+        return;
+      }
+    });
+
     if (req.body.evaluated === 'true') {
       db.updatedIdeaState_evaluate(req.params.id, function (error, result) {
         if (error) {
@@ -52,6 +61,38 @@ router.post('/:id/evaluation', function (req, res, next) {
         sendCoachingEndNotificationEmail(ideaInfo.creatorId, ideaInfo.title, false);
       });
     }
+
+
+  });
+});
+
+router.post('/:id/evaluationScore', function (req, res, next) {
+  if (!irp.currentUserID(req)) {
+    irp.addError(req, 'You are not logged in.');
+    res.redirect('../../');
+    return;
+  }
+
+  if (!irp.currentCanEvaluateIdea(req)) {
+    irp.addError(req, 'Only a R&D Director may evaluate and score the idea.');
+    res.redirect('back');
+    return;
+  }
+
+  db.getIdea(req.params.id, function (ideaInfo) {
+    if (ideaInfo === undefined) {
+      irp.addError(req, 'Could not find idea.');
+      res.redirect('back');
+      return;
+    }
+
+    if (ideaInfo.cancelled[0]) {
+      irp.addError(req, 'You cannot set the score to a cancelled idea.');
+      res.redirect('back');
+      return;
+    }
+
+
   });
 });
 
@@ -206,6 +247,8 @@ router.get('/:id', function (req, res) {
                   name: ideaInfo.title,
                   leader: ideaInfo.creator,
                   description: ideaInfo.description,
+                  score: ideaInfo.score,
+                  state: ideaInfo.state,
                   resultsToProduce: ideaInfo.resultsToProduce,
                   uncertaintyToSolve: ideaInfo.uncertaintyToSolve,
                   techHumanResources: ideaInfo.techHumanResources,

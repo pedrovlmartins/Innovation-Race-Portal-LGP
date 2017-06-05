@@ -18,13 +18,13 @@ module.exports = {
       });
   },
 
-  createAdmin: function (name, email, passwordHash, type,
+  createAdmin: function (name, email, passwordHash, type, accountStatus,
                          emailConfirmationToken, callback, next) {
     pool.query('INSERT INTO users' +
-      ' (name, email, passwordHash, type' +
+      ' (name, email, passwordHash, type, accountStatus' +
       ', emailConfirmationToken)' +
-      ' VALUES (?, ?, ?, ?, ?)',
-      [name, email, passwordHash, type, emailConfirmationToken],
+      ' VALUES (?, ?, ?, ?, ?, ?)',
+      [name, email, passwordHash, type, accountStatus, emailConfirmationToken],
       function (err, rows, fields) {
         callback(err);
       });
@@ -61,7 +61,7 @@ module.exports = {
       });
   },
 
-  getUserByToken: function (token, callback) {
+    getUserByToken: function (token, callback) {
         pool.query('SELECT * FROM users WHERE resetPasswordToken = ?',
             [token],
             function (error, results, fields) {
@@ -117,20 +117,6 @@ module.exports = {
       });
   },
 
-    getUserPasswordHash: function(id,next){
-        pool.query(
-            'SELECT passwordHash ' +
-            'FROM users ' +
-            'WHERE id = ?', [id],function (err, result) {
-                if (typeof next === 'function') {
-                    if (result.length === 1)
-                        next(result[0]);
-                    else
-                        next(-1);
-                }
-            });
-    },
-
   updateUserType: function(id, newUserType, next){
     pool.query('UPDATE users' +
       ' SET type = ? '+
@@ -171,7 +157,7 @@ module.exports = {
     pool.query(
       'SELECT users.id AS creatorId, users.name AS creator,ideas.title, ideas.description,' +
       'ideas.solutionTechnicalCompetence, ideas.uncertaintyToSolve, ideas.techHumanResources,' +
-      'ideas.resultsToProduce, ideas.state, ideas.cancelled ' +
+      'ideas.resultsToProduce, ideas.state, ideas.cancelled, ideas.score ' +
       'FROM ideas ' +
       'JOIN users ' +
       'ON users.id = ideas.idCreator ' +
@@ -234,10 +220,14 @@ module.exports = {
       'SELECT email ' +
       'FROM users ' +
       'WHERE id = ?;', [id], function (err, result) {
-            if (typeof next === 'function')
-                next(result);
+        if (err) {
+          next(err);
+        } else if (result.length == 0) {
+          next('User not found');
+        } else {
+          next(null, result[0].email);
         }
-    )
+      });
   },
 
   getUserName: function(id, next) {
@@ -289,6 +279,15 @@ module.exports = {
       if (typeof next === 'function')
         next(results);
     });
+  },
+
+  getRankingIdeaCount: function(next) {
+    pool.query('SELECT COUNT(*) as count ' +
+    'FROM ideas ' +
+    'JOIN users ON users.id = ideas.idCreator;', function (error, results) {
+      if (typeof next === 'function')
+        next(results);
+    })
   },
 
   getIdeaCount: function (next) {
@@ -394,17 +393,20 @@ module.exports = {
       });
   },
 
-  /*
-  updateIdeaState_validate: function (id, state, next) {
+  updatedIdeaScore: function (id, score, next) {
     pool.query(
       'UPDATE ideas ' +
-      'SET state = ? ' +
-      'WHERE ideas.id = ? AND cancelled = FALSE;', [state, id], function (err, result) {
-        if (typeof next === 'function')
-          next(result);
+      'SET score = ? ' +
+      'WHERE ideas.id = ?;',
+      [score, id],
+      function (err, result) {
+        if (err) {
+          next(err);
+        } else {
+          next(null, result);
+        }
       });
   },
-*/
 
   updateIdeaState_decline: function (id, next) {
     pool.query(
@@ -415,7 +417,6 @@ module.exports = {
           next(result);
       });
   },
-
 
   updatedIdeaState_evaluate: function (id, next) {
     pool.query(

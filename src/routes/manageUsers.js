@@ -39,7 +39,7 @@ router.post('/createAdmin', function (req, res) {
             }
 
             var emailConfirmationToken = crypto.randomBytes(32).toString('hex');
-            database.createAdmin(req.body.name, req.body.email, passwordHash, req.body.type,
+            database.createAdmin(req.body.name, req.body.email, passwordHash, req.body.type, 1,
               emailConfirmationToken,
               function (err) {
                 if (err) {
