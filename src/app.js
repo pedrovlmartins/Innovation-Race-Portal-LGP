@@ -54,6 +54,7 @@ hbs.registerPartials(path.join(__base, 'views', 'partials'));
 hbsutils.registerWatchedPartials(path.join(__base, 'views', 'partials'));
 hbs.registerHelper('add-pagination', helpers.addPagination);
 hbs.registerHelper('compare', helpers.compare);
+hbs.registerHelper('isMe',helpers.isme);
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'ico', 'favicon.ico')));

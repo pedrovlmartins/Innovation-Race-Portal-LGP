@@ -1,5 +1,5 @@
 {{>header pageName="User Page"}}
-{{>actionResults}}
+
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
 <link rel="stylesheet" href="../../css/userPage.css">
@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/css/ideaPage.css">
 <link rel="stylesheet" href="/css/separators.css">
 <script src="/js/draftIdeas.js"></script>
+{{>actionResults}}
 
 <div class="container">
     <header>
@@ -85,7 +86,7 @@
 
                                     <div id="newPassword" class="new-password-submission" disabled="disabled" style="display:none;background:white;">
                                             <input type="password" name="firstPassword" id="firstPassword" class="form-control" style="border-radius:0;"
-                                                placeholder="Password" required autofocus>
+                                                placeholder="Password" required>
                                             <span id="firstPasswordError" class="text-danger"></span>
 
                                             <input type="password" name="secondPassword" id="secondPassword" tabindex="1" class="form-control" style="border-radius:0;"

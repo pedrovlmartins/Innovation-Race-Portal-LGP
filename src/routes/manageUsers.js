@@ -82,6 +82,9 @@ router.get('/', function (req, res) {
       irp.addError(req, 'You need to be a manager in order to manage users.');
       res.redirect('back');
     } else {
+      database.getUserEmail(req.session.userID,function(email){
+          var email = email[0].email;
+
       database.getUserName(req.session.userID, function (name) {
         var vars = irp.getGlobalTemplateVariables(req);
         var keyword = req.query.keyword;
@@ -104,6 +107,7 @@ router.get('/', function (req, res) {
 
         vars.page = page;
         vars.name = name[0].name;
+        vars.email = email;
 
         if (req.query.keyword === undefined) {
           database.getUsersCount(function (result) {
@@ -128,6 +132,7 @@ router.get('/', function (req, res) {
               if (req.session.userID !== undefined)
                 vars.userID = req.session.userID;
               res.render('manageUsers', vars);
+              irp.cleanActionResults(req);
             });
           });
         } else {
@@ -145,8 +150,10 @@ router.get('/', function (req, res) {
             if (req.session.userID !== undefined)
               vars.userID = req.session.userID;
             res.render('manageUsers', vars);
+            irp.cleanActionResults(req);
           });
         }
+      });
       });
     }
   });

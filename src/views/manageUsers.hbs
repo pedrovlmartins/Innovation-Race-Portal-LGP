@@ -1,5 +1,8 @@
 {{>header pageName="Manage Users"}}
+{{>actionResults}}
 <script src="js/sweetalert.min.js"></script>
+<script type='text/javascript' rel='js/handlebars-v4.0.5.js'></script>
+<script type='text/javascript' rel='js/name-table.js'></script>
 <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 <script src="../../js/manageUsers.js"></script>
 <link rel="stylesheet" href="/css/separators.css">
@@ -66,7 +69,7 @@
                     <td><a href="/users/{{id}}">{{name}}</a></td>
                     <td>{{email}}</a></td>
                     <td>{{type}}
-                        <form id="selectLayout-{{email}}" class="input-group" action="/users/{{id}}/typeDescription"  method="post" style="background:transparent;">
+                        <form id="selectLayout-{{email}}" class="input-group" action="/users/{{id}}/typeDescription"  method="post" style="background:transparent;display:inline-table;">
                             <select name="type" style="display:none;background:white;">
                                 <option id="unkown" value="0">Unknown</option>
                                 <option id="altranMember" value="1">Altran member</option>
@@ -76,11 +79,12 @@
                                 <option id="R&DCommittee" value="5">R&D Committee</option>
                                 <option id="R&DTeam" value="6">R&D Team</option>
                                 <option id="technicalDirector" value="7">Technical Director</option>
-                                <!--<input type="submit" value="Submit"/>-->
                             </select>
-                            <button type="submit" value="Submit" style="background:none !important;border:none;z-index:1;outline:none;padding:0px;" disabled>
+                            {{#isMe email ../email}}
+                            <button type="submit" value="Submit" style="display:inline-table; background:none !important;border:none;z-index:1;outline:none;padding:0px;" disabled>
                                 <i id="editIcon-{{email}}" class="glyphicon glyphicon-edit" onclick="firstClick(id); return false;"></i>
                             </button>
+                            {{/isMe}}
                         </form>
 
                     </td>
