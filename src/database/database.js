@@ -18,13 +18,25 @@ module.exports = {
       });
   },
 
+  createAdmin: function (name, email, passwordHash, type,
+                         emailConfirmationToken, callback, next) {
+    pool.query('INSERT INTO users' +
+      ' (name, email, passwordHash, type' +
+      ', emailConfirmationToken)' +
+      ' VALUES (?, ?, ?, ?, ?)',
+      [name, email, passwordHash, type, emailConfirmationToken],
+      function (err, rows, fields) {
+        callback(err);
+      });
+  },
+
   createIdea: function (creatorId, race, title, description, uncertaintyToSolve,
                         solutionTechnicalCompetence, techHumanResources, resultsToProduce,
                         callback) {
     pool.query('INSERT INTO ideas' +
-      ' (idCreator, race, title, description' +
+      ' (idCreator, race, title, description, state' +
       ', uncertaintyToSolve, solutionTechnicalCompetence, techHumanResources, resultsToProduce)' +
-      ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      ' VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?)',
       [creatorId, race, title, description, uncertaintyToSolve, solutionTechnicalCompetence,
         techHumanResources, resultsToProduce,
       ],
@@ -49,7 +61,7 @@ module.exports = {
       });
   },
 
-    getUserByToken: function (token, callback) {
+  getUserByToken: function (token, callback) {
         pool.query('SELECT * FROM users WHERE resetPasswordToken = ?',
             [token],
             function (error, results, fields) {
@@ -105,17 +117,31 @@ module.exports = {
       });
   },
 
+    getUserPasswordHash: function(id,next){
+        pool.query(
+            'SELECT passwordHash ' +
+            'FROM users ' +
+            'WHERE id = ?', [id],function (err, result) {
+                if (typeof next === 'function') {
+                    if (result.length === 1)
+                        next(result[0]);
+                    else
+                        next(-1);
+                }
+            });
+    },
+
   updateUserType: function(id, newUserType, next){
     pool.query('UPDATE users' +
       ' SET type = ? '+
       ' WHERE id = ?', [newUserType, id],
-      function (err, result){
-          if (err){
-              console.error(err);
-              next(err);
-          } else {
-              next(null, result);
-          }
+      function (err, result) {
+        if (err) {
+          console.error(err);
+          next(err);
+        } else {
+          next(null, result);
+        }
       })
   },
 
@@ -240,7 +266,7 @@ module.exports = {
   listUsers: function (limit, offset, next) {
     pool.query('SELECT users.id, users.name, users.email, users.blocked, users.confirmed, users.type ' +
       'FROM users ' +
-      'ORDER BY name ' +
+      'ORDER BY users.name ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(error, results);
@@ -251,7 +277,7 @@ module.exports = {
     pool.query('SELECT ideas.id, ideas.title, ideas.idCreator, ' +
       'ideas.state, ideas.cancelled, users.id AS idCreator, users.name AS creator ' +
       'FROM ideas ' +
-      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.cancelled, ideas.title ASC ' +
+      'JOIN users ON users.id = ideas.idCreator ' + 'ORDER BY ideas.cancelled, ideas.state ASC ' +
       'LIMIT ?, ?;', [limit, offset], function (error, results) {
       if (typeof next === 'function')
         next(results);
@@ -301,7 +327,7 @@ module.exports = {
           console.error(error);
           next(error);
         } else {
-          next(null, results);
+          next(results);
         }
       });
   },
@@ -360,7 +386,7 @@ module.exports = {
       'FROM ideas ' +
       'JOIN users ON users.id = ideas.idCreator ' +
       'WHERE users.name LIKE ? OR ideas.title LIKE ? OR ideas.state LIKE ?' +
-      'ORDER BY ideas.title ' +
+      'ORDER BY ideas.state ' +
       'LIMIT ?, ?;', [varPattern, varPattern, varPattern, limit, offset],
       function (error, results) {
         if (error) {

@@ -1,4 +1,6 @@
 {{>header pageName="Manage Users"}}
+<script src="js/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 <script src="../../js/manageUsers.js"></script>
 <link rel="stylesheet" href="/css/separators.css">
 <div class="container">
@@ -17,21 +19,28 @@
         <div class="header-content">
             <div class="header-content-inner">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         <h1 id="homeHeading">Manage Users</h1>
                     </div>
-                    <div class="col-md-3">
-                        <div id="imaginary_container">
-                            <form action="/manageUsers" method="get">
-                                <div class="input-group stylish-input-group">
-                                    <input type="text" class="form-control searchWord" placeholder="Search" name="keyword" value=''>
-                                    <span class="input-group-addon">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 createAdmin">
+                                <button class="btn btn-default newAdminButton" data-toggle="modal" data-target="#createAdminModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Admin</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="imaginary_container">
+                                    <form action="/manageUsers" method="get">
+                                        <div class="input-group stylish-input-group">
+                                            <input type="text" class="form-control searchWord" placeholder="Search" name="keyword" value=''>
+                                            <span class="input-group-addon">
                                         <button type="submit">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </span>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -116,3 +125,5 @@
         </div>
     </div>
 </div>
+
+{{>createAdmin}}

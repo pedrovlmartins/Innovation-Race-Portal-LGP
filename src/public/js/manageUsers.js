@@ -7,7 +7,6 @@ function firstClick(id){
    var icon=document.getElementById(id);
    icon.parentNode.removeChild(icon);
 
-   //button.removeAttribute("onclick");
    form.setAttribute('type','submit');
    form.setAttribute('value','Submit');
 

@@ -12,7 +12,6 @@ $(document).ready(function () {
     $("#submit").addClass("active");
     $("#submit").find("a").removeAttr("href");
   }
-
     $('#name-change').change(function () {
             if ($(this).val() === '') {
                 $(this).css('border-color', '#FF0000');
@@ -40,7 +39,7 @@ $(document).ready(function () {
             }
         }
     );
-    $('#password-change').change(function () {
+    $('#password-change').focusout(function () {
             if ($(this).val() === '') {
                 $(this).css('border-color', '#FF0000');
                 $('#passwordButton-change').attr('disabled', true);
@@ -49,8 +48,7 @@ $(document).ready(function () {
                 $(this).css('border-color', '#FF0000');
                 $('#passwordButton-change').attr('disabled', true);
                 $('#errorPassword').text('* Your password must be at least 7 characters long!');
-            } else
-            {
+            }else{
                 $(this).css('border-color', '#2eb82e');
                 $('#passwordButton-change').attr('disabled', false);
                 $('#errorPassword-change').text('');
@@ -59,7 +57,7 @@ $(document).ready(function () {
     );
 });
 
-function firstClick(id){
+function firstClick(id) {
   var button = document.getElementById(id);
   button.previousElementSibling.lastElementChild.removeAttribute("disabled");
 
@@ -69,10 +67,42 @@ function firstClick(id){
   button.style.setProperty('background','white');
 
   var glyphiconsend = document.createElement('i');
+  glyphiconsend.className = "glyphicon glyphicon-check";
+  glyphiconsend.setAttribute('style','z-index:3;display:none;margin-left:-'+button.lastElementChild.offsetWidth +'px;');
+  button.appendChild(glyphiconsend);
+
+  $(glyphiconsend).toggle('slide');
+  $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
+}
+
+function password(){
+
+    var form = document.getElementById('passwordForm').firstElementChild.children[1];
+    form.removeAttribute('disabled');
+    form.setAttribute('style','display:inline-block');
+
+    document.getElementById('passwordForm').firstElementChild.firstElementChild.removeAttribute('disabled');
+
+    var button = document.getElementById('passwordButton-change');
+    button.removeAttribute("onclick");
+    button.setAttribute('type','submit');
+    button.setAttribute('value','Submit');
+    button.style.setProperty('background','white');
+
+    var glyphiconsend = document.createElement('i');
     glyphiconsend.className = "glyphicon glyphicon-check";
     glyphiconsend.setAttribute('style','z-index:3;display:none;margin-left:-'+button.lastElementChild.offsetWidth +'px;');
     button.appendChild(glyphiconsend);
 
     $(glyphiconsend).toggle('slide');
     $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
+
+    var password = document.getElementById("newPassword");
+    password.firstElementChild.style.setProperty('display','inline');
+    console.log(password.get.firstElementChild.style);
+
 }
+
+
+
+

@@ -1,3 +1,5 @@
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script src="js/classification.js"></script>
 <div id="classificationModal" class="modal fade" role="dialog">
     <div class="modal-dialog" id="classificationModalID">
         <div class="modal-content">
@@ -6,7 +8,7 @@
                     <h2 class="modal-title">Idea classification</h2>
                 </div>
             </div>
-            <form id="classificationForm" action="classification" method="post">
+            <form id="classificationForm" action="classification" method="post" role="form">
                 <input type="hidden" name="id" value="0" />
                 <div class="modal-body">
                     <ul class="nav nav-tabs">
@@ -37,38 +39,38 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="strategyID">
                                 <textarea class="form-control" rows="5" id="strategyTextArea" name="strategyAlignment" placeholder="How much is this project worth for Altran?"
-                                          autofocus></textarea>
+                                          data-rule-minlength="3" data-rule-maxlength="1000" required autofocus></textarea>
                             </div>
                             <div class="tab-pane" id="valueofferID">
                                 <textarea class="form-control" rows="5" id="valueofferTextArea" name="offerType" placeholder="What's the expected type of offer?"
-                                          autofocus></textarea>
+                                          data-rule-minlength="3" data-rule-maxlength="1000" required></textarea>
                             </div>
                             <div class="tab-pane" id="marketID">
                                 <textarea class="form-control" rows="5" id="marketTextArea" name="market" placeholder="What market is this project focused on?"
-                                          autofocus></textarea>
+                                          data-rule-minlength="3" data-rule-maxlength="1000" required></textarea>
                             </div>
                             <div class="tab-pane" id="viabilityID">
                                 <textarea class="form-control" rows="5" id="viabilityTextArea" name="technicalViability" placeholder="Is this project viable in technical terms?"
-                                          autofocus></textarea>
+                                          data-rule-minlength="3" data-rule-maxlength="1000" required></textarea>
                             </div>
                             <div class="tab-pane" id="economicalID">
                                 <textarea class="form-control" rows="5" id="economicalTextArea" name="economicalViability" placeholder="Is this project viable in economical terms?"
-                                          autofocus></textarea>
+                                          data-rule-minlength="3" data-rule-maxlength="1000" required></textarea>
                             </div>
                             <div class="tab-pane" id="riskfactorsID">
                                 <textarea class="form-control" rows="5" id="riskfactorsTextArea" name="riskFactors" placeholder="Does this project have risks associated with it?"
-                                          autofocus></textarea>
+                                          data-rule-minlength="3" data-rule-maxlength="1000" required></textarea>
                             </div>
                             <div class="tab-pane" id="requirementsID">
                                 <textarea class="form-control" rows="5" id="requirementsTextArea" name="otherRequirements" placeholder="Please specify other legal, social or financial aspects related with this project"
-                                          autofocus></textarea>
+                                          data-rule-minlength="3" data-rule-maxlength="1000" required></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit classification</button>
+                    <button type="submit" id="classificationSubmitButton" class="btn btn-primary">Submit classification</button>
                 </div>
             </form>
         </div>

@@ -20,3 +20,7 @@
 #classificationModal #filler {
     visibility: hidden;
 }
+
+#classificationModal textarea {
+    min-height: 300px;
+}
