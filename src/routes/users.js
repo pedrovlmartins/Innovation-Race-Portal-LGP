@@ -19,6 +19,8 @@ function nextUserInfo(req, res, userInfo, typeDescription) {
     db.getUserType(req.session.userID, function (type) {
       if (req.session !== undefined) {
         if (users.isAdmin(type) || (req.session.userID === parseInt(req.params.id))) {
+          userInfo.successMessages = req.session.successMessages;
+          userInfo.errorMessages = req.session.errorMessages;
           userInfo.userID = req.session.userID;
           userInfo.isManager = users.isAdmin(type);
           userInfo.typeDescription = typeDescription;
