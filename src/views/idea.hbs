@@ -27,7 +27,6 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input name="idea_creator" value="{{leader}}" class="form-control" type="text" readonly>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
             </div>
@@ -40,7 +39,6 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                         <textarea id="textArea" class="form-control" name="comment" readonly>{{description}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
             </div>
@@ -52,7 +50,7 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>
-                        <input id="type" name="type" value="{{#compare state "<" 4}}Idea has not been evaluated yet! Score is 0!{{/compare}} {{#compare state ">" 3}} Score of idea is {{score}}{{/compare}}" disabled="disabled"
+                        <input id="type" name="type" value="{{#compare state "<" 4}}Idea has not been evaluated yet!{{/compare}} {{#compare state ">" 3}}{{score}}{{/compare}}" disabled="disabled"
                                class="form-control" style="overflow:auto;" type="text">
                     </div>
                 </div>
@@ -68,7 +66,6 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-wrench"></i></span>
                         <textarea id="textArea" class="form-control" name="comment"
                                   readonly>{{uncertaintyToSolve}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
             </div>
@@ -82,7 +79,6 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
                         <textarea id="textArea" class="form-control" name="comment"
                                   readonly>{{solutionTechnicalCompetence}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
             </div>
@@ -96,7 +92,6 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank"></i></span>
                         <textarea id="textArea" class="form-control" name="comment"
                                   readonly>{{techHumanResources}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
             </div>
@@ -110,7 +105,6 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
                         <textarea id="textArea" class="form-control" name="comment"
                                   readonly>{{resultsToProduce}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
             </div>
@@ -121,7 +115,6 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>
                         <textarea id="textArea" class="form-control" name="comment" readonly>{{ideaState}}</textarea>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
                     </div>
                 </div>
             </div>

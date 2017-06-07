@@ -38,6 +38,10 @@ module.exports = {
       || typeNum === types.TECHNICAL_DIRECTOR;
   },
 
+  isTechnicalDirector: function (typeNum) {
+    return typeNum === types.TECHNICAL_DIRECTOR;
+  },
+
   isManager: function (typeNum) {
     return typeNum === types.MANAGER;
   },
