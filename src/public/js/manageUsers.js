@@ -17,10 +17,3 @@ function firstClick(id){
 
    $(glyphiconsend).toggle('slide',function(){ glyphiconsend.parentNode.disabled=false;});
 }
-/**
-Handlebars.registerHelper('isMe', function(v1, v2, options) {
-    console.log(v1);
-    console.log(v2);
-    return (v1 == v2)? options.fn(this) : options.inverse(this);
-});
- **/

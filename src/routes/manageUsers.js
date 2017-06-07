@@ -84,7 +84,6 @@ router.get('/', function (req, res) {
     } else {
       database.getUserEmail(req.session.userID,function(email){
           var email = email[0].email;
-
       database.getUserName(req.session.userID, function (name) {
         var vars = irp.getGlobalTemplateVariables(req);
         var keyword = req.query.keyword;

@@ -103,6 +103,19 @@ module.exports = {
       });
   },
 
+    getUserPasswordHash: function(id,next){
+        pool.query(
+            'SELECT passwordHash ' +
+            'FROM users ' +
+            'WHERE id = ?', [id],function (err, result) {
+                if (typeof next === 'function') {
+                    if (result.length === 1)
+                        next(result[0]);
+                    else
+                        next(-1);
+                }
+            });
+    },
   updateUserPassword: function (id, newPassword, next) {
     pool.query('UPDATE users' +
       ' SET  passwordHash = ? ' +
@@ -220,14 +233,10 @@ module.exports = {
       'SELECT email ' +
       'FROM users ' +
       'WHERE id = ?;', [id], function (err, result) {
-        if (err) {
-          next(err);
-        } else if (result.length == 0) {
-          next('User not found');
-        } else {
-          next(null, result[0].email);
+            if (typeof next === 'function')
+                next(result);
         }
-      });
+    )
   },
 
   getUserName: function(id, next) {

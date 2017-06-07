@@ -24,6 +24,7 @@ function nextUserInfo(req, res, userInfo, typeDescription) {
           userInfo.typeDescription = typeDescription;
           userInfo.page = 'profile';
           res.render('user', userInfo);
+          irp.cleanActionResults(req);
         } else
         res.sendStatus(404);
       }
@@ -186,8 +187,10 @@ router.get('/:id/submitIdea', function(req, res) {
                   } else if (results.length == 0) {
                       vars.page = 'notSubmitIdea';
                       res.render('user', vars);
+                      irp.cleanActionResults(req);
                   } else {
                       res.render('user', vars);
+                      irp.cleanActionResults(req);
                   }
               });
           });
@@ -318,65 +321,62 @@ router.post('/:id/draft', function (req, res) {
         });
 });
 
-    var validateName = function (req) {
+var validateName = function (req) {
         // Documentation for the form validator: https://www.npmjs.com/package/form-validate
-        req.Validator.validate('name', 'Name', {
-            required: true,
-            length: {
-                min: 3,
-                max: 200,
-            },
+    req.Validator.validate('name', 'Name', {
+        required: true,
+        length: {
+            min: 3,
+            max: 200,
+        },
+    })
+        .filter('name', {
+            trim: true,
         })
-            .filter('name', {
-                trim: true,
-            })
-    };
+};
 
-
-    router.post('/:id/name', function (req, res) {
-
-        if (req.session.userID === undefined) {
-          irp.addError(req, 'You are not logged in.');
-          res.redirect('/');
-          return;
-        }
-        validateName(req);
-        req.Validator.getErrors(function (errors) {
-            if (errors.length === 0) {
-                db.updateUserName(req.params.id, req.body.name, function(error, results){
-                    if (error) {
-                        irp.addError(req, 'Unknown error occurred.');
-                    } else if (results.affectedRows === 0) {
-                        irp.addError(req, 'Could not update user information.');
-                    } else {
-                irp.addSuccess(req, 'User information successfully updated.');
-                    }
-            res.redirect('back');
-                });
-        }else {
-                errors.forEach(function (item, index) {
-                    irp.addError(req, item);
-                });
-
+router.post('/:id/name', function (req, res) {
+    if (req.session.userID === undefined) {
+        irp.addError(req, 'You are not logged in.');
+        res.redirect('/');
+        return;
+    }
+    validateName(req);
+    req.Validator.getErrors(function (errors) {
+        if (errors.length === 0) {
+            db.updateUserName(req.params.id, req.body.name, function(error, results){
+                if (error) {
+                    irp.addError(req, 'Unknown error occurred.');
+                } else if (results.affectedRows === 0) {
+                    irp.addError(req, 'Could not update user information.');
+                } else {
+                    irp.addSuccess(req, 'User information successfully updated.');
+                }
                 res.redirect('back');
-            }
-        });
+            });
+        }else {
+            errors.forEach(function (item, index) {
+                irp.addError(req, item);
+            });
+            res.redirect('back');
+        }
     });
+});
 
-    var validateMail = function (req) {
-        // Documentation for the form validator: https://www.npmjs.com/package/form-validate
-        req.Validator.validate('email', 'Email', {
-                required: true,
-                email: true,
-                length: {
-                    min: 3,
-                    max: 200,
-                },
-            })
-            .filter('email', {
-                trim: true,
-            })
-     };
+var validateMail = function (req) {
+    // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+    req.Validator.validate('email', 'Email', {
+        required: true,
+        email: true,
+        length: {
+            min: 3,
+            max: 200,
+        },
+    })
+        .filter('email', {
+            trim: true,
+        })
+};
 
     router.post('/:id/email', function (req, res) {
 
@@ -476,6 +476,7 @@ router.post('/:id/draft', function (req, res) {
             }
         });
     });
+
     router.post('/:id/typeDescription', function (req, res){
         if(req.session.userID === undefined) {
           irp.addError(req, 'You are not logged in.');
@@ -495,4 +496,4 @@ router.post('/:id/draft', function (req, res) {
         });
     });
 
-    module.exports = router;
+module.exports = router;

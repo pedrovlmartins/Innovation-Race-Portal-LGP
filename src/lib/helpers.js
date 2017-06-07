@@ -82,6 +82,6 @@ compare: function (lvalue, operator, rvalue, options) {
   },
 
     isme:  function(v1, v2, options) {
-        return (v1 == v2)? options.inverse(this) : options.fn(this);
+        return (v1 === v2)? options.inverse(this) : options.fn(this);
     }
 };
