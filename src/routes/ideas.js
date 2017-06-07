@@ -262,32 +262,32 @@ router.get('/:id', function (req, res) {
                     && ideaInfo.state === ideas.states.AWAITING_SELECTION
                     && irp.currentCanSelectIdea(req),
                   canCoachIdea: !ideaInfo.cancelled
-                    && ideaInfo.state === ideas.states.IN_COACHING_PHASE,
+                    && ideaInfo.state === ideas.states.IN_COACHING_PHASE && !users.isTechnicalDirector(type),
                   canGoKickOffIdea: !ideaInfo.cancelled
                   && ideaInfo.state === ideas.states.AWAITING_GO_NO_GO
                   && irp.currentCanSelectIdea(req),
                 };
 
-                if (ideaInfo.state == 1)
+                if (ideaInfo.state == 0)
                     vars.ideaState = 'This idea is still in the drafting stages.';
                 else if (ideaInfo.state == 1)
-                  vars.ideaState = 'The idea is waiting to be classified.';
+                    vars.ideaState = 'The idea is waiting to be classified.';
                 else if (ideaInfo.state == 2)
-                    vars.ideaState = 'At the present moment, this idea is being classified.';
+                    vars.ideaState = 'The idea is being classified.';
                 else if (ideaInfo.state == 3)
                     vars.ideaState = 'The idea is waiting to be evaluated.';
                 else if (ideaInfo.state == 4)
                     vars.ideaState = 'The idea is waiting to be selected.';
                 else if (ideaInfo.state == 5)
-                    vars.ideaState = 'The idea has been selected (PA REMOVER).';
+                    vars.ideaState = 'The idea has been selected.';
                 else if (ideaInfo.state == 6)
-                    vars.ideaState = 'The idea is in the coaching phase, waiting for the BMC to be analyzed.';
+                    vars.ideaState = 'The idea is in the coaching phase.';
                 else if (ideaInfo.state == 7)
-                    vars.ideaState = 'The idea is waiting for the green light (GO) or the red light (NO GO) in order to be implemented.';
+                    vars.ideaState = 'The idea is awaiting Green/Red Light (GO/NO GO) to start being implemented.';
                 else if (ideaInfo.state == 8)
                     vars.ideaState = 'The idea is being implemented.';
                 else if (ideaInfo.state == -1)
-                    vars.ideaState = 'The idea has been canceled';
+                    vars.ideaState = 'The idea has been cancelled';
 
 
                 if (req.session.userID !== undefined)
