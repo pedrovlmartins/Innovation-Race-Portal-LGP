@@ -81,7 +81,7 @@
                             </span>
                             <form id="passwordForm" class="input-group" style="width:100%;" action="/users/{{id}}/password" method="post">
                                 <div style="width:calc(100% - 39px);">
-                                    <input id="password-change" placeholder="Old password" name="oldPassword" disabled="disabled" class="form-control"  style="border-radius:0;" type="password" required>
+                                    <input id="password-change" placeholder="Old password" name="oldPassword" disabled="disabled" class="form-control"  style="border-radius:0;width:100%;" type="password" required>
 
                                     <div id="newPassword" class="new-password-submission" disabled="disabled" style="display:none;background:white;">
                                             <input type="password" name="firstPassword" id="firstPassword" class="form-control" style="border-radius:0;"
@@ -93,11 +93,13 @@
                                             <span id="secondPasswordError-change" class="text-danger"></span>
                                     </div>
                                 </div>
-
-                                <button id="passwordButton-change" class="input-group-addon" style="width:39px;height:34px;position:absolute;right:0; top:0" onclick="password(); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
-                                <span id="errorPassword-change" class="text-danger"></span>
+                                <div style="display:table-cell;position:absolute;right:0;top:0;">
+                                <button id="passwordButton-change" class="input-group-addon" style="width:39px;height:34px; display:block;border-radius:0px; border-right: 1px solid #ccc;" onclick="password(); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
+                                <button id="passwordButton-remove" class="input-group-addon" style="width:39px;height:34px; margin-top:10px; display:none; background-color: white;border-radius:0px; border-left: 1px solid #ccc;" onclick="location.reload(); return false;" ><i class="glyphicon glyphicon-remove"></i></button>
+                                </div>
+                                    <span id="errorPassword-change" class="text-danger"></span>
                             </form>
-                        </div>
+                    </div>
                     </div>
                 </div>
 

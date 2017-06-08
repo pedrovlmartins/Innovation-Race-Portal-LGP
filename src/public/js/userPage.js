@@ -94,13 +94,15 @@ function password(){
     glyphiconsend.setAttribute('style','z-index:3;display:none;margin-left:-'+button.lastElementChild.offsetWidth +'px;');
     button.appendChild(glyphiconsend);
 
+    var buttonRemove = document.getElementById('passwordButton-remove');
+    buttonRemove.style.display = "block";
+//estas a ver ali o x? tem que ir para debaixo do check
+
     $(glyphiconsend).toggle('slide');
     $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
 
     var password = document.getElementById("newPassword");
     password.firstElementChild.style.setProperty('display','inline');
-    console.log(password.get.firstElementChild.style);
-
 }
 
 
