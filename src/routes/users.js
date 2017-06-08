@@ -412,7 +412,6 @@ var validateMail = function (req) {
 
     var validatePassword = function (req) {
         // Documentation for the form validator: https://www.npmjs.com/package/form-validate
-        console.log(req.body);
         req.Validator.validate('firstPassword', 'Password', {
          required: true,
          length: {
