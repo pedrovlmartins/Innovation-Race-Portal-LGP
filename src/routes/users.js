@@ -19,11 +19,14 @@ function nextUserInfo(req, res, userInfo, typeDescription) {
     db.getUserType(req.session.userID, function (type) {
       if (req.session !== undefined) {
         if (users.isAdmin(type) || (req.session.userID === parseInt(req.params.id))) {
+          userInfo.successMessages = req.session.successMessages;
+          userInfo.errorMessages = req.session.errorMessages;
           userInfo.userID = req.session.userID;
           userInfo.isManager = users.isAdmin(type);
           userInfo.typeDescription = typeDescription;
           userInfo.page = 'profile';
           res.render('user', userInfo);
+          irp.cleanActionResults(req);
         } else
         res.sendStatus(404);
       }
@@ -79,35 +82,36 @@ router.get('/:id/ideas', function (req, res) {
       } else offset = (pageNo - 1) * itemsPerPage;
     }
 
-    db.getUserType(req.session.userID, function (type) {
-      if (req.session !== undefined) {
-        if (users.isAdmin(type) || (req.session.userID === parseInt(req.params.id))) {
-          db.getUserIdeas(req.params.id, offset, 10, function (userIdeas) {
-            vars.userIdeas = userIdeas;
-            db.getUserIdeasCount(req.params.id, function (ideaCount) {
-              db.getUserName(req.params.id, function(name) {
-                vars.pageTotal = Math.ceil(ideaCount/itemsPerPage);
-                vars.userID = req.session.userID;
-                vars.isManager = users.isAdmin(type);
-                vars.pageNo = pageNo;
-                vars.page = 'ideas';
-                vars.name = name[0].name;
-                if (vars.userIdeas.length > 0) {
-                  vars.userIdeas.forEach(
-                    (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
-                );
-                  vars.ideas = userIdeas;
-                }
-                res.render('user', vars);
-              })
-            });
-          });
-        } else
-          res.sendStatus(404);
+        db.getUserType(req.session.userID, function (type) {
+          if (req.session !== undefined) {
+            if (users.isAdmin(type) || (req.session.userID === parseInt(req.params.id))) {
+              db.getUserIdeas(req.params.id, offset, 10, function (userIdeas) {
+                vars.userIdeas = userIdeas;
+                db.getUserIdeasCount(req.params.id, function (ideaCount) {
+                  db.getUserName(req.params.id, function(name) {
+                    vars.pageTotal = Math.ceil(ideaCount/itemsPerPage);
+                    vars.userID = req.session.userID;
+                    vars.isManager = users.isAdmin(type);
+                    vars.pageNo = pageNo;
+                    vars.page = 'ideas';
+                    vars.name = name[0].name;
+                    if (vars.userIdeas.length > 0) {
+                      vars.userIdeas.forEach(
+                        (idea) => idea.state = ideas.getStateName(idea.state, idea.cancelled)
+                    );
+                      vars.ideas = userIdeas;
+                    }
+                    res.render('user', vars);
+                    irp.cleanActionResults(req);
+                  })
+                });
+              });
+            } else
+              res.sendStatus(404);
+          }
+        });
       }
     });
-  }
-});
 
 router.get('/:id/block', function(req, res) {
     if (req.session.userID === undefined){
@@ -185,8 +189,10 @@ router.get('/:id/submitIdea', function(req, res) {
                   } else if (results.length == 0) {
                       vars.page = 'notSubmitIdea';
                       res.render('user', vars);
+                      irp.cleanActionResults(req);
                   } else {
                       res.render('user', vars);
+                      irp.cleanActionResults(req);
                   }
               });
           });
@@ -248,52 +254,52 @@ router.post('/:id/submit', function (req, res) {
     });
 });
 
-var validateSubmitIdea = function (req) {
-    // Documentation for the form validator: https://www.npmjs.com/package/form-validate
-    req.Validator.validate('title', 'Title', {
-        required: true,
-        length: {
-            min: 3,
-            max: 1000,
-        },
-    })
-        .filter('title', {
-            trim: true,
-        })
-        .validate('description', 'Description', {
+    var validateSubmitIdea = function (req) {
+        // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+        req.Validator.validate('title', 'Title', {
             required: true,
             length: {
                 min: 3,
+                max: 1000,
             },
         })
-        .validate('uncertaintyToSolve',
-            'Scientific/Technological uncertainty that the project aims to solve', {
+            .filter('title', {
+                trim: true,
+            })
+            .validate('description', 'Description', {
                 required: true,
                 length: {
                     min: 3,
                 },
             })
-        .validate('solutionTechnicalCompetence',
-            'Why can\'t the solutions found be implemented by' +
-            'someone with technical skills in the field?', {
+            .validate('uncertaintyToSolve',
+                'Scientific/Technological uncertainty that the project aims to solve', {
+                    required: true,
+                    length: {
+                        min: 3,
+                    },
+                })
+            .validate('solutionTechnicalCompetence',
+                'Why can\'t the solutions found be implemented by' +
+                'someone with technical skills in the field?', {
+                    required: true,
+                    length: {
+                        min: 3,
+                    },
+                })
+            .validate('techHumanResources', 'Human and technological resources needed', {
                 required: true,
                 length: {
                     min: 3,
                 },
             })
-        .validate('techHumanResources', 'Human and technological resources needed', {
-            required: true,
-            length: {
-                min: 3,
-            },
-        })
-        .validate('results', 'Results to be produced by the project', {
-            required: true,
-            length: {
-                min: 3,
-            },
-        });
-};
+            .validate('results', 'Results to be produced by the project', {
+                required: true,
+                length: {
+                    min: 3,
+                },
+            });
+    };
 
 router.post('/:id/draft', function (req, res) {
     if (!irp.currentUserID(req)) {
@@ -317,97 +323,179 @@ router.post('/:id/draft', function (req, res) {
         });
 });
 
+var validateName = function (req) {
+        // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+    req.Validator.validate('name', 'Name', {
+        required: true,
+        length: {
+            min: 3,
+            max: 200,
+        },
+    })
+        .filter('name', {
+            trim: true,
+        })
+};
+
 router.post('/:id/name', function (req, res) {
-
-    if (req.session.userID === undefined) {
-      irp.addError(req, 'You are not logged in.');
-      res.redirect('/');
-      return;
-    }
-    db.updateUserName(req.params.id, req.body.name, function(error, results){
-        if (error) {
-            irp.addError(req, 'Unknown error occurred.');
-        } else if (results.affectedRows === 0) {
-            irp.addError(req, 'Could not update user information.');
-        } else {
-            irp.addSuccess(req, 'User information successfully updated.');
-        }
-        res.redirect('back');
-        irp.cleanActionResults(req);
-    });
-
-});
-
-router.post('/:id/email', function (req, res) {
-
     if (req.session.userID === undefined) {
         irp.addError(req, 'You are not logged in.');
         res.redirect('/');
         return;
     }
-    db.updateUserMail(req.params.id, req.body.email, function (error, results) {
-        if (error) {
-            irp.addError(req, 'Unknown error occurred.');
-        } else if (results.affectedRows === 0) {
-            irp.addError(req, 'Could not update user information.');
-        } else {
-            irp.addSuccess(req, 'User information successfully updated.');
+    validateName(req);
+    req.Validator.getErrors(function (errors) {
+        if (errors.length === 0) {
+            db.updateUserName(req.params.id, req.body.name, function(error, results){
+                if (error) {
+                    irp.addError(req, 'Unknown error occurred.');
+                } else if (results.affectedRows === 0) {
+                    irp.addError(req, 'Could not update user information.');
+                } else {
+                    irp.addSuccess(req, 'User information successfully updated.');
+                }
+                res.redirect('back');
+            });
+        }else {
+            errors.forEach(function (item, index) {
+                irp.addError(req, item);
+            });
+            res.redirect('back');
         }
-        res.redirect('back');
-        irp.cleanActionResults(req);
-    });
-
-});
-
-router.post('/:id/password', function (req, res){
-
-    if (req.session.userID === undefined) {
-      irp.addError(req, 'You are not logged in.');
-      res.redirect('/');
-      return;
-    }
-
-     //hashing and salting of newpassword
-     passwordHashAndSalt(req.body.password).hash(function (error, passwordHash) {
-         if (error) {
-             console.error(error);
-             irp.addError(req, error);
-             res.redirect('../../');
-     irp.cleanActionResults(req);
-         }
-     db.updateUserPassword(req.params.id, passwordHash, function(error,results){
-         if(error){
-     irp.addError(req, 'Unknown error occurred.');
-         } else if(results.affectedRows === 0) {
-             irp.addError(req, 'Could not update user information.');
-         } else {
-             irp.addSuccess(req, 'User information successfully updated.');
-     }
-     res.redirect('back');
-     irp.cleanActionResults(req);
-     });
-     });
-});
-
-router.post('/:id/typeDescription', function (req, res){
-
-    if(req.session.userID === undefined) {
-      irp.addError(req, 'You are not logged in.');
-      res.redirect('/');
-      return;
-    }
-
-    db.updateUserType(req.params.id, req.body.type, function (error, results) {
-      if (error) {
-          irp.addError(req, 'Unkown error occurred.');
-      } else if (results.affectedRows === 0) {
-          irp.addError(req, 'Could not update user information.');
-      } else {
-          irp.addSuccess(req, 'User information successfully updated.');
-      }
-      res.redirect('back');
-      irp.cleanActionResults(req);
     });
 });
+
+var validateMail = function (req) {
+    // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+    req.Validator.validate('email', 'Email', {
+        required: true,
+        email: true,
+        length: {
+            min: 3,
+            max: 200,
+        },
+    })
+        .filter('email', {
+            trim: true,
+        })
+};
+
+    router.post('/:id/email', function (req, res) {
+
+        if (req.session.userID === undefined) {
+            irp.addError(req, 'You are not logged in.');
+            res.redirect('/');
+            return;
+        }
+        validateMail(req);
+        req.Validator.getErrors(function(errors){
+            if(errors.length === 0){
+                db.updateUserMail(req.params.id, req.body.email, function (error, results) {
+                    if (error) {
+                        irp.addError(req, 'Unknown error occurred.');
+                    } else if (results.affectedRows === 0) {
+                        irp.addError(req, 'Could not update user information.');
+                    } else {
+                        irp.addSuccess(req, 'User information successfully updated.');
+                    }
+                    res.redirect('back');
+                });
+            }else {
+            errors.forEach(function (item, index) {
+                irp.addError(req, item);
+            });
+
+            res.redirect('back');
+        }
+        });
+    });
+
+    var validatePassword = function (req) {
+        // Documentation for the form validator: https://www.npmjs.com/package/form-validate
+        console.log(req.body);
+        req.Validator.validate('firstPassword', 'Password', {
+         required: true,
+         length: {
+         min: 7,
+         },
+         })
+         .filter('firstPassword', {
+         stripTags: false,
+         escapeHTML: false,
+         })
+    };
+
+    router.post('/:id/password', function (req, res){
+
+        if (req.session.userID === undefined) {
+          irp.addError(req, 'You are not logged in.');
+          res.redirect('/');
+          return;
+        }
+        validatePassword(req);
+        req.Validator.getErrors(function(errors){
+            if(errors.length === 0){
+
+        //hashing and salting of newpassword
+        passwordHashAndSalt(req.body.firstPassword).hash(function (error, newPasswordHash) {
+            if (error) {
+                console.error(error);
+                irp.addError(req, error);
+                res.redirect('../../');
+            }
+            db.getUserPasswordHash(req.session.userID, function (currentHash) {
+                //Verifying oldhash
+                passwordHashAndSalt(req.body.oldPassword).verifyAgainst(currentHash.passwordHash,function (error, verified) {
+                    if (error) {
+                        irp.addError(req, error);
+                    } else if (!verified) {
+                        irp.addError(req, 'Old password doesn\'t match');
+                    }
+                    else if (req.body.firstPassword !== req.body.secondPassword) {
+                        irp.addError(req, 'Passwords do not match!');
+                        res.redirect('back');
+                    }
+                    else {
+                        db.updateUserPassword(req.params.id, newPasswordHash, function (error, results) {
+                            if (error) {
+                                irp.addError(req, 'Unknown error occurred.');
+                            } else if (results.affectedRows === 0) {
+                                irp.addError(req, 'Could not update user information.');
+                            } else {
+                                irp.addSuccess(req, 'User information successfully updated.');
+                            }
+                            res.redirect('back');
+                        });
+                    }
+                });
+            });
+        });
+            }else {
+                errors.forEach(function (item, index) {
+                    irp.addError(req, item);
+                });
+                res.redirect('back');
+            }
+        });
+    });
+
+    router.post('/:id/typeDescription', function (req, res){
+        if(req.session.userID === undefined) {
+          irp.addError(req, 'You are not logged in.');
+          res.redirect('/');
+          return;
+        }
+
+        db.updateUserType(req.params.id, req.body.type, function (error, results) {
+          if (error) {
+              irp.addError(req, 'Unkown error occurred.');
+          } else if (results.affectedRows === 0) {
+              irp.addError(req, 'Could not update user information.');
+          } else {
+              irp.addSuccess(req, 'User information successfully updated.');
+          }
+          res.redirect('back');
+        });
+    });
 
 module.exports = router;

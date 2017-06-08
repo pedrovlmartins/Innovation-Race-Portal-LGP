@@ -80,3 +80,16 @@ h2 {
     margin-left: 70%;
 }
 
+.new-password-submission > input{
+    margin-top:10px;
+}
+
+#specialIcon {
+    padding-top:8px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius:4px;
+    display:block;
+    height:34px;
+    width:39px;
+    border-left:1px solid #ccc;
+}

@@ -41,18 +41,16 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                                <form class="input-group" style="width:100%;" action="/users/{{id}}/name" method="post">
-                                    <div style="width:calc(100% - 39px);">
-                                        <input id="name" name="name" value="{{name}}" disabled="disabled"
-                                               class="form-control" style="overflow:auto;" type="text">
-                                    </div>
-                                    <button id="nameButton" class="input-group-addon" style="width:39px;height:34px;"
-                                            onclick="firstClick(id);  return false;"><i
-                                            class="glyphicon glyphicon-edit"></i></button>
-                                </form>
-                            </div>
+                            <form class="input-group" style="width:100%;" action="/users/{{id}}/name"  method="post" >
+                                <div style="width:calc(100% - 39px);">
+                                <input id="name-change" name="name" value="{{name}}" disabled="disabled" class="form-control" style="overflow:auto;" type="text" required>
+                                </div>
+                                <button id="nameButton-change" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id);  return false;"><i class="glyphicon glyphicon-edit"></i></button>
+                                <span id="errorName-change" class="text-danger"></span>
+                            </form>
                         </div>
                     </div>
+                </div>
 
                     <!-- Email -->
                     <div class="form-group">
@@ -61,39 +59,49 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 
-                                <form class="input-group" style="width:100%;" action="/users/{{id}}/email"
-                                      method="post">
-                                    <div style="width:calc(100% - 39px);">
-                                        <input id="email" name="email" value="{{email}}" disabled="disabled"
-                                               class="form-control" style="overflow:auto;" type="text">
-                                    </div>
-                                    <button id="emailButton" class="input-group-addon" style="width:39px;height:34px;"
-                                            onclick="firstClick(id); return false;"><i
-                                            class="glyphicon glyphicon-edit"></i></button>
-                                </form>
-                            </div>
+                            <form class="input-group" style="width:100%;" action="/users/{{id}}/email" method="post">
+                                <div style="width:calc(100% - 39px);">
+                                <input id="email-change" name="email" value="{{email}}" disabled="disabled" class="form-control" style="overflow:auto;" type="email" required>
+                                </div>
+                                <button id="emailButton-change" class="input-group-addon" style="width:39px;height:34px;" onclick="firstClick(id); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
+                                <span id="errorEmail-change" class="text-danger"></span>
+                            </form>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Edit Password-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Change Password</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <form class="input-group" style="width:100%;" action="/users/{{id}}/password"
-                                      method="post">
-                                    <div style="width:calc(100% - 39px);">
-                                        <input id="password" name="password" disabled="disabled" class="form-control"
-                                               type="password">
+                <!-- Edit Password-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Change Password</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="padding:0px 0px;border:0px;vertical-align:top;background:transparent;">
+                                <div class="input-group-addon" id="specialIcon" ><i class="glyphicon glyphicon-lock"></i>
+                                </div>
+                            </span>
+                            <form id="passwordForm" class="input-group" style="width:100%;" action="/users/{{id}}/password" method="post">
+                                <div style="width:calc(100% - 39px);">
+                                    <input id="password-change" placeholder="Old password" name="oldPassword" disabled="disabled" class="form-control"  style="border-radius:0;width:100%;" type="password" required>
+
+                                    <div id="newPassword" class="new-password-submission" disabled="disabled" style="display:none;background:white;">
+                                            <input type="password" name="firstPassword" id="firstPassword" class="form-control" style="border-radius:0;"
+                                                placeholder="Password" required>
+                                            <span id="firstPasswordError" class="text-danger"></span>
+
+                                            <input type="password" name="secondPassword" id="secondPassword" tabindex="1" class="form-control" style="border-radius:0;"
+                                               placeholder="Confirm password" required>
+                                            <span id="secondPasswordError-change" class="text-danger"></span>
                                     </div>
-                                    <button id="passwordButton" class="input-group-addon"
-                                            style="width:39px;height:34px;" onclick="firstClick(id); return false;"><i
-                                            class="glyphicon glyphicon-edit"></i></button>
-                                </form>
-                            </div>
-                        </div>
+                                </div>
+                                <div style="display:table-cell;position:absolute;right:0;top:0;">
+                                <button id="passwordButton-change" class="input-group-addon" style="width:39px;height:34px; display:block;border-radius:0px; border-right: 1px solid #ccc;" onclick="password(); return false;" ><i class="glyphicon glyphicon-edit"></i></button>
+                                <button id="passwordButton-remove" class="input-group-addon" style="width:39px;height:34px; margin-top:10px; display:none; background-color: white;border-radius:0px; border-left: 1px solid #ccc;" onclick="location.reload(); return false;" ><i class="glyphicon glyphicon-remove"></i></button>
+                                </div>
+                                    <span id="errorPassword-change" class="text-danger"></span>
+                            </form>
                     </div>
+                    </div>
+                </div>
 
                     <!-- ROLE -->
                     <div class="form-group">
