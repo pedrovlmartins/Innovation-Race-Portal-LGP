@@ -448,8 +448,10 @@ var validateMail = function (req) {
                 passwordHashAndSalt(req.body.oldPassword).verifyAgainst(currentHash.passwordHash,function (error, verified) {
                     if (error) {
                         irp.addError(req, error);
+                        res.redirect('back');
                     } else if (!verified) {
                         irp.addError(req, 'Old password doesn\'t match');
+                        res.redirect('back');
                     }
                     else if (req.body.firstPassword !== req.body.secondPassword) {
                         irp.addError(req, 'Passwords do not match!');
