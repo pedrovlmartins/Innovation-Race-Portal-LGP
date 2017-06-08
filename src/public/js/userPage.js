@@ -96,7 +96,6 @@ function password(){
 
     var buttonRemove = document.getElementById('passwordButton-remove');
     buttonRemove.style.display = "block";
-//estas a ver ali o x? tem que ir para debaixo do check
 
     $(glyphiconsend).toggle('slide');
     $(glyphiconsend.previousElementSibling).animate({opacity:'0'});
